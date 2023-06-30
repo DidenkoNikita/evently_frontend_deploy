@@ -1,0 +1,57 @@
+.stepsWrapper {
+  display: flex;
+  width: 300px;
+  height: 30px;
+  margin-top: 8px;
+  margin-bottom: 40px;
+}
+
+.stepContainer {
+  display: flex;
+  width: 41.25px;
+  height: 30px;
+  align-items: center;
+}
+
+.longstepContainer {
+  display: flex;
+  width: 52.5px;
+  height: 30px;
+  align-items: center;
+}
+
+.step {
+  display: flex;
+  width: 30px;
+  height: 30px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  background-color: #F6F6F6;
+  font-size: 14px;
+  font-family: Montserrat;
+}
+
+.activeStep {
+  display: flex;
+  width: 30px;
+  height: 30px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  background-color: #E3F563;
+  font-size: 14px;
+  font-family: Montserrat;
+}
+
+.connector {
+  width: 11.25px;
+  height: 4px;
+  background-color: #F6F6F6;
+}
+
+.activeConnector {
+  width: 11.25px;
+  height: 4px;
+  background-color: #E3F563;
+}

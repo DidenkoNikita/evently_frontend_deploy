@@ -1,0 +1,12 @@
+.wrapperButtons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.or {
+  font-size: 16px;
+  font-family: Montserrat;
+  margin-top: 80px;
+  margin-bottom: 20px;
+}

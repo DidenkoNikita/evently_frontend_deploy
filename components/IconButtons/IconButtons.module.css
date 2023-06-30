@@ -1,0 +1,19 @@
+.buttonsWraper {
+  margin-top: 60px;
+  display: flex;
+  justify-content: space-between;
+  width: 345px;
+}
+
+.iconButton {
+  display: flex;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  width: 83.3px;
+  height: 44px;
+  border-radius: 10px;
+  border: none;
+  background-color: #F6F6F6;
+}

@@ -1,0 +1,53 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+  height: 483px;
+}
+
+.header {
+  font-size: 16px;
+  font-family: Montserrat;
+  font-weight: 600;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-family: Montserrat;
+  min-width: 55px;
+  padding: 14px;
+  height: 48px;
+  border-radius: 8px;
+  border: none;
+  background-color: #F6F6F6;
+}
+
+.buttonActive {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-family: Montserrat;
+  min-width: 55px;
+  padding: 14px;
+  height: 48px;
+  border-radius: 8px;
+  border: none;
+  background-color: #DFC5FF;
+}
+
+.buttonsWrapper {
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: center;
+  row-gap: 20px;
+  column-gap: 10px;
+  min-width: 292px;
+  min-height: 252px;
+  max-width: 306px;
+  max-height: 320px;
+}

@@ -1,0 +1,120 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 260px;
+}
+
+.text {
+  font-size: 16px;
+  font-family: Montserrat;
+  font-weight: 600;
+}
+
+.inputWrapper {
+  display: flex;
+  width: 305px;
+  height: 48px;
+  padding: 0px 20px;
+  align-items: center;
+  gap: 10px;  
+  background-color: #F6F6F6;
+  border-radius: 10px;
+}
+
+.nameInput {
+  width: 305px;
+  height: 46px;
+  border: none;
+  background-color: #F6F6F6;
+  font-size: 14px;
+  font-family: Montserrat;
+  color: #000;
+}
+
+.nameInput::-webkit-input-placeholder {
+  font-size: 14px;
+  font-family: Montserrat;
+  color: #000;
+}
+
+.nameInput:focus {
+  outline: none !important;
+}
+
+.calendarInput::-webkit-input-placeholder {
+  font-size: 14px;
+  font-family: Montserrat;
+  color: #000;
+}
+
+.calendarWrapper {
+  display: flex;
+  width: 317px;
+  height: 48px;
+  padding: 0px 8px 0px 20px;
+  align-items: center;
+  background-color: #F6F6F6;
+  border-radius: 10px;
+}
+
+.calendarInput {
+  width: 97px;
+  height: 24px;
+  background-color: #F6F6F6;
+  border: none;
+  margin-left: 10px;
+  font-size: 14px;
+  font-family: Montserrat;
+  color: #000;
+}
+
+.calendarInput:focus {
+  outline: none !important;
+}
+
+.calendarButton {
+  display: flex;
+  width: 48px;
+  height: 48px;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border: none;
+  background-color: #F6F6F6;
+  margin-left: auto;
+}
+
+.buttonsWraper {
+  display: flex;
+  gap: 3px;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-family: Montserrat;
+  width: 111px;
+  height: 48px;
+  border-radius: 8px;
+  border: none;
+  background-color: #F6F6F6;
+}
+
+.buttonActive {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-family: Montserrat;
+  width: 111px;
+  height: 48px;
+  border-radius: 8px;
+  border: none;
+  background-color: #DFC5FF;
+}

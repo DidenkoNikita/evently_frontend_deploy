@@ -1,0 +1,17 @@
+.button {
+  display: flex;
+  width: 345px;
+  height: 48px;
+  padding: 0px 138px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: #E3F563;
+  font-size: 16px;
+  font-family: Montserrat;
+  margin-top: 20px;
+  justify-self: center;
+  /* margin-bottom: auto; */
+}
