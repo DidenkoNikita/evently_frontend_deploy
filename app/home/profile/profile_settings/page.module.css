@@ -1,0 +1,67 @@
+.wrapper {
+  width: 414px;
+  height: 896px;
+  background: repeat url('../../../../public/backgroundComments.png');
+}
+
+.settingsWrapper {
+  display: flex;
+  width: 345px;
+  height: 484px;
+  margin: 20px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px; 
+}
+
+.button {
+  display: flex;
+  width: 48px;
+  height: 48px;
+  padding: 10px;
+  justify-content: center;
+  align-items: center; 
+  border: none;
+  background-color: #FDFFFD;
+}
+
+.card {
+  display: flex;
+  width: 345px;
+  height: 48px;
+  padding: 0px 8px 0px 20px;
+  justify-content: space-between;
+  align-items: center; 
+  border-radius: 10px;
+  background-color: #FDFFFD;
+}
+
+.text {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal; 
+}
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+  background-color: #FDFFFD;
+}
+
+.line {
+  width: 305px;
+  height: 1px;
+  background-color: #F6F6F6;
+}
+
+.data {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 400;
+  color: #AAAAAA;
+  margin-left: auto;
+}

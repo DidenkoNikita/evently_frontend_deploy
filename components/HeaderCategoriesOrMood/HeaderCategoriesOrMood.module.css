@@ -1,0 +1,52 @@
+.headerWrapper {
+  display: flex;
+  align-items: flex-end;
+  width: 414px;
+  height: 119px;
+  position: fixed;
+  top: -0px;
+  background-color: #FFF;
+}
+
+.header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 414px;
+  height: 60px;
+  padding: 0 24px;
+
+}
+
+.iconButton {
+  display: flex;
+  width: 48px;
+  height: 48px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.wrapperButtons {
+  display: flex;
+  gap: 5px;
+}
+
+.title {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+  /* margin-left: 50px; */
+  margin: 0 auto;
+}
+
+.filter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+}

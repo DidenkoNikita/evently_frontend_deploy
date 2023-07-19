@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   width: 345px;
-  height: 466px;
+  height: 486px;
   margin: 74px 24px 77px 35px;
   gap: 20px;
 }
@@ -16,6 +16,29 @@
   align-items: center;
   border-radius: 10px;
   background-color: #F6F6F6;
+}
+
+.invalidFieldPhone {
+  display: flex;
+  width: 305px;
+  height: 48px;
+  padding: 0px 20px;
+  align-items: center;
+  border: 1px solid #EB5757;
+  border-radius: 10px;
+  background-color: #F6F6F6;
+}
+
+.invalidFieldPassword {
+  display: flex;
+  width: 317px;
+  height: 48px;
+  padding: 0px 8px 0px 20px;
+  align-items: center;
+  border: 1px solid #EB5757;
+  border-radius: 10px;
+  background-color: #F6F6F6;
+  gap: 10px;
 }
 
 .fieldPassvord {
@@ -148,4 +171,14 @@
   font-size: 16px;
   font-family: Montserrat;
   color: #BB83FF;
+}
+
+.error {
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: 400;
+  color: #EB5757;
+  margin-right: auto;
+  margin-top: -16px;
+  margin-bottom: -16px;
 }

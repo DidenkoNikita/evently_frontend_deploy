@@ -8,7 +8,7 @@ import css from './ProfileDetails.module.css';
 import i18n from "i18next";
 
 import resources from "@/locales/resource";
-import { CustomDatePicker } from '../CustomDatePicker/CustomDatePicker';
+import { DatePicker } from '../Calendar/Calendar';
 
 i18n.init({
   resources,
@@ -17,46 +17,57 @@ i18n.init({
 
 interface ProfileDetails {
   stateName: string;
-  stateDate: Date;
+  stateDate: string;
   stateGender: string;
   setStateName: any;
   setStateDate: any;
   setStateGender: any;
+  openCalendar: boolean;
+  setOpenCalendar: any;
 }
 
-export const ProfileDetails = ({stateName, stateDate, stateGender, setStateName, setStateDate, setStateGender}: ProfileDetails): JSX.Element => {
+export const ProfileDetails = ({stateName, stateDate, stateGender, setStateName, setStateDate, setStateGender, openCalendar, setOpenCalendar}: ProfileDetails): JSX.Element => {
 
-  const [activeState, setActiveState] = useState<string>('');
   const buttons = [i18n.t('male'), i18n.t('female'), i18n.t('no_gender')];
-  const [isOpen, setIsOpen] = useState(false);
 
-  const handleToggle = () => {
-    setIsOpen(!isOpen);
-  };
+  const [validateName, setValidateName] = useState<boolean>(false);
+
   return (
     <div className={css.wrapper}>
       <div className={css.text}>{i18n.t('enter_profile')}</div>
-      <div className={css.inputWrapper}>
+      <div className={validateName ? css.invalidInputWrapper : css.inputWrapper}>
         <input 
           type='text'
           placeholder={i18n.t('name')}
           className={css.nameInput}
+          value={stateName}
+          onChange={(e) => {
+            setStateName(e.target.value);
+            if (e.target.value.length < 3) {
+              setValidateName(true)
+            } else {
+              setValidateName(false)
+            }
+          }}
         />
       </div>
+      {validateName ? <span className={css.error}>{i18n.t('invalid_name')}</span> : null}
       <div className={css.calendarWrapper}>
         <div>
           <Calendar />
         </div>
-        {/* <input 
+        <input 
           type='text'
           className={css.calendarInput}
           placeholder={i18n.t('date')}
-        /> */}
-        <CustomDatePicker />
+          value={stateDate}
+          onChange={(e) => setStateDate(e.target.value)}
+        />
+        <DatePicker openCalendar={openCalendar} setOpenCalendar={setOpenCalendar} setStateDate={setStateDate} />
         <button
           className={css.calendarButton}
           onClick={() => {
-            handleToggle()
+            setOpenCalendar(!openCalendar)
           }}
         > 
           <ArrowToDown />
@@ -68,9 +79,9 @@ export const ProfileDetails = ({stateName, stateDate, stateGender, setStateName,
             return (
               <button 
                 key={button}
-                className={button === activeState ? css.buttonActive : css.button}
+                className={button === stateGender ? css.buttonActive : css.button}
                 onClick={() => {
-                  setActiveState(button)
+                  setStateGender(button)
                 }}
               >
                 {button}

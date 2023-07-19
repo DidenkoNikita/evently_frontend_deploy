@@ -1,6 +1,6 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import css from './CreatePassword.module.css';
 import { EyeOff } from '../icons/eyeOff.icon';
 import { EyeOn } from '../icons/eyeOn.icon';
@@ -20,16 +20,42 @@ interface CreatePassword {
   setStateVerificationPassword: any;
 }
 
-export const CreatePassword = ({ statePassword, setStatePassword, stateVerificationPassword, setStateVerificationPassword }: CreatePassword): JSX.Element => {
-
+export const CreatePassword = ({
+  statePassword,
+  setStatePassword,
+  stateVerificationPassword,
+  setStateVerificationPassword
+}: CreatePassword): JSX.Element => {
   const [click, setClick] = useState<boolean>(false);
-
   const [inputType, setInputType] = useState<string>('password');
   const [visibility, setVisibility] = useState<boolean>(false);
-  
   const [inputVerificationType, setInputVerificationType] = useState<string>('password');
   const [visibilityVerification, setVisibilityVerification] = useState<boolean>(false);
+  const [validatePassword, setValidatePassword] = useState<boolean>(false);
+
+  console.log(validatePassword);
   
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const password = e.target.value;
+    setStatePassword(password);
+    if (e.target.value.length < 8 || 
+      !/[a-z]/.test(e.target.value) || 
+      !/[A-Z]/.test(e.target.value) || 
+      !/\d/.test(e.target.value) || 
+      !/[\!\@\#\$\%\^\&\*\(\)\-\_\=\+]/.test(e.target.value)
+    ) {
+      setValidatePassword(true);
+    } else {
+      setValidatePassword(false);
+    }
+  };
+
+  const handleVerificationPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const verificationPassword = e.target.value;
+    setStateVerificationPassword(verificationPassword);
+  };
+
   return (
     <div className={css.area}>
       <div className={css.header}>{i18n.t('create_password')}</div>
@@ -38,11 +64,12 @@ export const CreatePassword = ({ statePassword, setStatePassword, stateVerificat
           <input
             type={inputType}
             id="password"
-            name="password"
+            name="unique-password-field"
             className={css.inputPassword}
             placeholder={i18n.t('psw')}
             value={statePassword}
-            onChange={(e) => setStatePassword(e.target.value)}
+            onChange={handlePasswordChange}
+            autoComplete='off'
           />
           <button
             className={css.buttonEye}
@@ -58,15 +85,17 @@ export const CreatePassword = ({ statePassword, setStatePassword, stateVerificat
             {!visibility ? <EyeOff /> : <EyeOn />}
           </button>
         </div>
+        {validatePassword ? <span className={css.error}>{i18n.t('invalid_password')}</span> : null}
         <div className={css.fieldPassvord}>
           <input
             type={inputVerificationType}
             id="verificationPassword"
-            name="verificationPassword"
+            name="unique-verification-password-field"
             className={css.inputPassword}
             placeholder={i18n.t('enter_again')}
             value={stateVerificationPassword}
-            onChange={(e) => setStateVerificationPassword(e.target.value)}
+            onChange={handleVerificationPasswordChange}
+            autoComplete='off'
           />
           <button
             className={css.buttonEye}
@@ -98,5 +127,5 @@ export const CreatePassword = ({ statePassword, setStatePassword, stateVerificat
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

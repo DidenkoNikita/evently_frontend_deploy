@@ -1,3 +1,5 @@
+'use client';
+
 import PhoneInput from "react-phone-input-2";
 import 'react-phone-input-2/lib/style.css';
 
@@ -5,25 +7,21 @@ import css from './EnterPhoneNumber.module.css';
 import i18n from "i18next";
 
 import resources from "@/locales/resource";
+import { numberCheck } from "@/requests/numberCheck";
 
 i18n.init({
   resources,
   lng: "en"
 });
 
-interface CreatePassword {
-  statePassword: string;
-  setStatePassword: any;
-  stateVerificationPassword: string;
-  setStateVerificationPassword: any;
-}
-
 interface InputPhone {
   setStateInputPhone: any;
   stateInputPhone: string;
+  checkNumber: boolean;
+  setCheckNumber: any;
 }
 
-export const EnterPhoneNumber = ({setStateInputPhone, stateInputPhone}: InputPhone): JSX.Element => {
+export const EnterPhoneNumber = ({setStateInputPhone, stateInputPhone, checkNumber, setCheckNumber}: InputPhone): JSX.Element => {
 
   const containerStyle = {
     'display': 'flex',
@@ -50,21 +48,32 @@ export const EnterPhoneNumber = ({setStateInputPhone, stateInputPhone}: InputPho
     'marginLeft': '10px'
   }
 
+  const handlePhoneInputChange = (phone: string) => {
+    setStateInputPhone(phone);
+    if (phone.length === 11) {
+      console.log('number',phone);
+      
+      numberCheck(phone, setCheckNumber)
+    }
+  }
+
   return(
-    <div className={css.wrapper}>
-      <div className={css.text}>{i18n.t('enter_phone')}</div>
-      <div className={css.fieldPhone}>
-        <PhoneInput 
-          country={'ru'}
-          value={stateInputPhone}
-          onChange={phone => setStateInputPhone(phone)}
-          onlyCountries={['ru','us']}
-          placeholder={i18n.t('phone')}
-          containerStyle={containerStyle}
-          buttonStyle={buttonStyle}
-          inputStyle={inputStyle}
-        />
+    <div className={checkNumber ? css.area : css.invalidArea}>
+      <div className={css.wrapper}>
+        <div className={css.text}>{i18n.t('enter_phone')}</div>
+        <div className={checkNumber ? css.invalidFieldPhone : css.fieldPhone}>
+          <PhoneInput 
+            country={'ru'}
+            value={stateInputPhone}
+            onChange={handlePhoneInputChange}
+            placeholder={i18n.t('phone')}
+            containerStyle={containerStyle}
+            buttonStyle={buttonStyle}
+            inputStyle={inputStyle}
+          />
+        </div>
       </div>
+        {checkNumber ? <span className={css.error}>{i18n.t('invalid_number')}</span> : null}
     </div>
   )
 }

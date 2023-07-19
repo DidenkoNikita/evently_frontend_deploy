@@ -8,29 +8,17 @@ import LoginForm from "@/components/LoginForm/LoginForm";
 import css from "./page.module.css";
 
 import i18n from "i18next";
-import { useTranslation, initReactI18next } from "react-i18next";
+import resources from "@/locales/resource";
 
-i18n
-  .use(initReactI18next) 
-  .init({
-    resources: {
-      en: {
-        translation: {
-          "log_in": "Log in",
-        }
-      }
-    },
-    lng: "en",
-    fallbackLng: "en",
 
-    interpolation: {
-      escapeValue: false 
-    }
-  });
+i18n.init({
+  resources,
+  lng: "en"
+});
 
 export default function Login(): JSX.Element {
   const router = useRouter();
-  const {t} = useTranslation();
+
   return (
     <div className={css.wrapper}>
       <div className={css.header}>
@@ -40,7 +28,7 @@ export default function Login(): JSX.Element {
         >
           <Back />
         </button>
-        <div className={css.title}>{t('log_in')}</div>
+        <div className={css.title}>{i18n.t('log_in')}</div>
       </div>
       <LoginForm />
     </div>

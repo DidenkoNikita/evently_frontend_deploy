@@ -1,0 +1,89 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.inputWrapper {
+  display: flex;
+  width: 325px;
+  height: 48px;
+  padding: 0px 8px 0px 20px;
+  /* justify-content: space-between; */
+  align-items: center;
+  border-radius: 10px;
+  background-color: #FDFFFD;
+  gap: 10px;
+}
+
+.input {
+  width: 250px;
+  height: 46px;
+  border: none;
+  background-color: #FDFFFD;
+  display: flex;
+  justify-content: center;
+  font-size: 14px;
+  font-family: Montserrat;
+  font-weight: 400;
+  color: #000000;
+}
+
+.input::-webkit-input-placeholder {
+  font-size: 14px;
+  font-family: Montserrat;
+  font-weight: 400;
+  color: #000000;
+}
+
+.input:focus {
+  outline: none !important;
+}
+
+.cityList {
+  display: flex;
+  width: 315px;
+  min-height: 46px;
+  max-height: 180px;
+  flex-direction: column;
+  align-items: flex-start;
+  /* padding: 10px 20px; */
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 10px;
+  background-color: #FDFFFD;
+  overflow: auto;
+  position: fixed;
+  top: 190px;
+}
+
+.closed {
+  display: none;
+}
+
+.city {
+  display: flex;
+  width: 300px;
+  height: 40px;
+  align-items: center;
+  gap: 10px;
+  padding-top: 13px;
+  padding-bottom: 13px;
+  /* align-self: stretch; */
+  list-style-type: none;
+  font-size: 14px;
+  font-family: Montserrat;
+  /* font-style: normal; */
+  font-weight: 400;
+  /* line-height: normal; */
+  /* z-index: 100000; */
+}
+
+/* .city:first-child {
+  padding-top: 12.5px;
+} */
+
+.button {
+  border: none;
+  background-color: #FDFFFD;
+}

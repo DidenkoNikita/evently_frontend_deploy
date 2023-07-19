@@ -7,7 +7,6 @@ import { Logo } from "@/components/icons/logo.icon";
 import css from './page.module.css';
 import { useRouter } from "next/navigation";
 import i18n from "i18next";
-import { useTranslation } from "react-i18next";
 import resources from "@/locales/resource";
 
 i18n.init({
@@ -18,8 +17,6 @@ i18n.init({
 export default function Home(): JSX.Element {
 
   const router = useRouter();
-
-  const {t} = useTranslation();
 
   return (
     <div className={css.flexBox}>

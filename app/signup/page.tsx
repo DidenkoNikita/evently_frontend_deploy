@@ -2,7 +2,7 @@
 
 import { Back } from "@/components/icons/back.icon";
 
-import eyes from '../../public/Eyes.png'
+import eyes from '../../public/Eyes.gif'
 
 import css from "./page.module.css";
 import { useRouter } from "next/navigation";
@@ -15,6 +15,7 @@ import { WrapperButtons } from "@/components/WrapperButtons/WrapperButtons";
 import { ProfileDetails } from "@/components/ProfileDetails/ProfileDetails";
 import { CreatePassword } from "@/components/CreatePassword/CreatePassword";
 import { Choose } from "@/components/Choose/Choose";
+import { ButtonNextRequest } from "@/components/ButtonNextRequest/ButtonNextRequest";
 import i18n from "i18next";
 
 import resources from "@/locales/resource";
@@ -24,34 +25,111 @@ i18n.init({
   lng: "en"
 });
 
+export interface User {
+  user: {
+    phone: string;
+    name: string;
+    date_of_birth: string
+    gender: string;
+    password: string;
+    city: string;
+  },
+  user_categories: {
+    restaurants?: string; 
+    trade_fairs?: string;
+    lectures?: string;   
+    cafe?: string;       
+    bars?: string;       
+    sport?: string;      
+    dancing?: string;    
+    games?: string;      
+    quests?: string;     
+    concerts?: string;   
+    parties?: string;    
+    show?: string;       
+    for_free?: string;   
+    cinema?: string;     
+    theaters?: string;   
+  }, 
+  user_mood: {
+    funny?: string;       
+    sad?: string;         
+    gambling?: string;    
+    romantic?: string;    
+    energetic?: string;   
+    festive?: string;     
+    calm?: string;        
+    friendly?: string;    
+    cognitive?: string;   
+    dreamy?: string;      
+    do_not_know?: string; 
+  }
+}
+
 
 export default function Signup(): JSX.Element {
 
   const router = useRouter();
 
   const [activeStep, setActiveStep] = useState<number>(1);
-  const [stateInputPhone, setStateInputPhone] = useState<string>(''); 
+  const [stateInputPhone, setStateInputPhone] = useState<string>('');
   const [stateName, setStateName] = useState<string>('');
-  const [stateDate, setStateDate] = useState<Date>(new Date());
-  const [stateGender, setStateGender] = useState<string>(''); 
+  const [stateDate, setStateDate] = useState<string>('');
+  const [stateGender, setStateGender] = useState<string>('');
   const [statePassword, setStatePassword] = useState<string>('');
   const [stateVerificationPassword, setStateVerificationPassword] = useState<string>('');
+  const [openCalendar, setOpenCalendar] = useState<boolean>(false);
+
+  const [userCategories, setUserCategories] = useState<{ [key: string]: boolean }>({});
+  const [userMood, setUserMood] = useState<{ [key: string]: boolean }>({});
+
+  const [userCity, setUserCity] = useState<string>('');
+
+  const [activeButtons, setActiveButtons] = useState<string[]>([]);
+
+  const [activeButtonsCity, setActiveButtonsCity] = useState<string[]>([]); 
+
+  const [checkNumber, setCheckNumber] = useState<boolean>(false);
+  console.log(checkNumber);
+  
+  
+  console.log(stateInputPhone);
+  
+  
+  const user = {
+    user: {
+      phone: `+${stateInputPhone}`,
+      name: stateName,
+      date_of_birth: stateDate,
+      gender: stateGender,
+      password: statePassword,
+      city: userCity
+    },
+    user_categories: {
+      ...userCategories
+    }, 
+    user_mood: {
+      ...userMood
+    }
+  }
+
+  console.log(user);
 
   const categories: string[] = [
-    i18n.t('restaurants'), 
+    i18n.t('restaurants'),
     i18n.t('trade_fairs'),
-    i18n.t('lectures'), 
-    i18n.t('cafe'), 
-    i18n.t('bars'), 
-    i18n.t('sport'), 
-    i18n.t('dancing'), 
-    i18n.t('games'), 
-    i18n.t('quests'), 
-    i18n.t('concerts'), 
+    i18n.t('lectures'),
+    i18n.t('cafe'),
+    i18n.t('bars'),
+    i18n.t('sport'),
+    i18n.t('dancing'),
+    i18n.t('games'),
+    i18n.t('quests'),
+    i18n.t('concerts'),
     i18n.t('parties'),
-    i18n.t('show'), 
-    i18n.t('for_free'), 
-    i18n.t('cinema'), 
+    i18n.t('show'),
+    i18n.t('for_free'),
+    i18n.t('cinema'),
     i18n.t('theater')
   ];
 
@@ -70,7 +148,7 @@ export default function Signup(): JSX.Element {
     i18n.t('dreamy'),
     i18n.t('do_not_know')
   ];
-  
+
   const headerMood: string = i18n.t('chose_mood');
 
   const city: string[] = [
@@ -90,29 +168,33 @@ export default function Signup(): JSX.Element {
   const registration = (activeStep: number): JSX.Element | undefined => {
     if (activeStep === 1) {
       return (
-        <EnterPhoneNumber 
-          stateInputPhone={stateInputPhone} 
-          setStateInputPhone={setStateInputPhone} 
+        <EnterPhoneNumber
+          stateInputPhone={stateInputPhone}
+          setStateInputPhone={setStateInputPhone}
+          checkNumber={checkNumber}
+          setCheckNumber={setCheckNumber}
         />
       )
     }
 
     if (activeStep === 2) {
       return (
-        <ProfileDetails 
-          stateName={stateName} 
-          stateDate={stateDate} 
-          stateGender={stateGender} 
+        <ProfileDetails
+          stateName={stateName}
+          stateDate={stateDate}
+          stateGender={stateGender}
           setStateName={setStateName}
           setStateDate={setStateDate}
           setStateGender={setStateGender}
+          openCalendar={openCalendar}
+          setOpenCalendar={setOpenCalendar}
         />
       )
     }
 
     if (activeStep === 3) {
       return (
-        <CreatePassword 
+        <CreatePassword
           statePassword={statePassword}
           setStatePassword={setStatePassword}
           stateVerificationPassword={stateVerificationPassword}
@@ -123,47 +205,248 @@ export default function Signup(): JSX.Element {
 
     if (activeStep === 4) {
       return (
-        <Choose words={categories} header={headerCategories} />
+        <Choose 
+          words={categories} 
+          header={headerCategories}
+          user={userCategories}
+          setUser={setUserCategories}
+          activeButtons={activeButtons}
+          setActiveButtons={setActiveButtons}
+        />
       )
     }
 
     if (activeStep === 5) {
       return (
-        <Choose words={mood} header={headerMood} />
+        <Choose 
+          words={mood} 
+          header={headerMood} 
+          user={userMood}
+          setUser={setUserMood}
+          activeButtons={activeButtons}
+          setActiveButtons={setActiveButtons}
+        />
       )
     }
 
     if (activeStep === 6) {
       return (
-        <Choose words={city} header={headerCity} />
+        <div>
+          <Choose 
+            words={city} 
+            header={headerCity} 
+            user={userCity}
+            setUser={setUserCity}
+            activeButtons={activeButtonsCity}
+            setActiveButtons={setActiveButtonsCity}
+          />
+        </div>
       )
     }
   }
 
-  return (
-    <div className={css.wrapper}>
-      <div className={css.header}>
-        <button 
-          className={css.buttonBack}
-          onClick={() => router.back()}
-        >
-          <Back />
-        </button>
-        <div className={css.title}>{i18n.t('sign_up')}</div>
-      </div>
-      <div className={css.signupWrapper}>
-        <Image 
-          src={eyes}
-          alt='eyes'
-          width='215'
-          height='84'
+  const handleNextStep = () => {
+    let step = activeStep
+    setActiveStep(++step)
+  }
+
+  const stepsRegistration = () => {
+    if (
+      activeStep === 1 &&
+      stateInputPhone.length < 11 ||
+      checkNumber
+    ) {
+      return (
+        <WrapperButtons
+          activeStep={activeStep}
+          setActiveStep={() => {}}
+          openCalendar={openCalendar}
         />
-        <CustomStepper activeStep={activeStep}/>
-        { 
-          registration(activeStep)
-        }
-        {activeStep === 1 ? <WrapperButtons activeStep={activeStep} setActiveStep={setActiveStep}/> : <ButtonNext activeStep={activeStep} setActiveStep={setActiveStep}/>}
+      )
+    }
+
+    if (
+      activeStep === 1 &&
+      stateInputPhone.length === 11 &&
+      !checkNumber
+    ) {
+      return (
+        <WrapperButtons
+          activeStep={activeStep}
+          setActiveStep={setActiveStep}
+          openCalendar={openCalendar}
+        />
+      )
+    }
+
+    if (
+      activeStep === 2 && (
+        stateDate.length === 0 || 
+        stateGender.length === 0 || 
+        stateName.length === 0
+      ) 
+    ) {
+      return (
+        <ButtonNext
+          activeStep={activeStep}
+          setActiveStep={() => { }}
+          openCalendar={openCalendar}
+        />
+      );
+    }
+    
+    if (
+      activeStep === 2 && (
+        stateDate.length > 0 ||
+        stateGender.length > 0 ||
+        stateName.length > 0 
+      ) 
+    ) {
+      return (
+        <ButtonNext
+          activeStep={activeStep}
+          setActiveStep={setActiveStep}
+          openCalendar={openCalendar}
+        />
+      );
+    }
+
+    if (
+      activeStep === 3 && (
+        statePassword.length < 8 || 
+        stateVerificationPassword.length < 8 ||
+        !/[a-z]/.test(statePassword) || 
+        !/[A-Z]/.test(statePassword) || 
+        !/\d/.test(statePassword) || 
+        !/[\!\@\#\$\%\^\&\*\(\)\-\_\=\+]/.test(statePassword) || 
+        statePassword !== stateVerificationPassword
+      )
+    ) {      
+      return (
+        <ButtonNext
+          activeStep={activeStep}
+          setActiveStep={() => { }}
+          openCalendar={openCalendar}
+        />
+      );
+    }
+    
+    if (
+      activeStep === 3 && (
+        statePassword.length >= 8 &&
+        !!/[a-z]/.test(statePassword) &&
+        !!/[A-Z]/.test(statePassword) &&
+        !!/\d/.test(statePassword) &&
+        !!/[\!\@\#\$\%\^\&\*\(\)\-\_\=\+]/.test(statePassword) &&
+        statePassword === stateVerificationPassword
+      )
+    ) {
+      return (
+        <ButtonNext
+          activeStep={activeStep}
+          setActiveStep={setActiveStep}
+          openCalendar={openCalendar}
+        />
+      );
+    }
+
+    if (activeStep === 4 && Object.keys(userCategories).length === 0) {
+      return (
+        <ButtonNext
+          activeStep={activeStep}
+          setActiveStep={() => { }}
+          openCalendar={openCalendar}
+        />
+      );
+    }
+
+    if (activeStep === 4 && Object.keys(userCategories).length >= 1) {
+      return (
+        <ButtonNext
+          activeStep={activeStep}
+          setActiveStep={setActiveStep}
+          openCalendar={openCalendar}
+        />
+      );
+    }
+
+    if (activeStep === 5 && Object.keys(userMood).length === 0) {
+      return (
+        <ButtonNext
+          activeStep={activeStep}
+          setActiveStep={() => { }}
+          openCalendar={openCalendar}
+        />
+      );
+    }
+
+    if (activeStep === 5 && Object.keys(userMood).length >= 1) {
+      return (
+        <ButtonNext
+          activeStep={activeStep}
+          setActiveStep={setActiveStep}
+          openCalendar={openCalendar}
+        />
+      );
+    }
+
+    if (activeStep === 6 && city.length === 0) {
+      return (
+        <ButtonNext
+          activeStep={activeStep}
+          setActiveStep={() => { }}
+          openCalendar={openCalendar}
+        />
+      )
+    }
+
+    if (activeStep === 6 && city.length > 0) {
+      return (
+        <ButtonNextRequest user={user} />
+      )
+    }
+  }
+
+    return (
+      <div className={css.wrapper}>
+        <div className={css.header}>
+          {openCalendar ? (
+            <button className={css.buttonBack} >
+              <Back />
+            </button>
+          ) : (
+            <>
+              {activeStep === 1 ? (
+                <button className={css.buttonBack} onClick={() => router.back()}>
+                  <Back />
+                </button>
+              ) : (
+                <button
+                  className={css.buttonBack}
+                  onClick={() => setActiveStep(activeStep - 1)}
+                >
+                  <Back />
+                </button>
+              )}
+            </>
+          )}
+          <div className={css.title}>{i18n.t('sign_up')}</div>
+        </div>
+        <div className={css.signupWrapper}>
+          <Image
+            src={eyes}
+            alt='eyes'
+            width='215'
+            height='84'
+          />
+          <CustomStepper activeStep={activeStep} />
+          {
+            registration(activeStep)
+          }
+          {
+            stepsRegistration()
+          }
+        </div>
       </div>
-    </div>
-  )
-}
+    )
+  }

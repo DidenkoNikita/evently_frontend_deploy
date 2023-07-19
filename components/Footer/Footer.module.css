@@ -1,0 +1,47 @@
+.footer {
+  display: flex;
+  width: 405px;
+  height: 94px;
+  padding: 5px 5px 0px 5px;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 15px 15px 0px 0px;
+  background-color: #FDFFFD;
+  position: fixed;
+  top: 800px; 
+}
+
+.navigateButton {
+  display: flex;
+  width: 76.6px;
+  height: 55px;
+  padding: 8px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  border: none;
+  background-color: #FDFFFD;
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: Montserrat;
+  font-weight: 400;
+}
+
+.activeNavigateButton {
+  display: flex;
+  width: 76.6px;
+  height: 55px;
+  padding: 8px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  border: none;
+  background-color: #E3F563;
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: Montserrat;
+  font-weight: 400;
+}

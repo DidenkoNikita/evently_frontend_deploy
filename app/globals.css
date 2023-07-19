@@ -1,4 +1,6 @@
 body {
   background-color: #FDFFFD;
   margin: 0 0;
+  scrollbar-width: none;
+
 }

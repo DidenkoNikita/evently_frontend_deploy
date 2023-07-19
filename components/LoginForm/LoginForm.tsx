@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useFormik } from 'formik';
 
 import css from './LoginForm.module.css';
-import PhoneInput from 'react-phone-input-2';
+import PhoneInput, { CountryData } from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import { EyeOff } from '../icons/eyeOff.icon';
 import Link from 'next/link';
@@ -13,6 +13,8 @@ import { IconButtons } from '../IconButtons/IconButtons';
 import i18n from "i18next";
 
 import resources from "@/locales/resource";
+import { useRouter } from 'next/navigation';
+import { login } from '@/requests/login';
 
 i18n.init({
   resources,
@@ -24,6 +26,11 @@ const LoginForm = () => {
   const [click, setClick] = useState<boolean>(false);
   const [inputType, setInputType] = useState<string>('password');
   const [visibility, setVisibility] = useState<boolean>(false);
+
+  const [validateNumber, setValidateNumber] = useState<boolean>(false);
+  const [validatePassword, setValidatePassword] = useState<boolean>(false);
+
+  const router = useRouter();
 
   const containerStyle = {
     'display': 'flex',
@@ -54,36 +61,54 @@ const LoginForm = () => {
       phone: '',
       password: '',
     },
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: (user) => {
+      login(user, router);
     },
     validate: (values) => {
-      const errors: any = {};
-
-      if (!values.phone) {
-        errors.phone = 'Введите номер телефона';
-      }
-
-      if (!values.password) {
-        errors.password = 'Введите пароль';
-      }
-
-      return errors;
     },
   });
 
+  const handlePhone = (
+    formattedValue: string
+  ): void => {
+    const phone = formattedValue.startsWith("+") ? formattedValue : `+${formattedValue}`;
+    formik.handleChange('phone')(phone);    
+    if (phone.length < 12) {
+      setValidateNumber(true);
+    } else {
+      setValidateNumber(false);
+    }
+  }
+
+  const handlePassword = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const password = event.target.value;
+    formik.handleChange('password')(password)
+    if (password.length < 8 || 
+      !/[a-z]/.test(password) || 
+      !/[A-Z]/.test(password) || 
+      !/\d/.test(password) || 
+      !/[\!\@\#\$\%\^\&\*\(\)\-\_\=\+]/.test(password)
+    ) {
+      setValidatePassword(true);
+    } else {
+      setValidatePassword(false);
+    }
+  }
+
   return (
     <div>
-
       <form 
         onSubmit={formik.handleSubmit}
         className={css.form}
+        autoComplete='off'
       >
-        <div className={css.fieldPhone}>
+        <div 
+          className={validateNumber ? css.invalidFieldPhone : css.fieldPhone}
+        >
           <PhoneInput 
             country={'ru'}
             value={formik.values.phone}
-            onChange={formik.handleChange}
+            onChange={handlePhone}
             onlyCountries={['ru','us']}
             placeholder={i18n.t('phone')}
             containerStyle={containerStyle}
@@ -91,7 +116,10 @@ const LoginForm = () => {
             inputStyle={inputStyle}
           />
         </div>
-        <div className={css.fieldPassvord}>
+        {validateNumber ? <span className={css.error}>{i18n.t('number_entered')}</span>: null}
+        <div 
+          className={validatePassword ? css.invalidFieldPassword : css.fieldPassvord}
+        >
           <input
             type={inputType}
             id="password"
@@ -99,9 +127,10 @@ const LoginForm = () => {
             className={css.inputPassword}
             placeholder={i18n.t('psw')}
             value={formik.values.password}
-            onChange={formik.handleChange}
+            onChange={handlePassword}
           />
           <button
+            type='button'
             className={css.buttonEye}
             onClick={() => {
               setVisibility(!visibility);
@@ -115,9 +144,11 @@ const LoginForm = () => {
             {!visibility ? <EyeOff /> : <EyeOn />}
           </button>
         </div>
+        {validatePassword ? <span className={css.error}>{i18n.t('password_entered')}</span> : null}
         <div className={css.checkboxArea}>
           <div className={css.checkboxWrapper}>
             <button 
+              type='button'
               className={!click ? css.checkbox : css.activeCheckbox}
               onClick={() => {
                 setClick(!click);
@@ -137,12 +168,12 @@ const LoginForm = () => {
         <IconButtons />
       </form>
       <div className={css.linkWrapper}>
-        <div className={css.question}>{i18n.t('question')}</div>
+        <div className={css.question}>{i18n.t('do_not_have_an_account')}</div>
         <Link 
           href='/'
           className={css.link}
         >
-          {i18n.t('link')}
+          {i18n.t('sign_up')}
         </Link>
       </div>
     </div>

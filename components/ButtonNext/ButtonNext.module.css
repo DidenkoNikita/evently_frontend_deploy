@@ -13,5 +13,8 @@
   font-family: Montserrat;
   margin-top: 20px;
   justify-self: center;
-  /* margin-bottom: auto; */
+}
+
+.closedButton {
+  display: none;
 }

@@ -1,0 +1,194 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10px 0;
+  width: 414px;
+  height: auto;
+  margin-top: -15px;
+  overflow-y: hidden;
+  border-radius: 15px 15px 0px 0px;
+  background-color: white;
+  /* z-index: 1000; */
+  /* position: fixed;
+  top: 0px; */
+  margin-bottom: 10px;
+}
+
+.line {
+  width: 414px;
+  height: 9px;
+  position: fixed;
+  background-color: white;
+  top: 245px;
+}
+
+.swiper {
+  width: 25px;
+  height: 4px;
+  border-radius: 5px;
+  background-color: #AAA;
+  /* z-index: 1000; */
+  /* position: fixed; */
+}
+
+.name {
+  display: flex;
+  width: 345px;
+  height: 28px;
+  padding: 10px 0px;
+  align-items: center;
+  gap: 10px;
+  font-family: Montserrat;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.dataWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 365px;
+  height: auto;
+  margin-top: 10px;
+  gap: 20px;
+  /* margin-bottom: -10px; */
+  /* overflow-y: scroll;
+  overflow-x: hidden; */
+  margin-bottom: 80px;
+}
+
+.dataWrapper::-webkit-scrollbar {
+  width: 0; /* Скрываем скроллбар в браузере Chrome/Safari */
+}
+
+.city {
+  display: flex;
+  width: 345px;
+  height: 24px;
+  align-items: center;
+  gap: 10px;
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: 400;
+  color: #AAAAAA;
+}
+
+.wrapperCategoriesOrMood {
+  display: flex;
+  width: 365px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.categoriesOrMood {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.wrapperButtons {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  column-gap: 10px;
+  row-gap: 20px;
+  width: 365px;
+  min-height: 43px;
+}
+
+.card {
+  display: flex;
+  height: 11px;
+  padding: 16px 14px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 10px;
+  background-color: #DFC5FF;
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.wrap {
+  display: flex;
+  width: 336px;
+  height: 48px;
+  padding: 0px 8px 0px 20px;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+  background-color: #F6F6F6;
+}
+
+.area {
+  display: flex;
+  align-items: center;
+  gap: 10px;  
+}
+
+.type {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.quantityWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.quantity {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 400;
+  color: #AAA;
+}
+
+.button {
+  display: flex;
+  width: 48px;
+  height: 48px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;  
+  border: none;
+  border-radius: 10px;
+  background-color: #F6F6F6;
+}
+
+.areaData {
+  display: flex;
+  flex-direction: column;
+}
+
+.wrapperData {
+  display: flex;
+  width: 365px;
+  height: 30px;
+  padding: 9px 0px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dataType {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.data,
+.specialData {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.specialData {
+  font-weight: 600;
+  color: #BB83FF;
+}
