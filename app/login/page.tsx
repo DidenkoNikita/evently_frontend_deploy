@@ -10,7 +10,6 @@ import css from "./page.module.css";
 import i18n from "i18next";
 import resources from "@/locales/resource";
 
-
 i18n.init({
   resources,
   lng: "en"

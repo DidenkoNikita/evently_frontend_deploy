@@ -8,6 +8,8 @@ import css from './page.module.css';
 import { useRouter } from "next/navigation";
 import i18n from "i18next";
 import resources from "@/locales/resource";
+import { checkRememberMe } from "./checkRememberMe";
+import { useEffect } from "react";
 
 i18n.init({
   resources,
@@ -17,6 +19,13 @@ i18n.init({
 export default function Home(): JSX.Element {
 
   const router = useRouter();
+
+  useEffect(() => {
+    console.log('check remember me');
+    
+    checkRememberMe(router);
+  })
+
 
   return (
     <div className={css.flexBox}>
@@ -29,7 +38,12 @@ export default function Home(): JSX.Element {
       >
         {i18n.t('create_personal')}
       </button>
-      <button className={css.button}>{i18n.t('create_brand')}</button>
+      <button 
+        onClick={() => router.push('/signup_brand')}
+        className={css.button}
+      >
+        {i18n.t('create_brand')}
+      </button>
       <div className={css.stringСontainer}>
         <div className={css.question2}>{i18n.t('alredy_have_an_account')}</div>
         <Link 

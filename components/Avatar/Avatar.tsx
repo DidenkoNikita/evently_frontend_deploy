@@ -16,6 +16,8 @@ interface UserData {
 }
 
 export const Avatar = ({user}: UserData): JSX.Element => {
+  console.log('avatar', user);
+  
   const [stateAwatar, setStateAwatar] = useState<boolean>(false)
   return (
     <button
@@ -24,13 +26,13 @@ export const Avatar = ({user}: UserData): JSX.Element => {
     >
       <div className={stateAwatar ? css.bigAvatar : css.avatar}>
         {
-          user.link_avatar === '' ? (
+          user?.link_avatar === '' ? (
             <div className={stateAwatar ? css.bigAvatarData : css.avatarData}> 
-              {user.name.slice(0, 1)}
+              {user?.name.slice(0, 1)}
             </div>
           ) : (
             <img
-              src={user.link_avatar}
+              src={user?.link_avatar}
               alt='Avatar'
               className={stateAwatar ? css.bigImage : css.image}
             />

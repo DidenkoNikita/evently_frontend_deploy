@@ -35,20 +35,24 @@ interface Post {
 export interface State {
   posts: Post[]
   comments: Comment[],
-  user: User[]
+  user: User
 }
 
 
 export const Post = (): JSX.Element => {
   const [expandedPostId, setExpandedPostId] = useState<number | null>(null);
   const [stateUserId, setStateUserId] = useState<number | string>('');
+  const router = useRouter()
 
   useEffect(() => {
-    const user_id = JSON.parse(localStorage.getItem('user_id') || '');
-    setStateUserId(user_id);
+    const user_id = sessionStorage.getItem('user_id');
+    if (!user_id) {
+      router.push('/');
+    } else {
+      setStateUserId(JSON.parse(user_id || ''));
+    }
   }, [])
 
-  const router = useRouter()
 
   const handleTextToggle = (postId: number) => {
     if (expandedPostId === postId) {
@@ -97,6 +101,7 @@ export const Post = (): JSX.Element => {
               width='414'
               height='414'
               alt="Photo's post"
+              className={css.photo}
             />
             <div className={css.buttonWrapper}>
               <button 

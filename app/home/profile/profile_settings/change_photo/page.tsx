@@ -10,6 +10,7 @@ import { SettingsHeader } from "@/components/SettingsHeader/SettingsHeader";
 import { Footer } from "@/components/Footer/Footer";
 
 import css from "./page.module.css";
+import { useRouter } from "next/navigation";
 
 i18n.init({
   resources,
@@ -18,6 +19,8 @@ i18n.init({
 
 export default function changePhoto(): JSX.Element {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  const router = useRouter();
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -28,6 +31,7 @@ export default function changePhoto(): JSX.Element {
   const handleUpload = () => {
     if (selectedFile) {
       store.dispatch(uploadAvatar(selectedFile));
+      router.push('/home/profile/profile_settings');
     }
   };
 

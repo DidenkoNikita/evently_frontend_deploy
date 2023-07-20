@@ -59,7 +59,7 @@ export const UserData = ({userData}: UserData): JSX.Element => {
   ];
 
   useEffect(() => {store.dispatch(userGet())}, [])
-  if (!userData || !userData.userCategories || !userData.userMood) {
+  if (!userData || !userData?.userCategories || !userData?.userMood) {
     return <div>Loading...</div>;
   }
   
@@ -71,10 +71,10 @@ export const UserData = ({userData}: UserData): JSX.Element => {
         className={css.swiper} 
       />
       <div className={css.dataWrapper}>
-        <div className={css.name}>{userData.user.name}</div>
+        <div className={css.name}>{userData?.user?.name}</div>
         <div className={css.city}>
           <City color='black' />
-          {userData.user.city}
+          {userData?.user?.city}
         </div>
         <div className={css.wrapperCategoriesOrMood}>
           <div
@@ -130,7 +130,7 @@ export const UserData = ({userData}: UserData): JSX.Element => {
                   }
                 } else {
                   const word = mood.replace(/\s/g, '_').toLowerCase()
-                  if (!userData.userMood) {
+                  if (!userData?.userMood) {
                     return <div>Loading...</div>
                   }
                   if (userData.userMood[word as keyof typeof userData.userMood] === true) {
@@ -201,11 +201,11 @@ export const UserData = ({userData}: UserData): JSX.Element => {
         <div className={css.areaData}>
           <div className={css.wrapperData}>
             <div className={css.dataType}>{i18n.t('city')}</div>
-            <div className={css.data}>{userData.user.city}</div>
+            <div className={css.data}>{userData?.user?.city}</div>
           </div>
           <div className={css.wrapperData}>
             <div className={css.dataType}>{i18n.t('phone_number')}</div>
-            <div className={css.specialData}>{userData.user.phone}</div>
+            <div className={css.specialData}>{userData?.user?.phone}</div>
           </div>
           <div className={css.wrapperData}>
             <div className={css.dataType}>{i18n.t('email')}</div>
@@ -213,11 +213,11 @@ export const UserData = ({userData}: UserData): JSX.Element => {
           </div>
           <div className={css.wrapperData}>
             <div className={css.dataType}>{i18n.t('date_of_birth')}</div>
-            <div className={css.data}>{userData.user.date_of_birth}</div>
+            <div className={css.data}>{userData?.user?.date_of_birth}</div>
           </div>
           <div className={css.wrapperData}>
             <div className={css.dataType}>{i18n.t('gender')}</div>
-            <div className={css.data}>{userData.user.gender}</div>
+            <div className={css.data}>{userData?.user?.gender}</div>
           </div>
         </div>
       </div>

@@ -12,6 +12,7 @@ import { Change } from "@/components/Change/Change";
 import { useState } from "react";
 import { store } from "@/store/store";
 import { updateMood } from "@/store/actions/updateMood";
+import { useRouter } from "next/navigation";
 
 i18n.init({
   resources,
@@ -36,6 +37,9 @@ export default function changeMood(): JSX.Element {
     i18n.t('dreamy'),
     i18n.t('do_not_know')
   ];
+  
+  const router = useRouter();
+
   return (
     <div className={css.wrapper}>
       <HeaderCategoriesOrMood title={i18n.t('change_your_mood')} />
@@ -55,8 +59,8 @@ export default function changeMood(): JSX.Element {
         ) : (
           <button 
             onClick={() => {
-              console.log('save', userMood);
-              store.dispatch(updateMood(userMood))
+              store.dispatch(updateMood(userMood));
+              router.push('/home/profile/profile_settings');
             }}
             className={css.button}
           >

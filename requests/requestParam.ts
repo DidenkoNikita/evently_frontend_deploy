@@ -1,15 +1,15 @@
 export const request = async (patch: string, info: FormData, method: string) => {
   const API_URL = process.env.API_URL;
-  const user_id = localStorage.getItem("user_id");
+  const user_id = sessionStorage.getItem("user_id");
 
   if (!user_id) {
-    window.open("http://localhost:3000/401");
+    window.open("http://localhost:3000/");
     return null;
   } else {
     const id = JSON.parse(user_id || "");
 
     try {
-      const response: Response = await fetch(`${API_URL}${patch}/${user_id}`, {
+      const response: Response = await fetch(`${API_URL}${patch}/${id}`, {
         method: method,
         body: info,
       });
@@ -24,7 +24,7 @@ export const request = async (patch: string, info: FormData, method: string) => 
 
       if (response.status === 201) {
         const accessToken = data;
-        localStorage.setItem("access_token", JSON.stringify(accessToken));
+        sessionStorage.setItem("access_token", JSON.stringify(accessToken));
         alert("Поцелуй писю");
       }
 

@@ -12,7 +12,7 @@ import { useState } from "react";
 import { Change } from "@/components/Change/Change";
 import { store } from "@/store/store";
 import { updateCategories } from "@/store/actions/updateCategories";
-import { userGet } from "@/store/actions/getUser";
+import { useRouter } from "next/navigation";
 
 i18n.init({
   resources,
@@ -22,6 +22,8 @@ i18n.init({
 export default function changeCategories(): JSX.Element {
   const [userCategories, setUserCategories] = useState<{ [key: string]: boolean }>({});
   const [activeButtons, setActiveButtons] = useState<string[]>([]);
+
+  const router = useRouter();
 
   const categories: string[] = [
     i18n.t('restaurants'),
@@ -60,9 +62,8 @@ export default function changeCategories(): JSX.Element {
         ) : (
           <button 
             onClick={() => {
-              console.log('save', userCategories);
               store.dispatch(updateCategories(userCategories));
-              // store.dispatch(userGet());
+              router.push('/home/profile/profile_settings');
             }}
             className={css.button}
           >

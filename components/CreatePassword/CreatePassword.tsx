@@ -18,22 +18,25 @@ interface CreatePassword {
   setStatePassword: any;
   stateVerificationPassword: string;
   setStateVerificationPassword: any;
+  click: boolean;
+  setClick: any;
 }
 
 export const CreatePassword = ({
   statePassword,
   setStatePassword,
   stateVerificationPassword,
-  setStateVerificationPassword
+  setStateVerificationPassword,
+  click,
+  setClick
 }: CreatePassword): JSX.Element => {
-  const [click, setClick] = useState<boolean>(false);
   const [inputType, setInputType] = useState<string>('password');
   const [visibility, setVisibility] = useState<boolean>(false);
   const [inputVerificationType, setInputVerificationType] = useState<string>('password');
   const [visibilityVerification, setVisibilityVerification] = useState<boolean>(false);
   const [validatePassword, setValidatePassword] = useState<boolean>(false);
 
-  console.log(validatePassword);
+  // console.log(validatePassword);
   
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {

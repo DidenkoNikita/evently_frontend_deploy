@@ -24,7 +24,7 @@ export const Comments = (): JSX.Element => {
   useEffect(() => {
     setPostId(location.pathname);
     store.dispatch(getComment());
-    const user_id = JSON.parse(localStorage.getItem('user_id') || '')
+    const user_id = JSON.parse(sessionStorage.getItem('user_id') || '')
     setUserId(user_id)
   }, [])
   const id: number = Number(postId.slice(20))
@@ -84,8 +84,6 @@ export const Comments = (): JSX.Element => {
                 <div className={css.avatarWrapper}>
                   <img 
                     src={comment.link_avatar}
-                    width={48}
-                    height={48}
                     className={css.avatar}
                   />
                 </div>

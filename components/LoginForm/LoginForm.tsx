@@ -15,6 +15,7 @@ import i18n from "i18next";
 import resources from "@/locales/resource";
 import { useRouter } from 'next/navigation';
 import { login } from '@/requests/login';
+import { loginWithRememberMe } from '@/requests/loginWithRememberMe';
 
 i18n.init({
   resources,
@@ -24,6 +25,8 @@ i18n.init({
 const LoginForm = () => {
 
   const [click, setClick] = useState<boolean>(false);
+  console.log(click);
+  
   const [inputType, setInputType] = useState<string>('password');
   const [visibility, setVisibility] = useState<boolean>(false);
 
@@ -62,7 +65,28 @@ const LoginForm = () => {
       password: '',
     },
     onSubmit: (user) => {
-      login(user, router);
+      if (click) {
+        console.log('remember me');
+        loginWithRememberMe(user, router)
+      } else {
+        login(user, router);
+      }
+      if (user.password.length < 8 || 
+        !/[a-z]/.test(user.password) || 
+        !/[A-Z]/.test(user.password) || 
+        !/\d/.test(user.password) || 
+        !/[\!\@\#\$\%\^\&\*\(\)\-\_\=\+]/.test(user.password)
+      ) {
+        setValidatePassword(true);
+      } else {
+        setValidatePassword(false);
+      }
+
+      if (user.phone.length < 12) {
+        setValidateNumber(true);
+      } else {
+        setValidateNumber(false);
+      }
     },
     validate: (values) => {
     },
@@ -73,26 +97,15 @@ const LoginForm = () => {
   ): void => {
     const phone = formattedValue.startsWith("+") ? formattedValue : `+${formattedValue}`;
     formik.handleChange('phone')(phone);    
-    if (phone.length < 12) {
-      setValidateNumber(true);
-    } else {
-      setValidateNumber(false);
-    }
+    setValidateNumber(false);
+    setValidatePassword(false);
   }
 
   const handlePassword = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const password = event.target.value;
     formik.handleChange('password')(password)
-    if (password.length < 8 || 
-      !/[a-z]/.test(password) || 
-      !/[A-Z]/.test(password) || 
-      !/\d/.test(password) || 
-      !/[\!\@\#\$\%\^\&\*\(\)\-\_\=\+]/.test(password)
-    ) {
-      setValidatePassword(true);
-    } else {
-      setValidatePassword(false);
-    }
+    setValidateNumber(false);
+    setValidatePassword(false);
   }
 
   return (

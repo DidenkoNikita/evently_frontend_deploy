@@ -48,19 +48,10 @@ export const Header = ():JSX.Element => {
     }
   ];
 
-  useEffect(() => {
-    console.log('idsiiss');
-    
-    store.dispatch(userGet())
-  }, [])
-
   const user = useSelector((state : State) => state.user);
 
-  console.log(user);
+  console.log('header',user);
   
-  const userData = user[0]
-
-
   const router = useRouter()
 
   return (
@@ -69,7 +60,7 @@ export const Header = ():JSX.Element => {
         <div className={css.address}>
           <City color="#000000" />
           <div className={css.addressText}>
-            {userData ? userData.user.city : 'Loading...'}
+            {user ? user?.user?.city : 'Loading...'}
           </div>
         </div>
         <button className={css.searchButton}>

@@ -12,6 +12,7 @@ import { useState } from "react";
 import { Change } from "@/components/Change/Change";
 import { store } from "@/store/store";
 import { updateCity } from "@/store/actions/updateCity";
+import { useRouter } from "next/navigation";
 
 i18n.init({
   resources,
@@ -22,6 +23,8 @@ export default function changeCity(): JSX.Element {
   const [userCity, setUserCity] = useState<string>('');
 
   const [activeButtonsCity, setActiveButtonsCity] = useState<string[]>([]);
+
+  const router = useRouter();
 
   const city: string[] = [
     i18n.t('saint_petersburg'),
@@ -59,8 +62,8 @@ export default function changeCity(): JSX.Element {
         ) : (
           <button 
             onClick={() => {
-              console.log(userCity);
-              store.dispatch(updateCity(userCity))
+              store.dispatch(updateCity(userCity));
+              router.push('/home/profile/profile_settings');
             }}
             className={css.button}
           >

@@ -15,6 +15,7 @@ import { store } from "@/store/store";
 import { getPost } from "@/store/actions/getPosts";
 import { getComment } from "@/store/actions/getComments";
 import { userGet } from "@/store/actions/getUser";
+import { useRouter } from "next/navigation";
 
 i18n.init({
   resources,
@@ -23,9 +24,20 @@ i18n.init({
 
 export default function(): JSX.Element {
   useEffect(() => {
+    console.log('home');
+    
     store.dispatch(getPost())
     store.dispatch(getComment())
     store.dispatch(userGet())
+  }, [])
+
+  const router = useRouter()
+
+  useEffect(() => {
+    const user_id = sessionStorage.getItem('user_id');
+    if (!user_id) {
+      router.push('/');
+    }
   }, [])
 
   return (

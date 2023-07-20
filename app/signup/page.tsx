@@ -79,6 +79,9 @@ export default function Signup(): JSX.Element {
   const [statePassword, setStatePassword] = useState<string>('');
   const [stateVerificationPassword, setStateVerificationPassword] = useState<string>('');
   const [openCalendar, setOpenCalendar] = useState<boolean>(false);
+  const [click, setClick] = useState<boolean>(false);
+  console.log(click);
+  
 
   const [userCategories, setUserCategories] = useState<{ [key: string]: boolean }>({});
   const [userMood, setUserMood] = useState<{ [key: string]: boolean }>({});
@@ -90,10 +93,10 @@ export default function Signup(): JSX.Element {
   const [activeButtonsCity, setActiveButtonsCity] = useState<string[]>([]); 
 
   const [checkNumber, setCheckNumber] = useState<boolean>(false);
-  console.log(checkNumber);
+  // console.log(checkNumber);
   
   
-  console.log(stateInputPhone);
+  // console.log(stateInputPhone);
   
   
   const user = {
@@ -195,6 +198,8 @@ export default function Signup(): JSX.Element {
     if (activeStep === 3) {
       return (
         <CreatePassword
+          click={click}
+          setClick={setClick}
           statePassword={statePassword}
           setStatePassword={setStatePassword}
           stateVerificationPassword={stateVerificationPassword}
@@ -289,7 +294,7 @@ export default function Signup(): JSX.Element {
       return (
         <ButtonNext
           activeStep={activeStep}
-          setActiveStep={() => { }}
+          setActiveStep={() => {}}
           openCalendar={openCalendar}
         />
       );
@@ -402,7 +407,10 @@ export default function Signup(): JSX.Element {
 
     if (activeStep === 6 && city.length > 0) {
       return (
-        <ButtonNextRequest user={user} />
+        <ButtonNextRequest 
+          user={user} 
+          click={click}
+        />
       )
     }
   }

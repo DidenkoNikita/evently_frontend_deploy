@@ -38,6 +38,7 @@
   width: 124px;
   height: 124px;
   border-radius: 102px;
+  object-fit: cover;
 }
 
 .bigImage {

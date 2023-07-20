@@ -5,11 +5,11 @@ import { User } from "./counter/userSlice";
 interface State {
   posts: Post[];
   comments: Comment[];
-  user: User[]
+  user: User
 }
 
 export const initialState: State = {
   posts: [],
   comments: [],
-  user: []
+  user: {} as User
 }

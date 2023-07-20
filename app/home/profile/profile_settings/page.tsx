@@ -29,10 +29,15 @@ export default function profileSettings(): JSX.Element {
   const user = useSelector((state : State) => state.user);
 
   const router = useRouter();
-  
-  const userData = user[0];
 
-  if (!userData) {
+  useEffect(() => {
+    const user_id = sessionStorage.getItem('user_id');
+    if (!user_id) {
+      router.push('/');
+    }
+  }, [])
+  
+  if (!user) {
     return <div>Loading...</div>;
   }
   return (
@@ -73,7 +78,7 @@ export default function profileSettings(): JSX.Element {
               {i18n.t('change_number')}
             </div>
             <div className={css.data}>
-              {userData.user.phone}
+              {user?.user?.phone}
             </div>
             <button 
               onClick={() => {router.push('/home/profile/profile_settings/change_number')}}
@@ -107,7 +112,7 @@ export default function profileSettings(): JSX.Element {
             {i18n.t('change_city')}
           </div>
           <div className={css.data}>
-            {userData.user.city}
+            {user?.user?.city}
           </div>
           <button 
             onClick={() => {router.push('/home/profile/profile_settings/change_city')}}

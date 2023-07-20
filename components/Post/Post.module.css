@@ -50,6 +50,7 @@
   border-radius: 50px;
   border: 2px solid white;
   rotate: -205deg;
+  object-fit: cover;
 }
 
 .name {
@@ -128,4 +129,9 @@
   font-weight: 400;
   color: #AAA;
   border-bottom: 1px solid #AAA;
+}
+
+.photo {
+  object-fit: contain;
+  width: 414px;
 }

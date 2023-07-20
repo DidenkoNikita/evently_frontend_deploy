@@ -11,7 +11,8 @@ import { City } from "@/components/icons/city.icon";
 import { Privacy } from "@/components/icons/privacy.icon";
 import { RightIcon } from "@/components/icons/rightIcon.icon";
 import { Faq } from "@/components/icons/faq.icon";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 i18n.init({
   resources,
@@ -25,6 +26,15 @@ export default function settings(): JSX.Element {
   const [stateVibro, setStateVibro] = useState<boolean>(false);
   const [stateDistrub, setStateDistrub] = useState<boolean>(false);
   const [stateLocation, setStateLocation] = useState<boolean>(false);
+
+  const router = useRouter()
+
+  useEffect(() => {
+    const user_id = sessionStorage.getItem('user_id');
+    if (!user_id) {
+      router.push('/');
+    }
+  }, [])
 
   return (
     <div className={css.wrapper}>

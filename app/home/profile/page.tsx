@@ -11,7 +11,7 @@ import { Avatar } from "@/components/Avatar/Avatar";
 import { UserData } from "@/components/UserData/UserData";
 import { useSelector } from "react-redux";
 import { State } from "@/components/Post/Post";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { store } from "@/store/store";
 import { userGet } from "@/store/actions/getUser";
 
@@ -24,18 +24,17 @@ export default function profile(): JSX.Element {
   
   
   useEffect(() => {
-    console.log('idsiiss');
+    console.log('profile');
     
     store.dispatch(userGet())
   }, [])
   
   const user = useSelector((state : State) => state.user);
 
-  console.log(user);
+  console.log('profile', user);
   
-  const userData = user[0]
 
-  if (userData === undefined) {
+  if (user === undefined) {
     return <div>Loading...</div>;
   }
 
@@ -44,8 +43,8 @@ export default function profile(): JSX.Element {
     <div className={css.wrapper}>
       <ProfileHeader />
         <div className={css.scrollArea}>
-          <Avatar user={userData.user}/>
-          <UserData userData={userData}/>
+          <Avatar user={user?.user}/>
+          <UserData userData={user}/>
         </div>
       <Footer />
     </div>
