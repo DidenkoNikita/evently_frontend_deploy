@@ -12,7 +12,6 @@ export const updateCity = (city: string): ThunkAction<
 > => async (dispatch): Promise<void | unknown> => {
   try {
     const data = await request('user', {city}, 'PUT')
-    console.log(data);
     
     if (data !== null) {
       dispatch(changeCity(data))

@@ -160,7 +160,10 @@ export default function settings(): JSX.Element {
                   {i18n.t('faq')}
                 </div>
               </div>
-              <button className={css.iconButton}>
+              <button 
+                onClick={() => router.push('/home/profile/settings/FAQ')}
+                className={css.iconButton}
+              >
                 <RightIcon />
               </button>
             </div>

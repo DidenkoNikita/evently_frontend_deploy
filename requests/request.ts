@@ -24,8 +24,6 @@ export const request = async (patch: string, info: {}, method: string) => {
 
       const data = await response.json();   
       
-      console.log('request::', data);
-
       if (response.status === 200) {
         return data;
       }
@@ -33,12 +31,10 @@ export const request = async (patch: string, info: {}, method: string) => {
       if (response.status === 201) {
         const accessToken = data;
         sessionStorage.setItem('access_token', JSON.stringify(accessToken));
-        alert('Repeat please')
+        window.location.reload();
       }
   
-      if (response.status === 401) {
-        console.log('curwa matka');
-        
+      if (response.status === 401) {        
         window.open('http://localhost:3001/');
       }
     } catch (e) {

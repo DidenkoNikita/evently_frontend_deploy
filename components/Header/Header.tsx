@@ -49,8 +49,6 @@ export const Header = ():JSX.Element => {
   ];
 
   const user = useSelector((state : State) => state.user);
-
-  console.log('header',user);
   
   const router = useRouter()
 

@@ -47,7 +47,7 @@ export const Footer = (): JSX.Element => {
     {
       icon: <ChatsIcon />,
       title: i18n.t('chats'),
-      link: '/home/chats'
+      link: '/chats'
     },
     {
       icon: <ProfileIcon />,
@@ -71,7 +71,10 @@ export const Footer = (): JSX.Element => {
                 (pathName === '/home/profile/profile_settings/change_photo' && navigateButton.link === '/home/profile') ||
                 (pathName === '/home/profile/profile_settings/change_city' && navigateButton.link === '/home/profile') ||
                 (pathName === '/home/profile/profile_settings/change_categories' && navigateButton.link === '/home/profile') ||
-                (pathName === '/home/profile/profile_settings/change_mood' && navigateButton.link === '/home/profile')
+                (pathName === '/home/profile/profile_settings/change_mood' && navigateButton.link === '/home/profile') ||
+                (pathName === '/home/profile/settings/FAQ' && navigateButton.link === '/home/profile') ||
+                (pathName === '/chats/write_a_message' && navigateButton.link === '/chats') ||
+                (/^\/chats\/chat_settings\/\d+$/.test(pathName) && navigateButton.link === '/chats')
                 ? css.activeNavigateButton : css.navigateButton
               }
               onClick={() => {

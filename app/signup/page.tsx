@@ -79,9 +79,7 @@ export default function Signup(): JSX.Element {
   const [statePassword, setStatePassword] = useState<string>('');
   const [stateVerificationPassword, setStateVerificationPassword] = useState<string>('');
   const [openCalendar, setOpenCalendar] = useState<boolean>(false);
-  const [click, setClick] = useState<boolean>(false);
-  console.log(click);
-  
+  const [click, setClick] = useState<boolean>(false);  
 
   const [userCategories, setUserCategories] = useState<{ [key: string]: boolean }>({});
   const [userMood, setUserMood] = useState<{ [key: string]: boolean }>({});
@@ -91,13 +89,6 @@ export default function Signup(): JSX.Element {
   const [activeButtons, setActiveButtons] = useState<string[]>([]);
 
   const [activeButtonsCity, setActiveButtonsCity] = useState<string[]>([]); 
-
-  const [checkNumber, setCheckNumber] = useState<boolean>(false);
-  // console.log(checkNumber);
-  
-  
-  // console.log(stateInputPhone);
-  
   
   const user = {
     user: {
@@ -115,8 +106,6 @@ export default function Signup(): JSX.Element {
       ...userMood
     }
   }
-
-  console.log(user);
 
   const categories: string[] = [
     i18n.t('restaurants'),
@@ -174,8 +163,9 @@ export default function Signup(): JSX.Element {
         <EnterPhoneNumber
           stateInputPhone={stateInputPhone}
           setStateInputPhone={setStateInputPhone}
-          checkNumber={checkNumber}
-          setCheckNumber={setCheckNumber}
+          activeStep={activeStep}
+          setActiveStep={setActiveStep}
+          openCalendar={openCalendar}
         />
       )
     }
@@ -191,6 +181,8 @@ export default function Signup(): JSX.Element {
           setStateGender={setStateGender}
           openCalendar={openCalendar}
           setOpenCalendar={setOpenCalendar}
+          activeStep={activeStep}
+          setActiveStep={setActiveStep}
         />
       )
     }
@@ -199,7 +191,10 @@ export default function Signup(): JSX.Element {
       return (
         <CreatePassword
           click={click}
+          openCalendar={openCalendar}
+          activeStep={activeStep}
           setClick={setClick}
+          setActiveStep={setActiveStep}
           statePassword={statePassword}
           setStatePassword={setStatePassword}
           stateVerificationPassword={stateVerificationPassword}
@@ -213,10 +208,15 @@ export default function Signup(): JSX.Element {
         <Choose 
           words={categories} 
           header={headerCategories}
-          user={userCategories}
+          user={user}
+          userData={userCategories}
           setUser={setUserCategories}
           activeButtons={activeButtons}
           setActiveButtons={setActiveButtons}
+          click={click}
+          activeStep={activeStep}
+          setActiveStep={setActiveStep}
+          openCalendar={openCalendar}
         />
       )
     }
@@ -226,10 +226,15 @@ export default function Signup(): JSX.Element {
         <Choose 
           words={mood} 
           header={headerMood} 
-          user={userMood}
+          user={user}
+          userData={userMood}
           setUser={setUserMood}
           activeButtons={activeButtons}
           setActiveButtons={setActiveButtons}
+          click={click}
+          activeStep={activeStep}
+          setActiveStep={setActiveStep}
+          openCalendar={openCalendar}
         />
       )
     }
@@ -240,177 +245,17 @@ export default function Signup(): JSX.Element {
           <Choose 
             words={city} 
             header={headerCity} 
-            user={userCity}
+            user={user}
+            userData={userCity}
             setUser={setUserCity}
             activeButtons={activeButtonsCity}
             setActiveButtons={setActiveButtonsCity}
+            click={click}
+            activeStep={activeStep}
+            setActiveStep={setActiveStep}
+            openCalendar={openCalendar}
           />
         </div>
-      )
-    }
-  }
-
-  const handleNextStep = () => {
-    let step = activeStep
-    setActiveStep(++step)
-  }
-
-  const stepsRegistration = () => {
-    if (
-      activeStep === 1 &&
-      stateInputPhone.length < 11 ||
-      checkNumber
-    ) {
-      return (
-        <WrapperButtons
-          activeStep={activeStep}
-          setActiveStep={() => {}}
-          openCalendar={openCalendar}
-        />
-      )
-    }
-
-    if (
-      activeStep === 1 &&
-      stateInputPhone.length === 11 &&
-      !checkNumber
-    ) {
-      return (
-        <WrapperButtons
-          activeStep={activeStep}
-          setActiveStep={setActiveStep}
-          openCalendar={openCalendar}
-        />
-      )
-    }
-
-    if (
-      activeStep === 2 && (
-        stateDate.length === 0 || 
-        stateGender.length === 0 || 
-        stateName.length === 0
-      ) 
-    ) {
-      return (
-        <ButtonNext
-          activeStep={activeStep}
-          setActiveStep={() => {}}
-          openCalendar={openCalendar}
-        />
-      );
-    }
-    
-    if (
-      activeStep === 2 && (
-        stateDate.length > 0 ||
-        stateGender.length > 0 ||
-        stateName.length > 0 
-      ) 
-    ) {
-      return (
-        <ButtonNext
-          activeStep={activeStep}
-          setActiveStep={setActiveStep}
-          openCalendar={openCalendar}
-        />
-      );
-    }
-
-    if (
-      activeStep === 3 && (
-        statePassword.length < 8 || 
-        stateVerificationPassword.length < 8 ||
-        !/[a-z]/.test(statePassword) || 
-        !/[A-Z]/.test(statePassword) || 
-        !/\d/.test(statePassword) || 
-        !/[\!\@\#\$\%\^\&\*\(\)\-\_\=\+]/.test(statePassword) || 
-        statePassword !== stateVerificationPassword
-      )
-    ) {      
-      return (
-        <ButtonNext
-          activeStep={activeStep}
-          setActiveStep={() => { }}
-          openCalendar={openCalendar}
-        />
-      );
-    }
-    
-    if (
-      activeStep === 3 && (
-        statePassword.length >= 8 &&
-        !!/[a-z]/.test(statePassword) &&
-        !!/[A-Z]/.test(statePassword) &&
-        !!/\d/.test(statePassword) &&
-        !!/[\!\@\#\$\%\^\&\*\(\)\-\_\=\+]/.test(statePassword) &&
-        statePassword === stateVerificationPassword
-      )
-    ) {
-      return (
-        <ButtonNext
-          activeStep={activeStep}
-          setActiveStep={setActiveStep}
-          openCalendar={openCalendar}
-        />
-      );
-    }
-
-    if (activeStep === 4 && Object.keys(userCategories).length === 0) {
-      return (
-        <ButtonNext
-          activeStep={activeStep}
-          setActiveStep={() => { }}
-          openCalendar={openCalendar}
-        />
-      );
-    }
-
-    if (activeStep === 4 && Object.keys(userCategories).length >= 1) {
-      return (
-        <ButtonNext
-          activeStep={activeStep}
-          setActiveStep={setActiveStep}
-          openCalendar={openCalendar}
-        />
-      );
-    }
-
-    if (activeStep === 5 && Object.keys(userMood).length === 0) {
-      return (
-        <ButtonNext
-          activeStep={activeStep}
-          setActiveStep={() => { }}
-          openCalendar={openCalendar}
-        />
-      );
-    }
-
-    if (activeStep === 5 && Object.keys(userMood).length >= 1) {
-      return (
-        <ButtonNext
-          activeStep={activeStep}
-          setActiveStep={setActiveStep}
-          openCalendar={openCalendar}
-        />
-      );
-    }
-
-    if (activeStep === 6 && city.length === 0) {
-      return (
-        <ButtonNext
-          activeStep={activeStep}
-          setActiveStep={() => { }}
-          openCalendar={openCalendar}
-        />
-      )
-    }
-
-    if (activeStep === 6 && city.length > 0) {
-      return (
-        <ButtonNextRequest 
-          user={user} 
-          click={click}
-        />
       )
     }
   }
@@ -450,9 +295,6 @@ export default function Signup(): JSX.Element {
           <CustomStepper activeStep={activeStep} />
           {
             registration(activeStep)
-          }
-          {
-            stepsRegistration()
           }
         </div>
       </div>

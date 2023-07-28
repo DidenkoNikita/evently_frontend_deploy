@@ -25,7 +25,6 @@ i18n.init({
 const LoginForm = () => {
 
   const [click, setClick] = useState<boolean>(false);
-  console.log(click);
   
   const [inputType, setInputType] = useState<string>('password');
   const [visibility, setVisibility] = useState<boolean>(false);
@@ -66,7 +65,6 @@ const LoginForm = () => {
     },
     onSubmit: (user) => {
       if (click) {
-        console.log('remember me');
         loginWithRememberMe(user, router)
       } else {
         login(user, router);

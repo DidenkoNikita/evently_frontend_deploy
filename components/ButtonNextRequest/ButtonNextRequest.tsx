@@ -24,7 +24,6 @@ export const ButtonNextRequest = ({user, click}: Data): JSX.Element => {
     <button
       onClick={() => {
         if (click) {
-          console.log('remember me');
           signupWithRememberMe(user, router)
         } else {
           signup(user, router)

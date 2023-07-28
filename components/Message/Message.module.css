@@ -1,0 +1,65 @@
+.wrapperMessage {
+  display: flex;
+  padding: 16px;
+  align-items: center;
+  gap: 5px; 
+  border-radius: 20px 20px 10px 20px; 
+  background-color: #DFC5FF;
+  flex-wrap: wrap;
+  margin-left: auto;
+  max-width: 225px;
+  margin-right: 20px;
+}
+
+.receivedWrapperMessage {
+  display: flex;
+  padding: 16px;
+  align-items: center;
+  gap: 5px; 
+  border-radius: 20px 20px 20px 10px; 
+  background-color: #FDFFFD;
+  flex-wrap: wrap;
+  margin-right: auto;
+  max-width: 225px;
+  margin-left: 20px;
+}
+
+.wrapperMessage:first-child,
+.receivedWrapperMessage:first-child {
+  margin-top: 25px;
+}
+
+.text {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 400;
+  word-break: break-word;
+}
+
+.receivedDate {
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: 400; 
+  color: #AAAAAA;
+  margin-left: 15px;
+}
+
+.date {
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: 400; 
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3px; 
+  margin-left: auto;
+}
+
+.read {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

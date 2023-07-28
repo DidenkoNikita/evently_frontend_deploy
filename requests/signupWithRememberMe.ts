@@ -2,12 +2,6 @@ import { AppRouterInstance } from "next/dist/shared/lib/app-router-context";
 
 export const signupWithRememberMe = async (user: any, router: AppRouterInstance): Promise<void> => {
   const API_URL = process.env.API_URL;
-  // console.log(API_URL);
-  // const obj = user.user;
-  // console.log(obj);
-
-  console.log(user);
-  
   
   try {
     const response: Response = await fetch(`${API_URL}signup_remember_me`, {
@@ -19,8 +13,6 @@ export const signupWithRememberMe = async (user: any, router: AppRouterInstance)
     });
     const data = await response.json();
     
-    console.log('response::', data);
-
     if (response.status === 201) {
       sessionStorage.setItem('user_id', JSON.stringify(data.id));
       sessionStorage.setItem('access_token', JSON.stringify(data.accessToken));

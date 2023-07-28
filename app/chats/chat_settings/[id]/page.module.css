@@ -1,0 +1,199 @@
+.area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.avatarWrapper {
+  width: 414px;
+  height: 130px;
+  background: repeat url("../../../../public/backgroundComments.png");
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 3px;
+  border: none;
+}
+
+.bigAwatarWrapper {
+  width: 414px;
+  height: 620px;
+  background: repeat url("../../../../public/backgroundComments.png");
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  border: none;
+}
+
+.avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 124px;
+  height: 124px;
+  border-radius: 102px;
+  background-color: #DFC5FF;
+  border: 10px solid #FDFFFD;
+  margin-top: 1px;
+  margin-bottom: 14px;
+}
+
+.image {
+  width: 124px;
+  height: 124px;
+  border-radius: 102px;
+  object-fit: cover;
+}
+
+.bigImage {
+  width: 345px;
+  height: 615px;
+  border-radius: 20px 20px 0px 0px;
+  object-fit: cover;
+}
+
+.bigAvatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 345px;
+  height: 600px;
+  background-color: #DFC5FF;
+  border-radius: 20px 20px 0px 0px;
+  margin-top: 20px;
+  margin-bottom: 14px;
+}
+
+.bigAvatarData {
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 100px;
+  font-weight: 900;
+  color: #FFF;
+  padding-top: 10px;
+}
+
+.avatarData {
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 50px;
+  font-weight: 600;
+  color: #FFF;
+  padding-top: 10px;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10px 0;
+  width: 414px;
+  height: auto;
+  margin-top: -8px;
+  overflow-y: hidden;
+  border-radius: 15px 15px 0px 0px;
+  background-color: white;
+  gap: 20px;
+}
+
+.swiper {
+  width: 25px;
+  height: 4px;
+  border-radius: 5px;
+  background-color: #AAA;
+}
+
+.name {
+  font-family: Montserrat;
+  font-size: 20px;
+  font-weight: 600; 
+  display: flex;
+  width: 345px;
+  height: 28px;
+  justify-content: center;
+  align-items: center; 
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.activeIconButton {
+  display: flex;
+  width: 65px;
+  height: 59px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 10px;
+  background-color: #E3F563;
+}
+
+.iconButton {
+  display: flex;
+  width: 65px;
+  height: 59px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 10px;
+  background-color: #F6F6F6;
+}
+
+.title {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.wrapperData {
+  display: flex;
+  width: 305px;
+  height: 48px;
+  padding: 0px 20px;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px; 
+  background-color: #F6F6F6;
+}
+
+.dataType,
+.specialData {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.specialData {
+  font-weight: 600;
+  color: #BB83FF;
+}
+
+.button {
+  display: flex;
+  width: 65px;
+  height: 48px;
+  justify-content: center;
+  align-items: center; 
+  border: none;
+  border-radius: 10px;
+  background-color: #F6F6F6;
+}
+
+.activeButton {
+  display: flex;
+  width: 65px;
+  height: 48px;
+  justify-content: center;
+  align-items: center; 
+  border: none;
+  border-radius: 10px;
+  background-color: #E3F563;
+}

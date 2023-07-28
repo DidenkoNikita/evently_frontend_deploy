@@ -12,13 +12,9 @@ export const uploadAvatar = (selectedFile: any): ThunkAction<
 > => async (dispatch): Promise<void | unknown> => {
 try {
   const formData = new FormData();
-  formData.append('file', selectedFile);
-
-  console.log(formData);
-  
+  formData.append('file', selectedFile);  
 
   const data = await request('upload_avatar', formData, 'PUT')
-  console.log(data);
   
   if (data !== null) {
     dispatch(uploadAvatar(data))

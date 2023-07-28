@@ -1,0 +1,66 @@
+.chatWrapper {
+  width: 414px;
+  height: 896px;
+  background: repeat url('../../../../public/backgroundComments.png');
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 414px;
+  max-height: 660px; 
+  align-items: center;
+  gap: 5px;
+  overflow-y: auto; 
+  overflow-x: hidden;
+  padding-bottom: 20px;
+  position: fixed;
+  top: 120px;
+}
+
+.wrapperHowSomeMessages {
+  display: flex;
+  flex-direction: column;
+  width: 414px;
+  height: 660px; 
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+  overflow-y: auto; 
+  padding-bottom: 20px;
+  position: fixed;
+  top: 120px;
+}
+
+.title {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+  position: fixed;
+  bottom: 450px;
+}
+
+.date {
+  display: flex;
+  padding: 10px;
+  align-items: flex-start; 
+  border-radius: 10px;
+  background-color: #F6F6F6;
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: 400; 
+  color: #AAAAAA;
+  margin: 20px;
+}
+
+.spaceBetweenMessages {
+  margin-top: 15px;
+}
+
+.wrap {
+  margin-left: auto;
+}
+
+.wrapRight {
+  margin-right: auto;
+}

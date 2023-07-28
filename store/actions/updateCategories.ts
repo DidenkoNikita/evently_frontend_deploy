@@ -12,7 +12,6 @@ export const updateCategories = (userCategories: { [key: string]: boolean }): Th
 > => async (dispatch): Promise<void | unknown> => {
   try {
     const data = await request('change_categories', {userCategories}, 'PUT')
-    console.log(data);
     
     if (data !== null) {
       dispatch(changeCategories(data))

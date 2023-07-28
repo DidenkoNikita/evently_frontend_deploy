@@ -1,4 +1,4 @@
-export const numberCheck = async (number: string, setCheckNumber: any ): Promise<void> => {
+export const numberCheck = async (number: string): Promise<boolean | void> => {
   const API_URL = process.env.API_URL;
   
   try {
@@ -10,8 +10,7 @@ export const numberCheck = async (number: string, setCheckNumber: any ): Promise
       body: JSON.stringify({number})
     });
     const data = await response.json();
-
-    setCheckNumber(data)    
+    return data
   } catch (e) {
     return console.log(e);
   }

@@ -12,8 +12,6 @@ export const userGet = (): ThunkAction<
 > => async (dispatch): Promise<void | unknown> => {
   try {
     const data = await request('user', {} , 'POST');
-
-    console.log("fuckfuckfuck", data);
         
     if (data !== null) {      
       dispatch(getUser(data));

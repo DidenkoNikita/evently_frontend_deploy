@@ -30,7 +30,6 @@ export const commentSlice = createSlice({
     },
     likeComment: (state, action: PayloadAction<Comment>): Comment[] => {
       const { payload } = action;   
-      console.log('payload id reducer', payload);
          
       return state.map((comment: Comment) => {
         if (comment.id === payload.id) {

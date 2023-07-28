@@ -17,6 +17,7 @@ import { useSelector } from "react-redux";
 import { likePosts } from "@/store/actions/likePost";
 import { Comment } from "@/store/counter/commentSlice";
 import { User } from "@/store/counter/userSlice";
+import { UsersList } from "@/store/counter/usersListSlice";
 
 i18n.init({
   resources,
@@ -35,7 +36,8 @@ interface Post {
 export interface State {
   posts: Post[]
   comments: Comment[],
-  user: User
+  user: User;
+  usersList: UsersList[]
 }
 
 

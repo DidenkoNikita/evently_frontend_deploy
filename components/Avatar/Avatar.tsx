@@ -12,13 +12,12 @@ interface User {
 }
 
 interface UserData {
-  user: User
+  user: User | undefined
 }
 
-export const Avatar = ({user}: UserData): JSX.Element => {
-  console.log('avatar', user);
+export const Avatar = ({user}: UserData): JSX.Element => {  
+  const [stateAwatar, setStateAwatar] = useState<boolean>(false);
   
-  const [stateAwatar, setStateAwatar] = useState<boolean>(false)
   return (
     <button
       onClick={() => setStateAwatar(!stateAwatar)}

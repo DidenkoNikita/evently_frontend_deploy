@@ -22,17 +22,11 @@ i18n.init({
 
 export default function profile(): JSX.Element {
   
-  
-  useEffect(() => {
-    console.log('profile');
-    
+  useEffect(() => {    
     store.dispatch(userGet())
   }, [])
   
-  const user = useSelector((state : State) => state.user);
-
-  console.log('profile', user);
-  
+  const user = useSelector((state : State) => state.user);  
 
   if (user === undefined) {
     return <div>Loading...</div>;

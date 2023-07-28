@@ -16,8 +16,6 @@ export const request = async (patch: string, info: FormData, method: string) => 
 
       const data = await response.json();
 
-      console.log("request::", data);
-
       if (response.status === 200) {
         return data;
       }
@@ -25,12 +23,10 @@ export const request = async (patch: string, info: FormData, method: string) => 
       if (response.status === 201) {
         const accessToken = data;
         sessionStorage.setItem("access_token", JSON.stringify(accessToken));
-        alert("Поцелуй писю");
+        window.location.reload();
       }
 
       if (response.status === 401) {
-        console.log("curwa matka");
-
         window.open("http://localhost:3001/401");
       }
     } catch (e) {

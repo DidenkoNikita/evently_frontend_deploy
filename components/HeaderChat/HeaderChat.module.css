@@ -1,0 +1,84 @@
+.headerWrapper {
+  display: flex;
+  align-items: flex-end;
+  width: 414px;
+  height: 119px;
+  position: fixed;
+  top: -0px;
+  background-color: #FFF;
+}
+
+.header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 414px;
+  height: 60px;
+  padding: 0 24px;
+}
+
+.titleWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 260px;
+}
+
+.title {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 auto;
+  border: none;
+  background-color: white;
+}
+
+.iconButton {
+  display: flex;
+  width: 48px;
+  height: 48px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: white;
+  margin-right: auto;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px; 
+  border-radius: 100px;
+  object-fit: cover;
+}
+
+.fakeAvatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 100px;
+  background-color: #DFC5FF;
+  margin-left: auto;
+  border: none;
+  background-color: white;
+}
+
+.avatarWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  border: none;
+  background-color: white;
+}
+
+.avatarData {
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 20px;
+  font-weight: 600;
+  color: #FFFFFF;
+}

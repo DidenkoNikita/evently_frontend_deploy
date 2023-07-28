@@ -13,14 +13,14 @@ i18n.init({
 
 interface Button {
   activeStep: number;
-  setActiveStep: any;
+  handleNextStep: any;
   openCalendar: boolean;
 }
 
-export const WrapperButtons = ({activeStep, setActiveStep, openCalendar}: Button): JSX.Element => {
+export const WrapperButtons = ({activeStep, handleNextStep, openCalendar}: Button): JSX.Element => {
   return (
     <div className={css.wrapperButtons}>
-      <ButtonNext activeStep={activeStep} setActiveStep={setActiveStep} openCalendar={openCalendar} />
+      <ButtonNext activeStep={activeStep} handleNextStep={handleNextStep} openCalendar={openCalendar} />
       <div className={css.or}>{i18n.t('or')}</div>
       <IconButtons />
     </div>

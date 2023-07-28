@@ -12,7 +12,6 @@ export const updateMood = (userMood: { [key: string]: boolean }): ThunkAction<
 > => async (dispatch): Promise<void | unknown> => {
   try {
     const data = await request('change_mood', {userMood}, 'PUT')
-    console.log(data);
     
     if (data !== null) {
       dispatch(changeMood(data))

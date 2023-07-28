@@ -1,0 +1,32 @@
+.activeWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; 
+  border-radius: 10px;
+  background-color: #F6F6F6;
+  position: fixed;
+  top: 388px;
+}
+
+.wrapper {
+  display: none;
+}
+
+.element {
+  display: flex;
+  width: 147px;
+  height: 48px;
+  padding: 0px 16px;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid #AAAAAA;
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 400; 
+}
+
+.element:last-child {
+  border: none;
+}

@@ -20,7 +20,6 @@ export const SettingsHeader = ({title, link}: Title): JSX.Element => {
       <button
         onClick={() => {
           router.push(link);
-          console.log('click');
         }}
         className={css.iconButton}
       >

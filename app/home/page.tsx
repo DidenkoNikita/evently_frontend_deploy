@@ -23,9 +23,7 @@ i18n.init({
 });
 
 export default function(): JSX.Element {
-  useEffect(() => {
-    console.log('home');
-    
+  useEffect(() => {    
     store.dispatch(getPost())
     store.dispatch(getComment())
     store.dispatch(userGet())

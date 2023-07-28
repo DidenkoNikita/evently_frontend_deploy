@@ -20,9 +20,7 @@ export default function Home(): JSX.Element {
 
   const router = useRouter();
 
-  useEffect(() => {
-    console.log('check remember me');
-    
+  useEffect(() => {    
     checkRememberMe(router);
   })
 

@@ -30,12 +30,8 @@ export const Comments = (): JSX.Element => {
   const id: number = Number(postId.slice(20))
 
   const comments: Comment[] = useSelector((state : State) => state.comments.filter((comment: Comment) => comment?.post_id === id).sort((a, b) => a.id - b.id));
-  
-  console.log('updated comments[]', comments);
-  
-  const handleLike = (comment_id: number) => {
-    console.log('comment_id' ,comment_id);
     
+  const handleLike = (comment_id: number) => {    
     store.dispatch(commentLike(comment_id));
   } 
 
@@ -65,7 +61,6 @@ export const Comments = (): JSX.Element => {
     <div className={css.commentsWrapper}>
       {comments.map((comment: Comment) => {
         const like = comment.like.filter((comment) => comment === userId);
-        console.log(like);        
         return (
           <div 
             key={comment.id}

@@ -7,6 +7,7 @@ import { EyeOn } from '../icons/eyeOn.icon';
 import i18n from "i18next";
 
 import resources from "@/locales/resource";
+import { ButtonNext } from '../ButtonNext/ButtonNext';
 
 i18n.init({
   resources,
@@ -20,6 +21,9 @@ interface CreatePassword {
   setStateVerificationPassword: any;
   click: boolean;
   setClick: any;
+  activeStep: number;
+  openCalendar: boolean;
+  setActiveStep: any;
 }
 
 export const CreatePassword = ({
@@ -28,30 +32,21 @@ export const CreatePassword = ({
   stateVerificationPassword,
   setStateVerificationPassword,
   click,
-  setClick
+  setClick,
+  activeStep,
+  openCalendar,
+  setActiveStep,
 }: CreatePassword): JSX.Element => {
   const [inputType, setInputType] = useState<string>('password');
   const [visibility, setVisibility] = useState<boolean>(false);
   const [inputVerificationType, setInputVerificationType] = useState<string>('password');
   const [visibilityVerification, setVisibilityVerification] = useState<boolean>(false);
-  const [validatePassword, setValidatePassword] = useState<boolean>(false);
-
-  // console.log(validatePassword);
-  
+  const [validatePassword, setValidatePassword] = useState<boolean>(false);  
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const password = e.target.value;
     setStatePassword(password);
-    if (e.target.value.length < 8 || 
-      !/[a-z]/.test(e.target.value) || 
-      !/[A-Z]/.test(e.target.value) || 
-      !/\d/.test(e.target.value) || 
-      !/[\!\@\#\$\%\^\&\*\(\)\-\_\=\+]/.test(e.target.value)
-    ) {
-      setValidatePassword(true);
-    } else {
-      setValidatePassword(false);
-    }
+    setValidatePassword(false);
   };
 
   const handleVerificationPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,10 +54,27 @@ export const CreatePassword = ({
     setStateVerificationPassword(verificationPassword);
   };
 
+  const handleNextStep = () => {
+    if (statePassword.length < 8 || 
+      !/[a-z]/.test(statePassword) || 
+      !/[A-Z]/.test(statePassword) || 
+      !/\d/.test(statePassword) || 
+      !/[\!\@\#\$\%\^\&\*\(\)\-\_\=\+]/.test(statePassword)
+    ) {
+      setValidatePassword(true);
+    } else {
+      setValidatePassword(false);
+    }
+
+    if (!validatePassword && statePassword === stateVerificationPassword) {
+      setActiveStep(++activeStep)
+    }
+  }
+
   return (
     <div className={css.area}>
       <div className={css.header}>{i18n.t('create_password')}</div>
-      <div className={css.wrapper}>
+      <div className={validatePassword ? css.wrapperValidatePassword : css.wrapper}>
         <div className={css.fieldPassvord}>
           <input
             type={inputType}
@@ -129,6 +141,11 @@ export const CreatePassword = ({
           </div>
         </div>
       </div>
+      <ButtonNext
+        activeStep={activeStep}
+        handleNextStep={handleNextStep}
+        openCalendar={openCalendar}
+      />
     </div>
   );
 };

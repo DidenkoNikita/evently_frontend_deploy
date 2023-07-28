@@ -23,7 +23,6 @@ export const CommentsFooter = (): JSX.Element => {
     setPostId(location.pathname)
   }, [])
   const id: number = Number(postId.slice(20))
-  console.log(stateInput);
 
   const handleComment = (text: string, id: number) => {
     if (text.trim() === '') {

@@ -12,9 +12,6 @@ export const likePosts = (post_id: number): ThunkAction<
 > => async (dispatch): Promise<void | unknown> => {
   try {
     const data = await request('posts', {post_id}, 'POST');
-    console.log('post id in action::', post_id);
-    console.log('data in action::', data);
-    
     
     if (data !== null) {
       dispatch(likePost(data));   

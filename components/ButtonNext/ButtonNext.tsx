@@ -11,14 +11,14 @@ i18n.init({
 
 interface Next {
   activeStep: number;
-  setActiveStep: any;
+  handleNextStep: any;
   openCalendar: boolean;
 }
 
-export const ButtonNext = ({activeStep, setActiveStep, openCalendar}: Next): JSX.Element => {
+export const ButtonNext = ({handleNextStep, openCalendar}: Next): JSX.Element => {
   return (
     <button
-      onClick={() => setActiveStep(++activeStep)}
+      onClick={() => handleNextStep()}
       className={openCalendar ? css.closedButton : css.button}
     >
       {i18n.t('next')}

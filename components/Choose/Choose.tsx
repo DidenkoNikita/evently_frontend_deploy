@@ -1,5 +1,7 @@
 import css from './Choose.module.css';
 import { CityInput } from '../CityInput/CityInput';
+import { ButtonNextRequest } from '../ButtonNextRequest/ButtonNextRequest';
+import { ButtonNext } from '../ButtonNext/ButtonNext';
 
 interface Words {
   words: string[];
@@ -8,9 +10,26 @@ interface Words {
   setUser: any;
   activeButtons: string[];
   setActiveButtons: any;
+  activeStep: number;
+  setActiveStep: any;
+  click: boolean;
+  openCalendar: boolean;
+  userData: string | { [key: string]: boolean };
 }
 
-export const Choose = ({ words, header, user, setUser, activeButtons, setActiveButtons }: Words): JSX.Element => {
+export const Choose = ({ 
+  words, 
+  header, 
+  user, 
+  userData,
+  setUser, 
+  activeButtons, 
+  setActiveButtons,
+  activeStep,
+  setActiveStep,
+  click,
+  openCalendar
+}: Words): JSX.Element => {
 
   const handleButtonClick = (word: string) => {
     if (header === 'Сhoose a city') {
@@ -25,6 +44,12 @@ export const Choose = ({ words, header, user, setUser, activeButtons, setActiveB
       buttonClick(word);
     }
   };
+
+  const handleButtonNext = () => {
+    if (Object.keys(userData).length >= 1) {
+      setActiveStep(++activeStep)
+    }
+  }
 
   const buttonClick = (word: string) => {
     if (word === "Don't know") {
@@ -53,24 +78,40 @@ export const Choose = ({ words, header, user, setUser, activeButtons, setActiveB
   };
 
   return (
-    <div className={css.wrapper}>
-      <div className={css.header}>{header}</div>
-      {header === 'Сhoose a city' ? (
-        <CityInput setCity={setUser} city={user.toString()} />
-      ) : (
-        <div></div>
-      )}
-      <div className={css.buttonsWrapper}>
-        {words.map((word) => (
-          <button
-            key={word}
-            className={activeButtons.includes(word) ? css.buttonActive : css.button}
-            onClick={() => handleButtonClick(word)}
-          >
-            {word}
-          </button>
-        ))}
+    <div>
+      <div className={css.wrapper}>
+        <div className={css.header}>{header}</div>
+        {header === 'Сhoose a city' ? (
+          <CityInput setCity={setUser} city={userData.toString()} />
+        ) : (
+          <div></div>
+        )}
+        <div className={css.buttonsWrapper}>
+          {words.map((word) => (
+            <button
+              key={word}
+              className={activeButtons.includes(word) ? css.buttonActive : css.button}
+              onClick={() => handleButtonClick(word)}
+            >
+              {word}
+            </button>
+          ))}
+        </div>
       </div>
+      {
+        activeStep === 6 && userData !== '' ? (
+          <ButtonNextRequest
+            user={user} 
+            click={click}
+          />
+        ) : (
+          <ButtonNext
+            activeStep={activeStep}
+            handleNextStep={handleButtonNext}
+            openCalendar={openCalendar}
+          />
+        )
+      }
     </div>
   );
 };
