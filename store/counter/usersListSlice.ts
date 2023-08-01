@@ -3,9 +3,42 @@ import { initialState } from "../initialState";
 
 export interface UsersList {
   id: number;
-  name: string;
-  link_avatar: string;
   phone: string;
+  name: string;
+  date_of_birth: string;
+  gender: string;
+  city: string;
+  link_avatar: string
+  userCategories: {
+    restaurants: boolean;
+    trade_fairs: boolean;
+    lectures: boolean;
+    cafe: boolean;
+    bars: boolean;
+    sport: boolean;
+    dancing: boolean;
+    games: boolean;
+    quests: boolean;
+    concerts: boolean;
+    parties: boolean;
+    show: boolean;
+    for_free: boolean;
+    cinema: boolean;
+    theaters: boolean;
+  };
+  userMood: {
+    funny: boolean;
+    sad: boolean;
+    gambling: boolean;
+    romantic: boolean;
+    energetic: boolean;
+    festive: boolean;
+    calm: boolean;
+    friendly: boolean;
+    cognitive: boolean;
+    dreamy: boolean;
+    do_not_know: boolean;
+  };
 }
 
 export const usersListSlice = createSlice({

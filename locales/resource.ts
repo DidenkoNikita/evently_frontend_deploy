@@ -172,7 +172,14 @@ const resources = {
       "disable_for_1_day": "Disable for 1 day",
       "disable_for_1_week": "Disable for 1 week",
       "disable_permanently": "Disable permanently",
-      "mute_sound": "Mute sound"
+      "mute_sound": "Mute sound",
+
+      "send_message": "Send a message",
+      "unfriend": "Unfriend",
+      "cancel": "Cancel",
+
+      "my_photo": "My photo",
+      "add_photo": "Add photo",
     }
   }
 }

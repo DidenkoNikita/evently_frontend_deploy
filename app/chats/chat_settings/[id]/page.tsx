@@ -19,6 +19,7 @@ import { More } from "@/components/icons/more.icon";
 import { SearcIcon } from "@/components/icons/searchIcon.icon";
 import { MoreModal } from "@/components/MoreModal/MoreModal";
 import { NotsModal } from "@/components/NotsModal/NotsModal";
+import { useRouter } from "next/navigation";
 
 i18n.init({
   resources,
@@ -78,6 +79,8 @@ export default function ChatSettings(): JSX.Element {
     i18n.t('evets')
   ]
 
+  const router = useRouter();
+
   return (
     <div>
       <SettingsHeader 
@@ -123,6 +126,10 @@ export default function ChatSettings(): JSX.Element {
                       }
                       if (index === 2 && !stateMore) {
                         setStateNots(!stateNots)
+                      }
+
+                      if (index === 0 && !stateNots && !stateMore) {
+                        router.push(`/home/profile/friends/profile_friend/${id}`)
                       }
                     }}
                   >

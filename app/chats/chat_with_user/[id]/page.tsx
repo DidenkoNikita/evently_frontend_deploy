@@ -20,6 +20,7 @@ import { getMessages } from "@/store/actions/getMessages";
 import { IMessage, markMessageAsRead } from "@/store/counter/messageSlice";
 import { getChats } from "@/store/actions/getChats";
 import moment from "moment";
+import { messageIsRead } from "@/store/actions/messageIsRead";
 
 i18n.init({
   resources,
@@ -32,11 +33,6 @@ export default function ChatPage() {
 
   const [chatId, setChatId] = useState<number | null>(null);
 
-  console.log('chat id',chatId);
-  
-
-  console.log(idUser);
-  
   useEffect(() => {
     setUserId(location.pathname);
     store.dispatch(getUserList());
@@ -78,14 +74,19 @@ export default function ChatPage() {
         store.dispatch(getMessages(data))
       });
       socket.on('createMessage', (message) => {
-        console.log("новый чат создан", message);
+        console.log("новое сообщение создано", message);
         store.dispatch(getMessages([message]))
-
-        if (message.userId !== idUser) {
-          // socket.emit('markMessageAsRead', { chatId, userId: idUser });
-          store.dispatch(markMessageAsRead(message.id));
-        }
       });
+
+      socket.on('messageIsRead', (message) => {
+        console.log("сообщение прочитано", message);
+        store.dispatch(markMessageAsRead(message))
+      })
+
+      socket.on('updateChat', (chat) => {
+        console.log("чат обновлён", chat );
+        store.dispatch(getChats(chat))
+      })
     } 
   }, [chatId])
   
@@ -111,6 +112,8 @@ export default function ChatPage() {
       <HeaderChat
         name={userData?.name}
         linkAvatar={userData?.link_avatar}
+        filterMessage={filterMessage}
+        chatId={chatId}
       />
       <div 
         // className={messages.length <= 8 ? css.wrapperHowSomeMessages : css.wrapper} 
@@ -130,6 +133,10 @@ export default function ChatPage() {
                 if (index === 0) return false;
                 return filterMessage[index].user_id !== filterMessage[index - 1].user_id;
               };
+
+              if (message.user_id !== idUser && !message.is_read) {
+                 store.dispatch(messageIsRead(message.id, message.user_id));
+              }
               if (isPreviousMessageDifferentUser(index) && message.user_id === idUser) {
                 return (
                   <div 
@@ -138,7 +145,6 @@ export default function ChatPage() {
                   >
                     <div  className={css.spaceBetweenMessages} />
                     <Message
-                      // key={`message-${message.id}`}
                       text={message.text}
                       date={message.created_at}
                       userId={message.user_id}
@@ -156,7 +162,6 @@ export default function ChatPage() {
                   >
                     <div  className={css.spaceBetweenMessages} />
                     <Message
-                      // key={`message-${message.id}`}
                       text={message.text}
                       date={message.created_at}
                       userId={message.user_id}

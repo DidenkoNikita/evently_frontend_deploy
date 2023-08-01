@@ -23,8 +23,8 @@ i18n.init({
 export default function profile(): JSX.Element {
   
   useEffect(() => {    
-    store.dispatch(userGet())
-  }, [])
+    store.dispatch(userGet());
+  }, []);
   
   const user = useSelector((state : State) => state.user);  
 

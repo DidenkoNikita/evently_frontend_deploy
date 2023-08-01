@@ -1,0 +1,42 @@
+.headerWrapper {
+  display: flex;
+  align-items: flex-end;
+  width: 414px;
+  height: 119px;
+  background-color: #FFF;
+  position: fixed;
+  top: -10px;
+}
+
+.header {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: 414px;
+  height: 60px;
+}
+
+.titleWrapper {
+  display: flex;
+  justify-content: center;
+  width: 260px;
+}
+
+.title {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.iconButton {
+  display: flex;
+  width: 48px;
+  height: 48px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: white;
+  margin-left: 28px;
+}

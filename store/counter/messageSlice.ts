@@ -33,9 +33,9 @@ export const messageSlice = createSlice({
         state.push(action.payload);
       }
     },
-    markMessageAsRead(state, action: PayloadAction<number>) {
+    markMessageAsRead(state, action: PayloadAction<IMessage>) {
       const messageId = action.payload;
-      const message = state.find((message) => message.id === messageId);
+      const message = state.find((message) => message.id === messageId.id);
       if (message) {
         message.is_read = true;
       }

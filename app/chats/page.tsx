@@ -73,6 +73,7 @@ export default function Chats(): JSX.Element {
               key={chat.id} 
               data={chat}
               id={id}
+              chatId={chat.id}
             />
           ))
         ) : (

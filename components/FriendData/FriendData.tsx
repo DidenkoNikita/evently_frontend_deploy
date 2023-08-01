@@ -5,16 +5,21 @@ import i18n from "i18next";
 import resources from "@/locales/resource";
 
 import { City } from '../icons/city.icon';
-import css from './UserData.module.css';
+import css from './FriendData.module.css';
 import { Subscriptions } from "../icons/subscriptions.icon";
 import { RightIcon } from "../icons/rightIcon.icon";
 import { Friends } from "../icons/friends.icon";
 import { PurpleHeart } from "../icons/purpleHeart.icon";
-import { User } from "@/store/counter/userSlice";
 import { useEffect, useState } from "react";
 import { store } from "@/store/store";
 import { userGet } from "@/store/actions/getUser";
+import { UsersList } from "@/store/counter/usersListSlice";
+import { Call } from "../icons/call.icon";
+import { AddFriend } from "../icons/addFirend.icon";
+import { ChatsIcon } from "../icons/chats.icon";
+import { More } from "../icons/more.icon";
 import { useRouter } from "next/navigation";
+import { Star } from "../icons/star.icon";
 
 i18n.init({
   resources,
@@ -22,23 +27,16 @@ i18n.init({
 });
 
 interface UserData {
-  userData: User
+  userData: UsersList | undefined;
+  id: number
 }
 
-export const UserData = ({userData}: UserData): JSX.Element => {
+export const FriendData = ({ userData, id }: UserData): JSX.Element => {
 
-  const [id, setId] = useState<number | null>(null);
-
-  useEffect(() => {
-    store.dispatch(userGet());
-    const userId = JSON.parse(sessionStorage.getItem('user_id') || '');
-    setId(Number(userId));
-  }, []);
+  const [modal, stateModal] = useState<boolean>(false);
 
   const router = useRouter();
 
-  console.log(id);
-  
   const categories: string[] = [
     i18n.t('restaurants'),
     i18n.t('trade_fairs'),
@@ -74,19 +72,57 @@ export const UserData = ({userData}: UserData): JSX.Element => {
   if (!userData || !userData?.userCategories || !userData?.userMood) {
     return <div>Loading...</div>;
   }
-  
+
   return (
-    <div 
+    <div
       className={css.wrapper}
     >
-      <div 
-        className={css.swiper} 
+      <div
+        className={css.swiper}
       />
       <div className={css.dataWrapper}>
-        <div className={css.name}>{userData?.user?.name}</div>
+        <div className={css.nameWrapper}>
+          <div className={css.name}>{userData?.name}</div>
+          <div className={css.iconButtonWrapper}>
+            <button className={css.iconButton}>
+              <Call />
+            </button>
+            <button className={css.iconButton}>
+              <AddFriend />
+            </button>
+          </div>
+        </div>
         <div className={css.city}>
           <City color='black' />
-          {userData?.user?.city}
+          {userData?.city}
+        </div>
+        <div className={css.iconButtonWrapper}>
+          <button
+            className={css.sendMessage}
+            onClick={() => router.push(`/chats/chat_with_user/${id}`)}
+          >
+            <ChatsIcon />
+            <div className={css.titleButton}>
+              {i18n.t('send_message')}
+            </div>
+          </button>
+          <button 
+            className={css.iconButton}
+            onClick={() => stateModal(!modal)}
+          >
+            <More />
+          </button>
+        </div>
+        <div className={modal ? css.activeModal : css.modal}>
+          <button className={css.unfriendButton}>
+            {i18n.t('unfriend')}
+          </button>
+          <button 
+            className={css.cancelButton}
+            onClick={() => stateModal(!modal)}
+          >
+            {i18n.t('cancel')}
+          </button>
         </div>
         <div className={css.wrapperCategoriesOrMood}>
           <div
@@ -100,7 +136,7 @@ export const UserData = ({userData}: UserData): JSX.Element => {
                 const word = category.replace(/\s/g, '_').toLowerCase()
                 if (userData.userCategories[word as keyof typeof userData.userCategories] === true) {
                   return (
-                    <div 
+                    <div
                       key={key}
                       className={css.card}
                     >
@@ -130,7 +166,7 @@ export const UserData = ({userData}: UserData): JSX.Element => {
                   }
                   if (userData.userMood[word] === true) {
                     return (
-                      <div 
+                      <div
                         key={key}
                         className={css.card}
                       >
@@ -147,7 +183,7 @@ export const UserData = ({userData}: UserData): JSX.Element => {
                   }
                   if (userData.userMood[word as keyof typeof userData.userMood] === true) {
                     return (
-                      <div 
+                      <div
                         key={key}
                         className={css.card}
                       >
@@ -199,11 +235,11 @@ export const UserData = ({userData}: UserData): JSX.Element => {
         </div>
         <div className={css.wrap}>
           <div className={css.area}>
-            <PurpleHeart />
+            <Star />
             <div
               className={css.type}
             >
-              {i18n.t('favourites')}
+              {i18n.t('evets')}
             </div>
           </div>
           <div className={css.quantityWrapper}>
@@ -216,11 +252,11 @@ export const UserData = ({userData}: UserData): JSX.Element => {
         <div className={css.areaData}>
           <div className={css.wrapperData}>
             <div className={css.dataType}>{i18n.t('city')}</div>
-            <div className={css.data}>{userData?.user?.city}</div>
+            <div className={css.data}>{userData?.city}</div>
           </div>
           <div className={css.wrapperData}>
             <div className={css.dataType}>{i18n.t('phone_number')}</div>
-            <div className={css.specialData}>{userData?.user?.phone}</div>
+            <div className={css.specialData}>{userData?.phone}</div>
           </div>
           <div className={css.wrapperData}>
             <div className={css.dataType}>{i18n.t('email')}</div>
@@ -228,11 +264,11 @@ export const UserData = ({userData}: UserData): JSX.Element => {
           </div>
           <div className={css.wrapperData}>
             <div className={css.dataType}>{i18n.t('date_of_birth')}</div>
-            <div className={css.data}>{userData?.user?.date_of_birth}</div>
+            <div className={css.data}>{userData?.date_of_birth}</div>
           </div>
           <div className={css.wrapperData}>
             <div className={css.dataType}>{i18n.t('gender')}</div>
-            <div className={css.data}>{userData?.user?.gender}</div>
+            <div className={css.data}>{userData?.gender}</div>
           </div>
         </div>
       </div>

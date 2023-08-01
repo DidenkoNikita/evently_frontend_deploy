@@ -1,8 +1,10 @@
 'use client';
 
-interface Title {
+interface Data {
   name: string | undefined;
   linkAvatar: string | undefined;
+  filterMessage: IMessage[];
+  chatId: number | null;
 }
 
 import { useRouter } from 'next/navigation';
@@ -11,8 +13,10 @@ import { Back } from '../icons/back.icon';
 import { useEffect, useState } from 'react';
 import { getUserList } from '@/store/actions/getUserList';
 import { store } from '@/store/store';
+import { IMessage } from '@/store/counter/messageSlice';
+import { deleteChat } from '@/store/actions/deleteChat';
 
-export const HeaderChat = ({name, linkAvatar}: Title): JSX.Element => {
+export const HeaderChat = ({name, linkAvatar, filterMessage, chatId}: Data): JSX.Element => {
   const [userId, setUserId] = useState<string>('');
   const router = useRouter();
 
@@ -29,7 +33,12 @@ export const HeaderChat = ({name, linkAvatar}: Title): JSX.Element => {
     <div className={css.header}>
       <button
         onClick={() => {
-          router.push('/chats');
+          if (filterMessage.length > 0) {
+            router.push('/chats');
+          } else {
+            store.dispatch(deleteChat(chatId))
+            router.push('/chats');
+          }
         }}
         className={css.iconButton}
       >

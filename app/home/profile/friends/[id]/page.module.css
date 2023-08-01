@@ -1,11 +1,8 @@
-.header {
-  position: fixed;
-}
-
 .wrapper {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
 .search {
@@ -33,28 +30,4 @@
   height: 48px;
   justify-content: center;
   align-items: center; 
-}
-
-.chatsList {
-  padding-bottom: 100px;
-}
-
-.input {
-  width: 305px;
-  height: 44px;
-  border: none;
-  background-color: #F6F6F6;
-  font-size: 14px;
-  font-family: Montserrat;
-  color: #000;
-}
-
-.input::-webkit-input-placeholder {
-  font-size: 14px;
-  font-family: Montserrat;
-  color: #000;
-}
-
-.input:focus {
-  outline: none !important;
 }

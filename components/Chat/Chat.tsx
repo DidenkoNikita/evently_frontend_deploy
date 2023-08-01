@@ -11,6 +11,8 @@ import { useState } from "react";
 import { IChat } from "@/store/counter/chatSLice";
 import { useRouter } from "next/navigation";
 import { DoubleCheckmark } from "../icons/doubleCheckmark.icon";
+import { store } from "@/store/store";
+import { deleteChat } from "@/store/actions/deleteChat";
 
 i18n.init({
   resources,
@@ -20,13 +22,15 @@ i18n.init({
 interface Data {
   data: IChat;
   id: number | null;
+  chatId: number
 }
 
-export const Chat = ({data, id}: Data): JSX.Element => {
+export const Chat = ({data, id, chatId}: Data): JSX.Element => {
   const [isDoubleClicked, setIsDoubleClicked] = useState(false);
 
-  const handleDoubleClick = () => {
-    setIsDoubleClicked(!isDoubleClicked);
+  const handleDoubleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setIsDoubleClicked(true);
   };
 
   const userId = data.users_id.find((user_id) => user_id !== id);
@@ -40,8 +44,12 @@ export const Chat = ({data, id}: Data): JSX.Element => {
       <div className={css.chatWrapper}>
         <button 
           className={css.chat} 
-          onClick={() => router.push(`/chats/chat_with_user/${userId}`) }
-          onDoubleClick={handleDoubleClick}
+          onClick={() => {
+            if (!isDoubleClicked) {
+              router.push(`/chats/chat_with_user/${userId}`);
+            }
+          }}
+          onContextMenu={handleDoubleClick}
         >
           {
             data.link_avatar === null ? (
@@ -67,12 +75,12 @@ export const Chat = ({data, id}: Data): JSX.Element => {
             <div className={css.timeWrapper}>
               <div className={css.wrap}>
                 {
-                  id === data.userId ? <DoubleCheckmark color="#E3F563" /> : null
+                  id === data.userId ? (data.isReadMessage ? <DoubleCheckmark color="#E3F563" /> : <DoubleCheckmark color="#AAAAAA" />) : null
                 }
                 <div className={css.time}>{data.timeMessage}</div>
               </div>
               {                
-                id === data.userId || !data.userId ? null  : <div className={css.newMessage}>0</div>
+                id === data.userId || !data.userId ? null  : <div className={css.newMessage}>{data.unreadMessages}</div>
               }
             </div>
           </div>
@@ -81,7 +89,7 @@ export const Chat = ({data, id}: Data): JSX.Element => {
           <>
             <button 
               className={css.mute}
-              onClick={() => setIsDoubleClicked(!isDoubleClicked)}
+              onClick={() => setIsDoubleClicked(false)}
             >
               <Mute />
               <div className={css.muteText}>
@@ -90,7 +98,10 @@ export const Chat = ({data, id}: Data): JSX.Element => {
             </button>
             <button 
               className={css.delete}
-              onClick={() => setIsDoubleClicked(!isDoubleClicked)}
+              onClick={() => {
+                setIsDoubleClicked(false);
+                store.dispatch(deleteChat(chatId))
+              }}
             >
               <Delete />
               <div className={css.deleteText}>

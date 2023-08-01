@@ -3,3 +3,47 @@
   height: 896px;
   background: repeat url('../../../../../public/backgroundComments.png');
 }
+
+.avatarWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 26px; 
+  margin-top: 20px
+}
+
+.avatarData {
+  display: flex;
+  width: 345px;
+  height: 650px;
+  justify-content: center;
+  align-items: center; 
+  border-radius: 20px;
+  background-color: #DFC5FF;
+  font-family: Montserrat;
+  font-size: 128px;
+  font-weight: 900; 
+  color: #FFFFFF;
+}
+
+.button {
+  display: flex;
+  width: 345px;
+  height: 48px;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 10px;
+  background-color: #E3F563;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 400; 
+}
+
+.avatar {
+  width: 345px;
+  height: 650px;
+  border-radius: 20px;
+  object-fit: cover;
+}

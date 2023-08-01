@@ -19,7 +19,7 @@ export const HeaderCategoriesOrMood = ({title}: Title): JSX.Element => {
     <div className={css.headerWrapper}>
       <div className={css.header}>
         <button
-          onClick={() => router.push('/home/profile/profile_settings')}
+          onClick={() => router.back()}
           className={css.iconButton}
         >
           <Back />
