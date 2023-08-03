@@ -1,3 +1,11 @@
 .wrapper {
   background: repeat url('../../../public/backgroundComments.png');
 }
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}

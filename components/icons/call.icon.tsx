@@ -1,4 +1,8 @@
-export const Call = (): JSX.Element => {
+interface Props {
+  color: string;
+}
+
+export const Call = ({color}: Props): JSX.Element => {
   return (
     <svg 
       width="25" 
@@ -9,13 +13,13 @@ export const Call = (): JSX.Element => {
     >
       <path 
         d="M17.1925 10.2726C16.9509 9.61627 16.5742 9.01789 16.0869 8.51618C15.5995 8.01447 15.0124 7.62058 14.3633 7.35999" 
-        stroke="black" 
+        stroke={color}
         strokeWidth="2" 
         strokeLinecap="round"
       />
       <path 
         d="M21.1931 9.6706C20.7842 8.1446 19.9808 6.75312 18.8637 5.63601C17.7466 4.5189 16.3551 3.71553 14.8291 3.30664" 
-        stroke="black" 
+        stroke={color}
         strokeWidth="2" 
         strokeLinecap="round"
       />
@@ -23,7 +27,7 @@ export const Call = (): JSX.Element => {
         fillRule="evenodd" 
         clipRule="evenodd" 
         d="M10.0452 8.64285C10.4486 10.1006 9.99484 11.6214 9.0005 12.5588C8.81197 12.7366 8.75121 13.0239 8.89933 13.2365C9.21461 13.6891 9.57318 14.1194 9.97524 14.5217C10.3767 14.9235 10.8059 15.2819 11.2574 15.5971C11.4706 15.7459 11.7588 15.6841 11.9363 15.4941C12.8721 14.4918 14.3974 14.033 15.8591 14.4382C17.8294 14.9843 18.9384 16.8932 18.336 18.7018C16.571 24.0017 9.77545 18.7486 7.76351 16.7351C5.70294 14.673 0.530527 7.91654 5.78475 6.16411C7.59201 5.5613 9.49946 6.67108 10.0452 8.64285Z" 
-        stroke="black" 
+        stroke={color}
         strokeWidth="2"
       />
     </svg> 

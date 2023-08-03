@@ -8,7 +8,8 @@ export interface UsersList {
   date_of_birth: string;
   gender: string;
   city: string;
-  link_avatar: string
+  link_avatar: string;
+  friends_id: number[];
   userCategories: {
     restaurants: boolean;
     trade_fairs: boolean;

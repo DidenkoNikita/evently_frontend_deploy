@@ -1,0 +1,14 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px; 
+}
+
+.animation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: auto;
+}

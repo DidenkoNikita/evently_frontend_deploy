@@ -76,7 +76,8 @@ export const Footer = (): JSX.Element => {
                 (pathName === '/chats/write_a_message' && navigateButton.link === '/chats') ||
                 (/^\/chats\/chat_settings\/\d+$/.test(pathName) && navigateButton.link === '/chats') ||
                 (/^\/home\/profile\/friends\/profile_friend\/\d+$/.test(pathName) && navigateButton.link === '/home/profile') ||
-                (/^\/home\/profile\/friends\/\d+$/.test(pathName)&& navigateButton.link === '/home/profile')
+                (/^\/home\/profile\/friends\/\d+$/.test(pathName)&& navigateButton.link === '/home/profile') ||
+                (pathName === '/home/notifications' && navigateButton.link === '/home')
                 ? css.activeNavigateButton : css.navigateButton
               }
               onClick={() => {

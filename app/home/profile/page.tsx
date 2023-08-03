@@ -14,6 +14,7 @@ import { State } from "@/components/Post/Post";
 import { useEffect } from "react";
 import { store } from "@/store/store";
 import { userGet } from "@/store/actions/getUser";
+import { LoadingComponent } from "@/components/Loading/Loading";
 
 i18n.init({
   resources,
@@ -28,8 +29,15 @@ export default function profile(): JSX.Element {
   
   const user = useSelector((state : State) => state.user);  
 
-  if (user === undefined) {
-    return <div>Loading...</div>;
+  console.log('aaaaaaaaa',user.user);
+  
+
+  if (user.user === undefined) {
+    return (
+      <div className={css.loading}>
+        <LoadingComponent />
+      </div>
+    )
   }
 
   

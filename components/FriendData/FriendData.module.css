@@ -272,3 +272,21 @@
   font-size: 16px;
   font-weight: 600; 
 }
+
+.activeAlert {
+  display: flex;
+  width: 112px;
+  padding: 10px;
+  align-items: center; 
+  margin-left: auto;
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: 600;
+  color: black;
+  border-radius: 20px 10px 20px 20px; 
+  background-color: #DFC5FF;
+}
+
+.alert {
+  display: none;
+}

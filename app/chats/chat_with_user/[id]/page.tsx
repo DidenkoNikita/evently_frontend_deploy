@@ -107,6 +107,7 @@ export default function ChatPage() {
   const isDifferentDate = (currentDate: moment.Moment, previousDate: moment.Moment) => {
     return !currentDate.isSame(previousDate, "day");
   };
+
   return (
     <div className={css.chatWrapper}>
       <HeaderChat

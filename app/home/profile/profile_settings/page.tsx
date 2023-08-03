@@ -14,6 +14,7 @@ import { userGet } from "@/store/actions/getUser";
 import { useSelector } from "react-redux";
 import { State } from "@/components/Post/Post";
 import { useRouter } from "next/navigation";
+import { LoadingComponent } from "@/components/Loading/Loading";
 
 i18n.init({
   resources,
@@ -38,7 +39,7 @@ export default function profileSettings(): JSX.Element {
   }, [])
   
   if (!user) {
-    return <div>Loading...</div>;
+    return <LoadingComponent />;
   }
   return (
     <div className={css.wrapper}>
@@ -48,7 +49,7 @@ export default function profileSettings(): JSX.Element {
           <div
             className={css.text}
           >
-            {i18n.t('change_photo')}
+            {i18n.t('my_photo')}
           </div>
           <button 
             onClick={() => {router.push('/home/profile/profile_settings/change_photo')}}

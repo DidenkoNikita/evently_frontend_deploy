@@ -41,3 +41,31 @@
   font-weight: 600;
   margin-top: 250px;
 }
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.input {
+  width: 305px;
+  height: 44px;
+  border: none;
+  background-color: #F6F6F6;
+  font-size: 14px;
+  font-family: Montserrat;
+  color: #000;
+}
+
+.input::-webkit-input-placeholder {
+  font-size: 14px;
+  font-family: Montserrat;
+  color: #000;
+}
+
+.input:focus {
+  outline: none !important;
+}

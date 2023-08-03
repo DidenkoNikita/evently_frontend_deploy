@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 import { store } from "@/store/store";
 import { userGet } from "@/store/actions/getUser";
 import { useRouter } from "next/navigation";
+import { LoadingComponent } from "../Loading/Loading";
 
 i18n.init({
   resources,
@@ -72,7 +73,7 @@ export const UserData = ({userData}: UserData): JSX.Element => {
   ];
 
   if (!userData || !userData?.userCategories || !userData?.userMood) {
-    return <div>Loading...</div>;
+    return <LoadingComponent />;
   }
   
   return (

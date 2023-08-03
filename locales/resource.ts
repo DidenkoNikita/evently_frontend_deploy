@@ -180,6 +180,23 @@ const resources = {
 
       "my_photo": "My photo",
       "add_photo": "Add photo",
+
+      "loading1": "Loading.",
+      "loading2": "Loading..",
+      "loading3": "Loading...",
+
+      "general": "General",
+      "dating": "Dating",
+      "requests": "Requests",
+
+      "add": "Add",
+      "reject": "Reject",
+
+      "general_notifications": "You don't have general notifications...",
+      "dating_notifications": "You don't have dating notifications...",
+      "request_friends": "You don't have request notifications...",
+      "request": "Request successfully sent!",
+      "new_frind_requests": " new friend requests"
     }
   }
 }

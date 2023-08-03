@@ -9,10 +9,7 @@ import css from './FriendData.module.css';
 import { Subscriptions } from "../icons/subscriptions.icon";
 import { RightIcon } from "../icons/rightIcon.icon";
 import { Friends } from "../icons/friends.icon";
-import { PurpleHeart } from "../icons/purpleHeart.icon";
 import { useEffect, useState } from "react";
-import { store } from "@/store/store";
-import { userGet } from "@/store/actions/getUser";
 import { UsersList } from "@/store/counter/usersListSlice";
 import { Call } from "../icons/call.icon";
 import { AddFriend } from "../icons/addFirend.icon";
@@ -20,6 +17,9 @@ import { ChatsIcon } from "../icons/chats.icon";
 import { More } from "../icons/more.icon";
 import { useRouter } from "next/navigation";
 import { Star } from "../icons/star.icon";
+import { LoadingComponent } from "../Loading/Loading";
+import { createRequestInFriendship } from "@/requests/createRequestInFriendship";
+import { Friend } from "../icons/friend.icon";
 
 i18n.init({
   resources,
@@ -32,10 +32,17 @@ interface UserData {
 }
 
 export const FriendData = ({ userData, id }: UserData): JSX.Element => {
-
   const [modal, stateModal] = useState<boolean>(false);
+  const [activeAlert, setActiveAlert] = useState<boolean>(false);
+
+  const [userId, setUserId] = useState<number | null>(null);
 
   const router = useRouter();
+
+  useEffect(() => {
+    const user_id = JSON.parse(sessionStorage.getItem('user_id') || '');
+    setUserId(Number(user_id))
+  }, [])
 
   const categories: string[] = [
     i18n.t('restaurants'),
@@ -70,9 +77,15 @@ export const FriendData = ({ userData, id }: UserData): JSX.Element => {
   ];
 
   if (!userData || !userData?.userCategories || !userData?.userMood) {
-    return <div>Loading...</div>;
+    return <LoadingComponent />;
   }
 
+  console.log(userData);
+  
+  const checkUserId = userData.friends_id.find((i) => i === userId)
+
+  console.log('checkUserId', checkUserId);
+  
   return (
     <div
       className={css.wrapper}
@@ -85,16 +98,28 @@ export const FriendData = ({ userData, id }: UserData): JSX.Element => {
           <div className={css.name}>{userData?.name}</div>
           <div className={css.iconButtonWrapper}>
             <button className={css.iconButton}>
-              <Call />
+              <Call 
+                color='black'
+              />
             </button>
-            <button className={css.iconButton}>
-              <AddFriend />
+            <button 
+              className={css.iconButton}
+              onClick={() => {
+                if (!checkUserId) {
+                  createRequestInFriendship(userData.id, setActiveAlert)
+                }
+              }}
+            >
+              {checkUserId ? <Friend /> : <AddFriend />}
             </button>
           </div>
         </div>
         <div className={css.city}>
           <City color='black' />
           {userData?.city}
+          <div className={activeAlert ? css.activeAlert : css.alert}>
+            {i18n.t('request')}
+          </div>
         </div>
         <div className={css.iconButtonWrapper}>
           <button
@@ -227,7 +252,7 @@ export const FriendData = ({ userData, id }: UserData): JSX.Element => {
             <div className={css.quantity}>548</div>
             <button 
               className={css.button}
-              onClick={() => router.push(`/home/profile/friends/${id}`)}
+              // onClick={() => router.push(`/home/profile/friends/${id}`)}
             >
               <RightIcon />
             </button>

@@ -1,0 +1,13 @@
+.text {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 99px;
+  font-family: Montserrat;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600; 
+  background: linear-gradient(101deg, #DFC5FF 0%, #ECE0EA 100%); 
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

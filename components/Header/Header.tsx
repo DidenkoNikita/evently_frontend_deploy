@@ -12,9 +12,6 @@ import { Acquaintance } from '../icons/acquaintance.icon';
 import { Filter } from '../icons/filter.icon';
 import { Map } from '../icons/map.icon';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
-import { userGet } from '@/store/actions/getUser';
-import { store } from '@/store/store';
 import { useSelector } from 'react-redux';
 import { State } from '../Post/Post';
 
@@ -32,7 +29,7 @@ export const Header = ():JSX.Element => {
   const icons: (Button)[] = [
     { 
       icon: <Notification />,
-      link: '/notifikation'
+      link: '/home/notifications'
     }, 
     { 
       icon : <Acquaintance />,

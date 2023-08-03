@@ -15,6 +15,7 @@ import { Footer } from "@/components/Footer/Footer";
 import css from './page.module.css';
 import { Avatar } from "@/components/Avatar/Avatar";
 import { FriendData } from "@/components/FriendData/FriendData";
+import { LoadingComponent } from "@/components/Loading/Loading";
 
 i18n.init({
   resources,
@@ -40,7 +41,15 @@ export default function ProfileFriend (): JSX.Element {
   
 
   const user = userList.find((u) => u.id === id)
-  console.log(user);
+  console.log('fuck', user);
+
+  if (user === undefined) {
+    return (
+      <div className={css.loading}>
+        <LoadingComponent />
+      </div>
+    )
+  }
   
   return (
     <div>

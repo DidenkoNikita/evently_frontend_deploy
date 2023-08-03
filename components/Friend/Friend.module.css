@@ -1,0 +1,112 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px; 
+}
+
+.wrapper:last-child {
+  margin-bottom: 100px;
+}
+
+.wrapperData {
+  display: flex;
+  /* width: 365px; */
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px; 
+}
+
+.wrap {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  width: 170px;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px; 
+  border-radius: 100px;
+  /* margin-left: -4px; */
+  object-fit: cover;
+}
+
+.name {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 600; 
+}
+
+.fakeAvatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 100px;
+  background-color: #DFC5FF;
+}
+
+.avatarData {
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 20px;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.line {
+  width: 305px;
+  height: 1px;
+  background-color: #F6F6F6;
+  margin: 0 auto 10px auto;
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 5px;
+  margin-left: 70px;
+}
+
+.call {
+  display: flex;
+  width: 48px;
+  height: 48px;
+  justify-content: center;
+  align-items: center; 
+  border: none;
+  border-radius: 10px;
+  background-color: #FFFFFF;
+}
+
+.button {
+  display: flex;
+  width: 48px;
+  height: 48px;
+  justify-content: center;
+  align-items: center; 
+  border: none;
+  border-radius: 10px;
+  background-color: #DFC5FF;
+}
+
+.delete {
+  display: flex;
+  width: 68px;
+  height: 48px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px; 
+  border: none;
+  border-radius: 5px;
+  background-color: #EB5757;
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: 400; 
+  color: #FFFFFF;
+}

@@ -1,0 +1,79 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px; 
+}
+
+.wrapper:last-child {
+  margin-bottom: 115px;
+}
+
+.wrapperData {
+  display: flex;
+  width: 345px;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px; 
+}
+
+.avatar {
+  width: 48px;
+  height: 48px; 
+  border-radius: 100px;
+  margin-left: -4px;
+  object-fit: cover;
+}
+
+.name {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 600; 
+}
+
+.buttonsWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.add,
+.reject {
+  display: flex;
+  width: 170px;
+  height: 48px;
+  justify-content: center;
+  align-items: center; 
+  border: none;
+  border-radius: 10px;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 400; 
+}
+
+.add {
+  background-color: #E3F563;
+}
+
+.reject {
+  background-color: #DFC5FF;
+}
+
+.fakeAvatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 100px;
+  background-color: #DFC5FF;
+}
+
+.avatarData {
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 20px;
+  font-weight: 600;
+  color: #FFFFFF;
+}

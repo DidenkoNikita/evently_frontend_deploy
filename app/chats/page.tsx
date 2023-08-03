@@ -18,6 +18,7 @@ import { useSelector } from "react-redux";
 import { State } from "@/store/initialState";
 import { getChats } from "@/store/actions/getChats";
 import { IChat } from "@/store/counter/chatSLice";
+import { LoadingComponent } from "@/components/Loading/Loading";
 
 i18n.init({
   resources,
@@ -25,8 +26,7 @@ i18n.init({
 });
 
 export default function Chats(): JSX.Element {
-  const [chatsData, setChatsData] = useState<IChat[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState<string>('');
   const [id, setId] = useState<number | null>(null);
 
   useEffect(() => {
@@ -36,7 +36,7 @@ export default function Chats(): JSX.Element {
     socket.emit('getChats', userId);
     socket.on('chatData', (data) => {
       console.log("данные полученные с сервера", data);
-      setLoading(false);
+      // setLoading(false);
       store.dispatch(getChats(data));
     });
 
@@ -50,6 +50,21 @@ export default function Chats(): JSX.Element {
   const chats = useSelector((state: State) => state.chats);
   console.log('slsll', chats);
 
+  // if (chats.length === 0) {
+  //   return (
+  //     <div className={css.loading}>
+  //       <LoadingComponent />
+  //     </div>
+  //   )
+  // }
+
+  const filteredChat = chats.filter((chat) =>
+    chat.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  console.log('filtered chat',filteredChat);
+  
+
   return (
     <div className={css.wrapper}>
       <HeaderChats 
@@ -57,27 +72,36 @@ export default function Chats(): JSX.Element {
         title={i18n.t('chats')} 
       />
       <div className={css.search}>
-        <div className={css.title}>
-          {i18n.t('search2')}
-        </div>
+        <input
+          className={css.input}
+          placeholder={i18n.t('search2')}
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
         <div className={css.icon}>
           <Search />
         </div>
       </div>
       <div className={css.chatsList}>
-        {loading ? (
-          <div>Loading...</div>
-        ) : chats.length > 0 ? (
-          chats.map((chat) => (
-            <Chat 
-              key={chat.id} 
-              data={chat}
-              id={id}
-              chatId={chat.id}
-            />
-          ))
+        {chats.length > 0 ? (
+          filteredChat.length > 0 ? (
+            filteredChat.map((chat) => (
+              <Chat 
+                key={chat.id} 
+                data={chat}
+                id={id}
+                chatId={chat.id}
+              />
+            ))
+          ) : (
+            <div className={css.text}>
+              You don't have this chat...
+            </div>
+          )
         ) : (
-          <div className={css.text}>You don't have any chats yet...</div>
+          <div className={css.text}>
+            You don't have any chats yet...
+          </div>
         )}
       </div>
       <Footer />

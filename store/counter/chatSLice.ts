@@ -12,6 +12,7 @@ export interface IChat {
   textMessage: string;
   timeMessage: string;
   unreadMessages: number;
+  updated_at: Date
 }
 
 export interface Chat {
@@ -45,7 +46,6 @@ export const chatSlice = createSlice({
           }
         });
       }
- 
     },
     addChat: (state, action: PayloadAction<IChat>): void => {
       const { payload } = action;
@@ -58,7 +58,7 @@ export const chatSlice = createSlice({
       console.log(payload);
       const [chatPayload] = payload;
       console.log(chatPayload);
-      
+
       const updatedState = state.map((chat: IChat) => {
         if (chat.id === chatPayload.id) {
           return chatPayload;
@@ -69,11 +69,11 @@ export const chatSlice = createSlice({
       state.splice(0, state.length, ...updatedState);
     },
 
-    removeChat: (state, action: PayloadAction<IChat>): IChat[] =>  {
+    removeChat: (state, action: PayloadAction<IChat>): IChat[] => {
       const { payload } = action;
-      // Возвращаем новый массив, удаляя из него чат с указанным id
-      state = state.filter((chat) => chat.id !== payload.id);
       
+      state = state.filter((chat) => chat.id !== payload.id);
+
       return state
     },
   }

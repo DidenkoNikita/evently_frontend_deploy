@@ -7,7 +7,7 @@
 
 .search {
   display: flex;
-  width: 317px;
+  width: 337px;
   height: 48px;
   padding: 0px 8px 0px 20px;
   justify-content: space-between;
@@ -30,4 +30,31 @@
   height: 48px;
   justify-content: center;
   align-items: center; 
+}
+
+.wrapperFriends {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* gap: 5px; */
+}
+
+.input {
+  width: 305px;
+  height: 44px;
+  border: none;
+  background-color: #F6F6F6;
+  font-size: 14px;
+  font-family: Montserrat;
+  color: #000;
+}
+
+.input::-webkit-input-placeholder {
+  font-size: 14px;
+  font-family: Montserrat;
+  color: #000;
+}
+
+.input:focus {
+  outline: none !important;
 }

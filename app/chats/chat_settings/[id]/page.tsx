@@ -20,6 +20,7 @@ import { SearcIcon } from "@/components/icons/searchIcon.icon";
 import { MoreModal } from "@/components/MoreModal/MoreModal";
 import { NotsModal } from "@/components/NotsModal/NotsModal";
 import { useRouter } from "next/navigation";
+import { LoadingComponent } from "@/components/Loading/Loading";
 
 i18n.init({
   resources,
@@ -48,13 +49,15 @@ export default function ChatSettings(): JSX.Element {
 
   const user = userList.find((u) => u.id === id);
 
+  console.log('user', userList);
+
   const arrIcon = [
     {
       icon: <ProfileIcon />,
       title: i18n.t('profile')
     },
     {
-      icon: <Call />,
+      icon: <Call color='black' />,
       title: i18n.t('call')
     },
     {
@@ -79,7 +82,17 @@ export default function ChatSettings(): JSX.Element {
     i18n.t('evets')
   ]
 
+  console.log(user);
+  
   const router = useRouter();
+
+  if (user === undefined) {
+    return (
+      <div className={css.loading}>
+        <LoadingComponent />
+      </div>
+    )
+  }
 
   return (
     <div>
@@ -94,7 +107,7 @@ export default function ChatSettings(): JSX.Element {
         >
           <div className={stateAwatar ? css.bigAvatar : css.avatar}>
             {
-              user?.link_avatar === '' ? (
+              user?.link_avatar === null ? (
                 <div className={stateAwatar ? css.bigAvatarData : css.avatarData}> 
                   {user?.name.slice(0, 1)}
                 </div>
