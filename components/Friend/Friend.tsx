@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import css from './Friend.module.css';
 
 import i18n from "i18next";
@@ -11,6 +10,10 @@ import { ChatsIcon } from '../icons/chats.icon';
 import { Delete } from '../icons/delete.icon';
 import { UsersList } from '@/store/counter/usersListSlice';
 import { useRouter } from 'next/navigation';
+import { useSelector } from 'react-redux';
+import { State } from '@/store/initialState';
+import { store } from '@/store/store';
+import { createChat } from '@/store/actions/createChat';
 
 i18n.init({
   resources,
@@ -23,7 +26,14 @@ interface Props {
 
 export const Friend = ({data}: Props): JSX.Element => {
   // const [activeButtons, setActiveButtons] = useState<boolean>(false);
+  console.log(data);
 
+  const chats = useSelector((state: State) => state.chats);
+  console.log(chats);
+  
+  const filteredChat = chats.find((chat) => chat.users_id.includes(data.id));
+  console.log('check chat', filteredChat);
+  
   const router = useRouter();
 
   return (
@@ -58,7 +68,14 @@ export const Friend = ({data}: Props): JSX.Element => {
           </button>
           <button 
             className={css.button}
-            onClick={() => router.push(`/chats/chat_with_user/${data.id}`)}
+            onClick={() => {
+              if (filteredChat) {
+                router.push(`/chats/chat_with_user/${data.id}`);
+              } else {
+                store.dispatch(createChat(data.id))
+                router.push(`/chats/chat_with_user/${data.id}`)
+              }
+            }}
           >
             <ChatsIcon />
           </button>

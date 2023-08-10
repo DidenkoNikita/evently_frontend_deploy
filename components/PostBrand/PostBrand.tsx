@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import css from './Post.module.css'
+import css from './PostBrand.module.css'
 import { Heart } from "../icons/heart.icon";
 import { Message } from "../icons/message.icon";
 import { Forward } from "../icons/forward.icon";
@@ -18,30 +18,20 @@ import { likePosts } from "@/store/actions/likePost";
 import { Comment } from "@/store/counter/commentSlice";
 import { User } from "@/store/counter/userSlice";
 import { UsersList } from "@/store/counter/usersListSlice";
+import { Post } from "@/store/counter/postsSlice";
+import { State } from "@/store/initialState";
+import { getSubscriptions } from "@/store/actions/getSubscription";
 
 i18n.init({
   resources,
   lng: "en"
 });
 
-interface Post {
-  id: number;
-  link_photo: string;
-  link_avatar: string;
-  user_name: string;
-  title: string;
-  like: number[];
+interface Props {
+  id: number
 }
 
-export interface State {
-  posts: Post[]
-  comments: Comment[],
-  user: User;
-  usersList: UsersList[]
-}
-
-
-export const Post = (): JSX.Element => {
+export const PostBrand = ({id}: Props): JSX.Element => {
   const [expandedPostId, setExpandedPostId] = useState<number | null>(null);
   const [stateUserId, setStateUserId] = useState<number | string>('');
   const router = useRouter()
@@ -53,6 +43,7 @@ export const Post = (): JSX.Element => {
     } else {
       setStateUserId(JSON.parse(user_id || ''));
     }
+    store.dispatch(getSubscriptions());
   }, [])
 
 
@@ -64,20 +55,26 @@ export const Post = (): JSX.Element => {
     }
   };
 
+  const subscriptions = useSelector((state: State) => state.subscription);
+
   const handleLike = (post_id: number) => {    
     store.dispatch(likePosts(post_id));
   } 
 
   const posts: Post[] = useSelector((state : State) => state.posts);
+  const filteredPosts = posts.filter((post) => post.brand_id === id)
+
   const comments: Comment[] = useSelector((state : State) => state.comments);
+
+  console.log(posts);
+  const filterSupscription = subscriptions.find((subscription) => subscription.brand_id === id);
 
   return (
     <div className={css.wrapper}>
       {
-        posts.map((post: Post) => {
+        filteredPosts.map((post: Post) => {
           const id = post.like.includes(Number(stateUserId))
           const commentsFilter =  comments.filter((comment: Comment) => comment.post_id === post.id)
-          
           return (
           <div
             key={post.id}
@@ -93,10 +90,15 @@ export const Post = (): JSX.Element => {
                   className={css.avatar}
                 />
               </div>
-              <div className={css.name}>
-                {post.user_name}
+              <div className={css.wrapperName}>
+                <div className={css.name}>
+                  {post.user_name}
+                </div>
+                <div className={css.type}>
+                  {post.type}
+                </div>
               </div>
-              <div className={css.subscribe}>{i18n.t('subscribe')}</div>
+              <div className={css.subscribe}>{filterSupscription ?  i18n.t('subscribed') : i18n.t('subscribe')}</div>
             </div>
             <img
               src={post.link_photo}

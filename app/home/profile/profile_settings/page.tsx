@@ -12,9 +12,9 @@ import { useEffect } from "react";
 import { store } from "@/store/store";
 import { userGet } from "@/store/actions/getUser";
 import { useSelector } from "react-redux";
-import { State } from "@/components/Post/Post";
 import { useRouter } from "next/navigation";
 import { LoadingComponent } from "@/components/Loading/Loading";
+import { State } from "@/store/initialState";
 
 i18n.init({
   resources,
@@ -43,7 +43,7 @@ export default function profileSettings(): JSX.Element {
   }
   return (
     <div className={css.wrapper}>
-      <SettingsHeader title={i18n.t('edit_profile')} link="/home/profile" />
+      <SettingsHeader title={i18n.t('edit_profile')} />
       <div className={css.settingsWrapper}>
         <div className={css.card}>
           <div

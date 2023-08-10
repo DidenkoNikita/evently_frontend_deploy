@@ -50,7 +50,7 @@ export default function commentsInPost(): JSX.Element {
     <div className={css.header}>
       <div className={css.wrapper}>
         <button
-          onClick={() => {router.push('/home')}}
+          onClick={() => {router.back()}}
           className={css.buttonBack} >
           <Back />
         </button>

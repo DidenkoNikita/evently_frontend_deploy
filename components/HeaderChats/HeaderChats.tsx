@@ -20,7 +20,7 @@ export const HeaderChats = ({title, link}: Data): JSX.Element => {
     <div className={css.headerWrapper}>
       <div className={css.header}>
         <button
-          onClick={() => router.push('/home')}
+          onClick={() => router.push(link)}
           className={css.iconButton}
         >
           <Back />

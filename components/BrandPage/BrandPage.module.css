@@ -1,0 +1,223 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.avatar {
+  width: 414px;
+  height: 208px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 120px;
+  z-index: -1;
+  object-fit: cover;
+}
+
+.container {
+  display: flex;
+  padding: 20px 24px 0px 24px;
+  width: 366px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  border-radius: 20px 20px 0px 0px;
+  background-color: #FDFFFD;
+  margin-top: -20px;
+} 
+
+.wrapperName {
+  display: flex;
+  width: 345px;
+  justify-content: space-between;
+  align-items: center; 
+}
+
+.name {
+  font-family: Montserrat;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600; 
+}
+
+.gradeWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.grade {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+}
+
+.containerData {
+  display: flex;
+  width: 345px;
+  justify-content: space-between;
+  align-items: flex-start; 
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px; 
+  list-style-position: inside;
+  padding: 0;
+  margin: 0;
+}
+
+.listElement {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-align: center;
+  font-variant-numeric: lining-nums tabular-nums;
+  font-feature-settings: 'case' on;
+  position: relative; /* Добавляем позиционирование */
+  list-style-type: none;
+  margin-left: 27px;
+}
+
+.listElement::before {
+  content: "•";
+  display: inline-block;
+  position: absolute;
+  left: -19.5px;
+  font-size: 25px;
+  top: -7px;
+}
+
+.more {
+  display: flex;
+  height: 48px;
+  padding: 0px 40px;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 10px;
+  background-color: #DFC5FF;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 400; 
+}
+
+.wrapperButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; 
+}
+
+.buttonChat {
+  display: flex;
+  width: 345.5px;
+  height: 48px;
+  justify-content: center;
+  align-items: center; 
+  border: none;
+  border-radius: 10px;
+  background-color: #E3F563;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 400; 
+}
+
+.listButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.button,
+.activeButton {
+  display: flex;
+  width: 82.5px;
+  height: 48px;
+  justify-content: center;
+  align-items: center; 
+  border: none;
+  border-radius: 10px;
+  font-family: Montserrat;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400; 
+}
+
+.button {
+  background-color: #F6F6F6;
+}
+
+.activeButton {
+  background-color: #E3F563;
+}
+
+.wrap {
+  margin-bottom: 100px;
+}
+
+.stories {
+  margin-top: -15px;
+  margin-bottom: -100px;
+}
+
+.activeModal,
+.activeSubscribedModal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  position: fixed;
+  top: 430px;
+  left: 200px;
+}
+
+.activeModal {
+  background-color: #DFC5FF;
+}
+
+.activeSubscribedModal {
+  background-color: #F6F6F6;
+}
+
+.modal {
+  display: none;
+}
+
+.element {
+  display: flex;
+  width: 180px;
+  height: 48px;
+  padding: 0px 16px;
+  justify-content: space-between;
+  align-items: center; 
+  border: none;
+  background-color: transparent;
+  border-bottom: 1px solid #AAAAAA;
+}
+
+.element:last-child {
+  border: none;
+}
+
+.subscribeTitle {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 400; 
+}
+
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

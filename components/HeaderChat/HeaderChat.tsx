@@ -18,7 +18,7 @@ import { deleteChat } from '@/store/actions/deleteChat';
 
 export const HeaderChat = ({name, linkAvatar, filterMessage, chatId}: Data): JSX.Element => {
   const [userId, setUserId] = useState<string>('');
-  const router = useRouter();
+  const router = useRouter();  
 
   useEffect(() => {
     setUserId(location.pathname);
@@ -26,7 +26,6 @@ export const HeaderChat = ({name, linkAvatar, filterMessage, chatId}: Data): JSX
   }, []);
 
   const id: number = Number(userId.slice(22));
-  console.log(id);
 
   return (
     <div className={css.headerWrapper}>

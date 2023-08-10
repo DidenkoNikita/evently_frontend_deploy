@@ -44,15 +44,16 @@ export default function changeCity(): JSX.Element {
     <div className={css.wrapper}>
       <SettingsHeader 
         title={i18n.t('change_city')} 
-        link="/home/profile/profile_settings" 
       />
       <Change
         words={city}
+        color={false}
         header={headerCity}
         user={userCity}
         setUser={setUserCity}
         activeButtons={activeButtonsCity}
         setActiveButtons={setActiveButtonsCity}
+        setFilterCategory={null}
       />
       {
         userCity.length === 0 ? (

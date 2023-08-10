@@ -36,8 +36,11 @@ export const Chat = ({data, id, chatId}: Data): JSX.Element => {
   const userId = data.users_id.find((user_id) => user_id !== id);
   const router = useRouter();
 
-  console.log(id, data.userId);
+  const time = new Date(data.timeMessage);
   
+  const formatNumber = (num: number) => {
+    return num.toString().padStart(2, '0');
+  };
 
   return (
     <div>
@@ -77,7 +80,7 @@ export const Chat = ({data, id, chatId}: Data): JSX.Element => {
                 {
                   id === data.userId ? (data.isReadMessage ? <DoubleCheckmark color="#E3F563" /> : <DoubleCheckmark color="#AAAAAA" />) : null
                 }
-                <div className={css.time}>{data.timeMessage}</div>
+                <div className={css.time}>{`${formatNumber(time.getHours())}:${formatNumber(time.getMinutes())}`}</div>
               </div>
               {                
                 id === data.userId || !data.userId ? null  : <div className={css.newMessage}>{data.unreadMessages}</div>

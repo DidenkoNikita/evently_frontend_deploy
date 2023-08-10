@@ -29,19 +29,19 @@ export const Comments = (): JSX.Element => {
   }, [])
   const id: number = Number(postId.slice(20))
 
-  const comments: Comment[] = useSelector((state : State) => state.comments.filter((comment: Comment) => comment?.post_id === id).sort((a, b) => a.id - b.id));
-    
-  const handleLike = (comment_id: number) => {    
+  const comments: Comment[] = useSelector((state: State) => state.comments.filter((comment: Comment) => comment?.post_id === id).sort((a, b) => a.id - b.id));
+
+  const handleLike = (comment_id: number) => {
     store.dispatch(commentLike(comment_id));
-  } 
+  }
 
   const formatTime = (dateString: string) => {
     const date = moment(dateString);
-  
+
     const now = moment();
     const diff = now.diff(date, 'minutes');
     const formattedDate = date.format('h:mm a');
-  
+
     if (diff < 60) {
       return formattedDate;
     } else if (diff < 24 * 60) {
@@ -62,14 +62,14 @@ export const Comments = (): JSX.Element => {
       {comments.map((comment: Comment) => {
         const like = comment.like.filter((comment) => comment === userId);
         return (
-          <div 
+          <div
             key={comment.id}
             className={css.comment}
           >
             <div className={css.commentHeader}>
               {comment.link_avatar === null ? (
-                <div 
-                  className={css.fakeAvatar} 
+                <div
+                  className={css.fakeAvatar}
                 >
                   <div className={css.avatarData}>
                     {comment.user_name.slice(0, 1)}
@@ -77,7 +77,7 @@ export const Comments = (): JSX.Element => {
                 </div>
               ) : (
                 <div className={css.avatarWrapper}>
-                  <img 
+                  <img
                     src={comment.link_avatar}
                     className={css.avatar}
                   />
@@ -91,11 +91,11 @@ export const Comments = (): JSX.Element => {
             <div className={css.text}>
               {comment.text}
             </div>
-            <button 
+            <button
               className={css.button}
               onClick={() => handleLike(comment.id)}
             >
-              {comment.like.length }
+              {comment.like.length}
               {like.length > 0 ? <ActiveHeart /> : <Heart />}
             </button>
           </div>

@@ -6,8 +6,6 @@ export const createRequestInFriendship = async  (userId: number, setActiveAlert:
   const API_URL = process.env.API_URL;
   const user_id = sessionStorage.getItem('user_id');
   const accessToken = sessionStorage.getItem('access_token');  
-
-  console.log('info', userId);
   
   if (!user_id || !accessToken) {
     window.open('http://localhost:3000/');

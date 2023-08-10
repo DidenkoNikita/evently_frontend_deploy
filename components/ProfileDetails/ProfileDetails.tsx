@@ -75,7 +75,12 @@ export const ProfileDetails = ({stateName, stateDate, stateGender, setStateName,
             value={stateDate}
             onChange={(e) => setStateDate(e.target.value)}
           />
-          <DatePicker openCalendar={openCalendar} setOpenCalendar={setOpenCalendar} setStateDate={setStateDate} />
+          <DatePicker 
+            color={false}
+            openCalendar={openCalendar} 
+            setOpenCalendar={setOpenCalendar} 
+            setStateDate={setStateDate} 
+          />
           <button
             className={css.calendarButton}
             onClick={() => {

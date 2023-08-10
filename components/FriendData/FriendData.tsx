@@ -80,12 +80,8 @@ export const FriendData = ({ userData, id }: UserData): JSX.Element => {
     return <LoadingComponent />;
   }
 
-  console.log(userData);
-  
   const checkUserId = userData.friends_id.find((i) => i === userId)
 
-  console.log('checkUserId', checkUserId);
-  
   return (
     <div
       className={css.wrapper}
@@ -98,11 +94,11 @@ export const FriendData = ({ userData, id }: UserData): JSX.Element => {
           <div className={css.name}>{userData?.name}</div>
           <div className={css.iconButtonWrapper}>
             <button className={css.iconButton}>
-              <Call 
+              <Call
                 color='black'
               />
             </button>
-            <button 
+            <button
               className={css.iconButton}
               onClick={() => {
                 if (!checkUserId) {
@@ -122,16 +118,31 @@ export const FriendData = ({ userData, id }: UserData): JSX.Element => {
           </div>
         </div>
         <div className={css.iconButtonWrapper}>
+          {
+            !userData.messageConfidentiality.nobody &&
+            (userData.messageConfidentiality.my_friends && userData.friends_id.find((id) => id === userId)) ||
+            userData.messageConfidentiality.all ? (
+              <button
+                className={css.sendMessage}
+                onClick={() => router.push(`/chats/chat_with_user/${id}`)}
+              >
+                <ChatsIcon />
+                <div className={css.titleButton}>
+                  {i18n.t('send_message')}
+                </div>
+              </button>
+            ) : (
+              <button
+                className={css.disableSendMessage}
+              >
+                <ChatsIcon />
+                <div className={css.titleButton}>
+                  {i18n.t('send_message')}
+                </div>
+              </button>
+            )
+          }
           <button
-            className={css.sendMessage}
-            onClick={() => router.push(`/chats/chat_with_user/${id}`)}
-          >
-            <ChatsIcon />
-            <div className={css.titleButton}>
-              {i18n.t('send_message')}
-            </div>
-          </button>
-          <button 
             className={css.iconButton}
             onClick={() => stateModal(!modal)}
           >
@@ -142,7 +153,7 @@ export const FriendData = ({ userData, id }: UserData): JSX.Element => {
           <button className={css.unfriendButton}>
             {i18n.t('unfriend')}
           </button>
-          <button 
+          <button
             className={css.cancelButton}
             onClick={() => stateModal(!modal)}
           >
@@ -250,9 +261,9 @@ export const FriendData = ({ userData, id }: UserData): JSX.Element => {
           </div>
           <div className={css.quantityWrapper}>
             <div className={css.quantity}>548</div>
-            <button 
+            <button
               className={css.button}
-              // onClick={() => router.push(`/home/profile/friends/${id}`)}
+              onClick={() => router.push(`/home/profile/friends/${id}`)}
             >
               <RightIcon />
             </button>
@@ -279,10 +290,18 @@ export const FriendData = ({ userData, id }: UserData): JSX.Element => {
             <div className={css.dataType}>{i18n.t('city')}</div>
             <div className={css.data}>{userData?.city}</div>
           </div>
-          <div className={css.wrapperData}>
-            <div className={css.dataType}>{i18n.t('phone_number')}</div>
-            <div className={css.specialData}>{userData?.phone}</div>
-          </div>
+          {
+            !userData.phoneConfidentiality.nobody &&
+              (userData.phoneConfidentiality.my_friends && userData.friends_id.find((id) => id === userId)) ||
+              userData.phoneConfidentiality.all ? (
+              <div className={css.wrapperData}>
+                <div className={css.dataType}>{i18n.t('phone_number')}</div>
+                <div className={css.specialData}>{userData?.phone}</div>
+              </div>
+            ) : (
+              null
+            )
+          }
           <div className={css.wrapperData}>
             <div className={css.dataType}>{i18n.t('email')}</div>
             <div className={css.specialData}>full.name@gmail.com</div>

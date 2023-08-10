@@ -1,0 +1,151 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  gap: 20px;
+}
+
+.post {
+  display: flex;
+  width: 100vw;
+  min-height: 555px;
+  padding: 10px 0px 20px 0px;
+  background-color: #F6F6F6;
+  border-radius: 20px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.header {
+  display: flex;
+  padding-right: 0px;
+  align-items: center;
+  gap: 10px;
+  align-self: stretch;
+  width: 379px;
+  height: 48px;
+  padding-left: 24px;
+}
+
+.avatarWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 43px;
+  height: 43px;
+  border-radius: 50%;
+  background-image: linear-gradient(
+    rgba(187, 131, 255, 1),
+    rgba(187, 131, 255, 1),
+    rgba(227, 245, 99, 1),
+    rgba(227, 245, 99, 1),
+    rgba(227, 245, 99, 1)
+  );
+  rotate: 205deg;
+}
+
+.avatar {
+  border-radius: 50px;
+  border: 2px solid white;
+  rotate: -205deg;
+  object-fit: cover;
+}
+
+.name {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.type {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 400; 
+}
+
+.buttonWrapper {
+  display: flex;
+  padding: 0px 24px;
+  align-items: flex-start;
+  gap: 10px;
+  width: 192px;
+  height: 48px;
+}
+
+.button {
+  display: flex;
+  width: 64px;
+  height: 48px;
+  padding: 10px 0px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: #F6F6F6;
+}
+
+.quantity {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.fullName {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-right: 5px;
+}
+
+.text {
+  margin: 0 auto;
+  width: 345px;
+  font-family: Montserrat;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.subscribe {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+  color: #BB83FF;
+  margin-left: auto;
+  margin-right: 10px;
+}
+
+.more {
+  width: 38px;
+  border: none;
+  background-color: #F6F6F6;
+  margin-left: 5px;
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 400;
+  color: #AAA;
+  border-bottom: 1px solid #AAA;
+}
+
+.photo {
+  object-fit: cover;
+  width: 414px;
+}
+
+.wrapperName {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 8px;
+}

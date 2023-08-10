@@ -85,7 +85,12 @@ export default function faq(): JSX.Element {
             </button>
           );
         })}
-        <button className={css.button}>
+        <button 
+          className={css.button}
+          onClick={() => {
+            router.push('/chats')
+          }}
+        >
           {i18n.t('support_chat')}
         </button>  
       </div>

@@ -40,6 +40,16 @@ export interface UsersList {
     dreamy: boolean;
     do_not_know: boolean;
   };
+  phoneConfidentiality: {
+    all: boolean;
+    my_friends: boolean;
+    nobody: boolean;
+  };
+  messageConfidentiality: {
+    all: boolean;
+    my_friends: boolean;
+    nobody: boolean;
+  };
 }
 
 export const usersListSlice = createSlice({

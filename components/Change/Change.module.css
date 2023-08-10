@@ -1,12 +1,18 @@
-.wrapper {
+.wrapper,
+.colorWrapper {
   display: flex;
   flex-direction: column;
-  /* gap: 20px; */
   align-items: center;
   height: 483px;
-  /* margin-top: 100px; */
   position: fixed;
+}
+
+.wrapper {
   top: 140px;
+}
+
+.colorWrapper {
+  top: 122px;
 }
 
 .header {
@@ -16,7 +22,8 @@
   margin-bottom: 40px;
 }
 
-.button {
+.button,
+.colorButton {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,7 +34,14 @@
   height: 48px;
   border-radius: 8px;
   border: none;
+}
+
+.button {
   background-color: #FDFFFD;
+}
+
+.colorButton {
+  background-color: #F6F6F6;
 }
 
 .buttonActive {

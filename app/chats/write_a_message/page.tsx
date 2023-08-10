@@ -20,16 +20,33 @@ import { store } from "@/store/store";
 import { getUserList } from "@/store/actions/getUserList";
 import { useSelector } from "react-redux";
 import { State } from "@/store/initialState";
+import { getChats } from "@/store/actions/getChats";
+import { socket } from "@/utils/socket";
 
 export default function WriteMessage(): JSX.Element {
   const [searchTerm, setSearchTerm] = useState<string>('');
+  const [userId, setUserId] = useState<number | null>(null);
 
-  useEffect(() => {store.dispatch(getUserList())});
+  useEffect(() => {
+    store.dispatch(getUserList());
+    const user_id = JSON.parse(sessionStorage.getItem('user_id') || '');
+    setUserId(Number(user_id));
+  }, []);
+
+  useEffect(() => {
+    store.dispatch(getUserList());
+    const userId = JSON.parse(sessionStorage.getItem('user_id') || '');
+    socket.emit('getChats', userId);
+    socket.on('chatData', (data) => {
+      store.dispatch(getChats(data));
+    });
+  }, []);
 
   const usersList = useSelector((state : State) => state.usersList);
 
   const filteredUsersList = usersList.filter((user) =>
-    user.name.toLowerCase().includes(searchTerm.toLowerCase())
+    user.name.toLowerCase().includes(searchTerm.toLowerCase()) && 
+    user.id !== userId
   );
 
   
@@ -38,7 +55,6 @@ export default function WriteMessage(): JSX.Element {
       <div className={css.header}>
         <SettingsHeader
           title={i18n.t('write_message')}
-          link="/chats"
         />
       </div>
       <div className={css.search}>
@@ -58,9 +74,7 @@ export default function WriteMessage(): JSX.Element {
             return (
               <UserCreateChat
                 key={user.id}
-                id={user.id}
-                name={user.name}
-                linkAvatar={user.link_avatar}
+                user={user}
               />
             )
           })

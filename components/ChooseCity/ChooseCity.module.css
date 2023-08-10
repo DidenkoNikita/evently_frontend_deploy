@@ -1,0 +1,23 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 414px;
+  height: 896px;
+  align-items: center;
+}
+
+.button {
+  display: flex;
+  width: 345px;
+  height: 48px;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 10px;
+  background-color: #E3F563;
+  margin-bottom: 115px;
+  margin-top: auto;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 400;
+}

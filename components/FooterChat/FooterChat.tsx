@@ -31,7 +31,6 @@ export const FooterChat = ({id, chatId}: Data): JSX.Element => {
     const idUser = JSON.parse(sessionStorage.getItem('user_id') || '');
     setUserId(idUser)
   }, [userId])
-  console.log(inputData);
 
   const changeInputData = (e: ChangeEvent<HTMLInputElement>) => {
     setInputData(e.target.value);

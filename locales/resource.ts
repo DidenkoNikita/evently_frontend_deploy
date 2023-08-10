@@ -196,7 +196,65 @@ const resources = {
       "dating_notifications": "You don't have dating notifications...",
       "request_friends": "You don't have request notifications...",
       "request": "Request successfully sent!",
-      "new_frind_requests": " new friend requests"
+      "new_frind_requests": " new friend requests",
+      "friends_not_found": "You don't have friends :(",
+
+      "reset": "Reset",
+      "filter": "Filter",
+
+      "date_format": "dd/mm/yyyy",
+      "business_hours": "Business hours",
+
+      "morning": "Morning",
+      "afternoon": "Afternoon",
+      "evening": "Evening",
+      "night": "Night",
+
+      "age": "Age",
+      "price": "Price",
+      "from": "from",
+      "to": "to",
+      "ok": "Ok",
+
+      "calendar_of_events": "Calendar of events",
+      "chat": "Chat",
+      "book_a_table": "Book a table",
+      "news": "News",
+      "reviews": "Reviews",
+      "stories": "Stories",
+      "events": "Events",
+      "comment...": "Comment...",
+      "sent": "Send",
+      "Subscribe": "Subscribe",
+      "subscribed": "Subscribed",
+      "add_to_favorites": "Add to Favorites",
+      "Comments": "Comments",
+      "view_all": "View all",
+      "entertainment": "Entertainment",
+      "leisure": "Leisure",
+      "write_first": "Write the first review!",
+
+      "wont_go": "I won't go",
+      "will_go": "I will go",
+      "guests": "Guests",
+      "people_going": "25 people are going to go",
+      "unsubscribe": "Unsubscribe",
+      "brand_resultes": "Brands resultes",
+
+      "black_list": "Black list",
+      "confidentiality": "Confidentiality",
+      "date_title": "Date",
+
+      "all": "All",
+      "my_friends": "My friends",
+      "nobody": "Nobody",
+      "messages": "Messages",
+
+      "my_categories": "My categories",
+      "my_mood": "My mood",
+      "calls": "Calls",
+      "who_phone_number": "Who can see my phone number?",
+      "who_messages": "Who can send me messages?"
     }
   }
 }

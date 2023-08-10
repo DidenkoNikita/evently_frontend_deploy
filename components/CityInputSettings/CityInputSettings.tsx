@@ -12,9 +12,10 @@ interface CityData {
 interface City {
   setCity: any;
   city: string;
+  color: boolean;
 }
 
-export const CityInputSettings = ({ setCity, city }: City) => {
+export const CityInputSettings = ({ setCity, city, color }: City) => {
   const [allCities, setAllCities] = useState<CityData[]>([]);
   const [filteredCities, setFilteredCities] = useState<CityData[]>([]);
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -81,14 +82,14 @@ export const CityInputSettings = ({ setCity, city }: City) => {
 
   return (
     <div className={css.wrapper}>
-      <div className={css.inputWrapper}>
+      <div className={color ? css.colorInputWrapper : css.inputWrapper}>
         <City color='#BB83FF'/>
         <input
           type="text"
           value={city}
           onChange={handleInputChange}
           placeholder="City"
-          className={css.input}
+          className={color ? css.colorInput : css.input}
           ref={inputRef}
           onFocus={() => {
             setIsOpen(true);
@@ -102,7 +103,7 @@ export const CityInputSettings = ({ setCity, city }: City) => {
       {!isOpen || filteredCities.length === 0 ? (
         <div></div>
       ) : (
-        <ul className={css.cityList} ref={listRef}>
+        <ul className={color ? css.colorCityList : css.cityList} ref={listRef}>
           {filteredCities.map((city: CityData, index) => (
             <li
               key={index}

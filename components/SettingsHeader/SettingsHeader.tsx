@@ -2,14 +2,13 @@
 
 interface Title {
   title: string;
-  link: string;
 }
 
 import { useRouter } from 'next/navigation';
 import css from './SettingsHeader.module.css'
 import { Back } from '../icons/back.icon';
 
-export const SettingsHeader = ({title, link}: Title): JSX.Element => {
+export const SettingsHeader = ({title}: Title): JSX.Element => {
   const router = useRouter();
 
   return (
@@ -17,7 +16,7 @@ export const SettingsHeader = ({title, link}: Title): JSX.Element => {
     <div className={css.header}>
       <button
         onClick={() => {
-          router.push(link);
+          router.back();
         }}
         className={css.iconButton}
       >

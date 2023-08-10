@@ -1,0 +1,79 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  width: 100vw;
+  gap: 10px;
+}
+
+.gradeWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 36px;
+  margin-right: auto;
+}
+
+.grade {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 24px;
+  border: none;
+  background-color: #ffffff;
+}
+
+.inputWrapper {
+  display: flex;
+  width: 345px;
+  height: 53px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  background-color: #F6F6F6;
+  padding: 14px 0;
+}
+
+.input {
+  width: 305px;
+  height: 47px;
+  border: none;
+  background-color: #F6F6F6;
+  font-size: 14px;
+  font-family: Montserrat;
+  color: #000;
+}
+
+.input::placeholder {
+  font-size: 14px;
+  font-family: Montserrat;
+  color: #000;
+}
+
+.input:focus {
+  outline: none !important;
+}
+
+.button {
+  display: flex;
+  width: 345px;
+  height: 48px;
+  justify-content: center;
+  align-items: center; 
+  border: none;
+  border-radius: 10px;
+  background-color: #DFC5FF;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 400; 
+  margin-top: 10px;
+}
+
+.alert {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600; 
+}

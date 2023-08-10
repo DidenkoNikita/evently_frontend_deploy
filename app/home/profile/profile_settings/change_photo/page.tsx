@@ -57,9 +57,8 @@ export default function changePhoto(): JSX.Element {
     <div className={css.wrapper}>
       <SettingsHeader
         title={i18n.t("my_photo")}
-        link="/home/profile/profile_settings"
       />
-      <div>
+      <div className={css.container}>
         {/* Hidden file input */}
         <input
           type="file"

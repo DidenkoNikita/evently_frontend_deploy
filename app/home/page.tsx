@@ -9,13 +9,13 @@ import { Header } from "@/components/Header/Header";
 import { Footer } from "@/components/Footer/Footer";
 import { History } from "@/components/History/History";
 import { CalendarOfEventsHome } from "@/components/CalendarOfEventsHome/CalendarOfEventsHome";
-import { Post } from "@/components/Post/Post";
 import { useEffect } from "react";
 import { store } from "@/store/store";
 import { getPost } from "@/store/actions/getPosts";
 import { getComment } from "@/store/actions/getComments";
 import { userGet } from "@/store/actions/getUser";
 import { useRouter } from "next/navigation";
+import { PostComponent } from "@/components/PostComponent/PostComponent";
 
 i18n.init({
   resources,
@@ -44,7 +44,7 @@ export default function(): JSX.Element {
       <div className={css.wrapper}>
         <History />
         <CalendarOfEventsHome />
-        <Post />
+        <PostComponent />
       </div>
       <Footer />
     </div>

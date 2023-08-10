@@ -17,8 +17,7 @@ import { socket } from "@/utils/socket";
 import { useSelector } from "react-redux";
 import { State } from "@/store/initialState";
 import { getChats } from "@/store/actions/getChats";
-import { IChat } from "@/store/counter/chatSLice";
-import { LoadingComponent } from "@/components/Loading/Loading";
+import { SearchComponent } from "@/components/SearchComponent/SearchComponent";
 
 i18n.init({
   resources,
@@ -35,7 +34,6 @@ export default function Chats(): JSX.Element {
     setId(Number(userId))
     socket.emit('getChats', userId);
     socket.on('chatData', (data) => {
-      console.log("данные полученные с сервера", data);
       // setLoading(false);
       store.dispatch(getChats(data));
     });
@@ -48,8 +46,6 @@ export default function Chats(): JSX.Element {
   }, []);
 
   const chats = useSelector((state: State) => state.chats);
-  console.log('slsll', chats);
-
   // if (chats.length === 0) {
   //   return (
   //     <div className={css.loading}>
@@ -62,30 +58,33 @@ export default function Chats(): JSX.Element {
     chat.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  console.log('filtered chat',filteredChat);
+  console.log('after', filteredChat);
+  
+
+  const sort = filteredChat.sort((a, b) => {
+    const dateA = new Date(a.timeMessage).getTime();
+    const dateB = new Date(b.timeMessage).getTime();
+    console.log(dateA > dateB);
+    
+    return dateB - dateA;
+  });
+  console.log('before',sort);
   
 
   return (
     <div className={css.wrapper}>
       <HeaderChats 
-        link="/chats/write_a_message"
+        link="/home"
         title={i18n.t('chats')} 
       />
-      <div className={css.search}>
-        <input
-          className={css.input}
-          placeholder={i18n.t('search2')}
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        <div className={css.icon}>
-          <Search />
-        </div>
-      </div>
+      <SearchComponent 
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+      />
       <div className={css.chatsList}>
         {chats.length > 0 ? (
           filteredChat.length > 0 ? (
-            filteredChat.map((chat) => (
+            sort.map((chat) => (
               <Chat 
                 key={chat.id} 
                 data={chat}

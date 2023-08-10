@@ -16,6 +16,8 @@ import { store } from "@/store/store";
 import { userGet } from "@/store/actions/getUser";
 import { useRouter } from "next/navigation";
 import { LoadingComponent } from "../Loading/Loading";
+import { useSelector } from "react-redux";
+import { State } from "@/store/initialState";
 
 i18n.init({
   resources,
@@ -36,9 +38,9 @@ export const UserData = ({userData}: UserData): JSX.Element => {
     setId(Number(userId));
   }, []);
 
-  const router = useRouter();
+  const subscriptions = useSelector((state: State) => state.subscription);
 
-  console.log(id);
+  const router = useRouter();
   
   const categories: string[] = [
     i18n.t('restaurants'),
@@ -173,8 +175,13 @@ export const UserData = ({userData}: UserData): JSX.Element => {
             </div>
           </div>
           <div className={css.quantityWrapper}>
-            <div className={css.quantity}>456</div>
-            <button className={css.button}>
+            <div className={css.quantity}>{subscriptions.length}</div>
+            <button 
+              className={css.button}
+              onClick={() => {
+                router.push('/home/profile/subscriptions')
+              }}
+            >
               <RightIcon />
             </button>
           </div>
@@ -189,7 +196,7 @@ export const UserData = ({userData}: UserData): JSX.Element => {
             </div>
           </div>
           <div className={css.quantityWrapper}>
-            <div className={css.quantity}>548</div>
+            <div className={css.quantity}>{userData.user.friends_id.length}</div>
             <button 
               className={css.button}
               onClick={() => router.push(`/home/profile/friends/${id}`)}

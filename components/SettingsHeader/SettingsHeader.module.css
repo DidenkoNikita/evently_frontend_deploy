@@ -4,6 +4,8 @@
   width: 414px;
   height: 119px;
   background-color: #FFF;
+  position: fixed;
+  top: 0;
 }
 
 .header {

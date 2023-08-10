@@ -2,6 +2,7 @@
   width: 414px;
   height: 896px;
   background: repeat url('../../../../public/backgroundComments.png');
+  overflow: hidden;
 }
 
 .settingsWrapper {
@@ -12,6 +13,7 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 20px; 
+  margin-top: 140px;
 }
 
 .button {

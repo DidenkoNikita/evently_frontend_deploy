@@ -4,13 +4,15 @@ import css from './Change.module.css'
 interface Words {
   words: string[];
   header: string;
+  color: boolean;
   user: {} | string;
   setUser: any;
   activeButtons: string[];
   setActiveButtons: any;
+  setFilterCategory: any;
 }
 
-export const Change = ({ words, header, user, setUser, activeButtons, setActiveButtons }: Words): JSX.Element => {
+export const Change = ({ words, header, user, setUser, activeButtons, setActiveButtons, color, setFilterCategory }: Words): JSX.Element => {
 
   const handleButtonClick = (word: string) => {
     if (header === 'Сhoose a city') {
@@ -23,6 +25,10 @@ export const Change = ({ words, header, user, setUser, activeButtons, setActiveB
         setActiveButtons([...activeButtons, word]);
       }
       buttonClick(word);
+    }
+
+    if (header === '' && color && setFilterCategory) {
+      setFilterCategory(word);
     }
   };
 
@@ -53,9 +59,13 @@ export const Change = ({ words, header, user, setUser, activeButtons, setActiveB
   };
 
   return (
-    <div className={css.wrapper}>
+    <div className={color && header !== '' ? css.colorWrapper : css.wrapper}>
       {header === 'Сhoose a city' ? (
-        <CityInputSettings setCity={setUser} city={user.toString()} />
+        <CityInputSettings 
+          setCity={setUser} 
+          city={user.toString()} 
+          color={color}
+        />
       ) : (
         <div></div>
       )}
@@ -63,7 +73,7 @@ export const Change = ({ words, header, user, setUser, activeButtons, setActiveB
         {words.map((word) => (
           <button
             key={word}
-            className={activeButtons.includes(word) ? css.buttonActive : css.button}
+            className={activeButtons.includes(word) ? css.buttonActive : (color ? css.colorButton : css.button)}
             onClick={() => handleButtonClick(word)}
           >
             {word}

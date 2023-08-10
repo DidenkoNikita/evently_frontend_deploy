@@ -13,7 +13,7 @@ import { Filter } from '../icons/filter.icon';
 import { Map } from '../icons/map.icon';
 import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
-import { State } from '../Post/Post';
+import { State } from '@/store/initialState';
 
 i18n.init({
   resources,
@@ -37,7 +37,7 @@ export const Header = ():JSX.Element => {
     }, 
     { 
       icon : <Filter />,
-      link: '/filter'
+      link: '/home/filter'
     }, 
     { 
       icon : <Map />,

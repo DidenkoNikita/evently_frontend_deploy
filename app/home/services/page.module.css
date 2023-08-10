@@ -1,0 +1,76 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.container {
+  margin-top: 180px;
+}
+
+.buttonsWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  column-gap: 19px;
+  row-gap: 20px;
+}
+
+.button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: #ffffff;
+}
+
+.wrapperImage {
+  width: 163px;
+  height: 163px;
+  border-radius: 40px;
+  background-color: #F6F6F6;
+}
+
+.dating {
+  width: 163px;
+  height: 163px;
+  background: no-repeat url('../../../public/Dating.png');
+}
+
+.cafe {
+  width: 163px;
+  height: 163px;
+  background: no-repeat url('../../../public/Cafe.png');
+}
+
+.entertainment {
+  width: 163px;
+  height: 163px;
+  background: no-repeat url('../../../public/Entertainment.png');
+}
+
+.leisure {
+  width: 163px;
+  height: 163px;
+  background: no-repeat url('../../../public/Leisure.png');
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 143px;
+  height: 34px;
+  background-color: #FDFFFD;
+  border-radius: 10px;
+  box-shadow: 0px 4px 4px 0px rgba(117, 79, 246, 0.35);
+  z-index: 1000;
+  margin-top: -20px;
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 600;
+}

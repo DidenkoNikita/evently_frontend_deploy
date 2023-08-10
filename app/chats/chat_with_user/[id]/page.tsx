@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 import css from './page.module.css';
 import { useSelector } from "react-redux";
@@ -33,6 +33,10 @@ export default function ChatPage() {
 
   const [chatId, setChatId] = useState<number | null>(null);
 
+  const [height, setHeight] = useState<number>(0);
+  console.log(height);
+  
+
   useEffect(() => {
     setUserId(location.pathname);
     store.dispatch(getUserList());
@@ -44,6 +48,7 @@ export default function ChatPage() {
     if (wrapperRef.current && wrapperRef.current.lastElementChild) {
       wrapperRef.current.lastElementChild.scrollIntoView({ behavior: "smooth" });
     }
+    
   };
   
   useEffect(() => {
@@ -52,7 +57,6 @@ export default function ChatPage() {
   }, [])
   
   const id: number = Number(userId.slice(22));
-  console.log(id);
   
   useEffect(() => {
     getChatId({user2Id: id}, setChatId);
@@ -63,28 +67,22 @@ export default function ChatPage() {
     if (chatId !== null) {
       socket.emit('getChats', idUser);
       socket.on('chatData', (data) => {
-        console.log("данные полученные с сервера", data);
         store.dispatch(getChats(data));
       });
 
       socket.emit('getMessageList', chatId);
       socket.on('messageList', (data) => {
-        console.log("data", data);
-        
         store.dispatch(getMessages(data))
       });
       socket.on('createMessage', (message) => {
-        console.log("новое сообщение создано", message);
         store.dispatch(getMessages([message]))
       });
 
       socket.on('messageIsRead', (message) => {
-        console.log("сообщение прочитано", message);
         store.dispatch(markMessageAsRead(message))
       })
 
       socket.on('updateChat', (chat) => {
-        console.log("чат обновлён", chat );
         store.dispatch(getChats(chat))
       })
     } 
@@ -97,12 +95,18 @@ export default function ChatPage() {
   const messages = useSelector((state: State) => state.messages);
 
   const filterMessage = messages.filter((message) => message.chat_id === chatId);
-  
-  console.log('messages', messages);
+    
+  useEffect(() => {
+    if (wrapperRef.current) {
+      const containerHeight = wrapperRef.current.clientHeight;
+      setHeight(containerHeight);
+    }
+  }, []);
   
   useEffect(() => {
     scrollToLastMessage();
-  }, [filterMessage]); 
+  }, [messages]); 
+
 
   const isDifferentDate = (currentDate: moment.Moment, previousDate: moment.Moment) => {
     return !currentDate.isSame(previousDate, "day");
@@ -117,8 +121,8 @@ export default function ChatPage() {
         chatId={chatId}
       />
       <div 
-        // className={messages.length <= 8 ? css.wrapperHowSomeMessages : css.wrapper} 
-        className={css.wrapper}
+        className={height < 660 ? css.wrapperHowSomeMessages : css.wrapper} 
+        // className={css.wrapper}
         ref={wrapperRef}
       >
         {
@@ -174,7 +178,9 @@ export default function ChatPage() {
   
               if (!previousDate || isDifferentDate(currentDate, previousDate)) {
                 return (
-                  <React.Fragment key={`fragment-${message.id}`}>
+                  <React.Fragment 
+                    key={`fragment-${message.id}`}
+                  >
                     <div className={css.date}>
                       {currentDate.format("MMMM D")}
                     </div>

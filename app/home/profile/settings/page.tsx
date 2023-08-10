@@ -40,7 +40,6 @@ export default function settings(): JSX.Element {
     <div className={css.wrapper}>
       <SettingsHeader 
         title={i18n.t('settings')} 
-        link="/home/profile"
       />
       <div className={css.area}>
         <div className={css.wrapperSetting}>
@@ -149,7 +148,12 @@ export default function settings(): JSX.Element {
                   {i18n.t('privacy')}
                 </div>
               </div>
-              <button className={css.iconButton}>
+              <button 
+                className={css.iconButton}
+                onClick={() => {
+                  router.push('/home/profile/settings/privacy')
+                }}
+              >
                 <RightIcon />
               </button>
             </div>

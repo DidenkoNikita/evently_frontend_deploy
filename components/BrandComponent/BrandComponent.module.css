@@ -1,0 +1,103 @@
+.wrapper {
+  display: flex;
+  width: 345px;
+  height: 150px;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px; 
+  border: none;
+  border-radius: 20px;
+  background-color: #F6F6F6;
+}
+
+.photo {
+  width: 130px;
+  height: 130px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.container {
+  display: flex;
+  width: 185px;
+  height: 137px;
+  padding-top: 10px;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start; 
+}
+
+.wrapperData {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.name {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600; 
+}
+
+.grade {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.reviewsWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px; 
+}
+
+.reviews {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 400; 
+}
+
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapperAddress {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 10px;
+  width: 185px;
+  height: 48px;
+}
+
+.iconCity {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.addressWrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 151px;
+  gap: 2px;
+}
+
+.address {
+  font-variant-numeric: lining-nums tabular-nums;
+  font-feature-settings: 'case' on;
+  font-family: Montserrat;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal; 
+}

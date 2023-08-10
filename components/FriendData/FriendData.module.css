@@ -213,7 +213,8 @@
   background-color: #E3F563;
 }
 
-.sendMessage {
+.sendMessage,
+.disableSendMessage {
   display: flex;
   width: 287px;
   height: 48px;
@@ -222,7 +223,14 @@
   gap: 10px; 
   border: none;
   border-radius: 10px;
+}
+
+.sendMessage {
   background-color: #E3F563;
+}
+
+.disableSendMessage {
+  background-color: #F6F6F6;
 }
 
 .titleButton {

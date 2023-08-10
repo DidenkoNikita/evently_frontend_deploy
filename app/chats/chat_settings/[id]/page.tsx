@@ -35,9 +35,6 @@ export default function ChatSettings(): JSX.Element {
   const [stateMore, setStateMore] = useState<boolean>(false);
   const [stateNots, setStateNots] = useState<boolean>(false);
 
-  console.log(userId.length);
-  
-
   useEffect(() => {
     setUserId(location.pathname);
     store.dispatch(getUserList());
@@ -48,8 +45,6 @@ export default function ChatSettings(): JSX.Element {
   const userList = useSelector((state: State) => state.usersList);
 
   const user = userList.find((u) => u.id === id);
-
-  console.log('user', userList);
 
   const arrIcon = [
     {
@@ -82,8 +77,6 @@ export default function ChatSettings(): JSX.Element {
     i18n.t('evets')
   ]
 
-  console.log(user);
-  
   const router = useRouter();
 
   if (user === undefined) {
@@ -96,9 +89,8 @@ export default function ChatSettings(): JSX.Element {
 
   return (
     <div>
-      <SettingsHeader 
+      <SettingsHeader
         title={i18n.t('chats_settings')}
-        link={`/chats/chat_with_user/${id}`}
       />
       <div className={css.area}>
         <button
@@ -108,7 +100,7 @@ export default function ChatSettings(): JSX.Element {
           <div className={stateAwatar ? css.bigAvatar : css.avatar}>
             {
               user?.link_avatar === null ? (
-                <div className={stateAwatar ? css.bigAvatarData : css.avatarData}> 
+                <div className={stateAwatar ? css.bigAvatarData : css.avatarData}>
                   {user?.name.slice(0, 1)}
                 </div>
               ) : (
@@ -159,16 +151,22 @@ export default function ChatSettings(): JSX.Element {
               })
             }
           </div>
-          <MoreModal 
+          <MoreModal
             stateMore={stateMore}
           />
-          <NotsModal 
+          <NotsModal
             stateNots={stateNots}
           />
-          <div className={css.wrapperData}>
-            <div className={css.dataType}>{i18n.t('phone_number')}</div>
-            <div className={css.specialData}>{user?.phone}</div>
-          </div>
+          {
+            !user.phoneConfidentiality.nobody ? (
+              <div className={css.wrapperData}>
+                <div className={css.dataType}>{i18n.t('phone_number')}</div>
+                <div className={css.specialData}>{user?.phone}</div>
+              </div>
+            ) : (
+              null
+            )
+          }
           <div className={css.buttonWrapper}>
             {
               titleArr.map((title, index) => {

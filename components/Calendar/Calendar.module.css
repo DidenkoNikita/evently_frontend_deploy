@@ -1,15 +1,23 @@
-.calendar {
+.calendar,
+.colorCalendar {
   display: flex;
   width: 345px;
   height: 430px;
   flex-direction: column;
   align-items: center;
-  background-color: #F6F6F6;
   border-radius: 20px;
   z-index: 1000;
   position: fixed;
-  top: 230px;
   left: 35px;
+  top: 230px;
+}
+
+.calendar {
+  background-color: #F6F6F6;
+}
+
+.colorCalendar {
+  background-color: #DFC5FF;
 }
 
 .closedCalendar {
@@ -77,7 +85,8 @@
   color: #AAAAAA;
 }
 
-.button {
+.button,
+.colorButton {
   display: flex;
   width: 48px;
   height: 48px;
@@ -90,16 +99,32 @@
   border-radius: 20px;
 }
 
-.backButton {
+.button {
+  background-color: #F6F6F6;
+}
+
+.colorButton {
+  background-color: #DFC5FF;
+}
+
+.backButton,
+.colorBackButton {
   display: flex;
   width: 48px;
   height: 48px;
   justify-content: center;
   align-items: center;
   gap: 20px;
-  background-color: #F6F6F6;
   border: none;
   border-radius: 20px;
+}
+
+.backButton {
+  background-color: #F6F6F6;
+}
+
+.colorBackButton {
+  background-color: #DFC5FF;
 }
 
 .notActiveButton {
@@ -140,7 +165,8 @@
   gap: 5px;
 }
 
-.calendarEntry {
+.calendarEntry,
+.colorCalendarEntry {
   display: flex;
   width: 40px;
   height: 40px;
@@ -148,10 +174,18 @@
   align-items: center;
   flex-shrink: 0;
   border: none;
+}
+
+.calendarEntry {
   background-color: #F6F6F6;
 }
 
-.calendarEntry:focus {
+.colorCalendarEntry {
+  background-color: #DFC5FF;
+}
+
+.calendarEntry:focus,
+.colorCalendarEntry:focus {
   display: flex;
   width: 40px;
   height: 40px;
@@ -159,7 +193,14 @@
   align-items: center;
   flex-shrink: 0;
   border-radius: 50%;
+}
+
+.calendarEntry:focus {
   background-color: #DFC5FF;
+}
+
+.colorCalendarEntry:focus {
+  background-color: #E3F563;
 }
 
 .day {
@@ -173,7 +214,8 @@
   font-family: 'Montserrat';
 }
 
-.day:focus {
+.day:focus,
+.colorDay:focus {
   display: flex;
   width: 40px;
   height: 40px;
@@ -183,17 +225,35 @@
   font-size: 14px;
   font-family: 'Montserrat';
   border-radius: 50%;
+}
+
+.day:focus {
   background-color: #DFC5FF;
 }
 
-.today {
+.colorDay:focus {
+  background-color: #E3F563;
+}
+
+.today
+.colorToday {
   display: flex;
   width: 40px;
   height: 40px;
   justify-content: center;
   align-items: center;
   margin: 0;
+  font-size: 14px;
+  font-family: 'Montserrat';
+}
+
+.today {
   border: 1px solid #DFC5FF;
+  border-radius: 50%;
+}
+
+.colorToday {
+  background-color: #F6F6F6;
   border-radius: 50%;
   font-size: 14px;
   font-family: 'Montserrat';
@@ -209,7 +269,8 @@
   margin-bottom: 10px;
 }
 
-.cancel {
+.cancel,
+.colorCancel {
   display: flex;
   height: 48px;
   padding: 0px 20px;
@@ -217,10 +278,17 @@
   align-items: center;
   gap: 10px;
   border: none;
-  background-color: #F6F6F6;
   border-radius: 10px;
   font-size: 16px;
   font-family: 'Montserrat';
+}
+
+.cancel {
+  background-color: #F6F6F6;
+}
+
+.colorCancel {
+  background-color: #DFC5FF;
 }
 
 .ok {
@@ -237,22 +305,33 @@
   font-family: 'Montserrat';
 }
 
-.monthList {
+.monthList,
+.colorMonthList {
   display: flex;
   flex-direction: column;
   position: fixed;
-  background-color: #F6F6F6;
   border-top: 1px solid #AAAAAA;
   width: 343px;
   height: 383px;
   top: 275px;
   left: 36px;
   border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;font-size: 16px;
+  border-bottom-right-radius: 20px;
+  font-size: 16px;
+  font-family: 'Montserrat';
   overflow-y: scroll;
 }
 
-.yearList {
+.monthList {
+  background-color: #F6F6F6;
+}
+
+.colorMonthList {
+  background-color: #DFC5FF;
+}
+
+.yearList,
+.colorYearList {
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -267,11 +346,27 @@
   overflow-y: scroll;
 }
 
-.buttonDown {
-  border: none;
+.yearList {
   background-color: #F6F6F6;
+}
+
+.colorYearList {
+  background-color: #DFC5FF;
+}
+
+.buttonDown,
+.colorButtonDown {
+  border: none;
   width: 0px;
   margin-right: 20px;
+}
+
+.buttonDown {
+  background-color: #F6F6F6;
+}
+
+.colorButtonDown {
+  background-color: #DFC5FF;
 }
 
 .notActiveButtonDown {
@@ -292,11 +387,19 @@
   font-weight: 400;
 }
 
-.circle {
+.circle,
+.colorCircle {
   width: 24px;
   height: 24px;
   border-radius: 50%;
+}
+
+.circle {
   background-color: #BB83FF;
+}
+
+.colorCircle {
+  background-color: #E3F563;
 }
 
 .notActiveCircle {

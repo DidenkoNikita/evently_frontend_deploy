@@ -68,16 +68,29 @@ export const Footer = (): JSX.Element => {
                 pathName === navigateButton.link || 
                 (pathName === '/home/profile/profile_settings' && navigateButton.link === '/home/profile') ||
                 (pathName === '/home/profile/settings' && navigateButton.link === '/home/profile') ||
+                (pathName === '/home/profile/subscriptions' && navigateButton.link === '/home/profile') ||
                 (pathName === '/home/profile/profile_settings/change_photo' && navigateButton.link === '/home/profile') ||
                 (pathName === '/home/profile/profile_settings/change_city' && navigateButton.link === '/home/profile') ||
                 (pathName === '/home/profile/profile_settings/change_categories' && navigateButton.link === '/home/profile') ||
                 (pathName === '/home/profile/profile_settings/change_mood' && navigateButton.link === '/home/profile') ||
                 (pathName === '/home/profile/settings/FAQ' && navigateButton.link === '/home/profile') ||
+                (pathName === '/home/profile/settings/privacy' && navigateButton.link === '/home/profile') ||
+                (pathName === '/home/profile/settings/privacy/confidentiality/phone' && navigateButton.link === '/home/profile') ||
+                (pathName === '/home/profile/settings/privacy/confidentiality/messages' && navigateButton.link === '/home/profile') ||
                 (pathName === '/chats/write_a_message' && navigateButton.link === '/chats') ||
                 (/^\/chats\/chat_settings\/\d+$/.test(pathName) && navigateButton.link === '/chats') ||
                 (/^\/home\/profile\/friends\/profile_friend\/\d+$/.test(pathName) && navigateButton.link === '/home/profile') ||
                 (/^\/home\/profile\/friends\/\d+$/.test(pathName)&& navigateButton.link === '/home/profile') ||
-                (pathName === '/home/notifications' && navigateButton.link === '/home')
+                (pathName === '/home/notifications' && navigateButton.link === '/home') ||
+                (pathName === '/home/filter' && navigateButton.link === '/home') ||
+                (pathName === '/home/services' && navigateButton.link === '/home/services') ||
+                (pathName === '/home/services/cafe' && navigateButton.link === '/home/services') ||
+                (pathName === '/home/services/entertainment' && navigateButton.link === '/home/services') ||
+                (pathName === '/home/services/leisure' && navigateButton.link === '/home/services') ||
+                (/^\/home\/services\/cafe\/\d+$/.test(pathName) && navigateButton.link === '/home/services') ||
+                (/^\/home\/services\/entertainment\/\d+$/.test(pathName) && navigateButton.link === '/home/services') ||
+                (/^\/home\/services\/leisure\/\d+$/.test(pathName) && navigateButton.link === '/home/services') ||
+                (/^\/home\/services\/event\/\d+$/.test(pathName) && navigateButton.link === '/home/services')
                 ? css.activeNavigateButton : css.navigateButton
               }
               onClick={() => {

@@ -1,0 +1,130 @@
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+  background: repeat url('../../../../../public/backgroundSettings.png');
+  overflow: hidden;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 140px;
+}
+
+.blackList {
+  display: flex;
+  width: 345px;
+  height: 48px;
+  padding: 0px 8px 0px 20px;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+  background-color: #FDFFFD;
+}
+
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.text {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.iconButton,
+.button {
+  display: flex;
+  width: 48px;
+  height: 48px;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: #FDFFFD;
+}
+
+.iconButton {
+  margin-left: 52px;
+}
+
+.settingsWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
+  width: 370px;
+}
+
+.confidentiality {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+}
+
+.confidentialityWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  background-color: #FDFFFD;
+}
+
+.element {
+  display: flex;
+  width: 345px;
+  height: 48px;
+  padding: 0px 8px 0px 20px;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.dataWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.type {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 400;
+  color: #AAAAAA;
+}
+
+.line {
+  width: 305px;
+  height: 1px;
+  background-color: #F6F6F6;
+  margin: 5px auto;
+}
+
+.save {
+  display: flex;
+  width: 345px;
+  height: 48px;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 10px;
+  background-color: #E3F563;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+}

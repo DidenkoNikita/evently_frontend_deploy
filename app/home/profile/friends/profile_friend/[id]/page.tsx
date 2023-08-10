@@ -23,10 +23,7 @@ i18n.init({
 });
 
 export default function ProfileFriend (): JSX.Element {
-  const [userId, setUserId] = useState<string>('');
-
-  console.log(userId.length);
-  
+  const [userId, setUserId] = useState<string>('');  
 
   useEffect(() => {
     setUserId(location.pathname);
@@ -35,13 +32,9 @@ export default function ProfileFriend (): JSX.Element {
 
   const id: number = Number(userId.slice(37));
 
-  const userList = useSelector((state: State) => state.usersList);
-
-  console.log(userList);
-  
+  const userList = useSelector((state: State) => state.usersList);  
 
   const user = userList.find((u) => u.id === id)
-  console.log('fuck', user);
 
   if (user === undefined) {
     return (

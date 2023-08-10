@@ -46,10 +46,12 @@ export default function changeMood(): JSX.Element {
       <Change 
         words={mood}
         header=''
+        color={false}
         user={userMood}
         setUser={setUserMood}
         activeButtons={activeButtons}
         setActiveButtons={setActiveButtons}
+        setFilterCategory={null}
       />
       {
         Object.keys(userMood).length === 0 ? (

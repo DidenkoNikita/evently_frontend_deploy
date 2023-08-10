@@ -47,8 +47,6 @@ export default function NotificationsPage(): JSX.Element {
 
   const notifications = useSelector((state: State) => state.notifications);
 
-  console.log('notifications', notifications);
-
   return (
     <div>
       <HeaderProfileFriend

@@ -49,10 +49,12 @@ export default function changeCategories(): JSX.Element {
       <Change 
         words={categories}
         header=""  
+        color={false}
         user={userCategories}
         setUser={setUserCategories}
         activeButtons={activeButtons}
         setActiveButtons={setActiveButtons}
+        setFilterCategory={null}
       />
       {
         Object.keys(userCategories).length === 0 ? (

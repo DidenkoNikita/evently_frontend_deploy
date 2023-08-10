@@ -8,7 +8,9 @@ export interface Post {
   link_avatar: string;
   user_name: string;
   title: string;
-  like: number[]
+  like: number[];
+  type: string;
+  brand_id: number;
 }
 
 export const postSlice = createSlice({

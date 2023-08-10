@@ -5,6 +5,15 @@ import { BackButton } from '../icons/backButton.icon';
 import { Down } from '../icons/down.icon';
 import { ForwardButton } from '../icons/forwardButton.icon';
 
+import i18n from "i18next";
+
+import resources from "@/locales/resource";
+
+i18n.init({
+  resources,
+  lng: "en"
+});
+
 interface CalendarEntry {
   day: number;
   date: Date;
@@ -14,9 +23,10 @@ interface Calendar {
   openCalendar: boolean;
   setOpenCalendar: any;
   setStateDate: any;
+  color: boolean
 }
 
-export const DatePicker = ({ openCalendar, setOpenCalendar, setStateDate }: Calendar): JSX.Element => {
+export const DatePicker = ({ openCalendar, setOpenCalendar, setStateDate, color }: Calendar): JSX.Element => {
   const daysOfTheWeek: string[] = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
   const [viewDate, setViewDate] = useState<Moment>(moment());
   const [viewMonthName, setViewMonthName] = useState<string>('');
@@ -132,10 +142,10 @@ export const DatePicker = ({ openCalendar, setOpenCalendar, setStateDate }: Cale
   };
 
   return (
-    <div className={openCalendar ? css.calendar : css.closedCalendar}>
+    <div className={openCalendar ? (color ? css.colorCalendar : css.calendar) : css.closedCalendar}>
       <div className={css.header}>
         <button
-          className={showMonthList || showYearList ? css.notActiveButton : css.backButton }
+          className={showMonthList || showYearList ? css.notActiveButton : (color ? css.colorBackButton : css.backButton)}
           onClick={previousMonth}
         >
           <BackButton />
@@ -149,16 +159,16 @@ export const DatePicker = ({ openCalendar, setOpenCalendar, setStateDate }: Cale
           </div>
           <button 
             onClick={handleMonthClick} 
-            className={showYearList ? css.notActiveButtonDown : css.buttonDown}
+            className={showYearList ? css.notActiveButtonDown : (color ? css.colorButtonDown : css.buttonDown)}
           >
             <Down />
           </button>
           {showMonthList && (
-            <div className={css.monthList}>
+            <div className={color ? css.colorMonthList : css.monthList}>
               {moment.months().map((month, index) => (
                 <div className={css.monthOption} key={index}>
                   <div
-                    className={`${index === viewDate.month() ? css.circle : css.notActiveCircle}`}
+                    className={`${index === viewDate.month() ? (color ? css.colorCircle : css.circle) : css.notActiveCircle}`}
                   />
                   <div
                     className={`${index === viewDate.month() ? css.notActiveOption : css.option}`}
@@ -172,13 +182,13 @@ export const DatePicker = ({ openCalendar, setOpenCalendar, setStateDate }: Cale
           )}
         </div>
         <button
-          className={showMonthList || showYearList ? css.notActiveButton : css.button}
+          className={showMonthList || showYearList ? css.notActiveButton : (color ? css.colorButton : css.button)}
           onClick={nextMonth}
         >
           <ForwardButton />
         </button>
         <button
-          className={showMonthList || showYearList ? css.notActiveButton : css.backButton}
+          className={showMonthList || showYearList ? css.notActiveButton : (color ? css.colorBackButton : css.backButton)}
           onClick={previousYear}
         >
           <BackButton />
@@ -192,17 +202,17 @@ export const DatePicker = ({ openCalendar, setOpenCalendar, setStateDate }: Cale
           </div>
           <button 
             onClick={handleYearClick} 
-            className={showMonthList ? css.notActiveButtonDown : css.buttonDown}
+            className={showMonthList ? css.notActiveButtonDown : (color ? css.colorButtonDown : css.buttonDown)}
           >
             <Down />
           </button>
           {showYearList && (
-            <div className={css.yearList} ref={yearListRef}>
+            <div className={color ? css.colorYearList : css.yearList} ref={yearListRef}>
               {yearList.map(
                 (year) => (
                   <div className={css.yearOption} key={++key}>
                     <div
-                      className={`${year === viewDate.year() ? css.circle : css.notActiveCircle}`}
+                      className={`${year === viewDate.year() ? (color ? css.colorCircle : css.circle) : css.notActiveCircle}`}
                     />
                     <div
                       key={year}
@@ -219,7 +229,7 @@ export const DatePicker = ({ openCalendar, setOpenCalendar, setStateDate }: Cale
           )}
         </div>
         <button
-          className={showMonthList || showYearList ? css.notActiveButton : css.button}
+          className={showMonthList || showYearList ? css.notActiveButton : (color ? css.colorButton : css.button)}
           onClick={nextYear}
         >
           <ForwardButton />
@@ -236,16 +246,23 @@ export const DatePicker = ({ openCalendar, setOpenCalendar, setStateDate }: Cale
         {calendarEntries.map((entry, index) => (
           <button
             key={index}
-            className={`${css.calendarEntry} ${isDateToday(entry.date) ? css.today : ''}`}
+            className={`${(color ? css.colorCalendarEntry : css.calendarEntry)} ${isDateToday(entry.date) ? (color ? css.colorToday : css.today) : ''}`}
             onClick={() => selectDate(entry.date)}
           >
-            <div className={css.day}>{entry.day}</div>
+            <div 
+              className={color ? css.colorDay : css.day}
+            >
+              {entry.day}
+            </div>
           </button>
         ))}
       </div>
       <div className={css.buttonsWraper}>
-        <button onClick={() => setOpenCalendar(!openCalendar)} className={css.cancel}>
-          Cancel
+        <button 
+          onClick={() => setOpenCalendar(!openCalendar)} 
+          className={color ? css.colorCancel : css.cancel}
+        >
+          {i18n.t('cancel')}
         </button>
         <button
           className={css.ok}
@@ -262,7 +279,7 @@ export const DatePicker = ({ openCalendar, setOpenCalendar, setStateDate }: Cale
             setOpenCalendar(!openCalendar);
           }}
         >
-          Ok
+          {i18n.t('ok')}
         </button>
       </div>
     </div>

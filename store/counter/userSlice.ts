@@ -42,10 +42,40 @@ export interface User {
     dreamy: boolean;
     do_not_know: boolean;
   };
+  phoneConfidentiality: {
+    all: boolean;
+    my_friends: boolean;
+    nobody: boolean;
+  };
+  messageConfidentiality: {
+    all: boolean;
+    my_friends: boolean;
+    nobody: boolean;
+  };
 }
 
 export interface Data {
   user: User
+}
+
+interface PhoneConfidentiality {
+  all: boolean;
+  my_friends: boolean;
+  nobody: boolean;
+};
+
+export interface UpdatePhoneConfidentiality {
+  data: PhoneConfidentiality;
+}
+
+interface MessageConfidentiality {
+  all: boolean;
+  my_friends: boolean;
+  nobody: boolean;
+};
+
+export interface UpdateMessageConfidentiality {
+  data: MessageConfidentiality;
 }
 
 export interface Avatar {
@@ -110,7 +140,9 @@ export const userSlice = createSlice({
       return state = {
           user: payload.user,
           userCategories: payload.userCategories,
-          userMood: payload.userMood
+          userMood: payload.userMood,
+          phoneConfidentiality: payload.phoneConfidentiality,
+          messageConfidentiality: payload.messageConfidentiality
         }
     },
     changeCategories: (state, action: PayloadAction<UpdatedCategories>): void => {
@@ -128,8 +160,15 @@ export const userSlice = createSlice({
     updateAvatar: (state, action: PayloadAction<Avatar>): void => {
       const { payload } = action
       state.user.link_avatar = payload.link_avatar
+    },
+    updatePhoneConfidetiality: (state, action: PayloadAction<UpdatePhoneConfidentiality>): void => {
+      const { payload } = action
+      state.phoneConfidentiality === payload.data
+    },
+    updateMessagesConfidetiality: (state, action: PayloadAction<UpdateMessageConfidentiality>): void => {
+      const { payload } = action
+      state.messageConfidentiality === payload.data
     }
-    
   }
 });
 
@@ -137,5 +176,8 @@ export const {
   getUser,
   changeCategories,
   changeMood,
-  changeCity
+  changeCity,
+  updateAvatar,
+  updateMessagesConfidetiality,
+  updatePhoneConfidetiality
 } = userSlice.actions;

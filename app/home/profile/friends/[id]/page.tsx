@@ -16,6 +16,8 @@ import { getUserList } from "@/store/actions/getUserList";
 import { useSelector } from "react-redux";
 import { State } from "@/store/initialState";
 import { Friend } from "@/components/Friend/Friend";
+import { socket } from "@/utils/socket";
+import { getChats } from "@/store/actions/getChats";
 
 i18n.init({
   resources,
@@ -24,11 +26,25 @@ i18n.init({
 
 export default function Friends(): JSX.Element {
   const [stateInput, setStateInput] = useState<string>('');
+  const [idUser, setIdUser] = useState<string>('');
 
+  console.log(idUser.length);
+  
   useEffect(() => {
+    setIdUser(location.pathname);
     store.dispatch(userGet());
     store.dispatch(getUserList());
-  }, [])
+  }, []);
+
+
+  useEffect(() => {
+    store.dispatch(getUserList());
+    const userId = JSON.parse(sessionStorage.getItem('user_id') || '');
+    socket.emit('getChats', userId);
+    socket.on('chatData', (data) => {
+      store.dispatch(getChats(data));
+    });
+  }, []);
 
   const user = useSelector((state: State) => state.user);
 
@@ -37,6 +53,13 @@ export default function Friends(): JSX.Element {
   const filteredFriends = userList.filter((us) =>
     us.name.toLowerCase().includes(stateInput.toLowerCase())
   );
+
+  const id: number = Number(idUser.slice(22));
+
+  console.log(id);
+
+  const friend = userList.find((us) => us.id === id);
+  console.log(friend);
 
   return (
     <div className={css.wrapper}>
@@ -54,20 +77,34 @@ export default function Friends(): JSX.Element {
       </div>
       <div className={css.wrapperFriends}>
         {
-          filteredFriends.map((element, index) => {
-            const checkFriend = user?.user?.friends_id.find((i) => i === element.id)
-            if (checkFriend) {
-              return (
-                <Friend 
-                  key={index}
-                  data={element}
-                />
-              )
-            }
-          })
+          id !== user?.user?.id ? (
+            filteredFriends.map((element, index) => {
+              const checkFriend = friend?.friends_id.find((i) => i === element.id);
+              if (checkFriend) {
+                return (
+                  <Friend 
+                    key={index}
+                    data={element}
+                  />
+                )
+              }
+            })
+          ) : (
+            filteredFriends.map((element, index) => {
+              const checkFriend = user?.user?.friends_id.find((i) => i === element.id);
+              if (checkFriend) {
+                return (
+                  <Friend 
+                    key={index}
+                    data={element}
+                  />
+                )
+              }
+            })
+          )
         }
       </div>
       <Footer />
     </div>
-  )
+  );
 }
