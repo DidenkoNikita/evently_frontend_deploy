@@ -40,7 +40,7 @@ export const FooterChat = ({id, chatId}: Data): JSX.Element => {
     if (inputData.trim() === '') {
       return null
     } else {
-      store.dispatch(createMessage(id, inputData, chatId));
+      store.dispatch(createMessage(id, inputData, chatId, null));
       setInputData('');
     }
   }

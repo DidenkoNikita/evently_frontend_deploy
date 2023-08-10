@@ -63,8 +63,10 @@
 
 .wrap {
   margin-left: auto;
+  /* margin-right: 80px; */
 }
 
 .wrapRight {
   margin-right: auto;
+  /* margin-left: 80px; */
 }

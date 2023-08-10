@@ -1,0 +1,180 @@
+.modal {
+  display: flex;
+  width: 370px;
+  height: 677px;
+  padding: 10px 24px 0px 24px;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  gap: 10px;
+  border: none;
+  border-radius: 15px 15px 0px 0px;
+  background-color: #FDFFFD;
+  position: fixed;
+  top: 210px;
+  z-index: 100000;
+  /* overflow-y: scroll; */
+}
+
+.wrapper {
+  width: 414px;
+  height: 896px;
+  position: fixed;
+  top: 0px;
+  z-index: 99999;
+  background: rgba(0, 0, 0, 0.50);
+}
+
+.header {
+  display: flex;
+  width: 345px;
+  height: 48px;
+  padding: 10px 0px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.iconButton {
+  display: flex;
+  width: 48px;
+  height: 48px;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 10px;
+  background-color: #E3F563;
+}
+
+.title {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.inputWrapper {
+  display: flex;
+  height: 48px;
+  padding: 0px 20px;
+  align-items: center;
+  gap: 10px;
+  border-radius: 10px;
+  background-color: #F6F6F6;
+}
+
+.input {
+  width: 265px;
+  height: 44px;
+  border: none;
+  background-color: #F6F6F6;
+  font-size: 14px;
+  font-family: Montserrat;
+  color: #000;
+}
+
+.input::-webkit-input-placeholder {
+  font-size: 14px;
+  font-family: Montserrat;
+  color: #000;
+}
+
+.input:focus {
+  outline: none !important;
+}
+
+.line {
+  width: 305px;
+  height: 1px;
+  background-color: #F6F6F6;
+  margin: 5px auto;
+}
+
+.chat {
+  display: flex;
+  width: 330px;
+  justify-content: space-between;
+  align-self: center;
+  padding-left: 10px;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 100px;
+  margin-left: -4px;
+  object-fit: cover;
+}
+
+.fakeAvatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 100px;
+  background-color: #DFC5FF;
+}
+
+.avatarData {
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 20px;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.name {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+}
+
+.button {
+  display: flex;
+  width: 24px;
+  height: 24px;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid #BB83FF;
+  border-radius: 50%;
+  background-color: #FDFFFD;
+  padding: 0;
+}
+
+.curcle {
+  display: inline;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background-color: #BB83FF;
+}
+
+.send {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 345px;
+  height: 48px;
+  border: none;
+  border-radius: 10px;
+  background-color: #E3F563;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 400;
+  position: fixed;
+  top: 800px;
+}

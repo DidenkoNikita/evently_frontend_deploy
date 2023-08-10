@@ -21,6 +21,7 @@ import { IMessage, markMessageAsRead } from "@/store/counter/messageSlice";
 import { getChats } from "@/store/actions/getChats";
 import moment from "moment";
 import { messageIsRead } from "@/store/actions/messageIsRead";
+import { MessagePost } from "@/components/MessagePost/MessagePost";
 
 i18n.init({
   resources,
@@ -93,6 +94,8 @@ export default function ChatPage() {
   const userData = usersList.find((user) => user.id === id) || null;
   
   const messages = useSelector((state: State) => state.messages);
+  console.log(messages);
+  
 
   const filterMessage = messages.filter((message) => message.chat_id === chatId);
     
@@ -150,10 +153,7 @@ export default function ChatPage() {
                   >
                     <div  className={css.spaceBetweenMessages} />
                     <Message
-                      text={message.text}
-                      date={message.created_at}
-                      userId={message.user_id}
-                      isRead={message.is_read}
+                      message={message}
                     />
                   </div>
                 );
@@ -167,13 +167,23 @@ export default function ChatPage() {
                   >
                     <div  className={css.spaceBetweenMessages} />
                     <Message
-                      text={message.text}
-                      date={message.created_at}
-                      userId={message.user_id}
-                      isRead={message.is_read}
+                      message={message}
                     />
                   </div>
                 );
+              }
+
+              if (message.link_photo) {
+                return (
+                  <div 
+                    key={message.id}
+                    className={css.postWrapper}
+                  >
+                    <MessagePost 
+                      message={message}
+                    />
+                  </div>
+                )
               }
   
               if (!previousDate || isDifferentDate(currentDate, previousDate)) {
@@ -185,11 +195,7 @@ export default function ChatPage() {
                       {currentDate.format("MMMM D")}
                     </div>
                     <Message
-                      key={`message-${message.id}`}
-                      text={message.text}
-                      date={message.created_at}
-                      userId={message.user_id}
-                      isRead={message.is_read}
+                      message={message}
                     />
                   </React.Fragment>
                 );
@@ -197,10 +203,7 @@ export default function ChatPage() {
                 return (
                   <Message
                     key={`message-${message.id}`}
-                    text={message.text}
-                    date={message.created_at}
-                    userId={message.user_id}
-                    isRead={message.is_read}
+                    message={message}
                   />
                 );
               }

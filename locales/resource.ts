@@ -254,7 +254,10 @@ const resources = {
       "my_mood": "My mood",
       "calls": "Calls",
       "who_phone_number": "Who can see my phone number?",
-      "who_messages": "Who can send me messages?"
+      "who_messages": "Who can send me messages?",
+
+      "Share": "Share",
+      "send": "Send"
     }
   }
 }

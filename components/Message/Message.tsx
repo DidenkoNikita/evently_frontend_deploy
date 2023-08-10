@@ -4,18 +4,18 @@ import { useEffect, useState } from "react";
 import { DoubleCheckmark } from "../icons/doubleCheckmark.icon";
 
 import css from './Message.module.css';
+import { IMessage } from "@/store/counter/messageSlice";
+import { date } from "yup";
+import { Heart } from "../icons/heart.icon";
 
-interface Message {
-  text: string;
-  date: string;
-  isRead: boolean;
-  userId: number
+interface Props {
+  message: IMessage
 }
 
-export const Message = ({text, date, userId, isRead}: Message): JSX.Element => {
+export const Message = ({ message }: Props): JSX.Element => {
   const [id, setId] = useState<number | string>('');
 
-  const time = new Date(date);
+  const time = new Date(message.created_at);
 
   useEffect(() => {
     const userId = JSON.parse(sessionStorage.getItem('user_id') || '');
@@ -27,14 +27,14 @@ export const Message = ({text, date, userId, isRead}: Message): JSX.Element => {
   };
 
   return (
-    <div className={userId === id ? css.wrapperMessage : css.receivedWrapperMessage}>
+    <div className={message.user_id === id ? css.wrapperMessage : css.receivedWrapperMessage}>
       <div className={css.text}>
-        {text}
+        {message.text}
       </div>
       <div className={css.wrapper}>
-        <div className={userId === id ? css.date : css.receivedDate}>{`${formatNumber(time.getHours())}:${formatNumber(time.getMinutes())}`}</div>
+        <div className={message.user_id === id ? css.date : css.receivedDate}>{`${formatNumber(time.getHours())}:${formatNumber(time.getMinutes())}`}</div>
         <div className={css.read}>
-          {userId === id ? ( isRead ? <DoubleCheckmark color="#BB83FF" /> : <DoubleCheckmark color="#AAAAAA" />) : null}
+          {message.user_id === id ? (message.is_read ? <DoubleCheckmark color="#BB83FF" /> : <DoubleCheckmark color="#AAAAAA" />) : null}
         </div>
       </div>
     </div>

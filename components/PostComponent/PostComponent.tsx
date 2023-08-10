@@ -24,7 +24,12 @@ i18n.init({
   lng: "en"
 });
 
-export const PostComponent = (): JSX.Element => {
+interface Props {
+  setActiveModal: any;
+  setStateData: any;
+}
+
+export const PostComponent = ({setActiveModal, setStateData}: Props): JSX.Element => {
   const [expandedPostId, setExpandedPostId] = useState<number | null>(null);
   const [stateUserId, setStateUserId] = useState<number | string>('');
   const router = useRouter()
@@ -117,7 +122,18 @@ export const PostComponent = (): JSX.Element => {
                   <Message />
                   <div className={css.quantity}>{commentsFilter.length}</div>
                 </button>
-                <button className={css.button}>
+                <button 
+                  className={css.button}
+                  onClick={() => {
+                    setActiveModal(true);
+                    setStateData({
+                      post_id: post.id, 
+                      post_name: post.user_name, 
+                      link_photo: post.link_photo, 
+                      text: post.title.slice(0, 20) + '...'
+                    })
+                  }}
+                >
                   <Forward />
                   <div className={css.quantity}>0</div>
                 </button>
