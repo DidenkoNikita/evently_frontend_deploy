@@ -1,3 +1,16 @@
+.container,
+.darkContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  height: 100vh;
+}
+
+.darkContainer {
+  background-color: #333333;
+}
+
 .wrapper {
   display: flex;
   flex-direction: column;

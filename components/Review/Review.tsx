@@ -4,10 +4,11 @@ import { Grade } from '../icons/grade.icon';
 import css from './Review.module.css';
 
 interface Props {
-  review: Review
+  review: Review;
+  theme: boolean;
 }
 
-export const ReviewElement = ({ review }: Props): JSX.Element => {
+export const ReviewElement = ({ review, theme }: Props): JSX.Element => {
 
   const arr = [0, 1, 2, 3, 4];
 
@@ -26,15 +27,15 @@ export const ReviewElement = ({ review }: Props): JSX.Element => {
 
 
   return (
-    <div className={css.wrapper}>
+    <div className={theme ? css.darkWrapper : css.wrapper}>
       <div className={css.header}>
         <div className={css.headerData}>
           {review.link_avatar === null ? (
             <div
               className={css.fakeAvatar}
             >
-              <div className={css.avatarData}>
-                {review.user_name.slice(0, 1)}
+              <div className={theme ? css.darkAvatarData : css.avatarData}>
+                {review.name.slice(0, 1)}
               </div>
             </div>
           ) : (
@@ -46,10 +47,10 @@ export const ReviewElement = ({ review }: Props): JSX.Element => {
             </div>
           )}
           <div className={css.data}>
-            <div className={css.name}>
-              {review.user_name}
+            <div className={theme ? css.darkName : css.name}>
+              {review.name}
             </div>
-            <div className={css.date}>
+            <div className={theme ? css.darkDate : css.date}>
               {`${formatNumber(time.getDate())}/${formatMonth(time.getMonth())}/${formatNumber(time.getFullYear())}`}
             </div>
           </div>
@@ -64,9 +65,9 @@ export const ReviewElement = ({ review }: Props): JSX.Element => {
                 >
                   {
                     review.grade <= index ? (
-                      <Grade />
+                      <Grade color={theme ? '#FFFFFF' : '#000000'} />
                     ) : (
-                      <ActiveGrade />
+                      <ActiveGrade color={theme ? '#FFFFFF' : '#000000'} />
                     )
                   }
                 </div>
@@ -75,7 +76,7 @@ export const ReviewElement = ({ review }: Props): JSX.Element => {
           }
         </div>
       </div>
-      <div className={css.text}>
+      <div className={theme ? css.darkText : css.text}>
         {review.text}
       </div>
     </div>

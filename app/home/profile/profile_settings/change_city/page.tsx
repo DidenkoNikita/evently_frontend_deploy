@@ -8,11 +8,14 @@ import resources from "@/locales/resource";
 import { Footer } from "@/components/Footer/Footer";
 
 import css from './page.module.css';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Change } from "@/components/Change/Change";
 import { store } from "@/store/store";
 import { updateCity } from "@/store/actions/updateCity";
 import { useRouter } from "next/navigation";
+import { userGet } from "@/store/actions/getUser";
+import { useSelector } from "react-redux";
+import { State } from "@/store/initialState";
 
 i18n.init({
   resources,
@@ -21,6 +24,10 @@ i18n.init({
 
 export default function changeCity(): JSX.Element {
   const [userCity, setUserCity] = useState<string>('');
+
+  useEffect(() => {
+    store.dispatch(userGet());
+  }, [])
 
   const [activeButtonsCity, setActiveButtonsCity] = useState<string[]>([]);
 
@@ -39,13 +46,18 @@ export default function changeCity(): JSX.Element {
   ];
 
   const headerCity: string = i18n.t('choose_a_sity');
+
+  const user = useSelector((state: State) => state.user);
+  const theme = user?.user?.color_theme;
   
   return (
-    <div className={css.wrapper}>
+    <div className={theme ? css.darkWrapper : css.wrapper}>
       <SettingsHeader 
+        theme={theme}
         title={i18n.t('change_city')} 
       />
       <Change
+        theme={theme}
         words={city}
         color={false}
         header={headerCity}

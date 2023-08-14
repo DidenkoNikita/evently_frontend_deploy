@@ -34,17 +34,25 @@
   padding-top: 4px;
 }
 
-.userName {
+.userName,
+.darkUserName {
   font-family: Montserrat;
   font-size: 14px;
   font-weight: 600;
 }
 
-.title {
+
+.title,
+.darkTitle {
   display: flex;
   align-items: center;
   height: 25px;
   font-family: Montserrat;
   font-size: 14px;
   font-weight: 400;
+}
+
+.darkUserName,
+.darkTitle {
+  color: #fff;
 }

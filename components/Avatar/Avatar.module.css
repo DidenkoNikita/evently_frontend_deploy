@@ -1,19 +1,18 @@
-.avatarWrapper {
+.avatarWrapper,
+.darkAvatarWrapper {
   width: 414px;
   height: 135px;
-  background: repeat url("../../public/backgroundComments.png");
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 120px;
-  z-index: -1;
+  margin-top: 109px;
   border: none;
 }
 
-.bigAwatarWrapper {
+.bigAwatarWrapper,
+.darkBigAvatarWrapper {
   width: 414px;
   height: 779px;
-  background: repeat url("../../public/backgroundComments.png");
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -21,7 +20,18 @@
   border: none;
 }
 
-.avatar {
+.avatarWrapper,
+.bigAwatarWrapper {
+  background: repeat url("../../public/backgroundComments.png");
+}
+
+.darkAvatarWrapper,
+.darkBigAvatarWrapper {
+  background: repeat url('../../public/darkBackgroundComments.png');
+}
+
+.avatar,
+.darkAvatar {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,9 +39,16 @@
   height: 124px;
   border-radius: 102px;
   background-color: #DFC5FF;
-  border: 10px solid #FDFFFD;
   margin-top: 1px;
   margin-bottom: 14px;
+}
+
+.avatar {
+  border: 10px solid #FDFFFD;
+}
+
+.darkAvatar {
+  border: 10px solid #333333;
 }
 
 .image {
@@ -56,7 +73,6 @@
   height: 615px;
   background-color: #DFC5FF;
   border-radius: 20px 20px 0px 0px;
-  /* border: 10px solid #FDFFFD; */
   margin-top: 148px;
   margin-bottom: 14px;
 }

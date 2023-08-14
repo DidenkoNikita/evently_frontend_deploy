@@ -15,7 +15,11 @@ i18n.init({
   lng: "en"
 });
 
-export const CommentsFooter = (): JSX.Element => {
+interface Props {
+  theme: boolean;
+}
+
+export const CommentsFooter = ({ theme }: Props): JSX.Element => {
   const [stateInput, setStateInput] = useState<string>('');
   const [postId, setPostId] = useState<string>('');
 
@@ -32,34 +36,34 @@ export const CommentsFooter = (): JSX.Element => {
     setStateInput('');
     store.dispatch(createComment(text, id))
   }
-  
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       handleComment(stateInput, id);
     }
   };
   return (
-    <div className={css.footer}>
+    <div className={theme ? css.darkFooter : css.footer}>
       <button
-        className={css.button}
+        className={theme ? css.darkButton : css.button}
       >
-        <Add />
+        <Add color={theme ? '#FFFFFF' : '#000000'} />
       </button>
-      <div className={css.inputWrapper}>
-        <input 
+      <div className={theme ? css.darkInputWrapper : css.inputWrapper}>
+        <input
           type='text'
           value={stateInput}
           onChange={(e) => setStateInput(e.target.value)}
-          className={css.input}
+          className={theme ? css.darkInput : css.input}
           placeholder={i18n.t('comment')}
           onKeyDown={handleKeyDown}
         />
       </div>
-      <button 
+      <button
         onClick={() => handleComment(stateInput, id)}
         className={css.send}
       >
-        <Forward />
+        <Forward color='#000000' />
       </button>
     </div>
   )

@@ -11,9 +11,10 @@ import { EventElement } from '../EventElement/EventElement';
 
 interface Props {
   id: number;
+  theme: boolean;
 }
 
-export const EventComponent = ({ id }: Props): JSX.Element => {
+export const EventComponent = ({ id, theme }: Props): JSX.Element => {
   useEffect(() => {
     store.dispatch(eventsGet());
   }, [])
@@ -33,6 +34,7 @@ export const EventComponent = ({ id }: Props): JSX.Element => {
           filteredEvents.map((event, index) => {
             return (
               <EventElement
+                theme={theme}
                 key={index}
                 event={event}
               />

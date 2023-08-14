@@ -16,20 +16,24 @@ i18n.init({
   lng: "en"
 });
 
-export const ProfileHeader = (): JSX.Element => {
+interface Props {
+  theme: boolean;
+}
+
+export const ProfileHeader = ({ theme }: Props): JSX.Element => {
 
   const router = useRouter();
 
   return (
-    <div className={css.headerWrapper}>
+    <div className={theme ? css.darkHeaderWrapper : css.headerWrapper}>
       <div className={css.header}>
         <button
           onClick={() => router.push('/home')}
           className={css.iconButton}
         >
-          <Back />
+          <Back color={theme ? '#FFFFFF' : '#000000'} />
         </button>
-        <div className={css.title}>
+        <div className={theme ? css.darkTitle : css.title}>
           {i18n.t('profile')}
         </div>
         <div className={css.wrapperButtons}>
@@ -37,13 +41,13 @@ export const ProfileHeader = (): JSX.Element => {
             onClick={() => router.push('/home/profile/profile_settings')}
             className={css.iconButton}
           >
-            <Edit />
+            <Edit color={theme ? '#FFFFFF' : '#000000'} />
           </button>
           <button
             onClick={() => router.push('/home/profile/settings')}
             className={css.iconButton}
           >
-            <Settings />
+            <Settings color={theme ? '#FFFFFF' : '#000000'} />
           </button>
         </div>
       </div>

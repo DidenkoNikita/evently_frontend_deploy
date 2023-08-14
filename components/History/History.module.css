@@ -1,4 +1,5 @@
-.historyWrapper {
+.historyWrapper,
+.darkHistoryWrapper {
   width: 350px;
   height: 130px;
   display: flex;
@@ -13,7 +14,13 @@
   scrollbar-width: none;
 }
 
-.historyWrapper::-webkit-scrollbar {
+.darkHistoryWrapper {
+  background-color: #333333;
+  margin-bottom: 20px;
+}
+
+.historyWrapper::-webkit-scrollbar,
+.darkHistoryWrapper::-webkit-scrollbar {
   width: 0;
 }
 /* 
@@ -47,18 +54,28 @@
   rotate: 205deg;
 }
 
-.imageHistory {
+.imageHistory,
+.darkImageHistory {
   border-radius: 50px;
-  border: 3px solid white;
   rotate: -205deg;
 }
 
-.title {
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
+.imageHistory {
+  border: 3px solid white;
+}
+
+.darkImageHistory {
+  border: 3px solid #333333;
+}
+
+.title,
+.darkTitle {
   text-align: center;
   font-size: 14px;
   font-family: Montserrat;
   font-weight: 400;
+}
+
+.darkTitle {
+  color: #fff;
 }

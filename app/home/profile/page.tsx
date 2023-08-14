@@ -29,10 +29,8 @@ export default function profile(): JSX.Element {
     store.dispatch(getSubscriptions());
   }, []);
   
-  const user = useSelector((state : State) => state.user);    
-
-  console.log(user);
-  
+  const user = useSelector((state: State) => state.user);    
+  const theme = user?.user?.color_theme;  
 
   if (user.user === undefined) {
     return (
@@ -44,10 +42,16 @@ export default function profile(): JSX.Element {
 
   return (
     <div className={css.wrapper}>
-      <ProfileHeader />
+      <ProfileHeader theme={theme} />
         <div className={css.scrollArea}>
-          <Avatar user={user?.user}/>
-          <UserData userData={user}/>
+          <Avatar 
+            theme={theme}
+            user={user?.user}
+          />
+          <UserData 
+            theme={theme}
+            userData={user}
+          />
         </div>
       <Footer />
     </div>

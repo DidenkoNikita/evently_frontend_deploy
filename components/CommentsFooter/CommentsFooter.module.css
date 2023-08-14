@@ -1,18 +1,26 @@
-.footer {
+.footer,
+.darkFooter {
   display: flex;
-  width: 402.5px;
+  width: 405px;
   height: 94px;
   padding: 10px 5px 0px 5px;
   align-items: flex-start;
   gap: 10px;
   position: fixed;
   top: 796px;
-  left: 1px;
-  background-color: white;
   border-radius: 15px 15px 0px 0px;
 }
 
-.button {
+.footer {
+  background-color: white;
+}
+
+.darkFooter {
+  background-color: #333333;
+}
+
+.button,
+.darkButton {
   display: flex;
   width: 48px;
   height: 48px;
@@ -22,10 +30,18 @@
   gap: 10px;
   border: none;
   border-radius: 10px;
+}
+
+.button {
   background-color: white;
 }
 
-.inputWrapper {
+.darkButton {
+  background-color: #333333;
+}
+
+.inputWrapper,
+.darkInputWrapper {
   display: flex;
   width: 245px;
   height: 48px;
@@ -33,19 +49,27 @@
   justify-content: space-between;
   align-items: center;
   border-radius: 10px;
+}
+
+.inputWrapper {
   background-color: #F6F6F6;
 }
 
-.input::-webkit-input-placeholder {
+.darkInputWrapper {
+  background-color: #242424;
+}
+
+.input::-webkit-input-placeholder,
+.darkInput::-webkit-input-placeholder {
   color: #969BAB;
   font-family: Montserrat;
   font-size: 14px;
   font-weight: 400;
 }
 
-.input {
+.input,
+.darkInput {
   border: none;
-  background-color: #F6F6F6;
   width: 240px;
   height: 24px;
   color: #969BAB;
@@ -54,7 +78,16 @@
   font-weight: 400;
 }
 
-.input:focus {
+.input {
+  background-color: #F6F6F6;
+}
+
+.darkInput {
+  background-color: #242424;
+}
+
+.input:focus,
+.darkInput:focus {
   outline: none !important;
 }
 

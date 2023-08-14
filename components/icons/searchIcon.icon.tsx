@@ -9,7 +9,8 @@ export const SearcIcon = (): JSX.Element => {
     >
       <path 
         d="M11.5 19C15.9183 19 19.5 15.4183 19.5 11C19.5 6.58172 15.9183 3 11.5 3C7.08172 3 3.5 6.58172 3.5 11C3.5 15.4183 7.08172 19 11.5 19Z" 
-        stroke="black" strokeWidth="2" 
+        stroke="black" 
+        strokeWidth="2" 
         strokeLinecap="round" 
         strokeLinejoin="round"
       />

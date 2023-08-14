@@ -17,6 +17,7 @@ i18n.init({
 
 export default function Custom404(): JSX.Element {
   const router = useRouter();
+  
   return (
     <div className={css.wrapper}>
       <div className={css.titleWrapper}>

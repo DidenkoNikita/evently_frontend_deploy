@@ -1,10 +1,19 @@
-.wrapper {
+.wrapper,
+.darkWrapper {
   display: flex;
   flex-direction: column;
   width: 414px;
   height: 896px;
-  background: repeat url('../../../../../public/backgroundSettings.png');
   align-items: center;
+  margin-top: 50px;
+}
+
+.wrapper {
+  background: repeat url('../../../../../public/backgroundSettings.png');
+}
+
+.darkWrapper {
+  background: repeat url('../../../../../public/darkBackgroundSettings.png');
 }
 
 .button {
@@ -30,7 +39,8 @@
   margin-top: 20px;
 }
 
-.select {
+.select,
+.darkSelect {
   display: flex;
   flex-direction: column;
   width: 345px;
@@ -40,8 +50,16 @@
   margin-bottom: 20px;
   border: none;
   border-radius: 10px;
-  background-color: #FDFFFD;
   gap: 10px;
+}
+
+.select {
+  background-color: #FDFFFD;
+}
+
+.darkSelect {
+  color: #FFFFFF;
+  background-color: #333333;
 }
 
 .titleWrapper {

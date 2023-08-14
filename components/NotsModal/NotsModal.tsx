@@ -9,10 +9,11 @@ i18n.init({
 });
 
 interface Props {
-  stateNots: boolean
+  stateNots: boolean;
+  theme: boolean;
 }
 
-export const NotsModal = ({stateNots}: Props): JSX.Element => {
+export const NotsModal = ({ stateNots, theme }: Props): JSX.Element => {
   const array = [
     i18n.t('disable_for_1_hour'),
     i18n.t('disable_for_8_hours'),
@@ -22,13 +23,13 @@ export const NotsModal = ({stateNots}: Props): JSX.Element => {
     i18n.t('mute_sound')
   ]
   return (
-    <div className={stateNots ? css.activeWrapper : css.wrapper}>
+    <div className={stateNots ? (theme ? css.darkActiveWrapper : css.activeWrapper) : css.wrapper}>
       {
         array.map((arr, index) => {
           return (
-            <div 
+            <div
               key={index}
-              className={css.element}
+              className={theme ? css.darkElement : css.element}
             >
               {arr}
             </div>

@@ -11,29 +11,43 @@
   margin-right: 20px;
 }
 
-.receivedWrapperMessage {
+.receivedWrapperMessage,
+.darkReceivedWrapperMessage {
   display: flex;
   padding: 16px;
   align-items: center;
   gap: 5px;
   border-radius: 20px 20px 20px 10px;
-  background-color: #FDFFFD;
   flex-wrap: wrap;
   margin-right: auto;
   max-width: 225px;
   margin-left: 20px;
 }
 
+.receivedWrapperMessage {
+  background-color: #FDFFFD;
+}
+
+.darkReceivedWrapperMessage {
+  background-color: #333333;
+}
+
 .wrapperMessage:first-child,
-.receivedWrapperMessage:first-child {
+.receivedWrapperMessage:first-child,
+.darkReceivedWrapperMessage:first-child {
   margin-top: 25px;
 }
 
-.text {
+.text,
+.darkText {
   font-family: Montserrat;
   font-size: 14px;
   font-weight: 400;
   word-break: break-word;
+}
+
+.darkText {
+  color: #FFFFFF;
 }
 
 .receivedDate {

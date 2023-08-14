@@ -2,9 +2,14 @@ import { ActiveGrade } from '../icons/activeGrade.icon';
 import { Grade } from '../icons/grade.icon';
 import css from './GradeComponent.module.css';
 
-export const GradeComponent = (): JSX.Element => {
-  const arr = [0, 1, 2, 3, 4];
+interface Props {
+  theme: boolean;
+}
 
+export const GradeComponent = ({theme}: Props): JSX.Element => {
+  const arr = [0, 1, 2, 3, 4];
+  console.log(theme);
+  
   return (
     <div className={css.gradeWrapper}>
       {
@@ -16,9 +21,9 @@ export const GradeComponent = (): JSX.Element => {
             >
               {
                 index === 4 ? (
-                  <Grade />
+                  theme ? (<Grade color='#FFFFFF' />) : (<Grade color='#000000' />)
                 ) : (
-                  <ActiveGrade />
+                  theme ? <ActiveGrade color='#FFFFFF' /> : <ActiveGrade color='#000000' />
                 )
               }
             </div>

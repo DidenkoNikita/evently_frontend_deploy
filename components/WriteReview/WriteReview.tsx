@@ -21,10 +21,11 @@ i18n.init({
 });
 
 interface Props {
-  id: number
+  id: number;
+  theme: boolean;
 }
 
-export const WriteReview = ({id}: Props): JSX.Element => {
+export const WriteReview = ({ id, theme }: Props): JSX.Element => {
   const [activeButton, setActiveButton] = useState<number>(0);
   const [stateInput, setStateInput] = useState<string>('');
   console.log(activeButton, stateInput);
@@ -37,25 +38,24 @@ export const WriteReview = ({id}: Props): JSX.Element => {
   const filteredReviews = reviews.filter((review) => review.brand_id === id);
   console.log(filteredReviews);
   
-
   const arr = [0, 1, 2, 3, 4];
 
   return (
-    <div className={css.wrapper}>
+    <div className={theme ? css.darkWrapper : css.wrapper}>
       <div className={css.gradeWrapper}>
         {
           arr.map((index) => {
             return (
               <button
                 key={index}
-                className={css.grade}
+                className={theme ? css.darkGrade : css.grade}
                 onClick={() => setActiveButton(index)}
               >
                 {
                   activeButton <= index++ ? (
-                    <Grade />
+                    <Grade color={theme ? '#FFFFFF' : '#000000'} />
                   ) : (
-                    <ActiveGrade />
+                    <ActiveGrade color={theme ? '#FFFFFF' : '#000000'} />
                   )
                 }
               </button>
@@ -63,14 +63,14 @@ export const WriteReview = ({id}: Props): JSX.Element => {
           })
         }
       </div>
-      <div className={css.inputWrapper}>
+      <div className={theme ? css.darkInputWrapper : css.inputWrapper}>
         <textarea 
           value={stateInput}
           onChange={(e) => {
             setStateInput(e.target.value);
           }}
           placeholder={i18n.t('comment...')}
-          className={css.input}
+          className={theme ? css.darkInput : css.input}
         />
       </div>
       <button 
@@ -88,13 +88,14 @@ export const WriteReview = ({id}: Props): JSX.Element => {
       {
         filteredReviews.length === 0 ? (
           <div
-            className={css.alert}
+            className={theme ? css.darkAlert : css.alert}
           >
             {i18n.t('write_first')}
           </div>
         ) : (
           <ReviewsComponent
             id={id}
+            theme={theme}
           />
         )
       }

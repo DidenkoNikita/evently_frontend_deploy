@@ -28,6 +28,7 @@ export default function profileSettings(): JSX.Element {
   }, [])
 
   const user = useSelector((state : State) => state.user);
+  const theme = user?.user?.color_theme;
 
   const router = useRouter();
 
@@ -42,13 +43,14 @@ export default function profileSettings(): JSX.Element {
     return <LoadingComponent />;
   }
   return (
-    <div className={css.wrapper}>
-      <SettingsHeader title={i18n.t('edit_profile')} />
+    <div className={theme ? css.darkWrapper : css.wrapper}>
+      <SettingsHeader 
+        theme={theme}
+        title={i18n.t('edit_profile')} 
+      />
       <div className={css.settingsWrapper}>
-        <div className={css.card}>
-          <div
-            className={css.text}
-          >
+        <div className={theme ? css.darkCard : css.card}>
+          <div className={theme ? css.darkText : css.text}>
             {i18n.t('my_photo')}
           </div>
           <button 
@@ -58,10 +60,8 @@ export default function profileSettings(): JSX.Element {
             <RightIcon />
           </button>
         </div>
-        <div className={css.card}>
-          <div
-            className={css.text}
-          >
+        <div className={theme ? css.darkCard : css.card}>
+          <div className={theme ? css.darkText : css.text}>
             {i18n.t('personal_data')}
           </div>
           <button 
@@ -71,11 +71,9 @@ export default function profileSettings(): JSX.Element {
             <RightIcon />
           </button>
         </div>
-        <div className={css.wrap}>
-          <div className={css.card}>
-            <div
-              className={css.text}
-            >
+        <div className={theme ? css.darkWrap : css.wrap}>
+          <div className={theme ? css.darkCard : css.card}>
+            <div className={theme ? css.darkText : css.text}>
               {i18n.t('change_number')}
             </div>
             <div className={css.data}>
@@ -88,11 +86,9 @@ export default function profileSettings(): JSX.Element {
               <RightIcon />
             </button>
           </div>
-          <div className={css.line}/>
-          <div className={css.card}>
-            <div
-              className={css.text}
-            >
+          <div className={theme ? css.darkLine : css.line}/>
+          <div className={theme ? css.darkCard : css.card}>
+            <div className={theme ? css.darkText : css.text}>
               {i18n.t('change_email')}
             </div>
             <div className={css.data}>
@@ -106,10 +102,8 @@ export default function profileSettings(): JSX.Element {
             </button>
           </div>
         </div>
-        <div className={css.card}>
-          <div
-            className={css.text}
-          >
+        <div className={theme ? css.darkCard : css.card}>
+          <div className={theme ? css.darkText : css.text}>
             {i18n.t('change_city')}
           </div>
           <div className={css.data}>
@@ -122,11 +116,9 @@ export default function profileSettings(): JSX.Element {
             <RightIcon />
           </button>
         </div>
-        <div className={css.wrap}>
-          <div className={css.card}>
-            <div
-              className={css.text}
-            >
+        <div className={theme ? css.darkWrap : css.wrap}>
+          <div className={theme ? css.darkCard : css.card}>
+            <div className={theme ? css.darkText : css.text}>
               {i18n.t('change_categories')}
             </div>
             <button 
@@ -136,11 +128,9 @@ export default function profileSettings(): JSX.Element {
               <RightIcon />
             </button>
           </div>
-          <div className={css.line}/>
-          <div className={css.card}>
-            <div
-              className={css.text}
-            >
+          <div className={theme ? css.darkLine : css.line}/>
+          <div className={theme ? css.darkCard : css.card}>
+            <div className={theme ? css.darkText : css.text}>
               {i18n.t('change_your_mood')}
             </div>
             <button 
@@ -151,10 +141,10 @@ export default function profileSettings(): JSX.Element {
             </button>
           </div>
         </div>
-        <div className={css.card}>
-          <div
-            className={css.text}
-          >{i18n.t('change_password')}</div>
+        <div className={theme ? css.darkCard : css.card}>
+          <div className={theme ? css.darkText : css.text}>
+            {i18n.t('change_password')}
+          </div>
           <button 
             className={css.button}
             onClick={() => {router.push('/home/profile/profile_settings/change_password')}}

@@ -21,6 +21,7 @@ import { MoreModal } from "@/components/MoreModal/MoreModal";
 import { NotsModal } from "@/components/NotsModal/NotsModal";
 import { useRouter } from "next/navigation";
 import { LoadingComponent } from "@/components/Loading/Loading";
+import { userGet } from "@/store/actions/getUser";
 
 i18n.init({
   resources,
@@ -38,6 +39,7 @@ export default function ChatSettings(): JSX.Element {
   useEffect(() => {
     setUserId(location.pathname);
     store.dispatch(getUserList());
+    store.dispatch(userGet());
   }, []);
 
   const id: number = Number(userId.slice(21));
@@ -46,9 +48,12 @@ export default function ChatSettings(): JSX.Element {
 
   const user = userList.find((u) => u.id === id);
 
+  const userData = useSelector((state: State) => state.user);
+  const theme = userData?.user?.color_theme;
+
   const arrIcon = [
     {
-      icon: <ProfileIcon />,
+      icon: <ProfileIcon color='black' />,
       title: i18n.t('profile')
     },
     {
@@ -56,7 +61,7 @@ export default function ChatSettings(): JSX.Element {
       title: i18n.t('call')
     },
     {
-      icon: <Notification />,
+      icon: <Notification color='black' />,
       title: i18n.t('nots')
     },
     {
@@ -81,7 +86,7 @@ export default function ChatSettings(): JSX.Element {
 
   if (user === undefined) {
     return (
-      <div className={css.loading}>
+      <div className={theme ? css.darkLoading : css.loading}>
         <LoadingComponent />
       </div>
     )
@@ -90,17 +95,18 @@ export default function ChatSettings(): JSX.Element {
   return (
     <div>
       <SettingsHeader
+        theme={theme}
         title={i18n.t('chats_settings')}
       />
-      <div className={css.area}>
+      <div className={theme ? css.darkArea : css.area}>
         <button
           onClick={() => setStateAwatar(!stateAwatar)}
-          className={stateAwatar ? css.bigAwatarWrapper : css.avatarWrapper}
+          className={stateAwatar ? (theme ? css.darkBigAwatarWrapper : css.bigAwatarWrapper) : (theme ? css.darkAvatarWrapper : css.avatarWrapper)}
         >
-          <div className={stateAwatar ? css.bigAvatar : css.avatar}>
+          <div className={stateAwatar ? css.bigAvatar : (theme ? css.darkAvatar : css.avatar)}>
             {
               user?.link_avatar === null ? (
-                <div className={stateAwatar ? css.bigAvatarData : css.avatarData}>
+                <div className={stateAwatar ? (theme ? css.darkBigAwatarData : css.bigAvatarData) : (theme ? css.darkAvatarData : css.avatarData)}>
                   {user?.name.slice(0, 1)}
                 </div>
               ) : (
@@ -113,9 +119,9 @@ export default function ChatSettings(): JSX.Element {
             }
           </div>
         </button>
-        <div className={css.wrapper}>
+        <div className={theme ? css.darkWrapper : css.wrapper}>
           <div className={css.swiper} />
-          <div className={css.name}>
+          <div className={theme ? css.darkName : css.name}>
             {user?.name}
           </div>
           <div className={css.buttonWrapper}>
@@ -124,7 +130,7 @@ export default function ChatSettings(): JSX.Element {
                 return (
                   <button
                     key={index}
-                    className={(stateMore && index !== 4) || (stateNots && index !== 2) ? css.iconButton : css.activeIconButton}
+                    className={(stateMore && index !== 4) || (stateNots && index !== 2) ? (theme ? css.darkIconButton : css.iconButton) : css.activeIconButton}
                     onClick={() => {
                       if (index === 4 && !stateNots) {
                         setStateMore(!stateMore)
@@ -152,16 +158,22 @@ export default function ChatSettings(): JSX.Element {
             }
           </div>
           <MoreModal
+            theme={theme}
             stateMore={stateMore}
           />
           <NotsModal
+            theme={theme}
             stateNots={stateNots}
           />
           {
             !user.phoneConfidentiality.nobody ? (
-              <div className={css.wrapperData}>
-                <div className={css.dataType}>{i18n.t('phone_number')}</div>
-                <div className={css.specialData}>{user?.phone}</div>
+              <div className={theme ? css.darkWrapperData : css.wrapperData}>
+                <div className={theme ? css.darkDataType : css.dataType}>
+                  {i18n.t('phone_number')}
+                </div>
+                <div className={css.specialData}>
+                  {user?.phone}
+                </div>
               </div>
             ) : (
               null
@@ -173,19 +185,21 @@ export default function ChatSettings(): JSX.Element {
                 return (
                   <button
                     key={index}
-                    className={index === activeButtonIndex ? css.activeButton : css.button}
+                    className={index === activeButtonIndex ? css.activeButton : (theme ? css.darkButton : css.button)}
                     onClick={() => {
                       setActiveButtonIndex(index);
                       setTitle(title);
                     }}
                   >
-                    <div className={css.title}>{title}</div>
+                    <div className={index !== activeButtonIndex ? (theme ? css.darkTitle : css.title) : css.title}>
+                      {title}
+                    </div>
                   </button>
                 )
               })
             }
           </div>
-          <div className={css.title}>
+          <div className={theme ? css.darkTitle : css.title}>
             {`${title}${i18n.t('from_the_chat')}`}
           </div>
         </div>

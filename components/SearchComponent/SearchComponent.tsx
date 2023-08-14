@@ -13,13 +13,14 @@ i18n.init({
 interface Props {
   searchTerm: string;
   setSearchTerm: any;
+  theme: boolean;
 }
 
-export const SearchComponent = ({searchTerm, setSearchTerm}: Props): JSX.Element => {
+export const SearchComponent = ({searchTerm, setSearchTerm, theme}: Props): JSX.Element => {
   return (
-    <div className={css.search}>
+    <div className={theme ? css.darkSearch : css.search}>
       <input
-        className={css.input}
+        className={theme ? css.darkInput : css.input}
         placeholder={i18n.t('search2')}
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}

@@ -1,15 +1,20 @@
-.area {
+.area,
+.darkArea {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  margin-top: 123px;
+  margin-top: 119px;
 }
 
-.avatarWrapper {
+.darkArea {
+  background-color: #333333;
+}
+
+.avatarWrapper,
+.darkAvatarWrapper {
   width: 414px;
-  height: 130px;
-  background: repeat url("../../../../public/backgroundComments.png");
+  height: 135px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -17,17 +22,28 @@
   border: none;
 }
 
-.bigAwatarWrapper {
+.bigAwatarWrapper,
+.darkBigAwatarWrapper {
   width: 414px;
   height: 620px;
-  background: repeat url("../../../../public/backgroundComments.png");
   display: flex;
   justify-content: center;
   align-items: flex-start;
   border: none;
 }
 
-.avatar {
+.avatarWrapper,
+.bigAwatarWrapper {
+  background: repeat url("../../../../public/backgroundComments.png");
+}
+
+.darkAvatarWrapper,
+.darkBigAwatarWrapper {
+  background: repeat url('../../../../public/darkBackgroundComments.png');
+}
+
+.avatar,
+.darkAvatar {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -35,9 +51,16 @@
   height: 124px;
   border-radius: 102px;
   background-color: #DFC5FF;
-  border: 10px solid #FDFFFD;
   margin-top: 1px;
   margin-bottom: 14px;
+}
+
+.avatar {
+  border: 10px solid #FDFFFD;
+}
+
+.darkAvatar {
+  border: 10px solid #333333;
 }
 
 .image {
@@ -66,16 +89,17 @@
   margin-bottom: 14px;
 }
 
-.bigAvatarData {
+.bigAvatarData,
+.darkBigAvatarData {
   text-align: center;
   font-family: Montserrat;
   font-size: 100px;
   font-weight: 900;
-  color: #FFF;
   padding-top: 10px;
 }
 
-.avatarData {
+.avatarData,
+.darkAvatarData {
   text-align: center;
   font-family: Montserrat;
   font-size: 50px;
@@ -84,19 +108,37 @@
   padding-top: 10px;
 }
 
-.wrapper {
+.bigAvatarData,
+.avatarData {
+  color: #FFF;
+}
+
+.darkBigAvatarData,
+.darkAvatarData {
+  color: #333333;
+}
+
+.wrapper,
+.darkWrapper {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   padding: 10px 0;
   width: 414px;
-  height: auto;
+  height: 600px;
   margin-top: -8px;
   overflow-y: hidden;
   border-radius: 15px 15px 0px 0px;
-  background-color: white;
   gap: 20px;
+}
+
+.wrapper {
+  background-color: white;
+}
+
+.darkWrapper {
+  background-color: #333333;
 }
 
 .swiper {
@@ -106,7 +148,8 @@
   background-color: #AAA;
 }
 
-.name {
+.name,
+.darkName {
   font-family: Montserrat;
   font-size: 20px;
   font-weight: 600; 
@@ -115,6 +158,10 @@
   height: 28px;
   justify-content: center;
   align-items: center; 
+}
+
+.darkName {
+  color: #FFF;
 }
 
 .buttonWrapper {
@@ -136,7 +183,8 @@
   background-color: #E3F563;
 }
 
-.iconButton {
+.iconButton,
+.darkIconButton {
   display: flex;
   width: 65px;
   height: 59px;
@@ -145,16 +193,29 @@
   align-items: center;
   border: none;
   border-radius: 10px;
+}
+
+.iconButton {
   background-color: #F6F6F6;
 }
 
-.title {
+.darkIconButton {
+  background-color: #242424;
+}
+
+.title,
+.darkTitle {
   font-family: Montserrat;
   font-size: 14px;
   font-weight: 400;
 }
 
-.wrapperData {
+.darkTitle {
+  color: #FFF;
+}
+
+.wrapperData,
+.darkWrapperData {
   display: flex;
   width: 305px;
   height: 48px;
@@ -162,11 +223,19 @@
   justify-content: space-between;
   align-items: center;
   border-radius: 10px; 
+}
+
+.wrapperData {
   background-color: #F6F6F6;
 }
 
+.darkWrapperData {
+  background-color: #242424;
+}
+
 .dataType,
-.specialData {
+.specialData,
+.darkDataType {
   font-family: Montserrat;
   font-size: 14px;
   font-weight: 400;
@@ -177,7 +246,12 @@
   color: #BB83FF;
 }
 
-.button {
+.darkDataType {
+  color: #FFF;
+}
+
+.button,
+.darkButton {
   display: flex;
   width: 65px;
   height: 48px;
@@ -185,7 +259,14 @@
   align-items: center; 
   border: none;
   border-radius: 10px;
+}
+
+.button {
   background-color: #F6F6F6;
+}
+
+.darkButton {
+  background-color: #242424;
 }
 
 .activeButton {
@@ -199,10 +280,15 @@
   background-color: #E3F563;
 }
 
-.loading {
+.loading,
+.darkLoading {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100vw;
   height: 100vh;
+}
+
+.darkLoading {
+  background-color: #333333;
 }

@@ -22,6 +22,7 @@ import { getChats } from "@/store/actions/getChats";
 import moment from "moment";
 import { messageIsRead } from "@/store/actions/messageIsRead";
 import { MessagePost } from "@/components/MessagePost/MessagePost";
+import { userGet } from "@/store/actions/getUser";
 
 i18n.init({
   resources,
@@ -35,12 +36,11 @@ export default function ChatPage() {
   const [chatId, setChatId] = useState<number | null>(null);
 
   const [height, setHeight] = useState<number>(0);
-  console.log(height);
-  
 
   useEffect(() => {
     setUserId(location.pathname);
     store.dispatch(getUserList());
+    store.dispatch(userGet());
   }, []);
 
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -49,21 +49,19 @@ export default function ChatPage() {
     if (wrapperRef.current && wrapperRef.current.lastElementChild) {
       wrapperRef.current.lastElementChild.scrollIntoView({ behavior: "smooth" });
     }
-    
   };
-  
+
   useEffect(() => {
     const userId = JSON.parse(sessionStorage.getItem('user_id') || '');
     setIdUser(Number(userId))
   }, [])
-  
+
   const id: number = Number(userId.slice(22));
-  
+
   useEffect(() => {
-    getChatId({user2Id: id}, setChatId);
+    getChatId({ user2Id: id }, setChatId);
   }, [id, chatId])
 
-  
   useEffect(() => {
     if (chatId !== null) {
       socket.emit('getChats', idUser);
@@ -73,64 +71,76 @@ export default function ChatPage() {
 
       socket.emit('getMessageList', chatId);
       socket.on('messageList', (data) => {
+        console.log('получен список сообщений');
+
         store.dispatch(getMessages(data))
       });
       socket.on('createMessage', (message) => {
+        console.log('сообщение создано', message);
+
         store.dispatch(getMessages([message]))
       });
 
       socket.on('messageIsRead', (message) => {
+        console.log('сообщение прочитано');
+
         store.dispatch(markMessageAsRead(message))
       })
 
       socket.on('updateChat', (chat) => {
+        console.log('чато обновлён');
+
         store.dispatch(getChats(chat))
       })
-    } 
+    }
   }, [chatId])
-  
-  const usersList = useSelector((state : State) => state.usersList);
-  
+
+  const usersList = useSelector((state: State) => state.usersList);
+
   const userData = usersList.find((user) => user.id === id) || null;
-  
+
   const messages = useSelector((state: State) => state.messages);
   console.log(messages);
-  
+
 
   const filterMessage = messages.filter((message) => message.chat_id === chatId);
-    
+
   useEffect(() => {
     if (wrapperRef.current) {
       const containerHeight = wrapperRef.current.clientHeight;
       setHeight(containerHeight);
     }
   }, []);
-  
+
   useEffect(() => {
     scrollToLastMessage();
-  }, [messages]); 
+  }, [messages]);
 
 
   const isDifferentDate = (currentDate: moment.Moment, previousDate: moment.Moment) => {
     return !currentDate.isSame(previousDate, "day");
   };
 
+  const user = useSelector((state: State) => state.user);
+  const theme = user?.user?.color_theme;
+
   return (
-    <div className={css.chatWrapper}>
+    <div className={theme ? css.darkChatWrapper : css.chatWrapper}>
       <HeaderChat
+        theme={theme}
         name={userData?.name}
         linkAvatar={userData?.link_avatar}
         filterMessage={filterMessage}
         chatId={chatId}
       />
-      <div 
-        className={height < 660 ? css.wrapperHowSomeMessages : css.wrapper} 
+      <div
+        className={height < 660 ? css.wrapperHowSomeMessages : css.wrapper}
         // className={css.wrapper}
         ref={wrapperRef}
       >
         {
           filterMessage.length === 0 ? (
-            <div className={css.title}>
+            <div className={theme ? css.darkTitle : css.title}>
               {i18n.t('you_dont_have')}
             </div>
           ) : (
@@ -143,16 +153,17 @@ export default function ChatPage() {
               };
 
               if (message.user_id !== idUser && !message.is_read) {
-                 store.dispatch(messageIsRead(message.id, message.user_id));
+                store.dispatch(messageIsRead(message.id, message.user_id));
               }
               if (isPreviousMessageDifferentUser(index) && message.user_id === idUser) {
                 return (
-                  <div 
+                  <div
                     key={`message-${message.id}`}
                     className={css.wrap}
                   >
-                    <div  className={css.spaceBetweenMessages} />
+                    <div className={css.spaceBetweenMessages} />
                     <Message
+                      theme={theme}
                       message={message}
                     />
                   </div>
@@ -161,40 +172,43 @@ export default function ChatPage() {
 
               if (isPreviousMessageDifferentUser(index) && message.user_id !== idUser) {
                 return (
-                  <div 
+                  <div
                     key={`message-${message.id}`}
                     className={css.wrapRight}
                   >
-                    <div  className={css.spaceBetweenMessages} />
+                    <div className={css.spaceBetweenMessages} />
                     <Message
+                      theme={theme}
                       message={message}
                     />
                   </div>
                 );
               }
 
-              if (message.link_photo) {
+              if (message.post_id) {
                 return (
-                  <div 
+                  <div
                     key={message.id}
                     className={css.postWrapper}
                   >
-                    <MessagePost 
+                    <MessagePost
+                      theme={theme}
                       message={message}
                     />
                   </div>
                 )
               }
-  
+
               if (!previousDate || isDifferentDate(currentDate, previousDate)) {
                 return (
-                  <React.Fragment 
+                  <React.Fragment
                     key={`fragment-${message.id}`}
                   >
-                    <div className={css.date}>
+                    <div className={theme ? css.darkDate : css.date}>
                       {currentDate.format("MMMM D")}
                     </div>
                     <Message
+                      theme={theme}
                       message={message}
                     />
                   </React.Fragment>
@@ -202,7 +216,8 @@ export default function ChatPage() {
               } else {
                 return (
                   <Message
-                    key={`message-${message.id}`}
+                    theme={theme}
+                    key={message.id}
                     message={message}
                   />
                 );
@@ -211,9 +226,10 @@ export default function ChatPage() {
           )
         }
       </div>
-      <FooterChat 
+      <FooterChat
         id={id}
         chatId={chatId}
+        theme={theme}
       />
     </div>
   )

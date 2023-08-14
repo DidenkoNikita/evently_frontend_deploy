@@ -1,7 +1,8 @@
-.header {
+.header,
+.darkHeader {
   display: flex;
   padding: 10px;
-  margin-top: 59px;
+  height: 200px;
   flex-direction: column;
   gap: 6px;
   align-items: center;
@@ -9,25 +10,47 @@
   overflow-y: hidden;
 }
 
-.buttonBack {
-  justify-content: flex-start;
+.darkHeader {
+  background-color: #333333;
+}
+
+.buttonBack,
+.darkButtonBack {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 48px;
   height: 48px;
   border: none;
-  background-color: #fff;
   margin-left: 24px;
-  margin-right: 66.5px;
+  margin-right: 82.5px;
   align-self: center;
 }
 
-.title {
+.buttonBack {
+  background-color: #fff;
+}
+
+.darkButtonBack {
+  background-color: #333333;
+}
+
+.title,
+.darkTitle {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #000;
   font-size: 16px;
   font-family: "Montserrat";
   font-weight: 600;
+}
+
+.title {
+  color: #000;
+}
+
+.darkTitle {
+  color: #fff;
 }
 
 .wrapper {
@@ -36,13 +59,3 @@
   position: fixed;
   top: 60px;
 }
-
-/* .commentsWrapper {
-  display: flex;
-  position: fixed;
-  top: 170px;
-  width: 412.5px;
-  height: 637px;
-  margin: 0 auto;
-  background: repeat url("../../../../../public/backgroundComments.png");
-} */

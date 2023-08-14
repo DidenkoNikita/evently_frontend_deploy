@@ -1,4 +1,5 @@
-.footer {
+.footer,
+.darkFooter {
   display: flex;
   width: 405px;
   height: 94px;
@@ -7,12 +8,20 @@
   justify-content: center;
   gap: 10px;
   border-radius: 15px 15px 0px 0px;
-  background-color: #FDFFFD;
   position: fixed;
   top: 800px; 
 }
 
-.navigateButton {
+.footer {
+  background-color: #FDFFFD;
+}
+
+.darkFooter {
+  background-color: #242424;
+}
+
+.navigateButton,
+.darkNavigateButton {
   display: flex;
   width: 76.6px;
   height: 55px;
@@ -22,11 +31,19 @@
   align-items: center;
   gap: 5px;
   border: none;
-  background-color: #FDFFFD;
   border-radius: 10px;
   font-size: 14px;
   font-family: Montserrat;
   font-weight: 400;
+}
+
+.navigateButton {
+  background-color: #FDFFFD;
+}
+
+.darkNavigateButton {
+  background-color: #242424;
+  color: #fff;
 }
 
 .activeNavigateButton {

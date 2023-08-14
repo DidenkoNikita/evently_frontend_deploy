@@ -1,8 +1,16 @@
-.wrapper {
+.wrapper,
+.darkWrapper {
   width: 414px;
   height: 896px;
-  background: repeat url('../../../../public/backgroundComments.png');
   overflow: hidden;
+}
+
+.wrapper {
+  background: repeat url('../../../../public/backgroundComments.png');
+}
+
+.darkWrapper {
+  background: repeat url('../../../../public/darkBackgroundComments.png');
 }
 
 .settingsWrapper {
@@ -24,10 +32,11 @@
   justify-content: center;
   align-items: center; 
   border: none;
-  background-color: #FDFFFD;
+  background-color: transparent;
 }
 
-.card {
+.card,
+.darkCard {
   display: flex;
   width: 345px;
   height: 48px;
@@ -35,29 +44,55 @@
   justify-content: space-between;
   align-items: center; 
   border-radius: 10px;
+}
+
+.card {
   background-color: #FDFFFD;
 }
 
-.text {
-  font-family: Montserrat;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal; 
+.darkCard {
+  background-color: #333333;
 }
 
-.wrap {
+.text,
+.darkText {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.darkText {
+  color: #FFFFFF;
+}
+
+.wrap,
+.darkWrap {
   display: flex;
   flex-direction: column;
   align-items: center;
   border-radius: 10px;
+}
+
+.wrap {
   background-color: #FDFFFD;
 }
 
-.line {
-  width: 305px;
+.darkWrap {
+  background-color: #333333;
+}
+
+.line,
+.darkLine {
+  width: 330px;
   height: 1px;
+}
+
+.line {
   background-color: #F6F6F6;
+}
+
+.darkLine {
+  background-color: #242424;
 }
 
 .data {

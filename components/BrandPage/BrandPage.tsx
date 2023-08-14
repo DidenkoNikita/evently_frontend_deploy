@@ -28,6 +28,8 @@ import { useRouter } from "next/navigation";
 import { createSubscription } from "@/store/actions/createSubscription";
 import { getSubscriptions } from "@/store/actions/getSubscription";
 import { removeSubscription } from "@/store/actions/removeSubscription";
+import { SharePost } from "../SharePost/SharePost";
+import { userGet } from "@/store/actions/getUser";
 
 i18n.init({
   resources,
@@ -42,12 +44,15 @@ export default function BrandPage({ id }: Props): JSX.Element {
   const [activeButton, setActiveButton] = useState<number>(0);
   const [activeModal, setActiveModal] = useState<boolean>(false);
   const [idUser, setIdUser] = useState<number | null>(null);
+  const [activeShare, setActiveShare] = useState<boolean>(false);
+  const [postId, setPostId] = useState<number | null>(null);
 
   useEffect(() => {
     store.dispatch(getPost());
     store.dispatch(getComment());
     store.dispatch(brandGet());
     store.dispatch(reviewGet());
+    store.dispatch(userGet());
     store.dispatch(getSubscriptions());
     const userId = JSON.parse(sessionStorage.getItem('user_id') || '');
     setIdUser(Number(userId));
@@ -75,21 +80,31 @@ export default function BrandPage({ id }: Props): JSX.Element {
 
   const findSubscribedUser = subscriptions.find((subscription) => subscription.user_id === idUser && subscription.brand_id === id);
   console.log(findSubscribedUser);
-
+  const user = useSelector((state: State) => state.user);
+  const theme = user?.user?.color_theme;
 
   return (
     <div>
       <HeaderBrand
+        theme={theme}
         title={i18n.t('calendar_of_events')}
       />
-      <div className={css.wrapper}>
+      <div className={theme ? css.darkWrapper : css.wrapper}>
+        {
+          activeShare && (
+            <SharePost
+              postId={postId}
+              setActiveModal={setActiveShare}
+            />
+          )
+        }
         <img
           src={filteredBrand?.link_photo}
           className={css.avatar}
         />
-        <div className={css.container}>
+        <div className={theme ? css.darkContainer : css.container}>
           <div className={css.wrapperName}>
-            <div className={css.name}>
+            <div className={theme ? css.darkName : css.name}>
               {filteredBrand?.name}
             </div>
             <div className={css.gradeWrapper}>
@@ -102,9 +117,9 @@ export default function BrandPage({ id }: Props): JSX.Element {
                     >
                       {
                         index === 4 ? (
-                          <Grade />
+                          <Grade color={theme ? '#FFFFFF' : '#000000'} />
                         ) : (
-                          <ActiveGrade />
+                          <ActiveGrade color={theme ? '#FFFFFF' : '#000000'} />
                         )
                       }
                     </div>
@@ -115,14 +130,19 @@ export default function BrandPage({ id }: Props): JSX.Element {
           </div>
           <div className={css.containerData}>
             <ul className={css.list}>
-              <li className={css.listElement}>
+              <li className={theme ? css.darkListElement : css.listElement}>
                 {filteredBrand?.address}
               </li>
-              <li className={css.listElement}>
+              <li className={theme ? css.darkListElement : css.listElement}>
                 {filteredBrand?.phone}
               </li>
-              <li className={css.listElement}>
-                <a href={filteredBrand?.site_link}>{filteredBrand?.name_site}</a>
+              <li className={theme ? css.darkListElement : css.listElement}>
+                <a 
+                  href={filteredBrand?.site_link}
+                  className={theme ? css.darkLink : css.link}
+                >
+                  {filteredBrand?.name_site}
+                </a>
               </li>
             </ul>
             <button
@@ -172,7 +192,7 @@ export default function BrandPage({ id }: Props): JSX.Element {
                   {i18n.t('add_to_favorites')}
                 </div>
                 <div className={css.icon}>
-                  <Heart />
+                  <Heart color='#000000' />
                 </div>
               </button>
             </div>
@@ -196,7 +216,7 @@ export default function BrandPage({ id }: Props): JSX.Element {
                 return (
                   <button
                     key={index}
-                    className={activeButton === index ? css.activeButton : css.button}
+                    className={activeButton === index ? css.activeButton : (theme ? css.darkButton : css.button)}
                     onClick={() => {
                       setActiveButton(index)
                     }}
@@ -213,12 +233,19 @@ export default function BrandPage({ id }: Props): JSX.Element {
             switch (activeButton) {
               case 0:
                 return (
-                  <PostBrand id={id} />
+                  <PostBrand 
+                    id={id} 
+                    theme={theme}
+                    setActiveShare={setActiveShare}
+                    setPostId={setPostId}
+                  />
                 )
               case 1:
                 return (
                   <div className={css.stories}>
-                    <History />
+                    <History
+                      theme={theme}
+                    />
                   </div>
                 )
               case 2:
@@ -226,6 +253,7 @@ export default function BrandPage({ id }: Props): JSX.Element {
                   <div>
                     <WriteReview
                       id={id}
+                      theme={theme}
                     />
                   </div>
                 )
@@ -234,6 +262,7 @@ export default function BrandPage({ id }: Props): JSX.Element {
                   <div>
                     <EventComponent
                       id={id}
+                      theme={theme}
                     />
                   </div>
                 )

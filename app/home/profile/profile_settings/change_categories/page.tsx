@@ -8,11 +8,14 @@ import resources from "@/locales/resource";
 import { Footer } from "@/components/Footer/Footer";
 
 import css from './page.module.css'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Change } from "@/components/Change/Change";
 import { store } from "@/store/store";
 import { updateCategories } from "@/store/actions/updateCategories";
 import { useRouter } from "next/navigation";
+import { userGet } from "@/store/actions/getUser";
+import { useSelector } from "react-redux";
+import { State } from "@/store/initialState";
 
 i18n.init({
   resources,
@@ -22,6 +25,13 @@ i18n.init({
 export default function changeCategories(): JSX.Element {
   const [userCategories, setUserCategories] = useState<{ [key: string]: boolean }>({});
   const [activeButtons, setActiveButtons] = useState<string[]>([]);
+
+  useEffect(() => {
+    store.dispatch(userGet());
+  }, [])
+
+  const user = useSelector((state: State) => state.user);
+  const theme = user?.user?.color_theme;
 
   const router = useRouter();
 
@@ -44,9 +54,13 @@ export default function changeCategories(): JSX.Element {
   ];
 
   return (
-    <div className={css.wrapper}>
-      <HeaderCategoriesOrMood title={i18n.t('change_categories')} />
+    <div className={theme ? css.darkWrapper : css.wrapper}>
+      <HeaderCategoriesOrMood 
+        theme={theme}
+        title={i18n.t('change_categories')} 
+      />
       <Change 
+        theme={theme}
         words={categories}
         header=""  
         color={false}

@@ -17,6 +17,8 @@ import { userGet } from "@/store/actions/getUser";
 import { useRouter } from "next/navigation";
 import { PostComponent } from "@/components/PostComponent/PostComponent";
 import { SharePost } from "@/components/SharePost/SharePost";
+import { useSelector } from "react-redux";
+import { State } from "@/store/initialState";
 
 i18n.init({
   resources,
@@ -32,8 +34,7 @@ export interface Data {
 
 export default function (): JSX.Element {
   const [activeModal, setActiveModal] = useState<boolean>(false);
-  const [stateData, setStateData] = useState<Data | null>(null);
-  console.log('post', stateData);
+  const [postId, setPostId] = useState<number | null>(null);
 
   useEffect(() => {
     store.dispatch(getPost())
@@ -50,23 +51,30 @@ export default function (): JSX.Element {
     }
   }, [])
 
+  const user = useSelector((state: State) => state.user);
+  const theme = user?.user?.color_theme;
+  console.log(user);
+  
+
   return (
-    <div className={css.home}>
+    <div className={theme ? css.darkHome : css.home}>
       <Header />
       {
         activeModal && (
           <SharePost
-            stateData={stateData}
+            postId={postId}
             setActiveModal={setActiveModal}
           />
         )
       }
       <div className={css.wrapper}>
-        <History />
+        <History
+          theme={theme}
+        />
         <CalendarOfEventsHome />
         <PostComponent
           setActiveModal={setActiveModal}
-          setStateData={setStateData}
+          setPostId={setPostId}
         />
       </div>
       <Footer />

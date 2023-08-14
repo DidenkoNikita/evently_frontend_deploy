@@ -1,4 +1,5 @@
-.modal {
+.modal,
+.darkModal {
   display: flex;
   width: 370px;
   height: 677px;
@@ -9,11 +10,17 @@
   gap: 10px;
   border: none;
   border-radius: 15px 15px 0px 0px;
-  background-color: #FDFFFD;
   position: fixed;
   top: 210px;
   z-index: 100000;
-  /* overflow-y: scroll; */
+}
+
+.modal {
+  background-color: #FDFFFD;
+}
+
+.darkModal {
+  background-color: #333333;
 }
 
 .wrapper {
@@ -45,47 +52,80 @@
   background-color: #E3F563;
 }
 
-.title {
+.title,
+.darkTitle {
   font-family: Montserrat;
   font-size: 16px;
   font-weight: 600;
 }
 
-.inputWrapper {
+.darkTitle {
+  color: #fff;
+}
+
+.inputWrapper,
+.darkInputWrapper {
   display: flex;
   height: 48px;
   padding: 0px 20px;
   align-items: center;
   gap: 10px;
   border-radius: 10px;
+}
+
+.inputWrapper,
+.input {
   background-color: #F6F6F6;
 }
 
-.input {
+.darkInputWrapper,
+.darkInput {
+  background-color: #242424;
+}
+
+.darkInput,
+.darkInput::-webkit-input-placeholder {
+  color: #FFF;
+}
+
+.input,
+.input::-webkit-input-placeholder {
+  color: #000;
+}
+
+.input,
+.darkInput {
   width: 265px;
   height: 44px;
   border: none;
-  background-color: #F6F6F6;
   font-size: 14px;
   font-family: Montserrat;
-  color: #000;
 }
 
-.input::-webkit-input-placeholder {
+.input::-webkit-input-placeholder,
+.darkInput::-webkit-input-placeholder {
   font-size: 14px;
   font-family: Montserrat;
-  color: #000;
 }
 
-.input:focus {
+.input:focus,
+.darkInput:focus {
   outline: none !important;
 }
 
-.line {
+.line,
+.darkLine {
   width: 305px;
   height: 1px;
-  background-color: #F6F6F6;
   margin: 5px auto;
+}
+
+.line {
+  background-color: #F6F6F6;
+}
+
+.darkLine {
+  background-color: #242424;
 }
 
 .chat {
@@ -114,12 +154,20 @@
   background-color: #DFC5FF;
 }
 
-.avatarData {
+.avatarData,
+.darkAvatarData {
   text-align: center;
   font-family: Montserrat;
   font-size: 20px;
   font-weight: 600;
+}
+
+.avatarData {
   color: #FFFFFF;
+}
+
+.darkAvatarData {
+  color: #000;
 }
 
 .container {
@@ -129,10 +177,15 @@
   gap: 10px;
 }
 
-.name {
+.name,
+.darkName {
   font-family: Montserrat;
   font-size: 14px;
   font-weight: 600;
+}
+
+.darkName {
+  color: #fff;
 }
 
 .buttonWrapper {
@@ -143,7 +196,8 @@
   height: 48px;
 }
 
-.button {
+.button,
+.darkButton {
   display: flex;
   width: 24px;
   height: 24px;
@@ -151,8 +205,15 @@
   align-items: center;
   border: 3px solid #BB83FF;
   border-radius: 50%;
-  background-color: #FDFFFD;
   padding: 0;
+}
+
+.button {
+  background-color: #FDFFFD;
+}
+
+.darkButton {
+  background-color: #333333;
 }
 
 .curcle {
@@ -177,4 +238,11 @@
   font-weight: 400;
   position: fixed;
   top: 800px;
+}
+
+
+.fakeButton {
+  width: 48px;
+  height: 48px;
+  background-color: transparent;
 }

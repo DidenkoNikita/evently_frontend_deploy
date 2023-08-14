@@ -14,6 +14,7 @@ import { State } from "@/store/initialState";
 import { getSubscriptions } from "@/store/actions/getSubscription";
 import { useSelector } from "react-redux";
 import { SubscriptionComponent } from "@/components/SubscriptionComponent/SubscriptionComponent";
+import { userGet } from "@/store/actions/getUser";
 
 i18n.init({
   resources,
@@ -25,6 +26,7 @@ export default function SubscriptionsPage(): JSX.Element {
 
   useEffect(() => {
     store.dispatch(getSubscriptions());
+    store.dispatch(userGet())
   }, []);
 
   const subscriptions = useSelector((state: State) => state.subscription);
@@ -33,13 +35,18 @@ export default function SubscriptionsPage(): JSX.Element {
     subscription.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const user = useSelector((state: State) => state.user);
+  const theme = user?.user?.color_theme;
+
   return (
     <div className={css.wrapper}>
       <HeaderProfileFriend 
+        theme={theme}
         title={i18n.t('subscriptions')}
       />
       <div className={css.search}>
         <SearchComponent 
+          theme={theme}
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
         />

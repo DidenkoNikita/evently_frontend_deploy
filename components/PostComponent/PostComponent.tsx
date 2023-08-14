@@ -26,10 +26,10 @@ i18n.init({
 
 interface Props {
   setActiveModal: any;
-  setStateData: any;
+  setPostId: any;
 }
 
-export const PostComponent = ({setActiveModal, setStateData}: Props): JSX.Element => {
+export const PostComponent = ({ setActiveModal, setPostId }: Props): JSX.Element => {
   const [expandedPostId, setExpandedPostId] = useState<number | null>(null);
   const [stateUserId, setStateUserId] = useState<number | string>('');
   const router = useRouter()
@@ -60,11 +60,14 @@ export const PostComponent = ({setActiveModal, setStateData}: Props): JSX.Elemen
   const posts: Post[] = useSelector((state: State) => state.posts);
   const comments: Comment[] = useSelector((state: State) => state.comments);
   const subscriptions = useSelector((state: State) => state.subscription);
+  const user = useSelector((state: State) => state.user);
+
+  const theme = user?.user?.color_theme;
 
   console.log(posts);
 
   return (
-    <div className={css.wrapper}>
+    <div className={theme ? css.darkWrapper : css.wrapper}>
       {
         posts.map((post: Post) => {
           const id = post.like.includes(Number(stateUserId));
@@ -74,28 +77,33 @@ export const PostComponent = ({setActiveModal, setStateData}: Props): JSX.Elemen
           return (
             <div
               key={post.id}
-              className={css.post}
+              className={theme ? css.darkPost : css.post}
             >
-              <div className={css.header}>
+              <button
+                className={theme ? css.darkHeader : css.header}
+                onClick={() => {
+                  router.push(`/home/post/${post.id}`)
+                }}
+              >
                 <div className={css.avatarWrapper}>
                   <img
                     src={post.link_avatar}
                     width='37'
                     height='37'
                     alt="Avatar"
-                    className={css.avatar}
+                    className={theme ? css.darkAvatar : css.avatar}
                   />
                 </div>
                 <div className={css.wrapperName}>
-                  <div className={css.name}>
+                  <div className={theme ? css.darkName : css.name}>
                     {post.user_name}
                   </div>
-                  <div className={css.type}>
+                  <div className={theme ? css.darkType : css.type}>
                     {post.type}
                   </div>
                 </div>
                 <div className={css.subscribe}>{subscribtionFilter ? i18n.t('subscribed') : i18n.t('subscribe')}</div>
-              </div>
+              </button>
               <img
                 src={post.link_photo}
                 width='414'
@@ -108,42 +116,59 @@ export const PostComponent = ({setActiveModal, setStateData}: Props): JSX.Elemen
                   onClick={() => {
                     handleLike(post.id)
                   }}
-                  className={css.button}
+                  className={theme ? css.darkButton : css.button}
                 >
-                  {id ? <ActiveHeart /> : <Heart />}
-                  <div className={css.quantity}>
+                  {id ? (
+                    <ActiveHeart />
+                  ) : (
+                    theme ? (
+                      <Heart color="#FFFFFF" />
+                    ) : (
+                      <Heart color="#000000" />
+                    ))}
+                  <div className={theme ? css.darkQuantity : css.quantity}>
                     {post.like.length}
                   </div>
                 </button>
                 <button
                   onClick={() => router.push(`/home/post/comments/${post.id}`)}
-                  className={css.button}
+                  className={theme ? css.darkButton : css.button}
                 >
-                  <Message />
-                  <div className={css.quantity}>{commentsFilter.length}</div>
+                  {theme ? (
+                    <Message color="#FFFFFF" />
+                  ) : (
+                    <Message color="#000000" />
+                  )}
+                  <div className={theme ? css.darkQuantity : css.quantity}>
+                    {commentsFilter.length}
+                  </div>
                 </button>
-                <button 
-                  className={css.button}
+                <button
                   onClick={() => {
                     setActiveModal(true);
-                    setStateData({
-                      post_id: post.id, 
-                      post_name: post.user_name, 
-                      link_photo: post.link_photo, 
-                      text: post.title.slice(0, 20) + '...'
-                    })
+                    setPostId(post.id)
                   }}
+                  className={theme ? css.darkButton : css.button}
                 >
-                  <Forward />
-                  <div className={css.quantity}>0</div>
+                  {theme ? (
+                    <Forward color="#FFFFFF" />
+                  ) : (
+                    <Forward color="#000000" />
+                  )}
+                  <div className={theme ? css.darkQuantity : css.quantity}>0</div>
                 </button>
               </div>
-              <div className={css.text}>
-                <span className={css.fullName}>{post.user_name}</span>
-                <span>{post.title.length > 100 && expandedPostId !== post.id ? post.title.slice(0, 100) + '...' : post.title}</span>
+              <div className={theme ? css.darkText : css.text}>
+                <span
+                  className={css.fullName}
+                >
+                  {post.user_name}</span>
+                <span>
+                  {post.title.length > 100 && expandedPostId !== post.id ? post.title.slice(0, 100) + '...' : post.title}
+                </span>
                 {post.title.length > 100 &&
                   <a
-                    className={css.more}
+                    className={theme ? css.darkMore : css.more}
                     onClick={() => handleTextToggle(post.id)}
                   >
                     {expandedPostId === post.id ? i18n.t('less') : i18n.t('more')}

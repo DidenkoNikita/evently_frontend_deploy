@@ -8,16 +8,18 @@
   border-radius: 20px;
   z-index: 1000;
   position: fixed;
-  left: 35px;
-  top: 230px;
 }
 
 .calendar {
   background-color: #F6F6F6;
+  left: 35px;
+  top: 230px;
 }
 
 .colorCalendar {
   background-color: #DFC5FF;
+  left: 35px;
+  top: 120px;
 }
 
 .closedCalendar {

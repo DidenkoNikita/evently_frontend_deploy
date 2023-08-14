@@ -12,10 +12,11 @@ import { UsersList } from '@/store/counter/usersListSlice';
 import { useEffect, useState } from 'react';
 
 interface User {
-  user: UsersList
+  user: UsersList;
+  theme: boolean;
 }
 
-export const UserCreateChat = ({ user }: User): JSX.Element => {
+export const UserCreateChat = ({ user, theme }: User): JSX.Element => {
   const [userId, setUserId] = useState<number | null>(null);
 
   console.log(userId);
@@ -49,7 +50,7 @@ export const UserCreateChat = ({ user }: User): JSX.Element => {
             <div
               className={css.fakeAvatar}
             >
-              <div className={css.avatarData}>
+              <div className={theme ? css.darkAvatarData : css.avatarData}>
                 {user.name.slice(0, 1)}
               </div>
             </div>
@@ -62,7 +63,7 @@ export const UserCreateChat = ({ user }: User): JSX.Element => {
             </div>
           )}
           <div
-            className={css.name}
+            className={theme ? css.darkName : css.name}
           >
             {user.name}
           </div>
@@ -86,7 +87,7 @@ export const UserCreateChat = ({ user }: User): JSX.Element => {
                 }}
                 className={css.chatButton}
               >
-                <ChatsIcon />
+                <ChatsIcon color='#000000' />
               </button>
             ) : (
               null
@@ -94,7 +95,7 @@ export const UserCreateChat = ({ user }: User): JSX.Element => {
           }
         </div>
       </div>
-      <div className={css.line} />
+      <div className={theme ? css.darkLine : css.line} />
     </div>
   )
 }

@@ -1,11 +1,19 @@
-.headerWrapper {
+.headerWrapper,
+.darkHeaderWrapper {
   display: flex;
   align-items: flex-end;
   width: 414px;
   height: 119px;
   position: fixed;
   top: -0px;
+}
+
+.headerWrapper {
   background-color: #FFF;
+}
+
+.darkHeaderWrapper {
+  background-color: #333333;
 }
 
 .header {
@@ -18,7 +26,8 @@
 
 }
 
-.iconButton {
+.iconButton,
+.darkIconButton {
   display: flex;
   width: 48px;
   height: 48px;
@@ -27,43 +36,72 @@
   gap: 10px;
   border: none;
   border-radius: 10px;
+}
+
+.iconButton {
   background-color: white;
+}
+
+.darkIconButton {
+  background-color: #333333;
 }
 
 .wrapperButtons {
   display: flex;
   gap: 5px;
-  /* margin-right: 10px; */
 }
 
-.title {
+.title,
+.darkTitle {
   font-family: Montserrat;
   font-size: 16px;
   font-weight: 600;
   margin: 0 auto;
 }
 
-.button {
+.darkTitle {
+  color: #FFF;
+}
+
+.button,
+.darkButton {
   display: flex;
   width: 40px;
   justify-content: center;
   align-items: center;
   border: none;
-  background-color: #FFF;
   font-family: Montserrat;
   font-size: 14px;
   font-weight: 400;
+}
+
+.button {
+  background-color: #FFF;
   border-bottom: 1px solid #000000;
 }
 
-.resultButton {
+.darkButton {
+  background-color: #333333;
+  color: #FFF;
+  border-bottom: 1px solid #FFF;
+}
+
+.resultButton,
+.darkResultButton {
   display: flex;
   width: 48px;
   height: 48px;
   justify-content: center;
   align-items: center;
   border: none;
+}
+
+.resultButton {
   background-color: #FFF;
+}
+
+.darkResultButton {
+  background-color: #333333;
 }
 
 .curcle {

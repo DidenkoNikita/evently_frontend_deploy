@@ -12,7 +12,8 @@ export interface IChat {
   textMessage: string;
   timeMessage: string;
   unreadMessages: number;
-  updated_at: Date
+  updated_at: Date;
+  postId: number;
 }
 
 export interface Chat {

@@ -29,10 +29,15 @@
   gap: 20px;
 }
 
-.title {
+.title,
+.darkTitle {
   font-family: Montserrat;
   font-size: 16px;
   font-weight: 600; 
+}
+
+.darkTitle {
+  color: #FFFFFF;
 }
 
 .button {

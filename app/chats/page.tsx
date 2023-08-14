@@ -8,7 +8,6 @@ import { Footer } from "@/components/Footer/Footer";
 import { HeaderChats } from "@/components/HeaderChats/HeaderChats";
 
 import css from './page.module.css'
-import { Search } from "@/components/icons/search.icon";
 import { Chat } from "@/components/Chat/Chat";
 import { useEffect, useState } from "react";
 import { store } from "@/store/store";
@@ -18,6 +17,8 @@ import { useSelector } from "react-redux";
 import { State } from "@/store/initialState";
 import { getChats } from "@/store/actions/getChats";
 import { SearchComponent } from "@/components/SearchComponent/SearchComponent";
+import { getPost } from "@/store/actions/getPosts";
+import { userGet } from "@/store/actions/getUser";
 
 i18n.init({
   resources,
@@ -34,32 +35,24 @@ export default function Chats(): JSX.Element {
     setId(Number(userId))
     socket.emit('getChats', userId);
     socket.on('chatData', (data) => {
-      // setLoading(false);
       store.dispatch(getChats(data));
     });
 
     socket.on('createChat', (chatData) => {
       console.log("новый чат создан", chatData);
-      // setChatsData(prevChatsData => [...prevChatsData, chatData]);
     });
-
+    store.dispatch(getPost());
   }, []);
 
-  const chats = useSelector((state: State) => state.chats);
-  // if (chats.length === 0) {
-  //   return (
-  //     <div className={css.loading}>
-  //       <LoadingComponent />
-  //     </div>
-  //   )
-  // }
+  useEffect(() => {
+    store.dispatch(userGet());
+  }, [])
 
+  const chats = useSelector((state: State) => state.chats);
+  
   const filteredChat = chats.filter((chat) =>
     chat.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
-  console.log('after', filteredChat);
-  
 
   const sort = filteredChat.sort((a, b) => {
     const dateA = new Date(a.timeMessage).getTime();
@@ -67,17 +60,20 @@ export default function Chats(): JSX.Element {
     console.log(dateA > dateB);
     
     return dateB - dateA;
-  });
-  console.log('before',sort);
-  
+  });  
+
+  const user = useSelector((state: State) => state.user);
+  const theme = user?.user?.color_theme;
 
   return (
-    <div className={css.wrapper}>
+    <div className={theme ? css.darkWrapper : css.wrapper}>
       <HeaderChats 
+        theme={theme}
         link="/home"
         title={i18n.t('chats')} 
       />
       <SearchComponent 
+        theme={theme}
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
       />
@@ -86,6 +82,7 @@ export default function Chats(): JSX.Element {
           filteredChat.length > 0 ? (
             sort.map((chat) => (
               <Chat 
+                theme={theme}
                 key={chat.id} 
                 data={chat}
                 id={id}
@@ -93,13 +90,13 @@ export default function Chats(): JSX.Element {
               />
             ))
           ) : (
-            <div className={css.text}>
-              You don't have this chat...
+            <div className={theme ? css.darkText : css.text}>
+              {i18n.t('this_chat')}
             </div>
           )
         ) : (
-          <div className={css.text}>
-            You don't have any chats yet...
+          <div className={theme ? css.darkText : css.text}>
+            {i18n.t('any_chats')}
           </div>
         )}
       </div>

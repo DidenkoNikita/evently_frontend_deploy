@@ -25,10 +25,15 @@
   object-fit: cover;
 }
 
-.name {
+.name,
+.darkName {
   font-family: Montserrat;
   font-size: 14px;
   font-weight: 600; 
+}
+
+.darkName {
+  color: #FFFFFF;
 }
 
 .buttonsWrapper {
@@ -70,10 +75,18 @@
   background-color: #DFC5FF;
 }
 
-.avatarData {
+.avatarData,
+.darkAvatarData {
   text-align: center;
   font-family: Montserrat;
   font-size: 20px;
   font-weight: 600;
+}
+
+.avatarData {
   color: #FFFFFF;
+}
+
+.darkAvatarData {
+  color: #333333;
 }

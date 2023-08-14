@@ -10,6 +10,8 @@ import { useState } from "react";
 import { Change } from "@/components/Change/Change";
 import { useRouter } from "next/navigation";
 import { HeaderFilter } from "../HeaderFilter/HeaderFilter";
+import { useSelector } from "react-redux";
+import { State } from "@/store/initialState";
 
 i18n.init({
   resources,
@@ -22,9 +24,10 @@ interface Props {
   activeCategories: boolean;
   setActiveCategories: any;
   setFilterCategory: any;
+  theme: boolean;
 }
 
-export const ChooseCategories = ({userCategories, setUserCategories, activeCategories, setActiveCategories, setFilterCategory}: Props): JSX.Element => {
+export const ChooseCategories = ({userCategories, setUserCategories, activeCategories, setActiveCategories, setFilterCategory, theme}: Props): JSX.Element => {
   const [activeButtons, setActiveButtons] = useState<string[]>([]);
 
   const router = useRouter();
@@ -48,7 +51,7 @@ export const ChooseCategories = ({userCategories, setUserCategories, activeCateg
   ];
 
   return (
-    <div className={css.wrapper}>
+    <div className={theme ? css.darkWrapper : css.wrapper}>
       <HeaderFilter
         title={i18n.t('categories')}
         filterBrands={[]}
@@ -57,6 +60,7 @@ export const ChooseCategories = ({userCategories, setUserCategories, activeCateg
       <Change
         words={categories}
         header=""
+        theme={theme}
         color={true}
         user={userCategories}
         setUser={setUserCategories}

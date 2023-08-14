@@ -1,8 +1,16 @@
-.wrapper {
+.wrapper,
+.darkWrapper {
   width: 414px;
   height: 896px;
-  background: repeat url('../../../../public/backgroundSettings.png');
   overflow: hidden;
+}
+
+.wrapper {
+  background: repeat url('../../../../public/backgroundSettings.png');
+}
+
+.darkWrapper {
+  background: repeat url('../../../../public/darkBackgroundSettings.png');
 }
 
 .area {
@@ -12,6 +20,7 @@
   width: 345px;
   height: 568px;
   margin: 30px auto; 
+  margin-top: 140px;
 }
 
 .wrapperSetting {
@@ -21,10 +30,15 @@
   gap: 10px;
 }
 
-.title {
+.title,
+.darkTitle {
   font-family: Montserrat;
   font-size: 16px;
   font-weight: 600;
+}
+
+.darkTitle {
+  color: #FFFFFF;
 }
 
 .buttonsArea {
@@ -34,19 +48,28 @@
   gap: 5px;
 }
 
-.button {
+.button,
+.darkButton {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
   border: none;
   border-radius: 10px;
-  background-color: #FDFFFD;
   width: 170px;
   height: 48px;
   font-family: Montserrat;
   font-size: 14px;
   font-weight: 400;
+}
+
+.button {
+  background-color: #FDFFFD;
+}
+
+.darkButton {
+  background-color: #333333;
+  color: #FFFFFF;
 }
 
 .activeButton {
@@ -71,14 +94,22 @@
   gap: 10px; 
 }
 
-.notificationsWrapper {
+.notificationsWrapper,
+.darkNotificationsWrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 345px;
   height: 146px;
-  background-color: #FDFFFD;
   border-radius: 10px;
+}
+
+.notificationsWrapper {
+  background-color: #FDFFFD;
+}
+
+.darkNotificationsWrapper {
+  background-color: #333333;
 }
 
 .notification {
@@ -90,19 +121,33 @@
   align-items: center; 
 }
 
-.line {
+.line,
+.darkLine {
   width: 305px;
   height: 1px; 
+}
+
+.line {
   background-color: #F6F6F6;
 }
 
-.text {
+.darkLine {
+  background-color: #242424;
+}
+
+.text,
+.darkText {
   font-family: Montserrat;
   font-size: 14px;
   font-weight: 400;
 }
 
-.checkbox {
+.darkText {
+  color: #FFFFFF;
+}
+
+.checkbox,
+.darkCheckBox {
   display: flex;
   width: 50px;
   height: 30px;
@@ -110,7 +155,14 @@
   border-radius: 25px;
   justify-content: flex-start;
   align-items: center;
+}
+
+.checkbox {
   background-color: #E9E9EB;
+}
+
+.darkCheckBox {
+  background-color: #242424;
 }
 
 .activeCheckBox {
@@ -146,7 +198,8 @@
   gap: 20px;
 }
 
-.setWrap {
+.setWrap,
+.darkSetWrap {
   display: flex;
   width: 305px;
   height: 48px;
@@ -154,10 +207,10 @@
   align-items: center;
   gap: 10px; 
   border-radius: 10px;
-  background-color: #FDFFFD;
 }
 
-.wrapSet {
+.wrapSet,
+.darkWrapSet {
   display: flex;
   width: 317px;
   height: 48px;
@@ -165,7 +218,16 @@
   padding-right: 8px;
   align-items: center;
   border-radius: 10px;
+}
+
+.setWrap,
+.wrapSet {
   background-color: #FDFFFD;
+}
+
+.darkSetWrap,
+.darkWrapSet {
+  background-color: #333333;
 }
 
 .titleWrap {
@@ -190,6 +252,6 @@
   justify-content: center;
   align-items: center; 
   border: none;
-  background-color: #FDFFFD;
+  background-color: transparent;
   margin-left: 52px;
 }

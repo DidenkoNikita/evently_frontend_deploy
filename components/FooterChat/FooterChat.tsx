@@ -20,9 +20,10 @@ i18n.init({
 interface Data {
   id: number;
   chatId: number | null;
+  theme: boolean;
 }
 
-export const FooterChat = ({id, chatId}: Data): JSX.Element => {
+export const FooterChat = ({ id, chatId, theme }: Data): JSX.Element => {
   const [inputData, setInputData] = useState<string>('');
 
   const [userId, setUserId] = useState<number | string>('');
@@ -52,24 +53,22 @@ export const FooterChat = ({id, chatId}: Data): JSX.Element => {
   };
 
   return (
-    <div
-      className={css.footerWrapper}
-    >
+    <div className={theme ? css.darkFooterWrapper : css.footerWrapper}>
       <div className={css.wrapper}>
         <button className={css.plus}>
-          <Plus />
+          <Plus color={theme ? '#FFFFFF' : '#000000'} />
         </button>
-        <div className={css.inputWrapper}>
-          <input 
-            type="text" 
-            className={css.input}
+        <div className={theme ? css.darkInputWrapper : css.inputWrapper}>
+          <input
+            type="text"
+            className={theme ? css.darkInput : css.input}
             placeholder={i18n.t('type_your_message')}
             value={inputData}
             onChange={changeInputData}
             onKeyDown={handleKeyDown}
           />
         </div>
-        <button 
+        <button
           className={css.send}
           onClick={() => {
             handleMessage(id, inputData, chatId)

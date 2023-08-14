@@ -13,23 +13,24 @@ i18n.init({
 });
 
 interface Props {
-  stateMore: boolean
+  stateMore: boolean;
+  theme: boolean;
 }
 
-export const MoreModal = ({stateMore}: Props): JSX.Element => {
+export const MoreModal = ({ stateMore, theme }: Props): JSX.Element => {
 
   const array = [
     {
       title: i18n.t('share_contact'),
-      icon: <ShareContact />
+      icon: <ShareContact color={theme ? '#FFFFFF' : '#000000'} />
     },
     {
       title: i18n.t('pin_to_chat_list'),
-      icon: <Pin />
+      icon: <Pin color={theme ? '#FFFFFF' : '#000000'} />
     },
     {
       title: i18n.t('delete_contact'),
-      icon: <TrashCan />
+      icon: <TrashCan color={theme ? '#FFFFFF' : '#000000'} />
     },
     {
       title: i18n.t('add_to_blacklist'),
@@ -38,15 +39,15 @@ export const MoreModal = ({stateMore}: Props): JSX.Element => {
   ]
 
   return (
-    <div className={stateMore ? css.activeWrapper : css.wrapper}>
+    <div className={stateMore ? (theme ? css.darkActiveWrapper : css.activeWrapper) : css.wrapper}>
       {
         array.map((arr, index) => {
           return (
             <div
               key={index}
-              className={css.element}
+              className={theme ? css.darkElement : css.element}
             >
-              <div className={index === 3 ? css.redTitle : css.title}>
+              <div className={index === 3 ? css.redTitle : (theme ? css.darkTitle : css.title)}>
                 {arr.title}
               </div>
               <div className={css.icon}>

@@ -1,19 +1,28 @@
-.activeWrapper {
+.activeWrapper,
+.darkActiveWrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center; 
   border-radius: 10px;
-  background-color: #F6F6F6;
   position: fixed;
   top: 388px;
+}
+
+.activeWrapper {
+  background-color: #F6F6F6;
+}
+
+.darkActiveWrapper {
+  background-color: #242424;
 }
 
 .wrapper {
   display: none;
 }
 
-.element {
+.element,
+.darkElement {
   display: flex;
   width: 147px;
   height: 48px;
@@ -21,12 +30,21 @@
   justify-content: flex-start;
   align-items: center;
   gap: 10px;
-  border-bottom: 1px solid #AAAAAA;
   font-family: Montserrat;
   font-size: 14px;
   font-weight: 400; 
 }
 
-.element:last-child {
+.element {
+  border-bottom: 1px solid #AAAAAA;
+}
+
+.darkElement {
+  border-bottom: 1px solid #333333;
+  color: #FFFFFF;
+}
+
+.element:last-child,
+.darkElement:last-child {
   border: none;
 }

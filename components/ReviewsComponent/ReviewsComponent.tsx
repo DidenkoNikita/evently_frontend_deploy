@@ -18,9 +18,10 @@ i18n.init({
 
 interface Props {
   id: number;
+  theme: boolean;
 }
 
-export const ReviewsComponent = ({id}: Props): JSX.Element => {
+export const ReviewsComponent = ({ id, theme }: Props): JSX.Element => {
   const [buttonState, setButtonState] = useState<boolean>(false);
 
   const reviews = useSelector((state: State) => state.review);
@@ -34,11 +35,11 @@ export const ReviewsComponent = ({id}: Props): JSX.Element => {
   return (
     <div className={css.wrapper}>
       <div className={css.header}>
-        <div className={css.title}>
+        <div className={theme ? css.darkTitle : css.title}>
           {i18n.t('Comments')}
         </div>
         <div className={css.icon}>
-          <Filter />
+          <Filter color={theme ? '#FFFFFF' : '#000000'} />
         </div>
       </div>
       {
@@ -48,13 +49,14 @@ export const ReviewsComponent = ({id}: Props): JSX.Element => {
               sliceReviews.map((review) => {
                 return (
                   <ReviewElement
+                    theme={theme}
                     key={review.id}
                     review={review}
                   />
                 )
               })
             }
-            <button 
+            <button
               className={css.button}
               onClick={() => {
                 setButtonState(!buttonState);
@@ -76,6 +78,7 @@ export const ReviewsComponent = ({id}: Props): JSX.Element => {
             {filteredReviews.map((review) => {
               return (
                 <ReviewElement
+                  theme={theme}
                   key={review.id}
                   review={review}
                 />

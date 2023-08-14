@@ -30,6 +30,7 @@ export default function changePhoto(): JSX.Element {
   }, []);
 
   const user = useSelector((state: State) => state.user);
+  const theme = user?.user?.color_theme;
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -54,12 +55,12 @@ export default function changePhoto(): JSX.Element {
   };
 
   return (
-    <div className={css.wrapper}>
+    <div className={theme ? css.darkWrapper : css.wrapper}>
       <SettingsHeader
+        theme={theme}
         title={i18n.t("my_photo")}
       />
       <div className={css.container}>
-        {/* Hidden file input */}
         <input
           type="file"
           id="fileInput"
@@ -69,10 +70,9 @@ export default function changePhoto(): JSX.Element {
         />
         {!user?.user?.link_avatar ? (
           <div className={css.avatarWrapper}>
-            <div className={css.avatarData}>
+            <div className={theme ? css.darkAvatarData : css.avatarData}>
               {user?.user?.name.slice(0, 1)}
             </div>
-            {/* Trigger file input click */}
             <button className={css.button} onClick={handleSelectPhoto}>
               {i18n.t("add_photo")}
             </button>
@@ -84,7 +84,6 @@ export default function changePhoto(): JSX.Element {
               className={css.avatar}
               alt="User Avatar"
             />
-            {/* Trigger file input click */}
             <button className={css.button} onClick={handleSelectPhoto}>
               {i18n.t("change_photo")}
             </button>

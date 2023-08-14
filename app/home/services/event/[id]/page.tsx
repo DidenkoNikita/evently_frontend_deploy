@@ -13,6 +13,7 @@ import resources from "@/locales/resource";
 import { HeaderBrand } from "@/components/HeaderBrand/HeaderBrand";
 import EventPage from "@/components/EventPage/EventPage";
 import { Footer } from "@/components/Footer/Footer";
+import { userGet } from "@/store/actions/getUser";
 
 i18n.init({
   resources,
@@ -25,20 +26,25 @@ export default function Event(): JSX.Element {
   useEffect(() => {
     setEventId(location.pathname);
     store.dispatch(eventsGet());
+    store.dispatch(userGet());
   }, [])
   
   const id = Number(eventId.slice(21));
 
   const events = useSelector((state: State) => state.event);
   const findEvent = events.find((event) => event.id === id);
-  console.log(findEvent);
   
+  const user = useSelector((state: State) => state.user);
+  const theme = user?.user?.color_theme;
+
   return (
     <div className={css.wrapper}>
       <HeaderBrand
+        theme={theme}
         title={i18n.t('calendar_of_events')}
       />
       <EventPage 
+        theme={theme}
         event={findEvent}
       />
       <Footer />

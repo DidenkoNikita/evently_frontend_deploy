@@ -1,4 +1,5 @@
-.wrapper {
+.wrapper,
+.darkWrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -6,6 +7,10 @@
   margin-top: 20px;
   width: 100vw;
   gap: 10px;
+}
+
+.darkWrapper {
+  background-color: #333333;
 }
 
 .gradeWrapper {
@@ -16,44 +21,78 @@
   margin-right: auto;
 }
 
-.grade {
+.grade,
+.darkGrade {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 40px;
   height: 24px;
   border: none;
+}
+
+.grade {
   background-color: #ffffff;
 }
 
-.inputWrapper {
+.darkGrade {
+  background-color: #333333;
+}
+
+.inputWrapper,
+.darkInputWrapper {
   display: flex;
   width: 345px;
   height: 53px;
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  background-color: #F6F6F6;
   padding: 14px 0;
 }
 
-.input {
+.inputWrapper {
+  background-color: #F6F6F6;
+}
+
+.darkInputWrapper {
+  background-color: #242424;
+}
+
+.input,
+.darkInput {
   width: 305px;
   height: 47px;
   border: none;
-  background-color: #F6F6F6;
   font-size: 14px;
   font-family: Montserrat;
+}
+
+.input {
+  background-color: #F6F6F6;
   color: #000;
+}
+
+.darkInput {
+  background-color: #242424;
+  color: #ffffff;
+}
+
+.input::placeholder,
+.darkInput::placeholder {
+  font-size: 14px;
+  font-family: Montserrat;
 }
 
 .input::placeholder {
-  font-size: 14px;
-  font-family: Montserrat;
   color: #000;
 }
 
-.input:focus {
+.darkInput::placeholder {
+  color: #ffffff;
+}
+
+.input:focus,
+.darkInput:focus {
   outline: none !important;
 }
 
@@ -72,8 +111,13 @@
   margin-top: 10px;
 }
 
-.alert {
+.alert,
+.darkAlert {
   font-family: Montserrat;
   font-size: 16px;
   font-weight: 600; 
+}
+
+.darkAlert {
+  color: #ffffff;
 }

@@ -1,9 +1,15 @@
-.wrapper {
+.wrapper,
+.darkTitle {
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   flex-direction: column;
   gap: 20px;
+  height: 100vh;
+}
+
+.darkTitle {
+  background-color: #333333;
 }
 
 .calendar {

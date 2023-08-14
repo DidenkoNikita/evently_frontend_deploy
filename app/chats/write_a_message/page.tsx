@@ -22,6 +22,8 @@ import { useSelector } from "react-redux";
 import { State } from "@/store/initialState";
 import { getChats } from "@/store/actions/getChats";
 import { socket } from "@/utils/socket";
+import { userGet } from "@/store/actions/getUser";
+import { SearchComponent } from "@/components/SearchComponent/SearchComponent";
 
 export default function WriteMessage(): JSX.Element {
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -31,6 +33,7 @@ export default function WriteMessage(): JSX.Element {
     store.dispatch(getUserList());
     const user_id = JSON.parse(sessionStorage.getItem('user_id') || '');
     setUserId(Number(user_id));
+    store.dispatch(userGet());
   }, []);
 
   useEffect(() => {
@@ -42,39 +45,37 @@ export default function WriteMessage(): JSX.Element {
     });
   }, []);
 
-  const usersList = useSelector((state : State) => state.usersList);
+  const usersList = useSelector((state: State) => state.usersList);
 
   const filteredUsersList = usersList.filter((user) =>
-    user.name.toLowerCase().includes(searchTerm.toLowerCase()) && 
+    user.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
     user.id !== userId
   );
 
-  
+  const user = useSelector((state: State) => state.user);
+  const theme = user?.user?.color_theme;
+
   return (
-    <div className={css.wrapper}>
+    <div className={theme ? css.darkWrapper : css.wrapper}>
       <div className={css.header}>
         <SettingsHeader
+          theme={theme}
           title={i18n.t('write_message')}
         />
       </div>
-      <div className={css.search}>
-        <input
-          className={css.input}
-          placeholder={i18n.t('search2')}
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        <div className={css.icon}>
-          <Search />
-        </div>
-      </div>
+      <SearchComponent
+        theme={theme}
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+      />
       <div className={css.chatsList}>
         {
           filteredUsersList.map((user) => {
             return (
               <UserCreateChat
-                key={user.id}
                 user={user}
+                theme={theme}
+                key={user.id}
               />
             )
           })

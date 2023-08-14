@@ -18,11 +18,12 @@ interface Props {
   stateFilter: boolean;
   setStateFilter: any;
   filterBrands: Brand[] | [];
+  theme: boolean;
 }
 
-export const BrandsResultes = ({ stateFilter, setStateFilter, filterBrands }: Props): JSX.Element => {
+export const BrandsResultes = ({ setStateFilter, filterBrands, theme }: Props): JSX.Element => {
   return (
-    <div>
+    <div className={theme ? css.darkContainer : css.container}>
       <HeaderFilter
         title={i18n.t('brand_resultes')}
         setStateFilter={setStateFilter}

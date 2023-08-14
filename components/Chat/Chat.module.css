@@ -17,7 +17,7 @@
   align-items: center;
   gap: 10px; 
   border: none;
-  background-color: #fff;
+  background-color: transparent;
 }
 
 .avatar {
@@ -38,12 +38,20 @@
   background-color: #DFC5FF;
 }
 
-.avatarData {
+.avatarData,
+.darkAvatarData {
   text-align: center;
   font-family: Montserrat;
   font-size: 20px;
   font-weight: 600;
+}
+
+.avatarData {
   color: #FFFFFF;
+}
+
+.darkAvatarData {
+  color: #333333;
 }
 
 .wrapper {
@@ -69,22 +77,31 @@
   align-items: flex-end; 
 }
 
-.name {
+.name,
+.darkName {
   font-family: Montserrat;
   font-size: 14px;
   font-weight: 600; 
 }
 
-.message {
+.message,
+.darkMessage {
   font-family: Montserrat;
   font-size: 14px;
   font-weight: 400; 
 }
 
-.time {
+.time,
+.darkTime {
   font-family: Montserrat;
   font-size: 12px;
   font-weight: 400; 
+}
+
+.darkName,
+.darkMessage,
+.darkTime {
+  color: #FFFFFF;
 }
 
 .newMessage {
@@ -101,11 +118,19 @@
   font-weight: 400; 
 }
 
-.line {
+.line,
+.darkLine {
   width: 305px;
   height: 1px; 
-  background-color: #F6F6F6;
   margin: 5px auto;
+}
+
+.line {
+  background-color: #F6F6F6;
+}
+
+.darkLine {
+  background-color: #242424;
 }
 
 .mute {
@@ -154,5 +179,5 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 3px;
+  gap: 5px;
 }

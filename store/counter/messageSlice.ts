@@ -10,8 +10,6 @@ export interface IMessage {
   chat_id: number;
   is_read: boolean;
   post_id: number | null;
-  post_name: string | null;
-  link_photo: string | null;
 }
 
 export const messageSlice = createSlice({

@@ -9,10 +9,13 @@ import { Footer } from "@/components/Footer/Footer";
 
 import css from './page.module.css';
 import { Change } from "@/components/Change/Change";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { store } from "@/store/store";
 import { updateMood } from "@/store/actions/updateMood";
 import { useRouter } from "next/navigation";
+import { userGet } from "@/store/actions/getUser";
+import { useSelector } from "react-redux";
+import { State } from "@/store/initialState";
 
 i18n.init({
   resources,
@@ -21,6 +24,13 @@ i18n.init({
 
 export default function changeMood(): JSX.Element {
   const [userMood, setUserMood] = useState<{ [key: string]: boolean }>({});
+
+  useEffect(() => {
+    store.dispatch(userGet());
+  }, [])
+
+  const user = useSelector((state: State) => state.user);
+  const theme = user?.user?.color_theme;
 
   const [activeButtons, setActiveButtons] = useState<string[]>([]);
 
@@ -41,9 +51,13 @@ export default function changeMood(): JSX.Element {
   const router = useRouter();
 
   return (
-    <div className={css.wrapper}>
-      <HeaderCategoriesOrMood title={i18n.t('change_your_mood')} />
+    <div className={theme ? css.darkWrapper : css.wrapper}>
+      <HeaderCategoriesOrMood 
+        theme={theme}
+        title={i18n.t('change_your_mood')} 
+      />
       <Change 
+        theme={theme}
         words={mood}
         header=''
         color={false}

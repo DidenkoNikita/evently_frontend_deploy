@@ -1,11 +1,19 @@
-.headerWrapper {
+.headerWrapper,
+.darkHeaderWrapper {
   display: flex;
   align-items: flex-end;
   width: 414px;
   height: 119px;
   position: fixed;
   top: -0px;
+}
+
+.headerWrapper {
   background-color: #FFF;
+}
+
+.darkHeaderWrapper {
+  background-color: #333333;
 }
 
 .header {
@@ -24,13 +32,22 @@
   width: 260px;
 }
 
-.title {
+.title,
+.darkTitle {
   font-family: Montserrat;
   font-size: 16px;
   font-weight: 600;
   margin: 0 auto;
   border: none;
-  background-color: white;
+  background-color: transparent;
+}
+
+.title {
+  color: #000;
+}
+
+.darkTitle {
+  color: #FFF;
 }
 
 .iconButton {
@@ -42,7 +59,7 @@
   gap: 10px;
   border: none;
   border-radius: 10px;
-  background-color: white;
+  background-color: transparent;
   margin-right: auto;
 }
 
@@ -71,13 +88,21 @@
   align-items: center;
   margin-left: auto;
   border: none;
-  background-color: white;
+  background-color: transparent;
 }
 
-.avatarData {
+.avatarData,
+.darkAvatarData {
   text-align: center;
   font-family: Montserrat;
   font-size: 20px;
   font-weight: 600;
+}
+
+.avatarData {
   color: #FFFFFF;
+}
+
+.darkAvatarData {
+  color: #333333;
 }

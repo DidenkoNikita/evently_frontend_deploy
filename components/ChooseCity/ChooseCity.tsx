@@ -10,6 +10,8 @@ import css from './ChooseCity.module.css';
 import { Change } from "../Change/Change";
 import { Footer } from "../Footer/Footer";
 import { HeaderFilter } from "../HeaderFilter/HeaderFilter";
+import { useSelector } from "react-redux";
+import { State } from "@/store/initialState";
 
 i18n.init({
   resources,
@@ -21,9 +23,10 @@ interface Props {
   setUserCity: any;
   activeCity: boolean;
   setActiveCity: any;
+  theme: boolean;
 }
 
-export const ChooseCity = ({ userCity, setUserCity, activeCity, setActiveCity }: Props): JSX.Element => {
+export const ChooseCity = ({ userCity, setUserCity, activeCity, setActiveCity, theme }: Props): JSX.Element => {
   const [activeButtonsCity, setActiveButtonsCity] = useState<string[]>([]);
 
   const city: string[] = [
@@ -41,7 +44,7 @@ export const ChooseCity = ({ userCity, setUserCity, activeCity, setActiveCity }:
   const headerCity: string = i18n.t('choose_a_sity');
 
   return (
-    <div className={css.wrapper}>
+    <div className={theme ? css.darkWrapper : css.wrapper}>
       <HeaderFilter
         setStateFilter={setActiveCity}
         title={i18n.t('city')}
@@ -50,6 +53,7 @@ export const ChooseCity = ({ userCity, setUserCity, activeCity, setActiveCity }:
       <Change
         words={city}
         color={true}
+        theme={theme}
         header={headerCity}
         user={userCity}
         setUser={setUserCity}

@@ -1,8 +1,16 @@
-.wrapper {
+.wrapper,
+.darkWrapper {
   width: 100vw;
   height: 100vh;
-  background: repeat url('../../../../../public/backgroundSettings.png');
   overflow: hidden;
+}
+
+.wrapper {
+  background: repeat url('../../../../../public/backgroundSettings.png');
+}
+
+.darkWrapper {
+  background: repeat url('../../../../../public/darkBackgroundSettings.png');
 }
 
 .container {
@@ -14,7 +22,8 @@
   margin-top: 140px;
 }
 
-.blackList {
+.blackList,
+.darkBlackList {
   display: flex;
   width: 345px;
   height: 48px;
@@ -22,7 +31,14 @@
   justify-content: space-between;
   align-items: center;
   border-radius: 10px;
+}
+
+.blackList {
   background-color: #FDFFFD;
+}
+
+.darkBlackList {
+  background-color: #333333;
 }
 
 .icon {
@@ -38,10 +54,15 @@
   gap: 10px;
 }
 
-.text {
+.text,
+.darkText {
   font-family: Montserrat;
   font-size: 14px;
   font-weight: 400;
+}
+
+.darkText {
+  color: #FFFFFF;
 }
 
 .iconButton,
@@ -52,7 +73,7 @@
   justify-content: center;
   align-items: center;
   border: none;
-  background-color: #FDFFFD;
+  background-color: transparent;
 }
 
 .iconButton {
@@ -68,20 +89,33 @@
   width: 370px;
 }
 
-.confidentiality {
+.confidentiality,
+.darkConfidentiality {
   font-family: Montserrat;
   font-size: 16px;
   font-style: normal;
   font-weight: 600;
 }
 
-.confidentialityWrapper {
+.darkConfidentiality {
+  color: #FFFFFF;
+}
+
+.confidentialityWrapper,
+.darkConfidentialityWrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   border-radius: 10px;
+}
+
+.confidentialityWrapper {
   background-color: #FDFFFD;
+}
+
+.darkConfidentialityWrapper {
+  background-color: #333333;
 }
 
 .element {
@@ -107,11 +141,19 @@
   color: #AAAAAA;
 }
 
-.line {
+.line,
+.darkLine {
   width: 305px;
   height: 1px;
-  background-color: #F6F6F6;
   margin: 5px auto;
+}
+
+.line {
+  background-color: #F6F6F6;
+}
+
+.darkLine {
+  background-color: #242424;
 }
 
 .save {

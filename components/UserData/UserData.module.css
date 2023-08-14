@@ -1,4 +1,5 @@
-.wrapper {
+.wrapper,
+.darkWrapper {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -9,8 +10,15 @@
   margin-top: -15px;
   overflow-y: hidden;
   border-radius: 15px 15px 0px 0px;
-  background-color: white;
   margin-bottom: 10px;
+}
+
+.wrapper {
+  background-color: white;
+}
+
+.darkWrapper {
+  background-color: #333333;
 }
 
 .line {
@@ -28,7 +36,8 @@
   background-color: #AAA;
 }
 
-.name {
+.name,
+.darkName {
   display: flex;
   width: 345px;
   height: 28px;
@@ -38,6 +47,10 @@
   font-family: Montserrat;
   font-size: 20px;
   font-weight: 600;
+}
+
+.darkName {
+  color: #FFFFFF;
 }
 
 .dataWrapper {
@@ -78,10 +91,15 @@
   gap: 10px;
 }
 
-.categoriesOrMood {
+.categoriesOrMood,
+.darkCategoriesOrMood {
   font-family: Montserrat;
   font-size: 16px;
   font-weight: 600;
+}
+
+.darkCategoriesOrMood {
+  color: #FFFFFF;
 }
 
 .wrapperButtons {
@@ -109,7 +127,8 @@
   font-weight: 400;
 }
 
-.wrap {
+.wrap,
+.darkWrap {
   display: flex;
   width: 336px;
   height: 48px;
@@ -117,7 +136,14 @@
   justify-content: space-between;
   align-items: center;
   border-radius: 10px;
+}
+
+.wrap {
   background-color: #F6F6F6;
+}
+
+.darkWrap {
+  background-color: #242424;
 }
 
 .area {
@@ -126,10 +152,15 @@
   gap: 10px;  
 }
 
-.type {
+.type,
+.darkType {
   font-family: Montserrat;
   font-size: 14px;
   font-weight: 400;
+}
+
+.darkType {
+  color: #FFFFFF;
 }
 
 .quantityWrapper {
@@ -153,7 +184,7 @@
   gap: 10px;  
   border: none;
   border-radius: 10px;
-  background-color: #F6F6F6;
+  background-color: transparent;
 }
 
 .areaData {
@@ -161,7 +192,8 @@
   flex-direction: column;
 }
 
-.wrapperData {
+.wrapperData,
+.darkWrapperData {
   display: flex;
   width: 365px;
   height: 30px;
@@ -170,14 +202,33 @@
   align-items: center;
 }
 
-.dataType {
+.wrapperData {
+  border-bottom: 1px solid #F6F6F6;
+}
+
+.darkWrapperData {
+  border-bottom: 1px solid #242424;
+}
+
+.wrapperData:last-child,
+.darkWrapperData:last-child {
+  border: none;
+} 
+
+.dataType,
+.darkDataType {
   font-family: Montserrat;
   font-size: 14px;
   font-weight: 600;
 }
 
+.darkDataType {
+  color: #FFFFFF;
+}
+
 .data,
-.specialData {
+.specialData,
+.darkData {
   font-family: Montserrat;
   font-size: 14px;
   font-weight: 400;
@@ -186,4 +237,8 @@
 .specialData {
   font-weight: 600;
   color: #BB83FF;
+}
+
+.darkData {
+  color: #FFFFFF;
 }

@@ -24,10 +24,10 @@ import { Data } from "@/app/home/page";
 
 interface Props {
   setActiveModal: any;
-  stateData: Data | null;
+  postId: number | null;
 }
 
-export const SharePost = ({ setActiveModal, stateData }: Props): JSX.Element => {
+export const SharePost = ({ setActiveModal, postId }: Props): JSX.Element => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [activeButton, setActiveButton] = useState<number[]>([]);
   const [userId, setUserId] = useState<number | null>(null);
@@ -58,19 +58,24 @@ export const SharePost = ({ setActiveModal, stateData }: Props): JSX.Element => 
       setActiveButton([index]);
     }
   }
+
+  const user = useSelector((state: State) => state.user);
+  const theme = user?.user?.color_theme;
+
   return (
     <div className={css.wrapper}>
       <dialog
         open
-        className={css.modal}
+        className={theme ? css.darkModal : css.modal}
       >
         <div className={css.header}>
-          <button
+          {/* <button
             className={css.iconButton}
-          >
+\          >
             <Share />
-          </button>
-          <div className={css.title}>
+          </button> */}
+          <div className={css.fakeButton} />
+          <div className={theme ? css.darkTitle : css.title}>
             {i18n.t('Share')}
           </div>
           <button
@@ -82,11 +87,11 @@ export const SharePost = ({ setActiveModal, stateData }: Props): JSX.Element => 
             <Remove />
           </button>
         </div>
-        <div className={css.inputWrapper}>
+        <div className={theme ? css.darkInputWrapper : css.inputWrapper}>
           <Search />
           <input
             placeholder={i18n.t('search')}
-            className={css.input}
+            className={theme ? css.darkInput : css.input}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -102,7 +107,7 @@ export const SharePost = ({ setActiveModal, stateData }: Props): JSX.Element => 
                         <div
                           className={css.fakeAvatar}
                         >
-                          <div className={css.avatarData}>
+                          <div className={theme ? css.darkAvatarData : css.avatarData}>
                             {chat.name.slice(0, 1)}
                           </div>
                         </div>
@@ -113,13 +118,13 @@ export const SharePost = ({ setActiveModal, stateData }: Props): JSX.Element => 
                           className={css.avatar}
                         />
                       )}
-                    <div className={css.name}>
+                    <div className={theme ? css.darkName : css.name}>
                       {chat.name}
                     </div>
                   </div>
                   <div className={css.buttonWrapper}>
                     <button
-                      className={css.button}
+                      className={theme ? css.darkButton : css.button}
                       onClick={() => {
                         handleActiveButton(index)
                         setChatId(chat.id);
@@ -132,7 +137,7 @@ export const SharePost = ({ setActiveModal, stateData }: Props): JSX.Element => 
                     </button>
                   </div>
                 </div>
-                <div className={css.line} />
+                <div className={theme ? css.darkLine : css.line} />
               </div>
             ))
           }
@@ -142,7 +147,7 @@ export const SharePost = ({ setActiveModal, stateData }: Props): JSX.Element => 
             <button 
               className={css.send}
               onClick={() => {
-                store.dispatch(createMessage(Number(id), '', chatId, stateData));
+                store.dispatch(createMessage(Number(id), '', chatId, postId));
                 setActiveModal(false)
               }}
             >

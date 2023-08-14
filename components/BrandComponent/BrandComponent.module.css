@@ -1,4 +1,5 @@
-.wrapper {
+.wrapper,
+.darkWrapper {
   display: flex;
   width: 345px;
   height: 150px;
@@ -8,7 +9,14 @@
   gap: 10px; 
   border: none;
   border-radius: 20px;
+}
+
+.wrapper {
   background-color: #F6F6F6;
+}
+
+.darkWrapper {
+  background-color: #242424;
 }
 
 .photo {
@@ -36,10 +44,15 @@
   gap: 8px;
 }
 
-.name {
+.name,
+.darkName {
   font-family: Montserrat;
   font-size: 16px;
   font-weight: 600; 
+}
+
+.darkName {
+  color: #FFF;
 }
 
 .grade {
@@ -55,10 +68,15 @@
   gap: 5px; 
 }
 
-.reviews {
+.reviews,
+.darkReviews {
   font-family: Montserrat;
   font-size: 14px;
   font-weight: 400; 
+}
+
+.darkReviews {
+  color: #FFF;
 }
 
 .icon {
@@ -92,7 +110,8 @@
   gap: 2px;
 }
 
-.address {
+.address,
+.darkAddress {
   font-variant-numeric: lining-nums tabular-nums;
   font-feature-settings: 'case' on;
   font-family: Montserrat;
@@ -100,4 +119,8 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal; 
+}
+
+.darkAddress {
+  color: #FFF;
 }

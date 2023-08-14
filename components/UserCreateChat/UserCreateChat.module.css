@@ -23,12 +23,20 @@
   background-color: #DFC5FF;
 }
 
-.avatarData {
+.avatarData,
+.darkAvatarData {
   text-align: center;
   font-family: Montserrat;
   font-size: 20px;
   font-weight: 600;
+}
+
+.avatarData {
   color: #FFFFFF;
+}
+
+.darkAvatarData {
+  color: #333333;
 }
 
 .dataWrapper {
@@ -36,13 +44,18 @@
   align-items: center;
   gap: 10px;
   border: none;
-  background-color: #FFFFFF;
+  background-color: transparent;
 }
 
-.name {
+.name,
+.darkName {
   font-family: Montserrat;
   font-size: 14px;
   font-weight: 600;
+}
+
+.darkName {
+  color: #FFFFFF;
 }
 
 .buttonsWrapper {
@@ -59,7 +72,7 @@
   align-items: center; 
   border: none;
   border-radius: 10px;
-  background-color: #FFFFFF;
+  background-color: transparent;
 }
 
 .chatButton {
@@ -73,9 +86,17 @@
   background-color: #DFC5FF;
 }
 
-.line {
+.line,
+.darkLine {
   width: 305px;
   height: 1px; 
-  background-color: #F6F6F6;
   margin: 5px auto;
+}
+
+.line {
+  background-color: #F6F6F6;
+}
+
+.darkLine {
+  background-color: #242424;
 }

@@ -7,7 +7,7 @@ export interface Comment {
   user_id: number;
   post_id: number;
   link_avatar: string;
-  user_name: string;
+  name: string;
   text: string;
   like: number[];
   created_at: string;

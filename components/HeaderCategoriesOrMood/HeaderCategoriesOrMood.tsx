@@ -8,28 +8,29 @@ import { Filter } from "../icons/filter.icon";
 import css from './HeaderCategoriesOrMood.module.css'
 
 interface Title {
-  title: string
+  title: string;
+  theme: boolean;
 }
 
-export const HeaderCategoriesOrMood = ({title}: Title): JSX.Element => {
+export const HeaderCategoriesOrMood = ({ title, theme }: Title): JSX.Element => {
 
   const router = useRouter();
 
   return (
-    <div className={css.headerWrapper}>
+    <div className={theme ? css.darkHeaderWrapper : css.headerWrapper}>
       <div className={css.header}>
         <button
           onClick={() => router.back()}
           className={css.iconButton}
         >
-          <Back />
+          <Back color={theme ? '#FFFFFF' : '#000000'} />
         </button>
-        <div className={css.title}>
+        <div className={theme ? css.darkTitle : css.title}>
           {title}
         </div>
         <div className={css.wrapperButtons}>
           <div className={css.filter}>
-            <Filter />
+            <Filter color={theme ? '#FFFFFF' : '#000000'} />
           </div>
         </div>
       </div>

@@ -1,8 +1,13 @@
-.wrapper {
+.wrapper,
+.darkWrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.darkWrapper {
+  background-color: #333333;
 }
 
 .avatar {
@@ -11,12 +16,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 120px;
-  z-index: -1;
+  margin-top: 119px;
+  /* z-index: -1; */
   object-fit: cover;
 }
 
-.container {
+.container,
+.darkContainer {
   display: flex;
   padding: 20px 24px 0px 24px;
   width: 366px;
@@ -25,9 +31,16 @@
   align-items: center;
   gap: 20px;
   border-radius: 20px 20px 0px 0px;
-  background-color: #FDFFFD;
   margin-top: -20px;
 } 
+
+.container {
+  background-color: #FDFFFD;
+}
+
+.darkContainer {
+  background-color: #333333;
+}
 
 .wrapperName {
   display: flex;
@@ -36,11 +49,16 @@
   align-items: center; 
 }
 
-.name {
+.name,
+.darkName {
   font-family: Montserrat;
   font-size: 20px;
   font-style: normal;
   font-weight: 600; 
+}
+
+.darkName {
+  color: #FFFFFF;
 }
 
 .gradeWrapper {
@@ -74,7 +92,8 @@
   margin: 0;
 }
 
-.listElement {
+.listElement,
+.darkListElement {
   font-family: Montserrat;
   font-size: 16px;
   font-style: normal;
@@ -88,7 +107,24 @@
   margin-left: 27px;
 }
 
-.listElement::before {
+.darkListElement {
+  color: #FFFFFF;
+}
+
+.link,
+.darkLink {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.darkLink {
+  color: #FFFFFF;
+}
+
+.listElement::before,
+.darkListElement::before {
   content: "•";
   display: inline-block;
   position: absolute;
@@ -139,7 +175,8 @@
 }
 
 .button,
-.activeButton {
+.activeButton,
+.darkButton {
   display: flex;
   width: 82.5px;
   height: 48px;
@@ -159,6 +196,11 @@
 
 .activeButton {
   background-color: #E3F563;
+}
+
+.darkButton {
+  background-color: #242424;
+  color: #FFFFFF;
 }
 
 .wrap {

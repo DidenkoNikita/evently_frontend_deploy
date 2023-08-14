@@ -1,8 +1,10 @@
 'use client';
 
+import { useSelector } from 'react-redux';
 import css from './History.module.css';
 
 import { useEffect, useState } from 'react';
+import { State } from '@/store/initialState';
 
 interface Story {
   id: number;
@@ -10,7 +12,11 @@ interface Story {
   link: string;
 }
 
-export const History = (): JSX.Element => {
+interface Props {
+  theme: boolean;
+}
+
+export const History = ({ theme }: Props): JSX.Element => {
   const [stories, setStories] = useState([]);
 
   const getStories = async () => {
@@ -36,7 +42,7 @@ export const History = (): JSX.Element => {
   }, [])
 
   return (
-    <div className={css.historyWrapper}>
+    <div className={theme ? css.darkHistoryWrapper : css.historyWrapper}>
       {
         stories.map((story: Story) => {
           return (
@@ -50,10 +56,14 @@ export const History = (): JSX.Element => {
                   alt='History'
                   width={66}
                   height={66}
-                  className={css.imageHistory}
+                  className={theme ? css.darkImageHistory : css.imageHistory}
                 />
               </div>
-              <div className={css.title}>{story.title}</div>
+              <div 
+                className={theme ? css.darkTitle : css.title}
+              >
+                {story.title}
+              </div>
             </div>        
 
           )

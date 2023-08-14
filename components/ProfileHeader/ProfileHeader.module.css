@@ -1,11 +1,19 @@
-.headerWrapper {
+.headerWrapper,
+.darkHeaderWrapper {
   display: flex;
   align-items: flex-end;
   width: 414px;
   height: 119px;
   position: fixed;
   top: -0px;
+}
+
+.headerWrapper {
   background-color: #FFF;
+}
+
+.darkHeaderWrapper {
+  background-color: #333333;
 }
 
 .header {
@@ -25,7 +33,7 @@
   gap: 10px;
   border: none;
   border-radius: 10px;
-  background-color: white;
+  background-color: transparent;
 }
 
 .wrapperButtons {
@@ -33,9 +41,14 @@
   gap: 5px;
 }
 
-.title {
+.title,
+.darkTitle {
   font-family: Montserrat;
   font-size: 16px;
   font-weight: 600;
   margin-left: 50px;
+}
+
+.darkTitle {
+  color: #FFF;
 }

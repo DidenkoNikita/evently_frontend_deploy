@@ -16,6 +16,7 @@ import { brandGet } from "@/store/actions/getBrand";
 import { useSelector } from "react-redux";
 import { State } from "@/store/initialState";
 import { BrandComponent } from "@/components/BrandComponent/BrandComponent";
+import { userGet } from "@/store/actions/getUser";
 
 i18n.init({
   resources,
@@ -27,19 +28,24 @@ export default function CafePage(): JSX.Element {
 
   useEffect(() => {
     store.dispatch(brandGet());
+    store.dispatch(userGet());
   }, [])
 
   const brands = useSelector((state: State) => state.brand);
   const filterBrands = brands.filter((brand) => brand.type === 'cafe');
   console.log(filterBrands);
   
-  
+  const user = useSelector((state: State) => state.user);
+  const theme = user?.user?.color_theme;
+
   return (
-    <div className={css.wrapper}>
+    <div className={theme ? css.darkTitle : css.wrapper}>
       <HeaderBrand 
+        theme={theme}
         title={i18n.t('calendar_of_events')}
       />
       <SearchComponent 
+        theme={theme}
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
       />

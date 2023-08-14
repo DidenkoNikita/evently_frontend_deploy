@@ -9,10 +9,11 @@ import { date } from "yup";
 import { Heart } from "../icons/heart.icon";
 
 interface Props {
-  message: IMessage
+  message: IMessage;
+  theme: boolean;
 }
 
-export const Message = ({ message }: Props): JSX.Element => {
+export const Message = ({ message, theme }: Props): JSX.Element => {
   const [id, setId] = useState<number | string>('');
 
   const time = new Date(message.created_at);
@@ -27,8 +28,8 @@ export const Message = ({ message }: Props): JSX.Element => {
   };
 
   return (
-    <div className={message.user_id === id ? css.wrapperMessage : css.receivedWrapperMessage}>
-      <div className={css.text}>
+    <div className={message.user_id === id ? css.wrapperMessage : (theme ? css.darkReceivedWrapperMessage : css.receivedWrapperMessage)}>
+      <div className={message.user_id !== id && theme ? css.darkText : css.text}>
         {message.text}
       </div>
       <div className={css.wrapper}>

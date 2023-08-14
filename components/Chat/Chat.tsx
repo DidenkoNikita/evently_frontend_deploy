@@ -13,6 +13,8 @@ import { useRouter } from "next/navigation";
 import { DoubleCheckmark } from "../icons/doubleCheckmark.icon";
 import { store } from "@/store/store";
 import { deleteChat } from "@/store/actions/deleteChat";
+import { useSelector } from "react-redux";
+import { State } from "@/store/initialState";
 
 i18n.init({
   resources,
@@ -22,10 +24,11 @@ i18n.init({
 interface Data {
   data: IChat;
   id: number | null;
-  chatId: number
+  chatId: number;
+  theme: boolean;
 }
 
-export const Chat = ({data, id, chatId}: Data): JSX.Element => {
+export const Chat = ({data, id, chatId, theme}: Data): JSX.Element => {
   const [isDoubleClicked, setIsDoubleClicked] = useState(false);
 
   const handleDoubleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -41,6 +44,12 @@ export const Chat = ({data, id, chatId}: Data): JSX.Element => {
   const formatNumber = (num: number) => {
     return num.toString().padStart(2, '0');
   };
+
+  const posts = useSelector((state: State) => state.posts);
+
+  const filteredPost = posts.find((post) => post.id === data.postId)
+  console.log('post', filteredPost);
+  
 
   return (
     <div>
@@ -59,7 +68,7 @@ export const Chat = ({data, id, chatId}: Data): JSX.Element => {
             <div 
               className={css.fakeAvatar} 
             >
-              <div className={css.avatarData}>
+              <div className={theme ? css.darkAvatarData : css.avatarData}>
                 {data.name.slice(0, 1)}
               </div>
             </div>
@@ -72,15 +81,21 @@ export const Chat = ({data, id, chatId}: Data): JSX.Element => {
           )}
           <div className={css.wrapper}>
             <div className={css.data}>
-              <div className={css.name}>{data.name}</div>
-              <div className={css.message}>{data.textMessage}</div>
+              <div className={theme ? css.darkName : css.name}>
+                {data.name}
+              </div>
+              <div className={theme ? css.darkMessage : css.message}>
+                {!data.textMessage ? filteredPost?.title.slice(0, 20) + '...' : data.textMessage}
+              </div>
             </div>
             <div className={css.timeWrapper}>
               <div className={css.wrap}>
                 {
                   id === data.userId ? (data.isReadMessage ? <DoubleCheckmark color="#E3F563" /> : <DoubleCheckmark color="#AAAAAA" />) : null
                 }
-                <div className={css.time}>{`${formatNumber(time.getHours())}:${formatNumber(time.getMinutes())}`}</div>
+                <div className={theme ? css.darkTime : css.time}>
+                  {`${formatNumber(time.getHours())}:${formatNumber(time.getMinutes())}`}
+                </div>
               </div>
               {                
                 id === data.userId || !data.userId ? null  : <div className={css.newMessage}>{data.unreadMessages}</div>
@@ -114,7 +129,7 @@ export const Chat = ({data, id, chatId}: Data): JSX.Element => {
           </>
         )}
       </div>
-      <div className={css.line} />
+      <div className={theme ? css.darkLine : css.line} />
     </div>
   );
 };

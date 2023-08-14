@@ -13,9 +13,10 @@ interface City {
   setCity: any;
   city: string;
   color: boolean;
+  theme: boolean | null;
 }
 
-export const CityInputSettings = ({ setCity, city, color }: City) => {
+export const CityInputSettings = ({ setCity, city, color, theme }: City) => {
   const [allCities, setAllCities] = useState<CityData[]>([]);
   const [filteredCities, setFilteredCities] = useState<CityData[]>([]);
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -82,14 +83,14 @@ export const CityInputSettings = ({ setCity, city, color }: City) => {
 
   return (
     <div className={css.wrapper}>
-      <div className={color ? css.colorInputWrapper : css.inputWrapper}>
+      <div className={color ? (theme ? css.darkColorInputWrapper : css.colorInputWrapper) : (theme ? css.darkInputWrapper : css.inputWrapper)}>
         <City color='#BB83FF'/>
         <input
           type="text"
           value={city}
           onChange={handleInputChange}
           placeholder="City"
-          className={color ? css.colorInput : css.input}
+          className={color ? (theme ? css.darkColorInput : css.colorInput) : (theme ? css.darkInput : css.input)}
           ref={inputRef}
           onFocus={() => {
             setIsOpen(true);
@@ -103,11 +104,11 @@ export const CityInputSettings = ({ setCity, city, color }: City) => {
       {!isOpen || filteredCities.length === 0 ? (
         <div></div>
       ) : (
-        <ul className={color ? css.colorCityList : css.cityList} ref={listRef}>
+        <ul className={color ? (theme ? css.darkColorCityList : css.colorCityList) : (theme ? css.darkCityList : css.cityList)} ref={listRef}>
           {filteredCities.map((city: CityData, index) => (
             <li
               key={index}
-              className={css.city}
+              className={theme ? css.darkColorCity : css.city}
               onClick={() => handleCitySelect(city)}
             >
               {city.name}

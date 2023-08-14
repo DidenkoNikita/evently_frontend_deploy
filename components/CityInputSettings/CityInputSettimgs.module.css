@@ -5,7 +5,9 @@
 }
 
 .inputWrapper,
-.colorInputWrapper {
+.colorInputWrapper,
+.darkInputWrapper,
+.darkColorInputWrapper {
   display: flex;
   width: 325px;
   height: 48px;
@@ -24,8 +26,18 @@
   background-color: #F6F6F6;
 }
 
+.darkInputWrapper {
+  background-color: #333333;
+}
+
+.darkColorInputWrapper {
+  background-color: #242424;
+}
+
 .input,
-.colorInput {
+.colorInput,
+.darkInput,
+.darkColorInput {
   width: 250px;
   height: 46px;
   border: none;
@@ -45,21 +57,42 @@
   background-color: #F6F6F6;
 }
 
+.darkColorInput {
+  background-color: #242424;
+  color: #FFF;
+}
+
+.darkInput {
+  background-color: #333333;
+  color: #FFF;
+}
+
 .input::-webkit-input-placeholder,
-.colorInput::-webkit-input-placeholder {
+.colorInput::-webkit-input-placeholder,
+.darkColorInput::-webkit-input-placeholder,
+.darkInput::-webkit-input-placeholder {
   font-size: 14px;
   font-family: Montserrat;
   font-weight: 400;
   color: #000000;
 }
 
+.darkColorInput::-webkit-input-placeholder,
+.darkInput::-webkit-input-placeholder {
+  color: #FFF;
+}
+
 .input:focus,
-.colorInput:focus {
+.darkInput:focus
+.colorInput:focus,
+.darkColorInput:focus {
   outline: none !important;
 }
 
 .cityList,
-.colorCityList {
+.darkCityList,
+.colorCityList,
+.darkColorCityList {
   display: flex;
   width: 315px;
   min-height: 46px;
@@ -71,7 +104,7 @@
   border-radius: 10px;
   overflow: auto;
   position: fixed;
-  top: 190px;
+  top: 160px;
 }
 
 .cityList {
@@ -82,11 +115,21 @@
   background-color: #F6F6F6;
 }
 
+.darkColorCityList {
+  background-color: #242424;
+}
+
+.darkCityList {
+  background-color: #333333;
+  top: 180px;
+}
+
 .closed {
   display: none;
 }
 
-.city {
+.city,
+.darkColorCity {
   display: flex;
   width: 300px;
   height: 40px;
@@ -98,6 +141,10 @@
   font-size: 14px;
   font-family: Montserrat;
   font-weight: 400;
+}
+
+.darkColorCity {
+  color: #FFF;
 }
 
 .button {

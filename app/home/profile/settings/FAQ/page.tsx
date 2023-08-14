@@ -9,7 +9,11 @@ import css from './page.module.css'
 import { useRouter } from "next/navigation";
 import { SettingsHeader } from "@/components/SettingsHeader/SettingsHeader";
 import { ArrowToDown } from "@/components/icons/arrowToDown.icon";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { store } from "@/store/store";
+import { userGet } from "@/store/actions/getUser";
+import { useSelector } from "react-redux";
+import { State } from "@/store/initialState";
 
 i18n.init({
   resources,
@@ -17,6 +21,10 @@ i18n.init({
 });
 
 export default function faq(): JSX.Element {
+
+  useEffect(() => {
+    store.dispatch(userGet());
+  }, [])
 
   const arrFaq = [
     {
@@ -52,22 +60,28 @@ export default function faq(): JSX.Element {
 
   const toggleActive = (index: number) => {
     if (activeIndex === index) {
-      setActiveIndex(null); // Сбросить активный класс при повторном нажатии на одну и ту же кнопку
+      setActiveIndex(null);
     } else {
       setActiveIndex(index);
     }
   };
 
+  const user = useSelector((state: State) => state.user);
+  const theme = user?.user?.color_theme;
+
   return (
-    <div className={css.wrapper}>
-      <SettingsHeader link="/home/profile/settings" title={i18n.t('faq')} />
+    <div className={theme ? css.darkWrapper : css.wrapper}>
+      <SettingsHeader
+        theme={theme}
+        title={i18n.t('faq')}
+      />
       <div className={css.faq}>
         {arrFaq.map((faq, index) => {
           return (
             <button 
               key={faq.key}
               onClick={() => toggleActive(index)}
-              className={css.select}
+              className={theme ? css.darkSelect : css.select}
             >
               <div className={css.titleWrapper}>
                 <div className={css.title}>

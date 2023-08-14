@@ -1,8 +1,16 @@
-.wrapper {
+.wrapper,
+.darkWrapper {
   width: 100vw;
   height: 100vh;
-  background: repeat url('../../public/backgroundSettings.png');
   overflow: hidden;
+}
+
+.wrapper {
+  background: repeat url('../../public/backgroundSettings.png');
+}
+
+.darkWrapper {
+  background: repeat url('../../public/darkBackgroundSettings.png');
 }
 
 .container {
@@ -14,19 +22,32 @@
   margin-top: 140px;
 }
 
-.title {
+.title,
+.darkTitle {
   font-family: Montserrat;
   font-size: 16px;
   font-weight: 600;
 }
 
-.wrap {
+.darkTitle {
+  color: #FFFFFF;
+}
+
+.wrap,
+.darkWrap {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   border-radius: 10px;
+}
+
+.wrap {
   background-color: #FDFFFD;
+}
+
+.darkWrap {
+  background-color: #333333;
 }
 
 .element {
@@ -38,17 +59,30 @@
   align-items: center;
 }
 
-.text {
+.text,
+.darkText {
   font-family: Montserrat;
   font-size: 14px;
   font-weight: 400;
 }
 
-.line {
-  width: 305px;
+.darkText {
+  color: #FFFFFF;
+}
+
+.line,
+.darkLine {
+  width: 330px;
   height: 1px;
-  background-color: #F6F6F6;
   margin: 5px auto;
+}
+
+.line {
+  background-color: #F6F6F6;
+}
+
+.darkLine {
+  background-color: #242424;
 }
 
 .buttonWrapper {
@@ -59,7 +93,8 @@
   height: 48px;
 }
 
-.button {
+.button,
+.blackButton {
   display: flex;
   width: 24px;
   height: 24px;
@@ -67,8 +102,15 @@
   align-items: center;
   border: 3px solid #BB83FF;
   border-radius: 50%;
-  background-color: #FDFFFD;
   padding: 0;
+}
+
+.button {
+  background-color: #FDFFFD;
+}
+
+.blackButton {
+  background-color: #333333;
 }
 
 .curcle {

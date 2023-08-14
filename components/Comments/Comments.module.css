@@ -1,31 +1,48 @@
-.commentsWrapper {
+.commentsWrapper,
+.darkCommentsWrapper {
   display: flex;
   flex-direction: column;
   gap: 20px;
   position: fixed;
   top: 170px;
-  width: 412.5px;
+  width: 414px;
   height: 637px;
   margin: 0 auto;
-  background: repeat url("../../public/backgroundComments.png");
   overflow-y: auto;
   padding-top: 10px;
 }
 
-.comment {
+.commentsWrapper {
+  background: repeat url("../../public/backgroundComments.png");
+}
+
+.darkCommentsWrapper {
+  background: repeat url('../../public/darkBackgroundComments.png');
+}
+
+.comment,
+.darkComment {
   display: flex;
   width: 345px;
-  height: 143px;
+  /* height: 143px; */
   padding: 10px;
   flex-direction: column;
   margin: 0 auto;
   gap: 10px;
   border-radius: 20px;
-  background-color: #FDFFFD;
   align-items: center;
 }
 
-.comment:last-child {
+.comment {
+  background-color: #FDFFFD;
+}
+
+.darkComment {
+  background-color: #242424;
+}
+
+.comment:last-child,
+.darkComment:last-child {
   margin-bottom: 30px;
 }
 
@@ -48,12 +65,20 @@
   background-color: #DFC5FF;
 }
 
-.avatarData {
+.avatarData,
+.darkAvatarData {
   text-align: center;
   font-family: Montserrat;
   font-size: 20px;
   font-weight: 600;
+}
+
+.avatarData {
   color: #FFFFFF;
+}
+
+.darkAvatarData {
+  color: #000000;
 }
 
 .avatarWrapper {
@@ -77,22 +102,33 @@
   gap: 5px;
 }
 
-.name {
+.name,
+.darkName {
   font-family: Montserrat;
   font-size: 14px;
   font-weight: 600;
 }
 
-.time {
+.darkName {
+  color: #FFFFFF;
+}
+
+.time,
+.darkTime {
   font-family: Montserrat;
   font-size: 12px;
   font-weight: 400;
 }
 
-.text {
+.darkTime {
+  color: #FFFFFF;
+}
+
+.text,
+.darkText {
   display: flex;
   flex-direction: column;
-  min-height: 30px;
+  /* min-height: 30px; */
   justify-content: flex-start;
   align-self: stretch;
   font-family: Montserrat;
@@ -100,7 +136,12 @@
   font-weight: 400;
 }
 
-.button {
+.darkText {
+  color: #FFFFFF;
+}
+
+.button,
+.darkButton {
   display: flex;
   width: 54px;
   height: 48px;
@@ -110,9 +151,17 @@
   gap: 10px;
   border-radius: 10px;
   border: none;
-  background-color: #FDFFFD;
   font-family: Montserrat;
   font-size: 14px;
   font-weight: 400;
   margin-left: auto;
+}
+
+.button {
+  background-color: #FDFFFD;
+}
+
+.darkButton {
+  background-color: #242424;
+  color: #FFFFFF;
 }

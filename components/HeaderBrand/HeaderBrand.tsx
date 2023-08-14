@@ -7,27 +7,28 @@ import { Back } from "../icons/back.icon";
 import { Share } from "../icons/share.icon";
 
 interface Props {
-  title: string
+  title: string;
+  theme: boolean;
 }
 
-export const HeaderBrand = ({title}: Props): JSX.Element => {
+export const HeaderBrand = ({ title, theme }: Props): JSX.Element => {
   const router = useRouter();
 
   return (
 
-    <div className={css.headerWrapper}>
+    <div className={theme ? css.darkHeaderWrapper : css.headerWrapper}>
       <div className={css.header}>
         <button
           onClick={() => router.back()}
-          className={css.iconButton}
+          className={theme ? css.darkIconButton : css.iconButton}
         >
-          <Back />
+          <Back color={theme ? '#FFFFFF' : '#000000'} />
         </button>
-        <div className={css.title}>
+        <div className={theme ? css.darkTitle : css.title}>
           {title}
         </div>
         <div className={css.wrapperButtons}>
-          <Share />
+          <Share color={theme ? '#FFFFFF' : '#000000'} />
         </div>
       </div>
     </div>

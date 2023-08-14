@@ -1,9 +1,14 @@
-.wrapper {
+.wrapper,
+.darkWrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 40px; 
+}
+
+.darkWrapper {
+  background-color: #333333;
 }
 
 .animation {

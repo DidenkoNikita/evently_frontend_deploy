@@ -10,9 +10,10 @@ interface Words {
   activeButtons: string[];
   setActiveButtons: any;
   setFilterCategory: any;
+  theme: boolean | null;
 }
 
-export const Change = ({ words, header, user, setUser, activeButtons, setActiveButtons, color, setFilterCategory }: Words): JSX.Element => {
+export const Change = ({ words, header, user, setUser, activeButtons, setActiveButtons, color, setFilterCategory, theme }: Words): JSX.Element => {
 
   const handleButtonClick = (word: string) => {
     if (header === 'Сhoose a city') {
@@ -59,12 +60,13 @@ export const Change = ({ words, header, user, setUser, activeButtons, setActiveB
   };
 
   return (
-    <div className={color && header !== '' ? css.colorWrapper : css.wrapper}>
+    <div className={color && header !== '' ? (css.colorWrapper) : css.wrapper}>
       {header === 'Сhoose a city' ? (
         <CityInputSettings 
           setCity={setUser} 
           city={user.toString()} 
           color={color}
+          theme={theme}
         />
       ) : (
         <div></div>
@@ -73,7 +75,7 @@ export const Change = ({ words, header, user, setUser, activeButtons, setActiveB
         {words.map((word) => (
           <button
             key={word}
-            className={activeButtons.includes(word) ? css.buttonActive : (color ? css.colorButton : css.button)}
+            className={activeButtons.includes(word) ? css.buttonActive : (color ? (theme ? css.darkButton : css.colorButton) : (theme ? css.darkButtonSecond : css.button))}
             onClick={() => handleButtonClick(word)}
           >
             {word}

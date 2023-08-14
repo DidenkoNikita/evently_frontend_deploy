@@ -16,6 +16,7 @@ import css from './page.module.css';
 import { Avatar } from "@/components/Avatar/Avatar";
 import { FriendData } from "@/components/FriendData/FriendData";
 import { LoadingComponent } from "@/components/Loading/Loading";
+import { userGet } from "@/store/actions/getUser";
 
 i18n.init({
   resources,
@@ -28,13 +29,17 @@ export default function ProfileFriend (): JSX.Element {
   useEffect(() => {
     setUserId(location.pathname);
     store.dispatch(getUserList());
+    store.dispatch(userGet());
   }, []);
 
   const id: number = Number(userId.slice(37));
 
   const userList = useSelector((state: State) => state.usersList);  
 
-  const user = userList.find((u) => u.id === id)
+  const user = userList.find((u) => u.id === id);
+
+  const userData = useSelector((state: State) => state.user);
+  const theme = userData?.user?.color_theme;
 
   if (user === undefined) {
     return (
@@ -47,15 +52,18 @@ export default function ProfileFriend (): JSX.Element {
   return (
     <div>
       <HeaderProfileFriend 
+        theme={theme}
         title={i18n.t('profile')}
       />
       <div className={css.scrollArea}>
         <Avatar 
+          theme={theme}
           user={user}
         />
         <FriendData 
-          userData={user}
           id={id}
+          theme={theme}
+          userData={user}
         />
       </div>
       <Footer />

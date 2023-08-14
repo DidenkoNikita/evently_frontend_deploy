@@ -10,7 +10,6 @@ i18n.init({
 });
 
 import { ConfidentialityComponent } from "@/components/ConfidentialityComponent/ConfidentialityComponent";
-import { updateConfidentialityPhone } from "@/store/actions/updateConfidentialityPhone";
 
 export default function ConfidentialityPhone(): JSX.Element {
   return (

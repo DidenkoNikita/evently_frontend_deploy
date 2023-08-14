@@ -1,4 +1,5 @@
-.header {
+.header,
+.darkHeader {
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -12,8 +13,15 @@
   top: -60px;
   z-index: 1000;
   margin-bottom: 106px;
-  background-color: white;
   padding-bottom: 10px;
+}
+
+.header {
+  background-color: white;
+}
+
+.darkHeader {
+  background-color: #333333;
 }
 
 .wrapper {
@@ -66,7 +74,8 @@
   border: none;
 }
 
-.searchButton {
+.searchButton,
+.darkSearchButton {
   display: flex;
   width: 229px;
   height: 48px;
@@ -74,10 +83,17 @@
   align-items: center;
   gap: 10px;
   border-radius: 10px;
-  background-color: #F6F6F6;
   border: none;
   font-size: 14px;
   font-family: Montserrat;
   font-weight: 400;
   color: #AAA;
+}
+
+.searchButton {
+  background-color: #F6F6F6;
+}
+
+.darkSearchButton {
+  background-color: #242424;
 }

@@ -45,6 +45,7 @@ export default function FilterPage(): JSX.Element {
   }, [])
 
   const user = useSelector((state: State) => state.user);
+  const theme = user?.user?.color_theme;
   const defaultCity = user?.user?.city;
   const [userCity, setUserCity] = useState<string>('');
 
@@ -60,7 +61,7 @@ export default function FilterPage(): JSX.Element {
   });
 
   console.log(filterBrands);
-  
+
   console.log(filterCategory, filterHours, filterAge, stateDate);
 
 
@@ -79,6 +80,7 @@ export default function FilterPage(): JSX.Element {
     case activeCity:
       content = (
         <ChooseCity
+          theme={theme}
           userCity={userCity}
           setUserCity={setUserCity}
           activeCity={activeCity}
@@ -89,6 +91,7 @@ export default function FilterPage(): JSX.Element {
     case activeCategories:
       content = (
         <ChooseCategories
+          theme={theme}
           userCategories={userCategories}
           setUserCategories={setUserCategories}
           activeCategories={activeCategories}
@@ -97,9 +100,10 @@ export default function FilterPage(): JSX.Element {
         />
       );
       break;
-    case activeCalendar: 
+    case activeCalendar:
       content = (
-        <ChooseDate 
+        <ChooseDate
+          theme={theme}
           setActiveCalendar={setActiveCalendar}
           setStateDate={setStateDate}
         />
@@ -108,6 +112,7 @@ export default function FilterPage(): JSX.Element {
     case stateFilter:
       content = (
         <BrandsResultes
+          theme={theme}
           stateFilter={stateFilter}
           setStateFilter={setStateFilter}
           filterBrands={filterBrands}
@@ -116,53 +121,53 @@ export default function FilterPage(): JSX.Element {
       break;
     default:
       content = (
-        <div className={css.container}>
+        <div className={theme ? css.darkContainer : css.container}>
           <HeaderFilter
             title={i18n.t('filter')}
             setStateFilter={null}
             filterBrands={[]}
           />
           <div className={css.wrapper}>
-            <div className={css.card}>
+            <div className={theme ? css.darkCard : css.card}>
               <div className={css.dataWrapper}>
                 <City color="#BB83FF" />
-                <div className={css.text}>
+                <div className={theme ? css.darkText : css.text}>
                   {userCity === '' ? defaultCity : userCity}
                 </div>
               </div>
               <button
-                className={css.iconButton}
+                className={theme ? css.darkIconButton : css.iconButton}
                 onClick={() => {
                   setActiveCity(!activeCity);
                 }}
               >
-                <ArrowToDown />
+                <ForwardButton />
               </button>
             </div>
-            <div className={css.card}>
+            <div className={theme ? css.darkCard : css.card}>
               <div className={css.dataWrapper}>
                 <Calendar />
-                <div className={css.text}>
+                <div className={theme ? css.darkText : css.text}>
                   {stateDate !== '' ? stateDate : i18n.t('date_format')}
                 </div>
               </div>
-              <button 
-                className={css.iconButton}
-                onClick={() =>  {
+              <button
+                className={theme ? css.darkIconButton : css.iconButton}
+                onClick={() => {
                   setActiveCalendar(!activeCalendar)
                 }}
               >
-                <ArrowToDown />
+                <ForwardButton />
               </button>
             </div>
-            <div className={css.card}>
+            <div className={theme ? css.darkCard : css.card}>
               <div className={css.dataWrapper}>
-                <div className={css.text}>
+                <div className={theme ? css.darkText : css.text}>
                   {i18n.t('categories')}
                 </div>
               </div>
               <button
-                className={css.iconButton}
+                className={theme ? css.darkIconButton : css.iconButton}
                 onClick={() => {
                   setActiveCategories(!activeCategories);
                 }}
@@ -171,7 +176,7 @@ export default function FilterPage(): JSX.Element {
               </button>
             </div>
             <div className={css.wrapperButtons}>
-              <div className={css.title}>
+              <div className={theme ? css.darkTitle : css.title}>
                 {i18n.t('Business hours')}
               </div>
               <div className={css.buttons}>
@@ -180,7 +185,7 @@ export default function FilterPage(): JSX.Element {
                     return (
                       <button
                         key={index}
-                        className={hours === index ? css.activeButton : css.button}
+                        className={hours === index ? css.activeButton : (theme ? css.darkButton : css.button)}
                         onClick={() => {
                           setHours(index);
                           setFilterHours(element);
@@ -194,23 +199,23 @@ export default function FilterPage(): JSX.Element {
               </div>
             </div>
             <div className={css.wrapperButtons}>
-              <div className={css.title}>
+              <div className={theme ? css.darkTitle : css.title}>
                 {i18n.t('price')}
               </div>
               <div className={css.priceWrapper}>
-                <div className={css.priceCard}>
+                <div className={theme ? css.darkPriceCard : css.priceCard}>
                   <div className={css.titlePrice}>
                     {i18n.t('from')}
                   </div>
-                  <div className={css.text}>
+                  <div className={theme ? css.darkText : css.text}>
                     0
                   </div>
                 </div>
-                <div className={css.priceCard}>
+                <div className={theme ? css.darkPriceCard : css.priceCard}>
                   <div className={css.titlePrice}>
                     {i18n.t('to')}
                   </div>
-                  <div className={css.text}>
+                  <div className={theme ? css.darkText : css.text}>
                     500000
                   </div>
                 </div>
@@ -222,7 +227,7 @@ export default function FilterPage(): JSX.Element {
               </div>
             </div>
             <div className={css.wrapperButtons}>
-              <div className={css.title}>
+              <div className={theme ? css.darkTitle : css.title}>
                 {i18n.t('age')}
               </div>
               <div className={css.buttons}>
@@ -231,7 +236,7 @@ export default function FilterPage(): JSX.Element {
                     return (
                       <button
                         key={index}
-                        className={age === index ? css.activeButton : css.button}
+                        className={age === index ? css.activeButton : (theme ? css.darkButton : css.button)}
                         onClick={() => {
                           setAge(index);
                           setFilterAge(element);

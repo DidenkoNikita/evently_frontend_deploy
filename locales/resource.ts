@@ -257,7 +257,10 @@ const resources = {
       "who_messages": "Who can send me messages?",
 
       "Share": "Share",
-      "send": "Send"
+      "send": "Send",
+      "publication": "Publication",
+      "this_chat": "You don't have this chat...",
+      "any_chats": "You don't have any chats yet..."
     }
   }
 }

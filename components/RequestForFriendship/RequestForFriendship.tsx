@@ -14,10 +14,11 @@ i18n.init({
 });
 
 interface Props {
-  notification: Notification
+  notification: Notification;
+  theme: boolean;
 }
 
-export const RequestForFriendship = ({ notification }: Props): JSX.Element => {
+export const RequestForFriendship = ({ notification, theme }: Props): JSX.Element => {
   return (
     <div className={css.wrapper}>
       <div className={css.wrapperData}>
@@ -26,7 +27,7 @@ export const RequestForFriendship = ({ notification }: Props): JSX.Element => {
             <div
               className={css.fakeAvatar}
             >
-              <div className={css.avatarData}>
+              <div className={theme ? css.darkAvatarData : css.avatarData}>
                 {notification.name.slice(0, 1)}
               </div>
             </div>
@@ -37,7 +38,7 @@ export const RequestForFriendship = ({ notification }: Props): JSX.Element => {
               className={css.avatar}
             />
           )}
-        <div className={css.name}>
+        <div className={theme ? css.darkName : css.name}>
           {notification.name}
         </div>
       </div>

@@ -5,6 +5,7 @@ interface Data {
   linkAvatar: string | undefined;
   filterMessage: IMessage[];
   chatId: number | null;
+  theme: boolean;
 }
 
 import { useRouter } from 'next/navigation';
@@ -16,7 +17,7 @@ import { store } from '@/store/store';
 import { IMessage } from '@/store/counter/messageSlice';
 import { deleteChat } from '@/store/actions/deleteChat';
 
-export const HeaderChat = ({name, linkAvatar, filterMessage, chatId}: Data): JSX.Element => {
+export const HeaderChat = ({name, linkAvatar, filterMessage, chatId, theme}: Data): JSX.Element => {
   const [userId, setUserId] = useState<string>('');
   const router = useRouter();  
 
@@ -28,7 +29,7 @@ export const HeaderChat = ({name, linkAvatar, filterMessage, chatId}: Data): JSX
   const id: number = Number(userId.slice(22));
 
   return (
-    <div className={css.headerWrapper}>
+    <div className={theme ? css.darkHeaderWrapper : css.headerWrapper}>
     <div className={css.header}>
       <button
         onClick={() => {
@@ -41,11 +42,11 @@ export const HeaderChat = ({name, linkAvatar, filterMessage, chatId}: Data): JSX
         }}
         className={css.iconButton}
       >
-        <Back />
+        <Back color={theme ? '#FFFFFF' : '#000000'} />
       </button>
       <div className={css.titleWrapper}>
         <button 
-          className={css.title}
+          className={theme ? css.darkTitle : css.title}
           onClick={() => router.push(`/chats/chat_settings/${id}`)}
         >
           {name}
@@ -55,7 +56,7 @@ export const HeaderChat = ({name, linkAvatar, filterMessage, chatId}: Data): JSX
               className={css.fakeAvatar} 
               onClick={() => router.push(`/chats/chat_settings/${id}`)}
             >
-              <div className={css.avatarData}>
+              <div className={theme ? css.darkAvatarData : css.avatarData}>
                 {name?.slice(0, 1)}
               </div>
             </button>

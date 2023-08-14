@@ -1,8 +1,14 @@
-.container {
+.container,
+.darkContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-bottom: 40px;
+}
+
+.darkContainer {
+  background-color: #333333;
 }
 
 .wrapper {
@@ -14,7 +20,8 @@
   margin-top: 120px;
 }
 
-.card {
+.card,
+.darkCard {
   display: flex;
   width: 345px;
   height: 48px;
@@ -22,7 +29,14 @@
   justify-content: space-between;
   align-items: center; 
   border-radius: 10px;
+}
+
+.card {
   background-color: #F6F6F6;
+}
+
+.darkCard {
+  background-color: #242424;
 }
 
 .dataWrapper {
@@ -32,13 +46,19 @@
   gap: 10px;
 }
 
-.text {
+.text,
+.darkText {
   font-family: Montserrat;
   font-size: 14px;
   font-weight: 400; 
 }
 
-.iconButton {
+.darkText {
+  color: #FFF;
+}
+
+.iconButton, 
+.darkIconButton {
   display: flex;
   width: 48px;
   height: 48px;
@@ -46,7 +66,14 @@
   align-items: center; 
   border: none;
   border-radius: 10px;
+}
+
+.iconButton {
   background-color: #F6F6F6;
+}
+
+.darkIconButton {
+  background-color: #242424;
 }
 
 .wrapperButtons {
@@ -58,11 +85,16 @@
   gap: 10px;
 }
 
-.title {
+.title,
+.darkTitle {
   font-family: Montserrat;
   font-size: 16px;
   font-weight: 600; 
   margin-right: auto;
+}
+
+.darkTitle {
+  color: #FFF;
 }
 
 .buttons {
@@ -73,7 +105,8 @@
 }
 
 .button,
-.activeButton {
+.activeButton,
+.darkButton {
   display: flex;
   width: 89.3px;
   height: 48px;
@@ -95,6 +128,11 @@
   background-color: #DFC5FF;
 }
 
+.darkButton {
+  background-color: #242424;
+  color: #FFF;
+}
+
 .priceWrapper {
   display: flex;
   justify-content: center;
@@ -102,7 +140,8 @@
   gap: 5px;
 }
 
-.priceCard {
+.priceCard,
+.darkPriceCard {
   display: flex;
   justify-content: flex-start;
   width: 163.5px;
@@ -111,7 +150,14 @@
   gap: 10px; 
   padding-left: 20px;
   border-radius: 10px;
+}
+
+.priceCard {
   background-color: #F6F6F6;
+}
+
+.darkPriceCard {
+  background-color: #242424;
 }
 
 .titlePrice {

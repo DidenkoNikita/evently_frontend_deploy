@@ -6,7 +6,7 @@ export interface Review {
   id: number;
   user_id: number;
   link_avatar: string;
-  user_name: string;
+  name: string;
   text: string;
   created_at: string;
   grade: number;

@@ -13,6 +13,8 @@ import css from './page.module.css';
 import { CalendarOfEventsHome } from "@/components/CalendarOfEventsHome/CalendarOfEventsHome";
 import { Footer } from "@/components/Footer/Footer";
 import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
+import { State } from "@/store/initialState";
 
 i18n.init({
   resources,
@@ -21,7 +23,7 @@ i18n.init({
 
 export default function ServicesPage(): JSX.Element {
   useEffect(() => {
-    store.dispatch(userGet())
+    store.dispatch(userGet());
   }, []);
 
   const router = useRouter();
@@ -49,8 +51,11 @@ export default function ServicesPage(): JSX.Element {
     }
   ]
 
+  const user = useSelector((state: State) => state.user);
+  const theme = user?.user?.color_theme;
+
   return (
-    <div className={css.wrapper}>
+    <div className={theme ? css.darkWrapper : css.wrapper}>
       <Header />
       <div className={css.container}>
         <CalendarOfEventsHome />
@@ -66,10 +71,10 @@ export default function ServicesPage(): JSX.Element {
                   router.push(element.link);
                 }}
               >
-                <div className={css.wrapperImage}>
+                <div className={theme ? css.darkWrapperImage : css.wrapperImage}>
                   <div className={css[element.class]} />
                 </div>
-                <div className={css.title}>
+                <div className={theme? css.darkTitle : css.title}>
                   {element.title}
                 </div>
               </button>

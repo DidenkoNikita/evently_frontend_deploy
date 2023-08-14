@@ -1,13 +1,21 @@
-.wrapper {
+.wrapper,
+.darkWrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   gap: 13px;
   border-radius: 20px;
-  background-color: #F6F6F6;
   width: 330px;
   padding: 10px;
+}
+
+.wrapper {
+  background-color: #F6F6F6;
+}
+
+.darkWrapper {
+  background-color: #242424;
 }
 
 .data {
@@ -20,10 +28,15 @@
   background-color: transparent;
 }
 
-.name {
+.name,
+.darkName {
   font-family: Montserrat;
   font-size: 16px;
   font-weight: 600;
+}
+
+.darkName {
+  color: #FFFFFF;
 }
 
 .container {
@@ -49,7 +62,8 @@
   margin: 0;
 }
 
-.listElement {
+.listElement,
+.darkListElement {
   font-family: Montserrat;
   font-size: 14px;
   font-style: normal;
@@ -62,13 +76,26 @@
   margin-left: 27px;
 }
 
-.listElement::before {
+.darkListElement {
+  color: #FFFFFF;
+}
+
+.listElement::before,
+.darkListElement::before {
   content: "•";
   display: inline-block;
   position: absolute;
   left: -19.5px;
   font-size: 25px;
   top: -7px;
+}
+
+.darkListElement::before {
+  color: #FFFFFF;
+}
+
+.darkLink {
+  color: #FFFFFF;
 }
 
 .buttonWrapper {
@@ -79,7 +106,8 @@
 }
 
 .button,
-.activeButton {
+.activeButton,
+.darkButton {
   display: flex;
   width: 160px;
   height: 48px;
@@ -98,4 +126,9 @@
 
 .activeButton {
   background-color: #E3F563;
+}
+
+.darkButton {
+  background-color: #333333;
+  color: #FFFFFF;
 }

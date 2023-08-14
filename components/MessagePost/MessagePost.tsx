@@ -11,12 +11,14 @@ import { getPost } from "@/store/actions/getPosts";
 import { useSelector } from "react-redux";
 import { State } from "@/store/initialState";
 import { ActiveHeart } from "../icons/activeHeart.icon";
+import { useRouter } from "next/navigation";
 
 interface Props {
-  message: IMessage
+  message: IMessage;
+  theme: boolean;
 }
 
-export const MessagePost = ({ message }: Props): JSX.Element => {
+export const MessagePost = ({ message, theme }: Props): JSX.Element => {
   const [id, setId] = useState<number | string>('');
 
   const time = new Date(message.created_at);
@@ -40,6 +42,8 @@ export const MessagePost = ({ message }: Props): JSX.Element => {
   const like = filteredPost?.like.includes(Number(id));
 
   console.log(message.user_id, id);
+
+  const router = useRouter();
   
   return (
     <div className={message.user_id === id ? css.wrapper : css.receivedwrapper}>
@@ -47,61 +51,71 @@ export const MessagePost = ({ message }: Props): JSX.Element => {
         message.user_id === id ? (
           <div className={css.postWrapper}>
             <button 
-              className={css.button}
+              className={theme ? css.darkButton : css.button}
               onClick={() => {
                 store.dispatch(likePosts(Number(message.post_id)));
               }}
             >
-              {like ? <ActiveHeart /> : <Heart />}
+              {like ? <ActiveHeart /> : <Heart color={theme ? '#FFFFFF' : '#000000'} />}
             </button>
-            <div className={css.post}>
+            <button 
+              className={theme ? css.darkPost : css.post}
+              onClick={() => {
+                router.push(`/home/post/${message.post_id}`)
+              }}
+            >
               <img
-                src={message.link_photo?.toString()}
+                src={filteredPost?.link_photo}
                 className={css.photo}
               />
               <div className={css.wrapperData}>
                 <div className={css.textWrapper}>
-                  <div className={css.name}>
-                    {message.post_name}
+                  <div className={theme ? css.darkName : css.name}>
+                    {filteredPost?.user_name}
                   </div>
-                  <div className={css.title}>
-                    {message.text}
+                  <div className={theme ? css.darkTitle : css.title}>
+                    {filteredPost?.title.slice(0, 20) + '...'}
                   </div>
                 </div>
-                <div className={css.datePost}>
+                <div className={theme ? css.darkDatePost : css.datePost}>
                   {`${formatNumber(time.getHours())}:${formatNumber(time.getMinutes())}`}
                 </div>
               </div>
-            </div>
+            </button>
           </div>
         ) : (
           <div className={css.postWrapper}>
-            <div className={css.post}>
+            <button 
+              className={theme ? css.darkPost : css.post}
+              onClick={() => {
+                router.push(`/home/post/${message.post_id}`)
+              }}
+            >
               <img
-                src={message.link_photo?.toString()}
+                src={filteredPost?.link_photo}
                 className={css.photo}
               />
               <div className={css.wrapperData}>
                 <div className={css.textWrapper}>
-                  <div className={css.name}>
-                    {message.post_name}
+                  <div className={theme ? css.darkName : css.name}>
+                    {filteredPost?.user_name}
                   </div>
-                  <div className={css.title}>
-                    {message.text}
+                  <div className={theme ? css.darkTitle : css.title}>
+                    {filteredPost?.title.slice(0, 20) + '...'}
                   </div>
                 </div>
-                <div className={css.datePost}>
+                <div className={theme ? css.darkDatePost : css.datePost}>
                   {`${formatNumber(time.getHours())}:${formatNumber(time.getMinutes())}`}
                 </div>
               </div>
-            </div>
+            </button>
             <button 
-              className={css.button}
+              className={theme ? css.darkButton : css.button}
               onClick={() => {
                 store.dispatch(likePosts(Number(message.post_id)));
               }}
             >
-              {like ? <ActiveHeart /> : <Heart />}
+              {like ? <ActiveHeart /> : <Heart color={theme ? '#FFFFFF' : '#000000'} />}
             </button>
           </div>
         )

@@ -9,31 +9,32 @@ import { Write } from "../icons/write.icon";
 
 interface Data {
   title: string;
-  link: string
+  link: string;
+  theme: boolean;
 }
 
-export const HeaderChats = ({title, link}: Data): JSX.Element => {
+export const HeaderChats = ({title, link, theme}: Data): JSX.Element => {
 
   const router = useRouter();
 
   return (
-    <div className={css.headerWrapper}>
+    <div className={theme ? css.darkHeaderWrapper : css.headerWrapper}>
       <div className={css.header}>
         <button
           onClick={() => router.push(link)}
-          className={css.iconButton}
+          className={theme ? css.darkIconButton : css.iconButton}
         >
-          <Back />
+          <Back color={theme ? '#FFFFFF' : '#000000'} />
         </button>
-        <div className={css.title}>
+        <div className={theme ? css.darkTitle : css.title}>
           {title}
         </div>
         <div className={css.wrapperButtons}>
           <button 
-            onClick={() => router.push(link)}
-            className={css.button}
+            onClick={() => router.push(`/chats/write_a_message`)}
+            className={theme ? css.darkButton : css.button}
           >
-            <Write />
+            <Write color={theme ? '#FFFFFF' : '#000000'} />
           </button>
         </div>
       </div>

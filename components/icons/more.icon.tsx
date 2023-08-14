@@ -9,7 +9,8 @@ export const More = (): JSX.Element => {
     >
       <path 
         d="M12.5 13C13.0523 13 13.5 12.5523 13.5 12C13.5 11.4477 13.0523 11 12.5 11C11.9477 11 11.5 11.4477 11.5 12C11.5 12.5523 11.9477 13 12.5 13Z" 
-        stroke="black" strokeWidth="2" 
+        stroke="black" 
+        strokeWidth="2" 
         strokeLinecap="round" 
         strokeLinejoin="round"
       />

@@ -1,10 +1,18 @@
-.chatWrapper {
+.chatWrapper,
+.darkChatWrapper {
   width: 414px;
   height: 896px;
-  background: repeat url('../../../../public/backgroundComments.png');
   display: flex;
   flex-direction: column;
   align-items: end;
+}
+
+.chatWrapper {
+  background: repeat url('../../../../public/backgroundComments.png');
+}
+
+.darkChatWrapper {
+  background: repeat url('../../../../public/darkBackgroundComments.png');
 }
 
 .wrapper {
@@ -35,7 +43,8 @@
   top: 120px;
 }
 
-.title {
+.title,
+.darkTitle {
   font-family: Montserrat;
   font-size: 16px;
   font-weight: 600;
@@ -43,12 +52,16 @@
   bottom: 450px;
 }
 
-.date {
+.darkTitle {
+  color: #FFFFFF;
+}
+
+.date,
+.darkDate {
   display: flex;
   padding: 10px;
   align-items: flex-start; 
   border-radius: 10px;
-  background-color: #F6F6F6;
   font-family: Montserrat;
   font-size: 12px;
   font-weight: 400; 
@@ -57,16 +70,22 @@
   margin-bottom: auto;
 }
 
+.date {
+  background-color: #F6F6F6;
+}
+
+.darkDate {
+  background-color: #242424;
+}
+
 .spaceBetweenMessages {
   margin-top: 15px;
 }
 
 .wrap {
   margin-left: auto;
-  /* margin-right: 80px; */
 }
 
 .wrapRight {
   margin-right: auto;
-  /* margin-left: 80px; */
 }

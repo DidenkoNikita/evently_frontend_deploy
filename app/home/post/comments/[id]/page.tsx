@@ -10,7 +10,6 @@ import { useRouter } from 'next/navigation';
 import { CommentsHeader } from '@/components/CommentsHeader/CommentsHeader';
 import { Post } from '@/store/counter/postsSlice';
 import { useSelector } from 'react-redux';
-import { State } from '@/components/Post/Post';
 import { useEffect, useState } from 'react';
 import { CommentsFooter } from '@/components/CommentsFooter/CommentsFooter';
 import { store } from '@/store/store';
@@ -18,6 +17,8 @@ import { getPost } from '@/store/actions/getPosts';
 import { Comments } from '@/components/Comments/Comments';
 import { getComment } from '@/store/actions/getComments';
 import { Comment } from '@/store/counter/commentSlice';
+import { State } from '@/store/initialState';
+import { userGet } from '@/store/actions/getUser';
 
 i18n.init({
   resources,
@@ -34,31 +35,39 @@ export default function commentsInPost(): JSX.Element {
 
   useEffect(() => {
     store.dispatch(getPost());
-    store.dispatch(getComment())
+    store.dispatch(getComment());
+    store.dispatch(userGet());
   }, [])
 
   const id = Number(postId.slice(20))
   
   const posts: Post[] = useSelector((state : State) => state.posts);
-  const post: Post | undefined = posts.find((post: Post) => post.id === id)
+  const post: Post | undefined = posts.find((post: Post) => post.id === id);
 
   const comments: Comment[] = useSelector((state : State) => state.comments);
   
-  const comment = comments.filter((comment: Comment) => comment.post_id === Number(id))
+  const comment = comments.filter((comment: Comment) => comment.post_id === Number(id));
+  const user = useSelector((state: State) => state.user);
+  const theme = user?.user?.color_theme;
   
   return (
-    <div className={css.header}>
+    <div className={theme ? css.darkHeader : css.header}>
       <div className={css.wrapper}>
         <button
           onClick={() => {router.back()}}
-          className={css.buttonBack} >
-          <Back />
+          className={theme ? css.darkButtonBack : css.buttonBack} >
+          <Back color={theme ? '#FFFFFF' : '#000000'} />
         </button>
-        <div className={css.title}>{comment.length + ' '}{i18n.t('comments')}</div>
+        <div className={theme ? css.darkTitle : css.title}>
+          {comment.length + ' '}{i18n.t('comments')}
+        </div>
       </div>
-      <CommentsHeader post={post} />
-      <Comments />
-      <CommentsFooter />
+      <CommentsHeader 
+        post={post} 
+        theme={theme}
+      />
+      <Comments theme={theme} />
+      <CommentsFooter theme={theme} />
     </div>
   )
 } 

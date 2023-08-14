@@ -14,9 +14,10 @@ i18n.init({
 
 interface Props {
   event: Event | undefined;
+  theme: boolean;
 }
 
-export default function EventPage({ event }: Props): JSX.Element {
+export default function EventPage({ event, theme }: Props): JSX.Element {
 
   const arr = [
     i18n.t('wont_go'),
@@ -38,27 +39,32 @@ export default function EventPage({ event }: Props): JSX.Element {
         src={event?.link_photo}
         className={css.avatar}
       />
-      <div className={css.container}>
+      <div className={theme ? css.darkContainer : css.container}>
         <div className={css.wrapperName}>
-          <div className={css.name}>
+          <div className={theme ? css.darkName : css.name}>
             {event?.name}
           </div>
         </div>
         <div className={css.containerData}>
           <ul className={css.list}>
-            <li className={css.listElement}>
+            <li className={theme ? css.darkListElement : css.listElement}>
               {event?.address}
             </li>
-            <li className={css.listElement}>
+            <li className={theme ? css.darkListElement : css.listElement}>
               {event?.phone}
             </li>
-            <li className={css.listElement}>
-              <a href={event?.site_link}>{event?.name_site}</a>
+            <li className={theme ? css.darkListElement : css.listElement}>
+              <a 
+                href={event?.site_link}
+                className={theme ? css.darkLink : css.link}
+              >
+                {event?.name_site}
+              </a>
             </li>
           </ul>
         </div>
         <div className={css.wrap}>
-          <div className={css.name}>
+          <div className={theme ? css.darkName : css.name}>
             {event?.date}
           </div>
           <div className={css.buttonWrapper}>
@@ -67,7 +73,7 @@ export default function EventPage({ event }: Props): JSX.Element {
                 return (
                   <button
                     key={index}
-                    className={index === 1 ? css.activeButton : css.button}
+                    className={index === 1 ? css.activeButton : (theme ? css.darkButton : css.button)}
                   >
                     {element}
                   </button>
@@ -76,7 +82,7 @@ export default function EventPage({ event }: Props): JSX.Element {
             }
           </div>
         </div>
-        <div className={css.wrapperAvatar}>
+        <div className={theme ? css.darkWrapperAvatar : css.wrapperAvatar}>
           <div className={css.avatarContainer}>
             <div className={css.avatarList}>
               {
@@ -91,7 +97,7 @@ export default function EventPage({ event }: Props): JSX.Element {
                 })
               }
             </div>
-            <div className={css.title}>
+            <div className={theme ? css.darkTitle : css.title}>
               {i18n.t('people_going')}
             </div>
           </div>

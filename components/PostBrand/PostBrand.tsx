@@ -28,10 +28,13 @@ i18n.init({
 });
 
 interface Props {
-  id: number
+  id: number;
+  theme: boolean;
+  setActiveShare: any;
+  setPostId: any;
 }
 
-export const PostBrand = ({id}: Props): JSX.Element => {
+export const PostBrand = ({ id, theme, setActiveShare, setPostId }: Props): JSX.Element => {
   const [expandedPostId, setExpandedPostId] = useState<number | null>(null);
   const [stateUserId, setStateUserId] = useState<number | string>('');
   const router = useRouter()
@@ -57,93 +60,114 @@ export const PostBrand = ({id}: Props): JSX.Element => {
 
   const subscriptions = useSelector((state: State) => state.subscription);
 
-  const handleLike = (post_id: number) => {    
+  const handleLike = (post_id: number) => {
     store.dispatch(likePosts(post_id));
-  } 
+  }
 
-  const posts: Post[] = useSelector((state : State) => state.posts);
+  const posts: Post[] = useSelector((state: State) => state.posts);
   const filteredPosts = posts.filter((post) => post.brand_id === id)
 
-  const comments: Comment[] = useSelector((state : State) => state.comments);
+  const comments: Comment[] = useSelector((state: State) => state.comments);
 
   console.log(posts);
   const filterSupscription = subscriptions.find((subscription) => subscription.brand_id === id);
 
   return (
-    <div className={css.wrapper}>
+    <div className={theme ? css.darkWrapper : css.wrapper}>
       {
         filteredPosts.map((post: Post) => {
           const id = post.like.includes(Number(stateUserId))
-          const commentsFilter =  comments.filter((comment: Comment) => comment.post_id === post.id)
+          const commentsFilter = comments.filter((comment: Comment) => comment.post_id === post.id)
           return (
-          <div
-            key={post.id}
-            className={css.post}
-          >
-            <div className={css.header}>
-              <div className={css.avatarWrapper}>
-                <img
-                  src={post.link_avatar}
-                  width='37'
-                  height='37'
-                  alt="Avatar"
-                  className={css.avatar}
-                />
-              </div>
-              <div className={css.wrapperName}>
-                <div className={css.name}>
-                  {post.user_name}
-                </div>
-                <div className={css.type}>
-                  {post.type}
-                </div>
-              </div>
-              <div className={css.subscribe}>{filterSupscription ?  i18n.t('subscribed') : i18n.t('subscribe')}</div>
-            </div>
-            <img
-              src={post.link_photo}
-              width='414'
-              height='414'
-              alt="Photo's post"
-              className={css.photo}
-            />
-            <div className={css.buttonWrapper}>
-              <button 
+            <div
+              key={post.id}
+              className={theme ? css.darkPost : css.post}
+            >
+              <button
+                className={theme ? css.darkHeader : css.header}
                 onClick={() => {
-                  handleLike(post.id)
+                  router.push(`/home/post/${post.id}`)
                 }}
-                className={css.button}
               >
-                {id ? <ActiveHeart /> : <Heart />}
-                <div className={css.quantity}>
-                  {post.like.length}
+                <div className={css.avatarWrapper}>
+                  <img
+                    src={post.link_avatar}
+                    width='37'
+                    height='37'
+                    alt="Avatar"
+                    className={theme ? css.darkAvatar : css.avatar}
+                  />
                 </div>
+                <div className={css.wrapperName}>
+                  <div className={theme ? css.darkName : css.name}>
+                    {post.user_name}
+                  </div>
+                  <div className={theme ? css.darkType : css.type}>
+                    {post.type}
+                  </div>
+                </div>
+                <div className={css.subscribe}>{filterSupscription ? i18n.t('subscribed') : i18n.t('subscribe')}</div>
               </button>
-              <button 
-                onClick={() => router.push(`/home/post/comments/${post.id}`)}
-                className={css.button}
-              >
-                <Message />
-                <div className={css.quantity}>{commentsFilter.length}</div>
-              </button>
-              <button className={css.button}>
-                <Forward />
-                <div className={css.quantity}>0</div>
-              </button>
-            </div>
-            <div className={css.text}>
-              <span className={css.fullName}>{post.user_name}</span>
-              <span>{post.title.length > 100 && expandedPostId !== post.id ? post.title.slice(0, 100) + '...' : post.title}</span>
-              {post.title.length > 100 &&
-                <a
-                  className={css.more}
-                  onClick={() => handleTextToggle(post.id)}
+              <img
+                src={post.link_photo}
+                width='414'
+                height='414'
+                alt="Photo's post"
+                className={css.photo}
+              />
+              <div className={css.buttonWrapper}>
+                <button
+                  onClick={() => {
+                    handleLike(post.id)
+                  }}
+                  className={theme ? css.darkButton : css.button}
                 >
-                  {expandedPostId === post.id ? i18n.t('less') : i18n.t('more')}
-                </a>
-              }
+                  {id ? (
+                    <ActiveHeart />
+                  ) : (
+                    <Heart color={theme ? '#FFFFFF' : '#000000'} />
+                  )}
+                  <div className={theme ? css.darkQuantity : css.quantity}>
+                    {post.like.length}
+                  </div>
+                </button>
+                <button
+                  onClick={() => router.push(`/home/post/comments/${post.id}`)}
+                  className={theme ? css.darkButton : css.button}
+                >
+                  <Message color={theme ? '#FFFFFF' : '#000000'} />
+                  <div className={theme ? css.darkQuantity : css.quantity}>
+                    {commentsFilter.length}
+                  </div>
+                </button>
+                <button
+                  className={theme ? css.darkButton : css.button}
+                  onClick={() => {
+                    setActiveShare(true);
+                    setPostId(post.id)
+                  }}
+                >
+                  <Forward color={theme ? '#FFFFFF' : '#000000'} />
+                  <div className={theme ? css.darkQuantity : css.quantity}>0</div>
+                </button>
+              </div>
+              <div className={theme ? css.darkText : css.text}>
+                <span className={css.fullName}>
+                  {post.user_name}
+                </span>
+                <span>
+                  {post.title.length > 100 && expandedPostId !== post.id ? post.title.slice(0, 100) + '...' : post.title}
+                </span>
+                {post.title.length > 100 &&
+                  <a
+                    className={theme ? css.darkMore : css.more}
+                    onClick={() => handleTextToggle(post.id)}
+                  >
+                    {expandedPostId === post.id ? i18n.t('less') : i18n.t('more')}
+                  </a>
+                }
+              </div>
             </div>
-          </div>
           )
         })
       }

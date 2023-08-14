@@ -28,10 +28,11 @@ i18n.init({
 
 interface UserData {
   userData: UsersList | undefined;
-  id: number
+  id: number;
+  theme: boolean;
 }
 
-export const FriendData = ({ userData, id }: UserData): JSX.Element => {
+export const FriendData = ({ userData, id, theme }: UserData): JSX.Element => {
   const [modal, stateModal] = useState<boolean>(false);
   const [activeAlert, setActiveAlert] = useState<boolean>(false);
 
@@ -83,20 +84,18 @@ export const FriendData = ({ userData, id }: UserData): JSX.Element => {
   const checkUserId = userData.friends_id.find((i) => i === userId)
 
   return (
-    <div
-      className={css.wrapper}
-    >
+    <div className={theme ? css.darkWrapper : css.wrapper}>
       <div
         className={css.swiper}
       />
       <div className={css.dataWrapper}>
         <div className={css.nameWrapper}>
-          <div className={css.name}>{userData?.name}</div>
+          <div className={theme ? css.darkName : css.name}>
+            {userData?.name}
+          </div>
           <div className={css.iconButtonWrapper}>
             <button className={css.iconButton}>
-              <Call
-                color='black'
-              />
+              <Call color='#000000' />
             </button>
             <button
               className={css.iconButton}
@@ -106,12 +105,12 @@ export const FriendData = ({ userData, id }: UserData): JSX.Element => {
                 }
               }}
             >
-              {checkUserId ? <Friend /> : <AddFriend />}
+              {checkUserId ? <Friend /> : <AddFriend color='#000000' />}
             </button>
           </div>
         </div>
         <div className={css.city}>
-          <City color='black' />
+          <City color={theme ? '#FFFFFF' : '#000000'} />
           {userData?.city}
           <div className={activeAlert ? css.activeAlert : css.alert}>
             {i18n.t('request')}
@@ -120,13 +119,13 @@ export const FriendData = ({ userData, id }: UserData): JSX.Element => {
         <div className={css.iconButtonWrapper}>
           {
             !userData.messageConfidentiality.nobody &&
-            (userData.messageConfidentiality.my_friends && userData.friends_id.find((id) => id === userId)) ||
-            userData.messageConfidentiality.all ? (
+              (userData.messageConfidentiality.my_friends && userData.friends_id.find((id) => id === userId)) ||
+              userData.messageConfidentiality.all ? (
               <button
                 className={css.sendMessage}
                 onClick={() => router.push(`/chats/chat_with_user/${id}`)}
               >
-                <ChatsIcon />
+                <ChatsIcon color='#000000' />
                 <div className={css.titleButton}>
                   {i18n.t('send_message')}
                 </div>
@@ -135,7 +134,7 @@ export const FriendData = ({ userData, id }: UserData): JSX.Element => {
               <button
                 className={css.disableSendMessage}
               >
-                <ChatsIcon />
+                <ChatsIcon color='#000000' />
                 <div className={css.titleButton}>
                   {i18n.t('send_message')}
                 </div>
@@ -161,9 +160,7 @@ export const FriendData = ({ userData, id }: UserData): JSX.Element => {
           </button>
         </div>
         <div className={css.wrapperCategoriesOrMood}>
-          <div
-            className={css.categoriesOrMood}
-          >
+          <div className={theme ? css.darkCategoriesOrMood : css.categoriesOrMood}>
             {i18n.t('categories')}
           </div>
           <div className={css.wrapperButtons}>
@@ -188,7 +185,7 @@ export const FriendData = ({ userData, id }: UserData): JSX.Element => {
         </div>
         <div className={css.wrapperCategoriesOrMood}>
           <div
-            className={css.categoriesOrMood}
+            className={theme ? css.darkCategoriesOrMood : css.categoriesOrMood}
           >
             {i18n.t('mood')}
           </div>
@@ -234,12 +231,12 @@ export const FriendData = ({ userData, id }: UserData): JSX.Element => {
             }
           </div>
         </div>
-        <div className={css.wrap}>
+        <div className={theme ? css.darkWrap : css.wrap}>
           <div className={css.area}>
-            <Subscriptions />
-            <div
-              className={css.type}
-            >
+            <div className={css.button}>
+              <Subscriptions />
+            </div>
+            <div className={theme ? css.darkType : css.type}>
               {i18n.t('subscriptions')}
             </div>
           </div>
@@ -250,12 +247,12 @@ export const FriendData = ({ userData, id }: UserData): JSX.Element => {
             </button>
           </div>
         </div>
-        <div className={css.wrap}>
+        <div className={theme ? css.darkWrap : css.wrap}>
           <div className={css.area}>
-            <Friends />
-            <div
-              className={css.type}
-            >
+            <div className={css.button}>
+              <Friends />
+            </div>
+            <div className={theme ? css.darkType : css.type}>
               {i18n.t('friends')}
             </div>
           </div>
@@ -269,12 +266,12 @@ export const FriendData = ({ userData, id }: UserData): JSX.Element => {
             </button>
           </div>
         </div>
-        <div className={css.wrap}>
+        <div className={theme ? css.darkWrap : css.wrap}>
           <div className={css.area}>
-            <Star />
-            <div
-              className={css.type}
-            >
+            <div className={css.button}>
+              <Star />
+            </div>
+            <div className={theme ? css.darkType : css.type}>
               {i18n.t('evets')}
             </div>
           </div>
@@ -286,33 +283,53 @@ export const FriendData = ({ userData, id }: UserData): JSX.Element => {
           </div>
         </div>
         <div className={css.areaData}>
-          <div className={css.wrapperData}>
-            <div className={css.dataType}>{i18n.t('city')}</div>
-            <div className={css.data}>{userData?.city}</div>
+          <div className={theme ? css.darkWrapperData : css.wrapperData}>
+            <div className={theme ? css.darkDataType : css.dataType}>
+              {i18n.t('city')}
+            </div>
+            <div className={theme ? css.darkData : css.data}>
+              {userData?.city}
+            </div>
           </div>
           {
             !userData.phoneConfidentiality.nobody &&
               (userData.phoneConfidentiality.my_friends && userData.friends_id.find((id) => id === userId)) ||
               userData.phoneConfidentiality.all ? (
-              <div className={css.wrapperData}>
-                <div className={css.dataType}>{i18n.t('phone_number')}</div>
-                <div className={css.specialData}>{userData?.phone}</div>
+              <div className={theme ? css.darkWrapperData : css.wrapperData}>
+                <div className={theme ? css.darkDataType : css.dataType}>
+                  {i18n.t('phone_number')}
+                </div>
+                <div className={css.specialData}>
+                  {userData?.phone}
+                </div>
               </div>
             ) : (
               null
             )
           }
-          <div className={css.wrapperData}>
-            <div className={css.dataType}>{i18n.t('email')}</div>
-            <div className={css.specialData}>full.name@gmail.com</div>
+          <div className={theme ? css.darkWrapperData : css.wrapperData}>
+            <div className={theme ? css.darkDataType : css.dataType}>
+              {i18n.t('email')}
+            </div>
+            <div className={css.specialData}>
+              full.name@gmail.com
+            </div>
           </div>
-          <div className={css.wrapperData}>
-            <div className={css.dataType}>{i18n.t('date_of_birth')}</div>
-            <div className={css.data}>{userData?.date_of_birth}</div>
+          <div className={theme ? css.darkWrapperData : css.wrapperData}>
+            <div className={theme ? css.darkDataType : css.dataType}>
+              {i18n.t('date_of_birth')}
+            </div>
+            <div className={theme ? css.darkData : css.data}>
+              {userData?.date_of_birth}
+            </div>
           </div>
-          <div className={css.wrapperData}>
-            <div className={css.dataType}>{i18n.t('gender')}</div>
-            <div className={css.data}>{userData?.gender}</div>
+          <div className={theme ? css.darkWrapperData : css.wrapperData}>
+            <div className={theme ? css.darkDataType : css.dataType}>
+              {i18n.t('gender')}
+            </div>
+            <div className={theme ? css.darkData : css.data}>
+              {userData?.gender}
+            </div>
           </div>
         </div>
       </div>

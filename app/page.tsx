@@ -10,6 +10,10 @@ import i18n from "i18next";
 import resources from "@/locales/resource";
 import { checkRememberMe } from "./checkRememberMe";
 import { useEffect } from "react";
+import { store } from "@/store/store";
+import { userGet } from "@/store/actions/getUser";
+import { useSelector } from "react-redux";
+import { State } from "@/store/initialState";
 
 i18n.init({
   resources,
@@ -23,8 +27,7 @@ export default function Home(): JSX.Element {
   useEffect(() => {    
     checkRememberMe(router);
   })
-
-
+  
   return (
     <div className={css.flexBox}>
       <Logo />

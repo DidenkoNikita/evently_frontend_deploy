@@ -13,6 +13,11 @@ import { RightIcon } from "@/components/icons/rightIcon.icon";
 import { Faq } from "@/components/icons/faq.icon";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { store } from "@/store/store";
+import { changeColorTheme } from "@/store/actions/changeColorTheme";
+import { userGet } from "@/store/actions/getUser";
+import { useSelector } from "react-redux";
+import { State } from "@/store/initialState";
 
 i18n.init({
   resources,
@@ -34,88 +39,99 @@ export default function settings(): JSX.Element {
     if (!user_id) {
       router.push('/');
     }
+    store.dispatch(userGet());
   }, [])
 
+  const user = useSelector((state: State) => state.user);
+  const theme = user?.user?.color_theme;
+  
   return (
-    <div className={css.wrapper}>
+    <div className={theme ? css.darkWrapper : css.wrapper}>
       <SettingsHeader 
+        theme={theme}
         title={i18n.t('settings')} 
       />
       <div className={css.area}>
         <div className={css.wrapperSetting}>
-          <div className={css.title}>
+          <div className={theme ? css.darkTitle : css.title}>
             {i18n.t('themes')}
           </div>
           <div className={css.buttonsArea}>
             <button
-              onClick={() => setStateTheme(!stateTheme)}
-              className={!stateTheme ? css.activeButton : css.button}
+              onClick={() => {
+                setStateTheme(!stateTheme);
+                store.dispatch(changeColorTheme(false));
+              }}
+              className={!theme ? css.activeButton : (theme ? css.darkButton : css.button)}
             >
               {i18n.t('light')}
             </button>
             <button
-              onClick={() => setStateTheme(!stateTheme)}
-              className={stateTheme ? css.activeButton : css.button}
+              onClick={() => {
+                setStateTheme(!stateTheme);
+                store.dispatch(changeColorTheme(true));
+              }}
+              className={theme ? css.activeButton : (theme ? css.darkButton : css.button)}
             >
               {i18n.t('dark')}
             </button>
           </div>
         </div>
         <div className={css.wrapperSetting}>
-          <div className={css.title}>
+          <div className={theme ? css.darkTitle : css.title}>
             {i18n.t('languages')}
           </div>
           <div className={css.buttonsArea}>
             <button
               onClick={() => setStateLanguage(!stateLanguage)}
-              className={!stateLanguage ? css.activeButton : css.button}
+              className={!stateLanguage ? css.activeButton : (theme ? css.darkButton : css.button)}
             >
               {i18n.t('en')}
             </button>
             <button
               onClick={() => setStateLanguage(!stateLanguage)}
-              className={stateLanguage ? css.activeButton : css.button}
+              className={stateLanguage ? css.activeButton : (theme ? css.darkButton : css.button)}
             >
               {i18n.t('ru')}
             </button>
           </div>
         </div>
         <div className={css.notifications}>
-          <div className={css.title}>
+          <div className={theme ? css.darkTitle : css.title}>
             {i18n.t('notifications')}
           </div>
-          <div className={css.notificationsWrapper}>
+          <div className={theme ? css.darkNotificationsWrapper : css.notificationsWrapper}>
             <div className={css.notification}>
-              <div className={css.text}>
+              <div className={theme ? css.darkText : css.text}>
                 {i18n.t('sound')}
               </div>
               <button 
                 onClick={() => {setStateSound(!stateSound)}}
-                className={stateSound ? css.activeCheckBox : css.checkbox}
+                className={stateSound ? css.activeCheckBox : (theme ? css.darkCheckBox : css.checkbox)}
               >
                 <div className={css.curcle}/>
               </button>
             </div>
-            <div className={css.line} />
+            <div className={theme ? css.darkLine : css.line} />
             <div className={css.notification}>
-              <div className={css.text}>
+              <div className={theme ? css.darkText : css.text}>
                 {i18n.t('vibro')}
               </div>
               <button 
                 onClick={() => {setStateVibro(!stateVibro)}}
-                className={stateVibro ? css.activeCheckBox : css.checkbox}
+                className={stateVibro ? css.activeCheckBox : (theme ? css.darkCheckBox : css.checkbox)}
               >
                 <div className={css.curcle}/>
               </button>
             </div>
-            <div className={css.line} />
+            <div className={theme ? css.darkLine : css.line} />
             <div className={css.notification}>
-              <div className={css.text}>
+              <div className={theme ? css.darkText : css.text}>
                 {i18n.t('do_not_distrub')}
               </div>
               <button 
                 onClick={() => {setStateDistrub(!stateDistrub)}}
-                className={stateDistrub ? css.activeCheckBox : css.checkbox}
+                className={stateDistrub ? css.activeCheckBox : (theme ? css.darkCheckBox : css.checkbox)}
               >
                 <div className={css.curcle}/>
               </button>
@@ -123,11 +139,11 @@ export default function settings(): JSX.Element {
           </div>
         </div>
         <div className={css.locationWrapper}>
-          <div className={css.title}>
+          <div className={theme ? css.darkTitle : css.title}>
             {i18n.t('location')}
           </div>
           <div className={css.wrap}>
-            <div className={css.setWrap}>
+            <div className={theme ? css.darkSetWrap : css.setWrap}>
               <div className={css.titleWrap}>
                 <City color="#BB83FF" />
                 <div className={css.share}>
@@ -136,15 +152,15 @@ export default function settings(): JSX.Element {
               </div>
               <button 
                 onClick={() => {setStateLocation(!stateLocation)}}
-                className={stateLocation ? css.activeCheckBox : css.checkbox}
+                className={stateLocation ? css.activeCheckBox : (theme ? css.darkCheckBox : css.checkbox)}
               >
                 <div className={css.curcle}/>
               </button>
             </div>
-            <div className={css.wrapSet}>
+            <div className={theme ? css.darkWrapSet : css.wrapSet}>
               <div className={css.titleWrap}>
                 <Privacy />
-                <div className={css.text}>
+                <div className={theme ? css.darkText : css.text}>
                   {i18n.t('privacy')}
                 </div>
               </div>
@@ -157,10 +173,10 @@ export default function settings(): JSX.Element {
                 <RightIcon />
               </button>
             </div>
-            <div className={css.wrapSet}>
+            <div className={theme ? css.darkWrapSet : css.wrapSet}>
               <div className={css.titleWrap}>
                 <Faq />
-                <div className={css.text}>
+                <div className={theme ? css.darkText : css.text}>
                   {i18n.t('faq')}
                 </div>
               </div>

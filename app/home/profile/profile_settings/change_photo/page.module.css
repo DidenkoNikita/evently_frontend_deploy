@@ -1,8 +1,16 @@
-.wrapper {
+.wrapper,
+.darkWrapper {
   width: 414px;
   height: 896px;
-  background: repeat url('../../../../../public/backgroundComments.png');
   overflow: hidden;
+}
+
+.wrapper {
+  background: repeat url('../../../../../public/backgroundComments.png');
+}
+
+.darkWrapper {
+  background: repeat url('../../../../../public/darkBackgroundComments.png');
 }
 
 .container {
@@ -18,7 +26,8 @@
   margin-top: 20px
 }
 
-.avatarData {
+.avatarData,
+.darkAvatarData {
   display: flex;
   width: 345px;
   height: 650px;
@@ -29,7 +38,14 @@
   font-family: Montserrat;
   font-size: 128px;
   font-weight: 900; 
+}
+
+.avatarData {
   color: #FFFFFF;
+}
+
+.darkAvatarData {
+  color: #333333;
 }
 
 .button {

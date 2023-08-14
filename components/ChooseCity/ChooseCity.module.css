@@ -1,9 +1,16 @@
-.wrapper {
+.wrapper,
+.darkWrapper {
   display: flex;
   flex-direction: column;
   width: 414px;
-  height: 896px;
+  height: 700px;
   align-items: center;
+  margin-top: 118px;
+  overflow: hidden;
+}
+
+.darkWrapper {
+  background-color: #333333;
 }
 
 .button {
@@ -15,8 +22,7 @@
   border: none;
   border-radius: 10px;
   background-color: #E3F563;
-  margin-bottom: 115px;
-  margin-top: auto;
+  margin-top: 290px;
   font-family: Montserrat;
   font-size: 16px;
   font-weight: 400;

@@ -1,7 +1,16 @@
-.home {
+.home,
+.darkHome {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.home {
+  background-color: #FDFFFD;
+}
+
+.darkHome {
+  background-color: #333333;
 }
 
 .wrapper {

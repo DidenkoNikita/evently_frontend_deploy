@@ -15,10 +15,11 @@ i18n.init({
 });
 
 interface Props {
-  event: Event
+  event: Event;
+  theme: boolean;
 }
 
-export const EventElement = ({ event }: Props): JSX.Element => {
+export const EventElement = ({ event, theme }: Props): JSX.Element => {
   const arr = [
     i18n.t('wont_go'),
     i18n.t('will_go')
@@ -27,14 +28,14 @@ export const EventElement = ({ event }: Props): JSX.Element => {
   const router = useRouter();
 
   return (
-    <div className={css.wrapper}>
+    <div className={theme ? css.darkWrapper : css.wrapper}>
       <button
         className={css.data}
         onClick={() => {
           router.push(`/home/services/event/${event.id}`)
         }}
       >
-        <div className={css.name}>
+        <div className={theme ? css.darkName : css.name}>
           {event.name}
         </div>
         <div className={css.container}>
@@ -43,14 +44,19 @@ export const EventElement = ({ event }: Props): JSX.Element => {
             className={css.photo}
           />
           <ul className={css.list}>
-            <li className={css.listElement}>
+            <li className={theme ? css.darkListElement : css.listElement}>
               {event.phone}
             </li>
-            <li className={css.listElement}>
+            <li className={theme ? css.darkListElement : css.listElement}>
               {event.date}
             </li>
-            <li className={css.listElement}>
-              <a href={event.site_link}>{event.name_site}</a>
+            <li className={theme ? css.darkListElement : css.listElement}>
+              <a 
+                href={event.site_link}
+                className={theme ? css.darkLink: css.link}
+              >
+                {event.name_site}
+              </a>
             </li>
           </ul>
         </div>
@@ -61,7 +67,7 @@ export const EventElement = ({ event }: Props): JSX.Element => {
             return (
               <button
                 key={index}
-                className={index === 1 ? css.activeButton : css.button}
+                className={index === 1 ? css.activeButton : (theme ? css.darkButton : css.button)}
               >
                 {element}
               </button>

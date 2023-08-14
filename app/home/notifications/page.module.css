@@ -1,3 +1,16 @@
+.container,
+.darkContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  height: 100vh;
+}
+
+.darkContainer {
+  background-color: #333333;
+}
+
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -13,7 +26,8 @@
   gap: 5px;
 }
 
-.iconButton {
+.iconButton,
+.darkIconButton {
   display: flex;
   width: 111px;
   height: 59px;
@@ -22,7 +36,14 @@
   align-items: center;
   border: none;
   border-radius: 10px;
+}
+
+.iconButton {
   background-color: #F6F6F6;
+}
+
+.darkIconButton {
+  background-color: #242424;
 }
 
 .icon {
@@ -33,10 +54,15 @@
   height: 24px; 
 }
 
-.titleButton {
+.titleButton,
+.darkTitleButton {
   font-family: Montserrat;
   font-size: 14px;
   font-weight: 400;
+}
+
+.darkTitleButton {
+  color: #FFF;
 }
 
 .activeIconButton {
@@ -61,15 +87,25 @@
   width: 345px;
 }
 
-.counter {
+.counter,
+.darkCounter {
   font-family: Montserrat;
   font-size: 14px;
   font-weight: 600; 
 }
 
-.warning {
+.darkCounter {
+  color: #FFF;
+}
+
+.warning,
+.darkWarning {
   font-family: Montserrat;
   font-size: 16px;
   font-weight: 600;
   margin-top: 250px;
+}
+
+.darkWarning {
+  color: #FFF;
 }

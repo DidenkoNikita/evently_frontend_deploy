@@ -1,4 +1,6 @@
-export const Plus = (): JSX.Element => {
+import { Props } from "./interface"
+
+export const Plus = ({ color }: Props): JSX.Element => {
   return (
     <svg 
       width="24" 
@@ -9,12 +11,12 @@ export const Plus = (): JSX.Element => {
     >
       <path 
         d="M3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12Z" 
-        stroke="black" 
+        stroke={color} 
         strokeWidth="2"
       />
       <path 
         d="M8 12H16M12 8L12 16" 
-        stroke="black" 
+        stroke={color}
         strokeWidth="2" 
         strokeLinecap="round"
       />

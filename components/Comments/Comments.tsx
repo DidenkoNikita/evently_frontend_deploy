@@ -11,13 +11,13 @@ import { commentLike } from '@/store/actions/commentLike';
 import { ActiveHeart } from '../icons/activeHeart.icon';
 
 import moment from 'moment';
-// import 'moment/locale/en';
+import { State } from '@/store/initialState';
 
-export interface State {
-  comments: Comment[]
+interface Props {
+  theme: boolean;
 }
 
-export const Comments = (): JSX.Element => {
+export const Comments = ({ theme }: Props): JSX.Element => {
   const [postId, setPostId] = useState<string>('');
   const [userId, setUserId] = useState<number | string>('')
 
@@ -30,7 +30,8 @@ export const Comments = (): JSX.Element => {
   const id: number = Number(postId.slice(20))
 
   const comments: Comment[] = useSelector((state: State) => state.comments.filter((comment: Comment) => comment?.post_id === id).sort((a, b) => a.id - b.id));
-
+  console.log(comments);
+  
   const handleLike = (comment_id: number) => {
     store.dispatch(commentLike(comment_id));
   }
@@ -58,21 +59,21 @@ export const Comments = (): JSX.Element => {
     }
   };
   return (
-    <div className={css.commentsWrapper}>
+    <div className={theme ? css.darkCommentsWrapper : css.commentsWrapper}>
       {comments.map((comment: Comment) => {
         const like = comment.like.filter((comment) => comment === userId);
         return (
           <div
             key={comment.id}
-            className={css.comment}
+            className={theme ? css.darkComment : css.comment}
           >
             <div className={css.commentHeader}>
               {comment.link_avatar === null ? (
                 <div
                   className={css.fakeAvatar}
                 >
-                  <div className={css.avatarData}>
-                    {comment.user_name.slice(0, 1)}
+                  <div className={theme ? css.darkAvatarData : css.avatarData}>
+                    {comment.name.slice(0, 1)}
                   </div>
                 </div>
               ) : (
@@ -84,19 +85,23 @@ export const Comments = (): JSX.Element => {
                 </div>
               )}
               <div className={css.wrapperData}>
-                <div className={css.name}>{comment.user_name}</div>
-                <div className={css.time}>{formatTime(comment.created_at)}</div>
+                <div className={theme ? css.darkName : css.name}>
+                  {comment.name}
+                </div>
+                <div className={theme ? css.darkTime : css.time}>
+                  {formatTime(comment.created_at)}
+                </div>
               </div>
             </div>
-            <div className={css.text}>
+            <div className={theme ? css.darkText : css.text}>
               {comment.text}
             </div>
             <button
-              className={css.button}
+              className={theme ? css.darkButton : css.button}
               onClick={() => handleLike(comment.id)}
             >
               {comment.like.length}
-              {like.length > 0 ? <ActiveHeart /> : <Heart />}
+              {like.length > 0 ? <ActiveHeart /> : <Heart color={theme ? '#FFF' : '#000'} />}
             </button>
           </div>
         )

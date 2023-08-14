@@ -15,6 +15,7 @@ import { reviewGet } from "@/store/actions/reviewsGet";
 import { useSelector } from "react-redux";
 import { State } from "@/store/initialState";
 import { store } from "@/store/store";
+import { userGet } from "@/store/actions/getUser";
 
 interface Props {
   brand: Brand;
@@ -29,15 +30,21 @@ i18n.init({
 export const BrandComponent = ({brand, link}: Props): JSX.Element => {
   useEffect(() => {
     store.dispatch(reviewGet());
+    store.dispatch(userGet());
   }, [])
 
   const reviews = useSelector((state: State) => state.review);
-  const filteredReviews = reviews.filter((review) => review.brand_id === brand.id)
+  const filteredReviews = reviews.filter((review) => review.brand_id === brand.id);
+  const user = useSelector((state: State) => state.user);
+  const theme = user?.user?.color_theme;
+  console.log(theme);
+  
+
   const router = useRouter();
 
   return (
     <button 
-      className={css.wrapper}
+      className={theme ? css.darkWrapper : css.wrapper}
       onClick={() => {
         router.push(`${link}/${brand.id}`)
       }}
@@ -48,35 +55,35 @@ export const BrandComponent = ({brand, link}: Props): JSX.Element => {
       />
       <div className={css.container}>
         <div className={css.wrapperData}>
-          <div className={css.name}>
+          <div className={theme ? css.darkName : css.name}>
             {brand.name}
           </div>
           <div className={css.grade}>
-            <GradeComponent />
+            <GradeComponent theme={theme} />
           </div>
           <div className={css.reviewsWrapper}>
-            <div className={css.reviews}>
+            <div className={theme ? css.darkReviews : css.reviews}>
               {i18n.t('reviews')}
             </div>
             <div className={css.icon}>
-              <Message />
+              {
+                theme ? <Message color="#FFFFFF" /> : <Message color="#000000" />
+              }
             </div>
-            <div className={css.reviews}>
+            <div className={theme ? css.darkReviews : css.reviews}>
               {filteredReviews.length}
             </div>
           </div>
         </div>
         <div className={css.wrapperAddress}>
           <div className={css.iconCity}>
-            <City
-              color="#000000"
-            />
+            {theme ? <City color="#FFFFFF" /> : <City color="#000000" />}
           </div>
           <div className={css.addressWrap}>
-            <div className={css.address}>
+            <div className={theme ? css.darkAddress : css.address}>
               {`${brand.city}, `}
             </div>
-            <div className={css.address}>
+            <div className={theme ? css.darkAddress : css.address}>
               {brand.address}
             </div>
           </div>

@@ -11,6 +11,7 @@ export interface User {
     city: string;
     link_avatar: string;
     friends_id: number[];
+    color_theme: boolean;
   };
   userCategories: {
     restaurants: boolean;
@@ -130,6 +131,14 @@ export interface UpdatedCity {
   userData: City
 }
 
+interface Theme {
+  color_theme: boolean;
+}
+
+export interface ChangeTheme {
+  userData: Theme;
+}
+
 export const userSlice = createSlice({
   name: 'user',
   initialState: initialState.user,
@@ -168,7 +177,11 @@ export const userSlice = createSlice({
     updateMessagesConfidetiality: (state, action: PayloadAction<UpdateMessageConfidentiality>): void => {
       const { payload } = action
       state.messageConfidentiality === payload.data
-    }
+    },
+    changeTheme: (state, action: PayloadAction<ChangeTheme>) => {
+      const { payload } = action;
+      state.user.color_theme = payload.userData.color_theme
+    },
   }
 });
 
@@ -179,5 +192,6 @@ export const {
   changeCity,
   updateAvatar,
   updateMessagesConfidetiality,
-  updatePhoneConfidetiality
+  updatePhoneConfidetiality,
+  changeTheme
 } = userSlice.actions;

@@ -28,15 +28,15 @@ interface Button {
 export const Header = ():JSX.Element => {
   const icons: (Button)[] = [
     { 
-      icon: <Notification />,
+      icon: <Notification color='#000' />,
       link: '/home/notifications'
     }, 
     { 
-      icon : <Acquaintance />,
+      icon : <Acquaintance color='#000' />,
       link: '/acquaintance'
     }, 
     { 
-      icon : <Filter />,
+      icon : <Filter color='#000' />,
       link: '/home/filter'
     }, 
     { 
@@ -46,19 +46,25 @@ export const Header = ():JSX.Element => {
   ];
 
   const user = useSelector((state : State) => state.user);
-  
+  const theme = user?.user?.color_theme;
   const router = useRouter()
 
   return (
-    <header className={css.header}>
+    <header className={theme ? css.darkHeader : css.header}>
       <div className={css.wrapper}>
         <div className={css.address}>
-          <City color="#000000" />
+          {
+            theme ? (
+              <City color="#FFFFFF" />
+            ) : (
+              <City color="#000000" />
+            )
+          }
           <div className={css.addressText}>
             {user ? user?.user?.city : 'Loading...'}
           </div>
         </div>
-        <button className={css.searchButton}>
+        <button className={theme ? css.darkSearchButton : css.searchButton}>
           <Search />
           {i18n.t('search')}
         </button>

@@ -28,6 +28,7 @@ export default function PrivacyPage(): JSX.Element {
   }, [])
 
   const user = useSelector((state: State) => state.user);
+  const theme = user?.user?.color_theme;
 
   const router = useRouter();
 
@@ -44,22 +45,6 @@ export default function PrivacyPage(): JSX.Element {
       title: i18n.t('location'),
       type: i18n.t('all')
     },
-    // {
-    //   title: i18n.t('date_of_birth'),
-    //   type: i18n.t('all')
-    // },
-    // {
-    //   title: i18n.t('gender'),
-    //   type: i18n.t('all')
-    // },
-    // {
-    //   title: i18n.t('my_categories'),
-    //   type: i18n.t('all')
-    // },
-    // {
-    //   title: i18n.t('my_mood'),
-    //   type: i18n.t('all')
-    // },
     {
       title: i18n.t('subscriptions'),
       type: i18n.t('all')
@@ -75,17 +60,18 @@ export default function PrivacyPage(): JSX.Element {
   ]
 
   return (
-    <div className={css.wrapper}>
+    <div className={theme ? css.darkWrapper : css.wrapper}>
       <SettingsHeader
+        theme={theme}
         title={i18n.t('privacy')}
       />
       <div className={css.container}>
-        <div className={css.blackList}>
+        <div className={theme ? css.darkBlackList : css.blackList}>
           <div className={css.wrap}>
             <div className={css.icon}>
               <Block />
             </div>
-            <div className={css.text}>
+            <div className={theme ? css.darkText : css.text}>
               {i18n.t('black_list')}
             </div>
           </div>
@@ -96,13 +82,13 @@ export default function PrivacyPage(): JSX.Element {
           </button>
         </div>
         <div className={css.settingsWrapper}>
-          <div className={css.confidentiality}>
+          <div className={theme ? css.darkConfidentiality : css.confidentiality}>
             {i18n.t('confidentiality')}
           </div>
-          <div className={css.confidentialityWrapper}>
+          <div className={theme ? css.darkConfidentialityWrapper : css.confidentialityWrapper}>
             <div>
               <div className={css.element}>
-                <div className={css.text}>
+                <div className={theme ? css.darkText : css.text}>
                   {i18n.t('phone_number')}
                 </div>
                 <div className={css.dataWrapper}>
@@ -130,14 +116,14 @@ export default function PrivacyPage(): JSX.Element {
                   </button>
                 </div>
               </div>
-              <div className={css.line} />
+              <div className={theme ? css.darkLine : css.line} />
             </div>
             {
               arr.map((element, index) => {
                 return (
                   <div key={index}>
                     <div className={css.element}>
-                      <div className={css.text}>
+                      <div className={theme ? css.darkText : css.text}>
                         {element.title}
                       </div>
                       <div className={css.dataWrapper}>
@@ -151,13 +137,13 @@ export default function PrivacyPage(): JSX.Element {
                         </button>
                       </div>
                     </div>
-                    <div className={css.line} />
+                    <div className={theme ? css.darkLine : css.line} />
                   </div>
                 )
               })
             }
             <div className={css.element}>
-              <div className={css.text}>
+              <div className={theme ? css.darkText : css.text}>
                 {i18n.t('messages')}
               </div>
               <div className={css.dataWrapper}>

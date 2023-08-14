@@ -13,6 +13,10 @@ import css from './Loading.module.css';
 import { LoadingTextFirst } from '../LoadingTextFirst/LoadingTextFirst';
 import { LoadingTextSecond } from '../LoadingTextSecond/LoadingTextSecond';
 import { LoadingTextThird } from '../LoadingTextThird/LoadingTextThird';
+import { store } from '@/store/store';
+import { userGet } from '@/store/actions/getUser';
+import { useSelector } from 'react-redux';
+import { State } from '@/store/initialState';
 
 const loadingComponents = [
   <LoadingIcon key={0} />,
@@ -30,6 +34,10 @@ const loadingText = [
   <LoadingTextSecond key={1} />,
   <LoadingTextThird key={2} />
 ]
+
+interface Props {
+  theme: boolean;
+}
 
 export const LoadingComponent = (): JSX.Element => {
   const [currentComponentIndex, setCurrentComponentIndex] = useState<number>(0);
@@ -51,8 +59,15 @@ export const LoadingComponent = (): JSX.Element => {
     return () => clearInterval(interval)
   }, [])
 
+  useEffect(() => {
+    store.dispatch(userGet());
+  }, [])
+
+  const user = useSelector((state: State) => state.user);
+  const theme = user?.user?.color_theme;
+  
   return (
-    <div className={css.wrapper}>
+    <div className={theme ? css.darkWrapper : css.wrapper}>
       <div className={css.animation}>
         {loadingComponents[currentComponentIndex]}
       </div>
