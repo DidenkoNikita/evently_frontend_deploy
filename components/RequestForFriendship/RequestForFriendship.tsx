@@ -1,12 +1,12 @@
 import i18n from "i18next";
 
+import { store } from "@/store/store";
 import resources from "@/locales/resource";
+import { Notification } from "@/store/counter/notificationSlice";
+import { rejectNotification } from "@/store/actions/rejectNotification";
+import { notificationConfirm } from "@/store/actions/notificationConfirm";
 
 import css from './RequestForFriendship.module.css';
-import { Notification } from "@/store/counter/notificationSlice";
-import { store } from "@/store/store";
-import { notificationConfirm } from "@/store/actions/notificationConfirm";
-import { rejectNotification } from "@/store/actions/rejectNotification";
 
 i18n.init({
   resources,
@@ -14,11 +14,14 @@ i18n.init({
 });
 
 interface Props {
-  notification: Notification;
   theme: boolean;
+  notification: Notification;
 }
 
-export const RequestForFriendship = ({ notification, theme }: Props): JSX.Element => {
+export const RequestForFriendship = ({
+  notification,
+  theme
+}: Props): JSX.Element => {
   return (
     <div className={css.wrapper}>
       <div className={css.wrapperData}>
@@ -33,9 +36,9 @@ export const RequestForFriendship = ({ notification, theme }: Props): JSX.Elemen
             </div>
           ) : (
             <img
-              src={notification.link_avatar}
               alt='Avatar'
               className={css.avatar}
+              src={notification.link_avatar}
             />
           )}
         <div className={theme ? css.darkName : css.name}>
@@ -43,7 +46,7 @@ export const RequestForFriendship = ({ notification, theme }: Props): JSX.Elemen
         </div>
       </div>
       <div className={css.buttonsWrapper}>
-        <button 
+        <button
           className={css.add}
           onClick={() => {
             store.dispatch(notificationConfirm(notification.id, notification.creator_id))
@@ -51,7 +54,7 @@ export const RequestForFriendship = ({ notification, theme }: Props): JSX.Elemen
         >
           {i18n.t('add')}
         </button>
-        <button 
+        <button
           className={css.reject}
           onClick={() => {
             store.dispatch(rejectNotification(notification.id, notification.creator_id))

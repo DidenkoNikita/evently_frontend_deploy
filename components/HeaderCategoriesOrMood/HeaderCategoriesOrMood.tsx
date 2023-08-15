@@ -1,9 +1,9 @@
 'use client';
 
-import { Back } from "@/components/icons/back.icon";
-
 import { useRouter } from "next/navigation";
+
 import { Filter } from "../icons/filter.icon";
+import { Back } from "@/components/icons/back.icon";
 
 import css from './HeaderCategoriesOrMood.module.css'
 
@@ -12,8 +12,10 @@ interface Title {
   theme: boolean;
 }
 
-export const HeaderCategoriesOrMood = ({ title, theme }: Title): JSX.Element => {
-
+export const HeaderCategoriesOrMood = ({
+  title,
+  theme
+}: Title): JSX.Element => {
   const router = useRouter();
 
   return (

@@ -1,24 +1,27 @@
 'use client';
 
-import { Back } from '@/components/icons/back.icon';
-import css from './page.module.css';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 import i18n from "i18next";
-
-import resources from "@/locales/resource";
-import { useRouter } from 'next/navigation';
-import { CommentsHeader } from '@/components/CommentsHeader/CommentsHeader';
-import { Post } from '@/store/counter/postsSlice';
 import { useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
-import { CommentsFooter } from '@/components/CommentsFooter/CommentsFooter';
+
 import { store } from '@/store/store';
-import { getPost } from '@/store/actions/getPosts';
-import { Comments } from '@/components/Comments/Comments';
-import { getComment } from '@/store/actions/getComments';
-import { Comment } from '@/store/counter/commentSlice';
+import resources from "@/locales/resource";
 import { State } from '@/store/initialState';
+import { User } from '@/store/counter/userSlice';
 import { userGet } from '@/store/actions/getUser';
+import { Post } from '@/store/counter/postsSlice';
+import { getPost } from '@/store/actions/getPosts';
+import { Comment } from '@/store/counter/commentSlice';
+import { getComment } from '@/store/actions/getComments';
+
+import { Back } from '@/components/icons/back.icon';
+import { Comments } from '@/components/Comments/Comments';
+import { CommentsHeader } from '@/components/CommentsHeader/CommentsHeader';
+import { CommentsFooter } from '@/components/CommentsFooter/CommentsFooter';
+
+import css from './page.module.css';
 
 i18n.init({
   resources,
@@ -26,36 +29,38 @@ i18n.init({
 });
 
 export default function commentsInPost(): JSX.Element {
-  const router = useRouter();
-  const [postId, setPostId] = useState<string>(''); 
+  const [postId, setPostId] = useState<string>('');
 
-  useEffect(() => {
-    setPostId(location.pathname)
+  const router = useRouter();
+
+  useEffect((): void => {
+    setPostId(location.pathname);
   }, [])
 
-  useEffect(() => {
+  useEffect((): void => {
+    store.dispatch(userGet());
     store.dispatch(getPost());
     store.dispatch(getComment());
-    store.dispatch(userGet());
   }, [])
 
-  const id = Number(postId.slice(20))
-  
+  const id: number = Number(postId.slice(20));
+
   const posts: Post[] = useSelector((state : State) => state.posts);
   const post: Post | undefined = posts.find((post: Post) => post.id === id);
-
   const comments: Comment[] = useSelector((state : State) => state.comments);
-  
-  const comment = comments.filter((comment: Comment) => comment.post_id === Number(id));
-  const user = useSelector((state: State) => state.user);
-  const theme = user?.user?.color_theme;
+  const comment: Comment[] = comments.filter((comment: Comment) => comment.post_id === Number(id));
+  const user: User = useSelector((state: State) => state.user);
+  const theme: boolean = user?.user?.color_theme;
   
   return (
     <div className={theme ? css.darkHeader : css.header}>
       <div className={css.wrapper}>
         <button
-          onClick={() => {router.back()}}
-          className={theme ? css.darkButtonBack : css.buttonBack} >
+          onClick={() => {
+            router.back()
+          }}
+          className={theme ? css.darkButtonBack : css.buttonBack} 
+        >
           <Back color={theme ? '#FFFFFF' : '#000000'} />
         </button>
         <div className={theme ? css.darkTitle : css.title}>

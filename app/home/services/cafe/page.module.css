@@ -1,5 +1,5 @@
 .wrapper,
-.darkTitle {
+.darkWrapper {
   display: flex;
   justify-content: start;
   align-items: center;
@@ -8,7 +8,7 @@
   height: 100vh;
 }
 
-.darkTitle {
+.darkWrapper {
   background-color: #333333;
 }
 

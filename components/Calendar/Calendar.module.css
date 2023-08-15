@@ -1,5 +1,6 @@
 .calendar,
-.colorCalendar {
+.colorCalendar,
+.darkCalendar {
   display: flex;
   width: 345px;
   height: 430px;
@@ -8,9 +9,6 @@
   border-radius: 20px;
   z-index: 1000;
   position: fixed;
-}
-
-.calendar {
   background-color: #F6F6F6;
   left: 35px;
   top: 230px;
@@ -20,6 +18,10 @@
   background-color: #DFC5FF;
   left: 35px;
   top: 120px;
+}
+
+.darkCalendar {
+  background-color: #242424;
 }
 
 .closedCalendar {
@@ -38,7 +40,8 @@
   align-items: center;
 }
 
-.month {
+.month,
+.darkMonth {
   font-family: 'Montserrat';
   font-size: 14px;
   display: flex;
@@ -65,13 +68,19 @@
   align-items: center;
 }
 
-.year {
+.year,
+.darkYear {
   font-family: 'Montserrat';
   font-size: 14px;
   display: flex;
   align-items: center;
   margin-right: 8px;
   margin-left: 8px;
+}
+
+.darkMonth,
+.darkYear {
+  color: #FFFFFF;
 }
 
 .notActiveYear {
@@ -88,7 +97,8 @@
 }
 
 .button,
-.colorButton {
+.colorButton,
+.darkButton {
   display: flex;
   width: 48px;
   height: 48px;
@@ -101,8 +111,8 @@
   border-radius: 20px;
 }
 
-.button {
-  background-color: #F6F6F6;
+.darkButton {
+  background-color: #242424;
 }
 
 .colorButton {
@@ -110,7 +120,8 @@
 }
 
 .backButton,
-.colorBackButton {
+.colorBackButton,
+.darkBackButton {
   display: flex;
   width: 48px;
   height: 48px;
@@ -119,14 +130,15 @@
   gap: 20px;
   border: none;
   border-radius: 20px;
-}
-
-.backButton {
   background-color: #F6F6F6;
 }
 
 .colorBackButton {
   background-color: #DFC5FF;
+}
+
+.darkBackButton {
+  background-color: #242424;
 }
 
 .notActiveButton {
@@ -153,12 +165,17 @@
   gap: 5px;
 }
 
-.weekday {
+.weekday,
+.darkWeekday {
   width: 40px;
   height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.darkWeekday {
+  color: #FFFFFF;
 }
 
 .calendarEntries {
@@ -168,7 +185,8 @@
 }
 
 .calendarEntry,
-.colorCalendarEntry {
+.colorCalendarEntry,
+.darkCalendarEntry {
   display: flex;
   width: 40px;
   height: 40px;
@@ -176,9 +194,6 @@
   align-items: center;
   flex-shrink: 0;
   border: none;
-}
-
-.calendarEntry {
   background-color: #F6F6F6;
 }
 
@@ -186,8 +201,14 @@
   background-color: #DFC5FF;
 }
 
+.darkCalendarEntry {
+  background-color: #242424;
+  color: #FFFFFF;
+}
+
 .calendarEntry:focus,
-.colorCalendarEntry:focus {
+.colorCalendarEntry:focus,
+.darkCalendarEntry:focus {
   display: flex;
   width: 40px;
   height: 40px;
@@ -195,14 +216,15 @@
   align-items: center;
   flex-shrink: 0;
   border-radius: 50%;
-}
-
-.calendarEntry:focus {
   background-color: #DFC5FF;
 }
 
 .colorCalendarEntry:focus {
   background-color: #E3F563;
+}
+
+.darkCalendarEntry:focus {
+  color: #000;
 }
 
 .day {
@@ -217,7 +239,8 @@
 }
 
 .day:focus,
-.colorDay:focus {
+.colorDay:focus,
+.darkDay:focus {
   display: flex;
   width: 40px;
   height: 40px;
@@ -229,7 +252,8 @@
   border-radius: 50%;
 }
 
-.day:focus {
+.day:focus,
+.darkDay:focus {
   background-color: #DFC5FF;
 }
 
@@ -238,7 +262,8 @@
 }
 
 .today
-.colorToday {
+.colorToday,
+.darkToday {
   display: flex;
   width: 40px;
   height: 40px;
@@ -247,9 +272,6 @@
   margin: 0;
   font-size: 14px;
   font-family: 'Montserrat';
-}
-
-.today {
   border: 1px solid #DFC5FF;
   border-radius: 50%;
 }
@@ -272,7 +294,8 @@
 }
 
 .cancel,
-.colorCancel {
+.colorCancel,
+.darkCancel {
   display: flex;
   height: 48px;
   padding: 0px 20px;
@@ -283,10 +306,12 @@
   border-radius: 10px;
   font-size: 16px;
   font-family: 'Montserrat';
+  background-color: #F6F6F6;
 }
 
-.cancel {
-  background-color: #F6F6F6;
+.darkCancel {
+  background-color: #242424;
+  color: #FFFFFF;
 }
 
 .colorCancel {
@@ -308,7 +333,8 @@
 }
 
 .monthList,
-.colorMonthList {
+.colorMonthList,
+.darkMonthList {
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -322,9 +348,6 @@
   font-size: 16px;
   font-family: 'Montserrat';
   overflow-y: scroll;
-}
-
-.monthList {
   background-color: #F6F6F6;
 }
 
@@ -333,7 +356,8 @@
 }
 
 .yearList,
-.colorYearList {
+.colorYearList,
+.darkYearList {
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -346,10 +370,14 @@
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
   overflow-y: scroll;
+  background-color: #F6F6F6;
 }
 
-.yearList {
-  background-color: #F6F6F6;
+.darkMonthList,
+.darkYearList {
+  background-color: #242424;
+  color: #FFFFFF;
+  border: 1px solid #333;
 }
 
 .colorYearList {
@@ -357,18 +385,20 @@
 }
 
 .buttonDown,
-.colorButtonDown {
+.colorButtonDown,
+.darkButtonDown {
   border: none;
   width: 0px;
   margin-right: 20px;
-}
-
-.buttonDown {
   background-color: #F6F6F6;
 }
 
 .colorButtonDown {
   background-color: #DFC5FF;
+}
+
+.darkButtonDown {
+  background-color: #242424;
 }
 
 .notActiveButtonDown {

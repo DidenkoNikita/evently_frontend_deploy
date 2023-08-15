@@ -1,8 +1,9 @@
 import { ThunkAction } from "redux-thunk";
-import { RooteState } from "../store";
 import { PayloadAction } from "@reduxjs/toolkit";
+
+import { RooteState } from "../store";
 import { request } from "@/requests/request";
-import { IMessage, addMessage, markMessageAsRead } from "../counter/messageSlice";
+import { IMessage, markMessageAsRead } from "../counter/messageSlice";
 
 export const messageIsRead = (id: number, userId: number): ThunkAction<
   void,
@@ -11,11 +12,11 @@ export const messageIsRead = (id: number, userId: number): ThunkAction<
   PayloadAction<IMessage>
 > => async (dispatch): Promise<void | unknown> => {
   try {
-    const data = await request('message_is_read', {id, userId}, 'POST');
+    const data = await request('message_is_read', { id, userId }, 'POST');
     if (data !== null) {
       dispatch(markMessageAsRead(data))
     }
-  } catch(e) {
-    return console.log(e);    
+  } catch (e) {
+    return console.log(e);
   }
 } 

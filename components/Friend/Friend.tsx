@@ -1,19 +1,21 @@
 'use client';
 
-import css from './Friend.module.css';
+import { useRouter } from 'next/navigation';
 
 import i18n from "i18next";
+import { useSelector } from 'react-redux';
 
+import { store } from '@/store/store';
 import resources from "@/locales/resource";
+import { State } from '@/store/initialState';
+import { createChat } from '@/store/actions/createChat';
+import { UsersList } from '@/store/counter/usersListSlice';
+
 import { Call } from '../icons/call.icon';
 import { ChatsIcon } from '../icons/chats.icon';
-import { Delete } from '../icons/delete.icon';
-import { UsersList } from '@/store/counter/usersListSlice';
-import { useRouter } from 'next/navigation';
-import { useSelector } from 'react-redux';
-import { State } from '@/store/initialState';
-import { store } from '@/store/store';
-import { createChat } from '@/store/actions/createChat';
+
+import css from './Friend.module.css';
+import { IChat } from '@/store/counter/chatSLice';
 
 i18n.init({
   resources,
@@ -21,19 +23,17 @@ i18n.init({
 });
 
 interface Props {
-  data: UsersList
+  theme: boolean;
+  data: UsersList;
 }
 
-export const Friend = ({data}: Props): JSX.Element => {
-  // const [activeButtons, setActiveButtons] = useState<boolean>(false);
-  console.log(data);
+export const Friend = ({
+  data,
+  theme
+}: Props): JSX.Element => {
+  const chats: IChat[] = useSelector((state: State) => state.chats);
+  const filteredChat: IChat | undefined = chats.find((chat) => chat.users_id.includes(data.id));
 
-  const chats = useSelector((state: State) => state.chats);
-  console.log(chats);
-  
-  const filteredChat = chats.find((chat) => chat.users_id.includes(data.id));
-  console.log('check chat', filteredChat);
-  
   const router = useRouter();
 
   return (
@@ -45,7 +45,7 @@ export const Friend = ({data}: Props): JSX.Element => {
               <div
                 className={css.fakeAvatar}
               >
-                <div className={css.avatarData}>
+                <div className={theme ? css.darkAvatarData : css.avatarData}>
                   {data.name.slice(0, 1)}
                 </div>
               </div>
@@ -56,17 +56,17 @@ export const Friend = ({data}: Props): JSX.Element => {
                 className={css.avatar}
               />
             )}
-          <div className={css.name}>
+          <div className={theme ? css.darkName : css.name}>
             {data.name}
           </div>
         </div>
         <div className={css.buttonWrapper}>
           <button className={css.call}>
-            <Call 
+            <Call
               color='#BB83FF'
             />
           </button>
-          <button 
+          <button
             className={css.button}
             onClick={() => {
               if (filteredChat) {
@@ -77,15 +77,11 @@ export const Friend = ({data}: Props): JSX.Element => {
               }
             }}
           >
-            <ChatsIcon />
+            <ChatsIcon color='#000000' />
           </button>
-          {/* <button className={css.delete}>
-            <Delete />
-            {i18n.t('delete')}
-          </button> */}
         </div>
       </div>
-      <div className={css.line} />
+      <div className={theme ? css.darkLine : css.line} />
     </div>
   )
 }

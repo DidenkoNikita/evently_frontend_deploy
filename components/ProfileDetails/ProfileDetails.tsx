@@ -1,15 +1,17 @@
 'use client';
 
 import { useState } from 'react';
-import { ArrowToDown } from '../icons/arrowToDown.icon';
-import { Calendar } from '../icons/calendar.icon';
 
-import css from './ProfileDetails.module.css';
 import i18n from "i18next";
 
 import resources from "@/locales/resource";
+
+import { Calendar } from '../icons/calendar.icon';
 import { DatePicker } from '../Calendar/Calendar';
 import { ButtonNext } from '../ButtonNext/ButtonNext';
+import { ArrowToDown } from '../icons/arrowToDown.icon';
+
+import css from './ProfileDetails.module.css';
 
 i18n.init({
   resources,
@@ -17,31 +19,42 @@ i18n.init({
 });
 
 interface ProfileDetails {
+  userTheme: string;
   stateName: string;
   stateDate: string;
-  stateGender: string;
-  setStateName: any;
-  setStateDate: any;
-  setStateGender: any;
-  openCalendar: boolean;
-  setOpenCalendar: any;
   activeStep: number;
-  setActiveStep: any;
+  stateGender: string;
+  openCalendar: boolean;
+  setStateGender: React.Dispatch<React.SetStateAction<any>>;
+  setStateName: React.Dispatch<React.SetStateAction<string>>;
+  setStateDate: React.Dispatch<React.SetStateAction<string>>;
+  setActiveStep: React.Dispatch<React.SetStateAction<number>>;
+  setOpenCalendar: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const ProfileDetails = ({stateName, stateDate, stateGender, setStateName, setStateDate, setStateGender, openCalendar, setOpenCalendar, activeStep, setActiveStep}: ProfileDetails): JSX.Element => {
-
-  const buttons = [i18n.t('male'), i18n.t('female'), i18n.t('no_gender')];
-
+export const ProfileDetails = ({
+  stateName,
+  stateDate,
+  userTheme,
+  activeStep,
+  stateGender,
+  setStateName,
+  setStateDate,
+  openCalendar,
+  setActiveStep,
+  setStateGender,
+  setOpenCalendar,
+}: ProfileDetails): JSX.Element => {
   const [validateName, setValidateName] = useState<boolean>(false);
 
-  const handleNextStep = () => {
-    if (stateName.length < 3 ) {
+  const buttons: string[] = [i18n.t('male'), i18n.t('female'), i18n.t('no_gender')];
+
+  const handleNextStep = (): void => {
+    if (stateName.length < 3) {
       setValidateName(true);
     } else {
       setValidateName(false);
     }
-
     if (!validateName && stateName.length > 2 && stateDate.length > 0 && stateGender.length > 0) {
       setActiveStep(++activeStep);
     }
@@ -50,43 +63,60 @@ export const ProfileDetails = ({stateName, stateDate, stateGender, setStateName,
   return (
     <div>
       <div className={css.wrapper}>
-        <div className={css.text}>{i18n.t('enter_profile')}</div>
-        <div className={validateName ? css.invalidInputWrapper : css.inputWrapper}>
-          <input 
+        <div className={userTheme === 'dark' ? css.darkText : css.text}>
+          {i18n.t('enter_profile')}
+        </div>
+        <div
+          className={
+            validateName ? (
+              userTheme === 'dark' ? css.darkInvalidInputWrapper : css.invalidInputWrapper
+            ) : (
+              userTheme === 'dark' ? css.darkInputWrapper : css.inputWrapper
+            )
+          }
+        >
+          <input
             type='text'
-            placeholder={i18n.t('name')}
-            className={css.nameInput}
             value={stateName}
+            placeholder={i18n.t('name')}
             onChange={(e) => {
               setStateName(e.target.value);
               setValidateName(false);
             }}
+            className={userTheme === 'dark' ? css.darkNameInput : css.nameInput}
           />
         </div>
-        {validateName ? <span className={css.error}>{i18n.t('invalid_name')}</span> : null}
-        <div className={css.calendarWrapper}>
+        {
+          validateName ? (
+            <span className={css.error}>
+              {i18n.t('invalid_name')}
+            </span>
+          ) : null
+        }
+        <div className={userTheme ? css.darkCalendarWrapper : css.calendarWrapper}>
           <div>
             <Calendar />
           </div>
-          <input 
+          <input
             type='text'
-            className={css.calendarInput}
-            placeholder={i18n.t('date')}
             value={stateDate}
+            placeholder={i18n.t('date')}
             onChange={(e) => setStateDate(e.target.value)}
+            className={userTheme === 'dark' ? css.darkCalendarInput : css.calendarInput}
           />
-          <DatePicker 
+          <DatePicker
             color={false}
-            openCalendar={openCalendar} 
-            setOpenCalendar={setOpenCalendar} 
-            setStateDate={setStateDate} 
+            userTheme={userTheme}
+            setStateDate={setStateDate}
+            openCalendar={openCalendar}
+            setOpenCalendar={setOpenCalendar}
           />
           <button
             className={css.calendarButton}
             onClick={() => {
               setOpenCalendar(!openCalendar)
             }}
-          > 
+          >
             <ArrowToDown />
           </button>
         </div>
@@ -94,12 +124,16 @@ export const ProfileDetails = ({stateName, stateDate, stateGender, setStateName,
           {
             buttons.map((button) => {
               return (
-                <button 
+                <button
                   key={button}
-                  className={button === stateGender ? css.buttonActive : css.button}
                   onClick={() => {
                     setStateGender(button)
                   }}
+                  className={
+                    button === stateGender ? css.buttonActive : (
+                      userTheme ? css.darkButton : css.button
+                    )
+                  }
                 >
                   {button}
                 </button>
@@ -110,8 +144,8 @@ export const ProfileDetails = ({stateName, stateDate, stateGender, setStateName,
       </div>
       <ButtonNext
         activeStep={activeStep}
-        handleNextStep={handleNextStep}
         openCalendar={openCalendar}
+        handleNextStep={handleNextStep}
       />
     </div>
   )

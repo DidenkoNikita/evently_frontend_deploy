@@ -53,9 +53,6 @@
   background-color: #DFC5FF;
   margin-top: 1px;
   margin-bottom: 14px;
-}
-
-.avatar {
   border: 10px solid #FDFFFD;
 }
 
@@ -131,9 +128,6 @@
   overflow-y: hidden;
   border-radius: 15px 15px 0px 0px;
   gap: 20px;
-}
-
-.wrapper {
   background-color: white;
 }
 
@@ -193,9 +187,6 @@
   align-items: center;
   border: none;
   border-radius: 10px;
-}
-
-.iconButton {
   background-color: #F6F6F6;
 }
 
@@ -223,9 +214,6 @@
   justify-content: space-between;
   align-items: center;
   border-radius: 10px; 
-}
-
-.wrapperData {
   background-color: #F6F6F6;
 }
 
@@ -259,9 +247,6 @@
   align-items: center; 
   border: none;
   border-radius: 10px;
-}
-
-.button {
   background-color: #F6F6F6;
 }
 

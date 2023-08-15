@@ -27,14 +27,12 @@ export const chatSlice = createSlice({
   reducers: {
     chatsGet: (state, action: PayloadAction<IChat[]>): void | IChat[] => {
       const { payload } = action;
-
       if (payload.length === 0) {
         state = payload
         return state
       } else {
         payload.forEach((chat: IChat) => {
           const existingChat = state.find((c: IChat) => c.id === chat.id);
-          
           if (!existingChat) {
             state.push(chat);
           } else {
@@ -53,22 +51,18 @@ export const chatSlice = createSlice({
     updateChat: (state, action: PayloadAction<IChat[]>): void => {
       const { payload } = action;
       const [chatPayload] = payload;
-
       const updatedState = state.map((chat: IChat) => {
         if (chat.id === chatPayload.id) {
           return chatPayload;
         }
         return chat;
       });
-
       state.splice(0, state.length, ...updatedState);
     },
 
     removeChat: (state, action: PayloadAction<IChat>): IChat[] => {
       const { payload } = action;
-      
       state = state.filter((chat) => chat.id !== payload.id);
-
       return state
     },
   }

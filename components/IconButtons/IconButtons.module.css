@@ -5,7 +5,8 @@
   width: 345px;
 }
 
-.iconButton {
+.iconButton,
+.darkIconButton {
   display: flex;
   padding: 10px;
   justify-content: center;
@@ -16,4 +17,8 @@
   border-radius: 10px;
   border: none;
   background-color: #F6F6F6;
+}
+
+.darkIconButton {
+  background-color: #242424;
 }

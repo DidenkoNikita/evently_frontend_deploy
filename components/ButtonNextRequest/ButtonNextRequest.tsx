@@ -1,12 +1,15 @@
 'use client';
 
-import css from './ButtonNextRequest.module.css';
+import { useRouter } from 'next/navigation';
+
 import i18n from "i18next";
 
 import resources from "@/locales/resource";
 import { signup } from '@/requests/signup';
-import { useRouter } from 'next/navigation';
 import { signupWithRememberMe } from '@/requests/signupWithRememberMe';
+import { User } from '@/app/signup/page';
+
+import css from './ButtonNextRequest.module.css';
 
 i18n.init({
   resources,
@@ -14,11 +17,14 @@ i18n.init({
 });
 
 interface Data {
-  user: any;
+  user: User | {} | string;
   click: boolean;
 }
 
-export const ButtonNextRequest = ({user, click}: Data): JSX.Element => {
+export const ButtonNextRequest = ({
+  user, 
+  click
+}: Data): JSX.Element => {
   const router = useRouter()
   return (
     <button

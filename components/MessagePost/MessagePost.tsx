@@ -1,47 +1,53 @@
 'use client';
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+
+import { useSelector } from "react-redux";
+
+import { store } from "@/store/store";
+import { State } from "@/store/initialState";
+import { Post } from "@/store/counter/postsSlice";
+import { getPost } from "@/store/actions/getPosts";
+import { likePosts } from "@/store/actions/likePost";
+
+import { Heart } from "../icons/heart.icon";
+import { ActiveHeart } from "../icons/activeHeart.icon";
+import { IMessage } from "@/store/counter/messageSlice";
 
 import css from './MessagePost.module.css';
-import { IMessage } from "@/store/counter/messageSlice";
-import { Heart } from "../icons/heart.icon";
-import { store } from "@/store/store";
-import { likePosts } from "@/store/actions/likePost";
-import { getPost } from "@/store/actions/getPosts";
-import { useSelector } from "react-redux";
-import { State } from "@/store/initialState";
-import { ActiveHeart } from "../icons/activeHeart.icon";
-import { useRouter } from "next/navigation";
 
 interface Props {
   message: IMessage;
   theme: boolean;
 }
 
-export const MessagePost = ({ message, theme }: Props): JSX.Element => {
+export const MessagePost = ({ 
+  theme, 
+  message
+}: Props): JSX.Element => {
   const [id, setId] = useState<number | string>('');
 
-  const time = new Date(message.created_at);
+  const time: Date = new Date(message.created_at);
 
-  useEffect(() => {
+  useEffect((): void => {
     const userId = JSON.parse(sessionStorage.getItem('user_id') || '');
     setId(Number(userId));
   }, [id]);
 
-  useEffect(() => {
+  useEffect((): void => {
     store.dispatch(getPost());
   }, [])
-  const formatNumber = (num: number) => {
+
+  const formatNumber = (num: number): string => {
     return num.toString().padStart(2, '0');
   };
 
-  const posts = useSelector((state: State) => state.posts);
+  const posts: Post[] = useSelector((state: State) => state.posts);
 
-  const filteredPost = posts.find((post) => post.id === message.post_id);
+  const filteredPost: Post | undefined = posts.find((post) => post.id === message.post_id);
 
-  const like = filteredPost?.like.includes(Number(id));
-
-  console.log(message.user_id, id);
+  const like: boolean | undefined = filteredPost?.like.includes(Number(id));
 
   const router = useRouter();
   
@@ -65,8 +71,8 @@ export const MessagePost = ({ message, theme }: Props): JSX.Element => {
               }}
             >
               <img
-                src={filteredPost?.link_photo}
                 className={css.photo}
+                src={filteredPost?.link_photo}
               />
               <div className={css.wrapperData}>
                 <div className={css.textWrapper}>
@@ -92,8 +98,8 @@ export const MessagePost = ({ message, theme }: Props): JSX.Element => {
               }}
             >
               <img
-                src={filteredPost?.link_photo}
                 className={css.photo}
+                src={filteredPost?.link_photo}
               />
               <div className={css.wrapperData}>
                 <div className={css.textWrapper}>

@@ -1,13 +1,13 @@
-import { Brand } from "./counter/brandSlice";
+import { User } from "./counter/userSlice";
+import { Post } from "./counter/postsSlice";
 import { IChat } from "./counter/chatSLice";
+import { Event } from "./counter/eventSlice";
+import { Brand } from "./counter/brandSlice";
+import { Review } from "./counter/reviewSlice";
 import { Comment } from "./counter/commentSlice";
 import { IMessage } from "./counter/messageSlice";
-import { Notification } from "./counter/notificationSlice";
-import { Post } from "./counter/postsSlice"
-import { User } from "./counter/userSlice";
 import { UsersList } from "./counter/usersListSlice";
-import { Review } from "./counter/reviewSlice";
-import { Event } from "./counter/eventSlice";
+import { Notification } from "./counter/notificationSlice";
 import { Subscription } from "./counter/subscriptionSlice";
 
 export interface State {

@@ -1,3 +1,5 @@
 import { io } from 'socket.io-client';
 
-export const socket = io('ws://localhost:3000/chat');
+const url = process.env.CONNECT;
+
+export const socket = io(String(url));

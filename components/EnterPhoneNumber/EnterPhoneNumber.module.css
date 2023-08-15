@@ -1,4 +1,5 @@
-.fieldPhone {
+.fieldPhone,
+.darkFieldPhone {
   display: flex;
   width: 305px;
   height: 48px;
@@ -8,7 +9,12 @@
   background-color: #F6F6F6;
 }
 
-.invalidFieldPhone {
+.darkFieldPhone {
+  background-color: #242424;
+}
+
+.invalidFieldPhone,
+.darkInvalidFieldPhone {
   display: flex;
   width: 305px;
   height: 48px;
@@ -19,6 +25,44 @@
   background-color: #F6F6F6;
 }
 
+.darkInvalidFieldPhone {
+  background-color: #242424;
+}
+
+.inputPhone,
+.darkInputPhone {
+  width: 257px;
+  height: 45px;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: Montserrat;
+  background-color: #F6F6F6;
+  color: #000;
+}
+
+.darkInputPhone {
+  background-color: #242424;
+  color: #FFFFFF;
+}
+
+.inputPhone:focus,
+.darkInputPhone:focus {
+  outline: none !important;
+}
+
+.inputPhone::-webkit-input-placeholder {
+  color: #000;
+  font-size: 14px;
+  font-family: Montserrat;
+}
+
+.darkInputPhone::-webkit-input-placeholder {
+  color: #FFFFFF;
+  font-size: 14px;
+  font-family: Montserrat;
+}
+
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -26,10 +70,15 @@
   gap: 40px;
 }
 
-.text {
+.text,
+.darkText {
   font-size: 16px;
   font-family: Montserrat;
   font-weight: 600;
+}
+
+.darkText {
+  color: #FFFFFF;
 }
 
 .error {

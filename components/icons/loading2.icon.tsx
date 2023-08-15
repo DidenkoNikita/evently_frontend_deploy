@@ -35,45 +35,45 @@ export const Loading2 = (): JSX.Element => {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-      <path 
-        d="M11.0077 24.876L4 24L11.0077 23.124C11.5346 23.0582 12 23.469 12 24C12 24.531 11.5346 24.9418 11.0077 24.876Z" 
-        stroke="#DFC5FF" 
-        strokeWidth="3" 
-        strokeLinecap="round" 
-        strokeLinejoin="round" 
+      <path
+        d="M11.0077 24.876L4 24L11.0077 23.124C11.5346 23.0582 12 23.469 12 24C12 24.531 11.5346 24.9418 11.0077 24.876Z"
+        stroke="#DFC5FF"
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
-      <path 
-        d="M44 24L36.9923 23.124C36.4654 23.0582 36 23.469 36 24C36 24.531 36.4654 24.9418 36.9923 24.876L44 24Z" 
-        stroke="#BB83FF" 
-        strokeWidth="3" 
-        strokeLinecap="round" 
-        strokeLinejoin="round" 
+      <path
+        d="M44 24L36.9923 23.124C36.4654 23.0582 36 23.469 36 24C36 24.531 36.4654 24.9418 36.9923 24.876L44 24Z"
+        stroke="#BB83FF"
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
-      <path 
-        d="M15.5327 34.1703L9.85938 38.14L13.8235 32.468C14.1776 31.9613 14.9019 31.8941 15.3432 32.3268L15.6596 32.6369C16.1065 33.0751 16.0456 33.8115 15.5327 34.1703Z" 
-        stroke="#BB83FF" 
-        strokeWidth="3" 
-        strokeLinecap="round" 
-        strokeLinejoin="round" 
+      <path
+        d="M15.5327 34.1703L9.85938 38.14L13.8235 32.468C14.1776 31.9613 14.9019 31.8941 15.3432 32.3268L15.6596 32.6369C16.1065 33.0751 16.0456 33.8115 15.5327 34.1703Z"
+        stroke="#BB83FF"
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
-      <path 
-        d="M38.1366 9.85986L32.4642 13.8288C31.951 14.1879 31.8904 14.9249 32.338 15.3629L32.665 15.6828C33.1037 16.1121 33.822 16.0486 34.1785 15.5488L38.1366 10" 
-        stroke="#DFC5FF" 
-        strokeWidth="3" 
-        strokeLinecap="round" 
-        strokeLinejoin="round" 
+      <path
+        d="M38.1366 9.85986L32.4642 13.8288C31.951 14.1879 31.8904 14.9249 32.338 15.3629L32.665 15.6828C33.1037 16.1121 33.822 16.0486 34.1785 15.5488L38.1366 10"
+        stroke="#DFC5FF"
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
-      <path 
-        d="M24 18C20 18 17 22.3184 17 24C17 25.5 20 30 24 30C28.5 30 31 25.1505 31 24C31 22.8495 28.7 18 24 18Z" 
-        stroke="#BB83FF" 
-        strokeWidth="2" 
+      <path
+        d="M24 18C20 18 17 22.3184 17 24C17 25.5 20 30 24 30C28.5 30 31 25.1505 31 24C31 22.8495 28.7 18 24 18Z"
+        stroke="#BB83FF"
+        strokeWidth="2"
       />
-      <circle 
-        cx="24" 
-        cy="24" 
-        r="2" 
-        stroke="#BB83FF" 
-        strokeWidth="2" 
+      <circle
+        cx="24"
+        cy="24"
+        r="2"
+        stroke="#BB83FF"
+        strokeWidth="2"
       />
     </svg>
   )

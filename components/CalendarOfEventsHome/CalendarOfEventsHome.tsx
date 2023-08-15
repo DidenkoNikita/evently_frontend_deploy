@@ -1,14 +1,24 @@
 'use client';
 
-import moment from 'moment';
 import Link from 'next/link';
+
+import i18n from "i18next";
+import moment from 'moment';
+
+import resources from "@/locales/resource";
+
 import css from './CalendarOfEventsHome.module.css';
 
+i18n.init({
+  resources,
+  lng: "en"
+});
+
 export const CalendarOfEventsHome = (): JSX.Element => {
-  const currentMonth = moment().month();
-  const currentDay = moment().date();
-  const daysInMonth = moment().daysInMonth();
   const daysArray = [];
+  const currentDay = moment().date();
+  const currentMonth = moment().month();
+  const daysInMonth = moment().daysInMonth();
 
   for (let day = 1; day <= daysInMonth; day++) {
     const currentDate = moment().month(currentMonth).date(day);
@@ -21,18 +31,20 @@ export const CalendarOfEventsHome = (): JSX.Element => {
   return (
     <div className={css.calendarWrapper}>
       <div className={css.wrapperHeader}>
-        <div className={css.text}>Calendar of events</div>
-        <Link 
-          href="/service/all_dates" 
+        <div className={css.text}>
+          {i18n.t('calendar_of_events')}
+        </div>
+        <Link
+          href="/service/all_dates"
           className={css.link}
         >
-          All dates
+          {i18n.t('all_dates')}
         </Link>
       </div>
       <div className={css.daysWrapper}>
         {daysArray.map((day, index) => (
-          <div 
-            className={currentDay === day.dayOfMonth ? css.today : css.day} 
+          <div
+            className={currentDay === day.dayOfMonth ? css.today : css.day}
             key={index}
           >
             <div className={css.wrapper}>

@@ -1,21 +1,23 @@
 'use client';
 
-import { HeaderCategoriesOrMood } from "@/components/HeaderCategoriesOrMood/HeaderCategoriesOrMood";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 import i18n from "i18next";
+import { useSelector } from "react-redux";
 
+import { store } from "@/store/store";
 import resources from "@/locales/resource";
+import { State } from "@/store/initialState";
+import { User } from "@/store/counter/userSlice";
+import { userGet } from "@/store/actions/getUser";
+import { updateMood } from "@/store/actions/updateMood";
+
 import { Footer } from "@/components/Footer/Footer";
+import { Change } from "@/components/Change/Change";
+import { HeaderCategoriesOrMood } from "@/components/HeaderCategoriesOrMood/HeaderCategoriesOrMood";
 
 import css from './page.module.css';
-import { Change } from "@/components/Change/Change";
-import { useEffect, useState } from "react";
-import { store } from "@/store/store";
-import { updateMood } from "@/store/actions/updateMood";
-import { useRouter } from "next/navigation";
-import { userGet } from "@/store/actions/getUser";
-import { useSelector } from "react-redux";
-import { State } from "@/store/initialState";
 
 i18n.init({
   resources,
@@ -23,16 +25,17 @@ i18n.init({
 });
 
 export default function changeMood(): JSX.Element {
+  const [activeButtons, setActiveButtons] = useState<string[]>([]);
   const [userMood, setUserMood] = useState<{ [key: string]: boolean }>({});
 
-  useEffect(() => {
+  useEffect((): void => {
     store.dispatch(userGet());
   }, [])
 
-  const user = useSelector((state: State) => state.user);
-  const theme = user?.user?.color_theme;
+  const router = useRouter();
 
-  const [activeButtons, setActiveButtons] = useState<string[]>([]);
+  const user: User = useSelector((state: State) => state.user);
+  const theme: boolean = user?.user?.color_theme;
 
   const mood: string[] = [
     i18n.t('funny'),
@@ -47,16 +50,14 @@ export default function changeMood(): JSX.Element {
     i18n.t('dreamy'),
     i18n.t('do_not_know')
   ];
-  
-  const router = useRouter();
 
   return (
     <div className={theme ? css.darkWrapper : css.wrapper}>
-      <HeaderCategoriesOrMood 
+      <HeaderCategoriesOrMood
         theme={theme}
-        title={i18n.t('change_your_mood')} 
+        title={i18n.t('change_your_mood')}
       />
-      <Change 
+      <Change
         theme={theme}
         words={mood}
         header=''
@@ -71,9 +72,9 @@ export default function changeMood(): JSX.Element {
         Object.keys(userMood).length === 0 ? (
           <button className={css.button}>
             {i18n.t('save')}
-          </button>  
+          </button>
         ) : (
-          <button 
+          <button
             onClick={() => {
               store.dispatch(updateMood(userMood));
               router.push('/home/profile/profile_settings');

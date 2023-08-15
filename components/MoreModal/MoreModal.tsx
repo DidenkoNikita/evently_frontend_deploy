@@ -1,11 +1,13 @@
-import css from './MoreModal.module.css';
-
 import i18n from "i18next";
+
 import resources from "@/locales/resource";
-import { ShareContact } from '../icons/shareContact.icon';
+
 import { Pin } from '../icons/pin.icon';
 import { TrashCan } from '../icons/trashCan.icon';
 import { BlackList } from '../icons/blacklist.icon';
+import { ShareContact } from '../icons/shareContact.icon';
+
+import css from './MoreModal.module.css';
 
 i18n.init({
   resources,
@@ -13,13 +15,21 @@ i18n.init({
 });
 
 interface Props {
-  stateMore: boolean;
   theme: boolean;
+  stateMore: boolean;
 }
 
-export const MoreModal = ({ stateMore, theme }: Props): JSX.Element => {
+interface Arr {
+  title: string;
+  icon: JSX.Element;
+}
 
-  const array = [
+export const MoreModal = ({
+  theme,
+  stateMore
+}: Props): JSX.Element => {
+
+  const array: Arr[] = [
     {
       title: i18n.t('share_contact'),
       icon: <ShareContact color={theme ? '#FFFFFF' : '#000000'} />
@@ -39,23 +49,27 @@ export const MoreModal = ({ stateMore, theme }: Props): JSX.Element => {
   ]
 
   return (
-    <div className={stateMore ? (theme ? css.darkActiveWrapper : css.activeWrapper) : css.wrapper}>
+    <div
+      className={
+        stateMore ? (
+          theme ? css.darkActiveWrapper : css.activeWrapper
+        ) : css.wrapper
+      }
+    >
       {
-        array.map((arr, index) => {
-          return (
-            <div
-              key={index}
-              className={theme ? css.darkElement : css.element}
-            >
-              <div className={index === 3 ? css.redTitle : (theme ? css.darkTitle : css.title)}>
-                {arr.title}
-              </div>
-              <div className={css.icon}>
-                {arr.icon}
-              </div>
+        array.map((arr, index) => (
+          <div
+            key={index}
+            className={theme ? css.darkElement : css.element}
+          >
+            <div className={index === 3 ? css.redTitle : (theme ? css.darkTitle : css.title)}>
+              {arr.title}
             </div>
-          )
-        })
+            <div className={css.icon}>
+              {arr.icon}
+            </div>
+          </div>
+        ))
       }
     </div>
   )

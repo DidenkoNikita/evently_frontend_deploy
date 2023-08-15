@@ -1,13 +1,13 @@
 'use client';
 
-import { Event } from "@/store/counter/eventSlice";
-
-import css from './EventElement.module.css';
+import { useRouter } from "next/navigation";
 
 import i18n from "i18next";
 
 import resources from "@/locales/resource";
-import { useRouter } from "next/navigation";
+import { Event } from "@/store/counter/eventSlice";
+
+import css from './EventElement.module.css';
 
 i18n.init({
   resources,
@@ -15,11 +15,14 @@ i18n.init({
 });
 
 interface Props {
-  event: Event;
   theme: boolean;
+  event: Event | undefined;
 }
 
-export const EventElement = ({ event, theme }: Props): JSX.Element => {
+export const EventElement = ({
+  event,
+  theme
+}: Props): JSX.Element => {
   const arr = [
     i18n.t('wont_go'),
     i18n.t('will_go')
@@ -32,30 +35,30 @@ export const EventElement = ({ event, theme }: Props): JSX.Element => {
       <button
         className={css.data}
         onClick={() => {
-          router.push(`/home/services/event/${event.id}`)
+          router.push(`/home/services/event/${event?.id}`)
         }}
       >
         <div className={theme ? css.darkName : css.name}>
-          {event.name}
+          {event?.name}
         </div>
         <div className={css.container}>
           <img
-            src={event.link_photo}
             className={css.photo}
+            src={event?.link_photo}
           />
           <ul className={css.list}>
             <li className={theme ? css.darkListElement : css.listElement}>
-              {event.phone}
+              {event?.phone}
             </li>
             <li className={theme ? css.darkListElement : css.listElement}>
-              {event.date}
+              {event?.date}
             </li>
             <li className={theme ? css.darkListElement : css.listElement}>
-              <a 
-                href={event.site_link}
-                className={theme ? css.darkLink: css.link}
+              <a
+                href={event?.site_link}
+                className={theme ? css.darkLink : css.link}
               >
-                {event.name_site}
+                {event?.name_site}
               </a>
             </li>
           </ul>

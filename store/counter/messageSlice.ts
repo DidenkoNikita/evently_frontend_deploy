@@ -18,9 +18,8 @@ export const messageSlice = createSlice({
   reducers: {
     messagesGet: (state, action: PayloadAction<IMessage[]>): void => {
       const { payload } = action;
-    
       payload.forEach((message: IMessage) => {
-        if (!state.find((m: IMessage) => m.id === message.id) && message.created_at !==  undefined) {
+        if (!state.find((m: IMessage) => m.id === message.id) && message.created_at !== undefined) {
           state.push(message);
           state.sort((message1, message2) => message1.id - message2.id)
         }

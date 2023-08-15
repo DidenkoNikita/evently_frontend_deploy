@@ -1,55 +1,60 @@
 'use client';
 
-import { Brand } from "@/store/counter/brandSlice";
-import css from './BrandComponent.module.css';
-import { GradeComponent } from "../GradeComponent/GradeComponent";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 import i18n from "i18next";
-
-import resources from "@/locales/resource";
-import { Message } from "../icons/message.icon";
-import { City } from "../icons/city.icon";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-import { reviewGet } from "@/store/actions/reviewsGet";
 import { useSelector } from "react-redux";
-import { State } from "@/store/initialState";
-import { store } from "@/store/store";
-import { userGet } from "@/store/actions/getUser";
 
-interface Props {
-  brand: Brand;
-  link: string;
-}
+import { store } from "@/store/store";
+import resources from "@/locales/resource";
+import { State } from "@/store/initialState";
+import { User } from "@/store/counter/userSlice";
+import { userGet } from "@/store/actions/getUser";
+import { Review } from "@/store/counter/reviewSlice";
+import { reviewGet } from "@/store/actions/reviewsGet";
+
+import { City } from "../icons/city.icon";
+import { Message } from "../icons/message.icon";
+import { Brand } from "@/store/counter/brandSlice";
+import { GradeComponent } from "../GradeComponent/GradeComponent";
+
+import css from './BrandComponent.module.css';
 
 i18n.init({
   resources,
   lng: "en"
 });
 
-export const BrandComponent = ({brand, link}: Props): JSX.Element => {
-  useEffect(() => {
-    store.dispatch(reviewGet());
-    store.dispatch(userGet());
-  }, [])
+interface Props {
+  brand: Brand;
+  link: string;
+}
 
-  const reviews = useSelector((state: State) => state.review);
-  const filteredReviews = reviews.filter((review) => review.brand_id === brand.id);
-  const user = useSelector((state: State) => state.user);
-  const theme = user?.user?.color_theme;
-  console.log(theme);
-  
+export const BrandComponent = ({
+  link,
+  brand
+}: Props): JSX.Element => {
+  useEffect((): void => {
+    store.dispatch(userGet());
+    store.dispatch(reviewGet());
+  }, [])
 
   const router = useRouter();
 
+  const reviews: Review[] = useSelector((state: State) => state.review);
+  const filteredReviews: Review[] = reviews.filter((review) => review.brand_id === brand.id);
+  const user: User = useSelector((state: State) => state.user);
+  const theme: boolean = user?.user?.color_theme;
+
   return (
-    <button 
+    <button
       className={theme ? css.darkWrapper : css.wrapper}
       onClick={() => {
         router.push(`${link}/${brand.id}`)
       }}
     >
-      <img 
+      <img
         className={css.photo}
         src={brand.link_photo}
       />
@@ -66,9 +71,7 @@ export const BrandComponent = ({brand, link}: Props): JSX.Element => {
               {i18n.t('reviews')}
             </div>
             <div className={css.icon}>
-              {
-                theme ? <Message color="#FFFFFF" /> : <Message color="#000000" />
-              }
+              <Message color={theme ? '#FFFFFF' : '#000000'} />
             </div>
             <div className={theme ? css.darkReviews : css.reviews}>
               {filteredReviews.length}
@@ -77,7 +80,7 @@ export const BrandComponent = ({brand, link}: Props): JSX.Element => {
         </div>
         <div className={css.wrapperAddress}>
           <div className={css.iconCity}>
-            {theme ? <City color="#FFFFFF" /> : <City color="#000000" />}
+            <City color={theme ? '#FFFFFF' : '#000000'} />
           </div>
           <div className={css.addressWrap}>
             <div className={theme ? css.darkAddress : css.address}>

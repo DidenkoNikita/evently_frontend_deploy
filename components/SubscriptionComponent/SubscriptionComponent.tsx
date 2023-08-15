@@ -1,50 +1,55 @@
 'use client';
 
-import { Subscription } from '@/store/counter/subscriptionSlice';
-import css from './SubscriptionComponent.module.css';
-import { ChatsIcon } from '../icons/chats.icon';
 import { useRouter } from 'next/navigation';
 
+import { ChatsIcon } from '../icons/chats.icon';
+import { Subscription } from '@/store/counter/subscriptionSlice';
+
+import css from './SubscriptionComponent.module.css';
+
 interface Props {
+  theme: boolean;
   subscription: Subscription;
 }
 
-export const SubscriptionComponent = ({ subscription }: Props): JSX.Element => {
-
+export const SubscriptionComponent = ({
+  theme,
+  subscription
+}: Props): JSX.Element => {
   const router = useRouter();
 
   return (
     <div>
       <div className={css.wrapper}>
-        <button 
+        <button
           className={css.container}
           onClick={() => {
             router.push(`/home/services/${subscription.type}/${subscription.brand_id}`)
           }}
         >
           <img
-            src={subscription.link_photo}
             className={css.avatar}
+            src={subscription.link_photo}
           />
           <div className={css.wrapperData}>
-            <div className={css.name}>
+            <div className={theme ? css.darkName : css.name}>
               {subscription.name}
             </div>
-            <div className={css.type}>
+            <div className={theme ? css.darkType : css.type}>
               {`${subscription.type[0].toUpperCase()}${subscription.type.slice(1)}`}
             </div>
           </div>
         </button>
-        <button 
+        <button
           className={css.button}
           onClick={() => {
             router.push('/chats')
           }}
         >
-          <ChatsIcon />
+          <ChatsIcon color='#000000' />
         </button>
       </div>
-      <div className={css.line} />
+      <div className={theme ? css.darkLine : css.line} />
     </div>
   )
 }

@@ -1,8 +1,9 @@
 import { ThunkAction } from "redux-thunk";
-import { RooteState } from "../store";
 import { PayloadAction } from "@reduxjs/toolkit";
-import { Data, UpdatedCity, User, changeCategories, changeCity } from "../counter/userSlice";
+
+import { RooteState } from "../store";
 import { request } from "@/requests/request";
+import { UpdatedCity, changeCity } from "../counter/userSlice";
 
 export const updateCity = (city: string): ThunkAction<
   void,
@@ -11,12 +12,12 @@ export const updateCity = (city: string): ThunkAction<
   PayloadAction<UpdatedCity>
 > => async (dispatch): Promise<void | unknown> => {
   try {
-    const data = await request('user', {city}, 'PUT')
-    
+    const data = await request('user', { city }, 'PUT')
+
     if (data !== null) {
       dispatch(changeCity(data))
     }
-  } catch(e) {
+  } catch (e) {
     return console.log(e);
   }
 }

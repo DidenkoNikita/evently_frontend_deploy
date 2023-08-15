@@ -1,6 +1,7 @@
+import { Grade } from '../icons/grade.icon';
 import { Review } from '@/store/counter/reviewSlice';
 import { ActiveGrade } from '../icons/activeGrade.icon';
-import { Grade } from '../icons/grade.icon';
+
 import css from './Review.module.css';
 
 interface Props {
@@ -8,23 +9,22 @@ interface Props {
   theme: boolean;
 }
 
-export const ReviewElement = ({ review, theme }: Props): JSX.Element => {
+export const ReviewElement = ({
+  review,
+  theme
+}: Props): JSX.Element => {
+  const arr: number[] = [0, 1, 2, 3, 4];
 
-  const arr = [0, 1, 2, 3, 4];
+  const time: Date = new Date(review.created_at);
 
-  const time = new Date(review.created_at);
-
-  const formatNumber = (num: number) => {
+  const formatNumber = (num: number): string => {
     return num.toString().padStart(2, '0');
   };
 
-  const formatMonth = (num: number) => {
+  const formatMonth = (num: number): string => {
     ++num;
     return num.toString().padStart(2, '0');
   }
-
-  console.log(formatNumber(time.getDate()));
-
 
   return (
     <div className={theme ? css.darkWrapper : css.wrapper}>

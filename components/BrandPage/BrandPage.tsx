@@ -1,35 +1,39 @@
 'use client';
 
-import { HeaderBrand } from "@/components/HeaderBrand/HeaderBrand";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 import i18n from "i18next";
-
-import resources from "@/locales/resource";
-import { Footer } from "@/components/Footer/Footer";
-
-import css from './BrandPage.module.css';
-import { Grade } from "@/components/icons/grade.icon";
-import { ActiveGrade } from "@/components/icons/activeGrade.icon";
-import { useEffect, useState } from "react";
-import { store } from "@/store/store";
-import { getPost } from "@/store/actions/getPosts";
-import { getComment } from "@/store/actions/getComments";
-import { History } from "@/components/History/History";
-import { WriteReview } from "@/components/WriteReview/WriteReview";
-import { Subscribe } from "@/components/icons/subscribe.icon";
-import { Heart } from "@/components/icons/heart.icon";
-import { brandGet } from "@/store/actions/getBrand";
 import { useSelector } from "react-redux";
+
+import { store } from "@/store/store";
+import resources from "@/locales/resource";
 import { State } from "@/store/initialState";
-import { PostBrand } from "../PostBrand/PostBrand";
+import { User } from "@/store/counter/userSlice";
+import { userGet } from "@/store/actions/getUser";
+import { getPost } from "@/store/actions/getPosts";
+import { Brand } from "@/store/counter/brandSlice";
+import { brandGet } from "@/store/actions/getBrand";
 import { reviewGet } from "@/store/actions/reviewsGet";
-import { EventComponent } from "../EventComponent/EventComponent";
-import { useRouter } from "next/navigation";
-import { createSubscription } from "@/store/actions/createSubscription";
+import { getComment } from "@/store/actions/getComments";
+import { Subscription } from "@/store/counter/subscriptionSlice";
 import { getSubscriptions } from "@/store/actions/getSubscription";
 import { removeSubscription } from "@/store/actions/removeSubscription";
+import { createSubscription } from "@/store/actions/createSubscription";
+
 import { SharePost } from "../SharePost/SharePost";
-import { userGet } from "@/store/actions/getUser";
+import { PostBrand } from "../PostBrand/PostBrand";
+import { Footer } from "@/components/Footer/Footer";
+import { Grade } from "@/components/icons/grade.icon";
+import { Heart } from "@/components/icons/heart.icon";
+import { History } from "@/components/History/History";
+import { Subscribe } from "@/components/icons/subscribe.icon";
+import { ActiveGrade } from "@/components/icons/activeGrade.icon";
+import { EventComponent } from "../EventComponent/EventComponent";
+import { WriteReview } from "@/components/WriteReview/WriteReview";
+import { HeaderBrand } from "@/components/HeaderBrand/HeaderBrand";
+
+import css from './BrandPage.module.css';
 
 i18n.init({
   resources,
@@ -41,18 +45,18 @@ interface Props {
 }
 
 export default function BrandPage({ id }: Props): JSX.Element {
+  const [idUser, setIdUser] = useState<number | null>(null);
+  const [postId, setPostId] = useState<number | null>(null);
   const [activeButton, setActiveButton] = useState<number>(0);
   const [activeModal, setActiveModal] = useState<boolean>(false);
-  const [idUser, setIdUser] = useState<number | null>(null);
   const [activeShare, setActiveShare] = useState<boolean>(false);
-  const [postId, setPostId] = useState<number | null>(null);
 
-  useEffect(() => {
+  useEffect((): void => {
+    store.dispatch(userGet());
     store.dispatch(getPost());
-    store.dispatch(getComment());
     store.dispatch(brandGet());
     store.dispatch(reviewGet());
-    store.dispatch(userGet());
+    store.dispatch(getComment());
     store.dispatch(getSubscriptions());
     const userId = JSON.parse(sessionStorage.getItem('user_id') || '');
     setIdUser(Number(userId));
@@ -60,28 +64,22 @@ export default function BrandPage({ id }: Props): JSX.Element {
 
   const router = useRouter();
 
-  const brands = useSelector((state: State) => state.brand);
-  console.log(brands);
+  const brands: Brand[] = useSelector((state: State) => state.brand);
+  const filteredBrand: Brand | undefined = brands.find((brand) => brand.id === id);
 
-  const filteredBrand = brands.find((brand) => brand.id === id);
-  console.log(filteredBrand);
+  const arr: number[] = [0, 1, 2, 3, 4];
 
-  const arr = [0, 1, 2, 3, 4];
-
-  const arrButtons = [
+  const arrButtons: string[] = [
     i18n.t('news'),
     i18n.t('stories'),
     i18n.t('reviews'),
     i18n.t('events')
   ]
 
-  const subscriptions = useSelector((state: State) => state.subscription);
-  console.log('subscriptions', subscriptions);
-
-  const findSubscribedUser = subscriptions.find((subscription) => subscription.user_id === idUser && subscription.brand_id === id);
-  console.log(findSubscribedUser);
-  const user = useSelector((state: State) => state.user);
-  const theme = user?.user?.color_theme;
+  const subscriptions: Subscription[] = useSelector((state: State) => state.subscription);
+  const findSubscribedUser: Subscription | undefined = subscriptions.find((subscription) => subscription.user_id === idUser && subscription.brand_id === id);
+  const user: User = useSelector((state: State) => state.user);
+  const theme: boolean = user?.user?.color_theme;
 
   return (
     <div>
@@ -137,7 +135,7 @@ export default function BrandPage({ id }: Props): JSX.Element {
                 {filteredBrand?.phone}
               </li>
               <li className={theme ? css.darkListElement : css.listElement}>
-                <a 
+                <a
                   href={filteredBrand?.site_link}
                   className={theme ? css.darkLink : css.link}
                 >
@@ -153,7 +151,14 @@ export default function BrandPage({ id }: Props): JSX.Element {
             >
               {i18n.t('More')}
             </button>
-            <div className={activeModal ? (findSubscribedUser ? css.activeSubscribedModal : css.activeModal) : css.modal}>
+            <div
+              className={
+                activeModal ? (
+                  findSubscribedUser ?
+                    css.activeSubscribedModal : css.activeModal
+                ) : css.modal
+              }
+            >
               {
                 findSubscribedUser ? (
                   <button
@@ -216,7 +221,11 @@ export default function BrandPage({ id }: Props): JSX.Element {
                 return (
                   <button
                     key={index}
-                    className={activeButton === index ? css.activeButton : (theme ? css.darkButton : css.button)}
+                    className={
+                      activeButton === index ? css.activeButton : (
+                        theme ? css.darkButton : css.button
+                      )
+                    }
                     onClick={() => {
                       setActiveButton(index)
                     }}
@@ -233,8 +242,8 @@ export default function BrandPage({ id }: Props): JSX.Element {
             switch (activeButton) {
               case 0:
                 return (
-                  <PostBrand 
-                    id={id} 
+                  <PostBrand
+                    id={id}
                     theme={theme}
                     setActiveShare={setActiveShare}
                     setPostId={setPostId}

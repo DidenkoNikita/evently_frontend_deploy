@@ -1,14 +1,15 @@
 import { combineReducers } from 'redux';
-import { postSlice } from './counter/postsSlice';
-import { commentSlice } from './counter/commentSlice';
-import { userSlice } from './counter/userSlice';
-import { usersListSlice } from './counter/usersListSlice';
+
 import { chatSlice } from './counter/chatSLice';
-import { messageSlice } from './counter/messageSlice';
-import { notificationSlice } from './counter/notificationSlice';
+import { userSlice } from './counter/userSlice';
+import { postSlice } from './counter/postsSlice';
 import { brandSLice } from './counter/brandSlice';
-import { reviewSlice } from './counter/reviewSlice';
 import { eventSLice } from './counter/eventSlice';
+import { reviewSlice } from './counter/reviewSlice';
+import { commentSlice } from './counter/commentSlice';
+import { messageSlice } from './counter/messageSlice';
+import { usersListSlice } from './counter/usersListSlice';
+import { notificationSlice } from './counter/notificationSlice';
 import { subscriptionSLice } from './counter/subscriptionSlice';
 
 export const rootReducer = combineReducers({

@@ -27,11 +27,8 @@
   height: 48px;
   padding: 0px 8px 0px 20px;
   justify-content: space-between;
-  align-items: center; 
+  align-items: center;
   border-radius: 10px;
-}
-
-.card {
   background-color: #F6F6F6;
 }
 
@@ -50,25 +47,22 @@
 .darkText {
   font-family: Montserrat;
   font-size: 14px;
-  font-weight: 400; 
+  font-weight: 400;
 }
 
 .darkText {
   color: #FFF;
 }
 
-.iconButton, 
+.iconButton,
 .darkIconButton {
   display: flex;
   width: 48px;
   height: 48px;
   justify-content: center;
-  align-items: center; 
+  align-items: center;
   border: none;
   border-radius: 10px;
-}
-
-.iconButton {
   background-color: #F6F6F6;
 }
 
@@ -89,7 +83,7 @@
 .darkTitle {
   font-family: Montserrat;
   font-size: 16px;
-  font-weight: 600; 
+  font-weight: 600;
   margin-right: auto;
 }
 
@@ -117,10 +111,7 @@
   font-family: Montserrat;
   font-size: 14px;
   font-style: normal;
-  font-weight: 400; 
-}
-
-.button {
+  font-weight: 400;
   background-color: #F6F6F6;
 }
 
@@ -147,12 +138,9 @@
   width: 163.5px;
   height: 48px;
   align-items: center;
-  gap: 10px; 
+  gap: 10px;
   padding-left: 20px;
   border-radius: 10px;
-}
-
-.priceCard {
   background-color: #F6F6F6;
 }
 
@@ -163,7 +151,7 @@
 .titlePrice {
   font-family: Montserrat;
   font-size: 14px;
-  font-weight: 400; 
+  font-weight: 400;
   color: #AAAAAA;
 }
 
@@ -190,10 +178,8 @@
   display: flex;
   width: 375px;
   height: 48px;
-  /* padding: 0px 138px; */
   justify-content: center;
   align-items: center;
-  /* gap: 10px; */
   border: none;
   border-radius: 10px;
   background-color: #E3F563;

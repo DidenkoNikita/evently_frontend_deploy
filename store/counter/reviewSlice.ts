@@ -18,7 +18,7 @@ export const reviewSlice = createSlice({
   initialState: initialState.review,
   reducers: {
     getReviews: (state, action: PayloadAction<Review[]>): void => {
-      const {payload} = action;
+      const { payload } = action;
       payload.map((review: Review) => {
         if (!state.find((r: Review) => r.id === review.id)) {
           state.push(review);

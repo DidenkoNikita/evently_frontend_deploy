@@ -7,9 +7,6 @@
   align-items: flex-start;
   gap: 10px; 
   border-radius: 20px;
-}
-
-.wrapper {
   background-color: #F6F6F6;
 }
 
@@ -109,9 +106,6 @@
   font-family: Montserrat;
   font-size: 20px;
   font-weight: 600;
-}
-
-.avatarData {
   color: #FFFFFF;
 }
 

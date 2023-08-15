@@ -1,4 +1,5 @@
 import { CityInputSettings } from '../CityInputSettings/CityInputSettings';
+
 import css from './Change.module.css'
 
 interface Words {
@@ -6,16 +7,26 @@ interface Words {
   header: string;
   color: boolean;
   user: {} | string;
-  setUser: any;
-  activeButtons: string[];
-  setActiveButtons: any;
-  setFilterCategory: any;
   theme: boolean | null;
+  activeButtons: string[];
+  setUser: React.Dispatch<React.SetStateAction<any>>;
+  setActiveButtons: React.Dispatch<React.SetStateAction<string[]>>;
+  setFilterCategory: React.Dispatch<React.SetStateAction<any>> | null;
 }
 
-export const Change = ({ words, header, user, setUser, activeButtons, setActiveButtons, color, setFilterCategory, theme }: Words): JSX.Element => {
+export const Change = ({
+  user,
+  words,
+  theme,
+  color,
+  header,
+  setUser,
+  activeButtons,
+  setActiveButtons,
+  setFilterCategory,
+}: Words): JSX.Element => {
 
-  const handleButtonClick = (word: string) => {
+  const handleButtonClick = (word: string): void => {
     if (header === 'Сhoose a city') {
       setActiveButtons([word]);
       setUser(word);
@@ -33,7 +44,7 @@ export const Change = ({ words, header, user, setUser, activeButtons, setActiveB
     }
   };
 
-  const buttonClick = (word: string) => {
+  const buttonClick = (word: string): void => {
     if (word === "Don't know") {
       setUser((prevStatus: any) => {
         const normalizeWord = 'do_not_know';
@@ -62,21 +73,29 @@ export const Change = ({ words, header, user, setUser, activeButtons, setActiveB
   return (
     <div className={color && header !== '' ? (css.colorWrapper) : css.wrapper}>
       {header === 'Сhoose a city' ? (
-        <CityInputSettings 
-          setCity={setUser} 
-          city={user.toString()} 
+        <CityInputSettings
+          setCity={setUser}
+          city={user.toString()}
           color={color}
           theme={theme}
         />
       ) : (
-        <div></div>
+        <div />
       )}
       <div className={css.buttonsWrapper}>
         {words.map((word) => (
           <button
             key={word}
-            className={activeButtons.includes(word) ? css.buttonActive : (color ? (theme ? css.darkButton : css.colorButton) : (theme ? css.darkButtonSecond : css.button))}
             onClick={() => handleButtonClick(word)}
+            className={
+              activeButtons.includes(word) ? css.buttonActive : (
+                color ? (
+                  theme ? css.darkButton : css.colorButton
+                ) : (
+                  theme ? css.darkButtonSecond : css.button
+                )
+              )
+            }
           >
             {word}
           </button>

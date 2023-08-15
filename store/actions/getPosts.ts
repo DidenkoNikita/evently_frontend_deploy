@@ -1,6 +1,7 @@
 import { ThunkAction } from "redux-thunk";
-import { RooteState } from "../store";
 import { PayloadAction } from "@reduxjs/toolkit";
+
+import { RooteState } from "../store";
 import { Post, getPosts } from "../counter/postsSlice";
 import { request } from "@/requests/reuestGet";
 
@@ -12,10 +13,10 @@ export const getPost = (): ThunkAction<
 > => async (dispatch): Promise<void | unknown> => {
   try {
     const data = await request('posts', 'GET');
-    if (data !== null) {      
+    if (data !== null) {
       dispatch(getPosts(data.post));
     }
-  } catch(e) {
+  } catch (e) {
     return console.log(e);
   }
 }

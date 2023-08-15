@@ -1,19 +1,24 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-  /* gap: 20px; */
   align-items: center;
   height: 483px;
 }
 
-.header {
+.header,
+.darkHeader {
   font-size: 16px;
   font-family: Montserrat;
   font-weight: 600;
   margin-bottom: 40px;
 }
 
-.button {
+.darkHeader {
+  color: #FFFFFF;
+}
+
+.button,
+.darkButton {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,6 +30,11 @@
   border-radius: 8px;
   border: none;
   background-color: #F6F6F6;
+}
+
+.darkButton {
+  background-color: #242424;
+  color: #FFFFFF;
 }
 
 .buttonActive {

@@ -1,6 +1,7 @@
 import { ThunkAction } from "redux-thunk";
-import { RooteState } from "../store";
 import { PayloadAction } from "@reduxjs/toolkit";
+
+import { RooteState } from "../store";
 import { request } from "@/requests/request";
 import { Post, likePost } from "../counter/postsSlice";
 
@@ -11,12 +12,12 @@ export const likePosts = (post_id: number): ThunkAction<
   PayloadAction<Post>
 > => async (dispatch): Promise<void | unknown> => {
   try {
-    const data = await request('posts', {post_id}, 'POST');
-    
+    const data = await request('posts', { post_id }, 'POST');
+
     if (data !== null) {
-      dispatch(likePost(data));   
+      dispatch(likePost(data));
     }
-  } catch(e) {
+  } catch (e) {
     return console.log(e);
   }
 }

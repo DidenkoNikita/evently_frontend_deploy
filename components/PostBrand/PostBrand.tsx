@@ -1,26 +1,27 @@
 'use client';
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
-import css from './PostBrand.module.css'
+import i18n from "i18next";
+import { useSelector } from "react-redux";
+
+import { store } from "@/store/store";
+import resources from "@/locales/resource";
+import { State } from "@/store/initialState";
+import { User } from "@/store/counter/userSlice";
+import { Post } from "@/store/counter/postsSlice";
+import { likePosts } from "@/store/actions/likePost";
+import { Comment } from "@/store/counter/commentSlice";
+import { Subscription } from "@/store/counter/subscriptionSlice";
+
 import { Heart } from "../icons/heart.icon";
 import { Message } from "../icons/message.icon";
 import { Forward } from "../icons/forward.icon";
-import i18n from "i18next";
-
-import resources from "@/locales/resource";
 import { ActiveHeart } from "../icons/activeHeart.icon";
-import { useRouter } from "next/navigation";
-import { store } from "@/store/store";
-import { getPost } from "@/store/actions/getPosts";
-import { useSelector } from "react-redux";
-import { likePosts } from "@/store/actions/likePost";
-import { Comment } from "@/store/counter/commentSlice";
-import { User } from "@/store/counter/userSlice";
-import { UsersList } from "@/store/counter/usersListSlice";
-import { Post } from "@/store/counter/postsSlice";
-import { State } from "@/store/initialState";
 import { getSubscriptions } from "@/store/actions/getSubscription";
+
+import css from './PostBrand.module.css';
 
 i18n.init({
   resources,
@@ -30,16 +31,22 @@ i18n.init({
 interface Props {
   id: number;
   theme: boolean;
-  setActiveShare: any;
-  setPostId: any;
+  setPostId: React.Dispatch<React.SetStateAction<number>>;
+  setActiveShare: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const PostBrand = ({ id, theme, setActiveShare, setPostId }: Props): JSX.Element => {
-  const [expandedPostId, setExpandedPostId] = useState<number | null>(null);
+export const PostBrand = ({ 
+  id, 
+  theme, 
+  setPostId, 
+  setActiveShare
+}: Props): JSX.Element => {
   const [stateUserId, setStateUserId] = useState<number | string>('');
-  const router = useRouter()
+  const [expandedPostId, setExpandedPostId] = useState<number | null>(null);
 
-  useEffect(() => {
+  const router = useRouter();
+
+  useEffect((): void => {
     const user_id = sessionStorage.getItem('user_id');
     if (!user_id) {
       router.push('/');
@@ -50,7 +57,7 @@ export const PostBrand = ({ id, theme, setActiveShare, setPostId }: Props): JSX.
   }, [])
 
 
-  const handleTextToggle = (postId: number) => {
+  const handleTextToggle = (postId: number): void => {
     if (expandedPostId === postId) {
       setExpandedPostId(null);
     } else {
@@ -58,19 +65,18 @@ export const PostBrand = ({ id, theme, setActiveShare, setPostId }: Props): JSX.
     }
   };
 
-  const subscriptions = useSelector((state: State) => state.subscription);
+  const subscriptions: Subscription[] = useSelector((state: State) => state.subscription);
 
-  const handleLike = (post_id: number) => {
+  const handleLike = (post_id: number): void => {
     store.dispatch(likePosts(post_id));
   }
 
   const posts: Post[] = useSelector((state: State) => state.posts);
-  const filteredPosts = posts.filter((post) => post.brand_id === id)
+  const filteredPosts: Post[] = posts.filter((post) => post.brand_id === id);
 
   const comments: Comment[] = useSelector((state: State) => state.comments);
 
-  console.log(posts);
-  const filterSupscription = subscriptions.find((subscription) => subscription.brand_id === id);
+  const filterSupscription: Subscription | undefined = subscriptions.find((subscription) => subscription.brand_id === id);
 
   return (
     <div className={theme ? css.darkWrapper : css.wrapper}>
@@ -91,10 +97,10 @@ export const PostBrand = ({ id, theme, setActiveShare, setPostId }: Props): JSX.
               >
                 <div className={css.avatarWrapper}>
                   <img
-                    src={post.link_avatar}
                     width='37'
                     height='37'
                     alt="Avatar"
+                    src={post.link_avatar}
                     className={theme ? css.darkAvatar : css.avatar}
                   />
                 </div>
@@ -106,13 +112,15 @@ export const PostBrand = ({ id, theme, setActiveShare, setPostId }: Props): JSX.
                     {post.type}
                   </div>
                 </div>
-                <div className={css.subscribe}>{filterSupscription ? i18n.t('subscribed') : i18n.t('subscribe')}</div>
+                <div className={css.subscribe}>
+                  {filterSupscription ? i18n.t('subscribed') : i18n.t('subscribe')}
+                </div>
               </button>
               <img
-                src={post.link_photo}
                 width='414'
                 height='414'
                 alt="Photo's post"
+                src={post.link_photo}
                 className={css.photo}
               />
               <div className={css.buttonWrapper}>
@@ -132,8 +140,8 @@ export const PostBrand = ({ id, theme, setActiveShare, setPostId }: Props): JSX.
                   </div>
                 </button>
                 <button
-                  onClick={() => router.push(`/home/post/comments/${post.id}`)}
                   className={theme ? css.darkButton : css.button}
+                  onClick={() => router.push(`/home/post/comments/${post.id}`)}
                 >
                   <Message color={theme ? '#FFFFFF' : '#000000'} />
                   <div className={theme ? css.darkQuantity : css.quantity}>
@@ -141,14 +149,16 @@ export const PostBrand = ({ id, theme, setActiveShare, setPostId }: Props): JSX.
                   </div>
                 </button>
                 <button
-                  className={theme ? css.darkButton : css.button}
                   onClick={() => {
                     setActiveShare(true);
                     setPostId(post.id)
                   }}
+                  className={theme ? css.darkButton : css.button}
                 >
                   <Forward color={theme ? '#FFFFFF' : '#000000'} />
-                  <div className={theme ? css.darkQuantity : css.quantity}>0</div>
+                  <div className={theme ? css.darkQuantity : css.quantity}>
+                    0
+                  </div>
                 </button>
               </div>
               <div className={theme ? css.darkText : css.text}>

@@ -1,20 +1,23 @@
 'use client';
 
-import i18n from "i18next";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
+import i18n from "i18next";
+import { useSelector } from "react-redux";
+
+import { store } from "@/store/store";
 import resources from "@/locales/resource";
+import { State } from "@/store/initialState";
+import { User } from "@/store/counter/userSlice";
+import { userGet } from "@/store/actions/getUser";
+
+import { Footer } from "@/components/Footer/Footer";
+import { Block } from "@/components/icons/block.icon";
+import { RightIcon } from "@/components/icons/rightIcon.icon";
+import { SettingsHeader } from "@/components/SettingsHeader/SettingsHeader";
 
 import css from './page.module.css';
-import { SettingsHeader } from "@/components/SettingsHeader/SettingsHeader";
-import { Footer } from "@/components/Footer/Footer";
-import { useRouter } from "next/navigation";
-import { RightIcon } from "@/components/icons/rightIcon.icon";
-import { Block } from "@/components/icons/block.icon";
-import { useEffect } from "react";
-import { store } from "@/store/store";
-import { userGet } from "@/store/actions/getUser";
-import { useSelector } from "react-redux";
-import { State } from "@/store/initialState";
 
 i18n.init({
   resources,
@@ -22,15 +25,14 @@ i18n.init({
 });
 
 export default function PrivacyPage(): JSX.Element {
-
-  useEffect(() => {
+  useEffect((): void => {
     store.dispatch(userGet());
   }, [])
 
-  const user = useSelector((state: State) => state.user);
-  const theme = user?.user?.color_theme;
-
   const router = useRouter();
+
+  const user: User = useSelector((state: State) => state.user);
+  const theme: boolean = user?.user?.color_theme;
 
   const arr = [
     {
@@ -119,28 +121,26 @@ export default function PrivacyPage(): JSX.Element {
               <div className={theme ? css.darkLine : css.line} />
             </div>
             {
-              arr.map((element, index) => {
-                return (
-                  <div key={index}>
-                    <div className={css.element}>
-                      <div className={theme ? css.darkText : css.text}>
-                        {element.title}
-                      </div>
-                      <div className={css.dataWrapper}>
-                        <div className={css.type}>
-                          {element.type}
-                        </div>
-                        <button
-                          className={css.button}
-                        >
-                          <RightIcon />
-                        </button>
-                      </div>
+              arr.map((element, index) => (
+                <div key={index}>
+                  <div className={css.element}>
+                    <div className={theme ? css.darkText : css.text}>
+                      {element.title}
                     </div>
-                    <div className={theme ? css.darkLine : css.line} />
+                    <div className={css.dataWrapper}>
+                      <div className={css.type}>
+                        {element.type}
+                      </div>
+                      <button
+                        className={css.button}
+                      >
+                        <RightIcon />
+                      </button>
+                    </div>
                   </div>
-                )
-              })
+                  <div className={theme ? css.darkLine : css.line} />
+                </div>
+              ))
             }
             <div className={css.element}>
               <div className={theme ? css.darkText : css.text}>
@@ -174,10 +174,10 @@ export default function PrivacyPage(): JSX.Element {
           </div>
         </div>
         <button
-          className={css.save}
           onClick={() => {
             router.back();
           }}
+          className={css.save}
         >
           {i18n.t('save')}
         </button>

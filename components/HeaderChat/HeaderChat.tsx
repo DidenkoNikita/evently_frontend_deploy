@@ -1,27 +1,36 @@
 'use client';
 
-interface Data {
-  name: string | undefined;
-  linkAvatar: string | undefined;
-  filterMessage: IMessage[];
-  chatId: number | null;
-  theme: boolean;
-}
-
 import { useRouter } from 'next/navigation';
-import css from './HeaderChat.module.css'
-import { Back } from '../icons/back.icon';
 import { useEffect, useState } from 'react';
-import { getUserList } from '@/store/actions/getUserList';
+
 import { store } from '@/store/store';
 import { IMessage } from '@/store/counter/messageSlice';
 import { deleteChat } from '@/store/actions/deleteChat';
+import { getUserList } from '@/store/actions/getUserList';
 
-export const HeaderChat = ({name, linkAvatar, filterMessage, chatId, theme}: Data): JSX.Element => {
+import { Back } from '../icons/back.icon';
+
+import css from './HeaderChat.module.css'
+
+interface Data {
+  theme: boolean;
+  chatId: number | null;
+  name: string | undefined;
+  filterMessage: IMessage[];
+  linkAvatar: string | undefined;
+}
+
+export const HeaderChat = ({
+  name, 
+  theme,
+  chatId, 
+  linkAvatar, 
+  filterMessage
+}: Data): JSX.Element => {
   const [userId, setUserId] = useState<string>('');
   const router = useRouter();  
 
-  useEffect(() => {
+  useEffect((): void => {
     setUserId(location.pathname);
     store.dispatch(getUserList());
   }, []);

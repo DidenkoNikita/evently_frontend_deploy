@@ -25,7 +25,6 @@ const resources = {
       "female": "Female",
       "no_gender": "No gender",
       "name": "Name",
-      ///////////
       "restaurants": "Restaurants",
       "trade_fairs": "Trade fairs",
       "lectures": "Lectures",
@@ -41,9 +40,7 @@ const resources = {
       "for_free": "For free",
       "cinema": "Cinema",
       "theater": "Theaters",
-      /////////////
       "choose_categories": "Choose categories",
-      ///////////////////
       "funny": "Funny",
       "sad": "Sad",
       "gambling": "Gambling",
@@ -55,9 +52,7 @@ const resources = {
       "cognitive": "Cognitive",
       "dreamy": "Dreamy",
       "do_not_know": "Don't know",
-      ////////////////
       "chose_mood": "Choose your mood",
-      ///////////////////
       "saint_petersburg": "Saint Petersburg",
       "moscow": "Moscow",
       "kazan": "Kazan",
@@ -67,11 +62,9 @@ const resources = {
       "astrakhan": "Astrakhan",
       "rostov_on_don": "Rostov-on-Don",
       "belgorod": "Belgorod",
-      /////////////
       "choose_a_sity": "Сhoose a city",
       "address": "Taganrog, Oktyabrskaya street 44L",
       "search": "Search...",
-      //////////////
       "home": "Home",
       "services": "Services",
       "clips": "Clips",
@@ -97,7 +90,6 @@ const resources = {
       "gender": "Gender",
       "edit_profile": "Edit profile",
       "settings": "Settings",
-      ///////////////
       "change_photo": "Change photo",
       "personal_data": "Personal data",
       "change_number": "Change number",
@@ -106,7 +98,6 @@ const resources = {
       "change_categories": "Change categories",
       "change_your_mood": "Change your mood",
       "change_password": "Change password",
-      /////////////////
       "themes": "Themes",
       "light": "Light",
       "dark": "Dark",
@@ -122,21 +113,17 @@ const resources = {
       "privacy": "Privacy",
       "faq": "FAQ",
       "save": "Save",
-      ///////////
       "invalid_number": "This number already has the account",
       "invalid_name": "Please fill in the required field",
       "invalid_password": "Please check the password matches the required characters",
       "number_entered": "Number entered incorrectly",
       "password_entered": "Password entered incorrectly",
-      ///////////////
       "support_chat": "Support chat",
-      ///////////////
       "question1": "How can I reserve a place in a restaurant or cafe?",
       "question2": "How can I buy cinema or theater tickets?",
       "question3": "How can I pay for an order?",
       "question4": "How can I cancel a booking or order?",
       "question5": "How can I contact application support?",
-      ///////////////
       "answer1": "To book a seat at a restaurant or cafe, you need to select the appropriate option in the application menu, select the time and date, and then select the restaurant or cafe where you want to book a seat.",
       "answer2": "To buy cinema or theater tickets, you need to select the appropriate option in the application menu, select a movie or performance, select a time and date, and then select the seats you want to book.",
       "answer3": "To pay for an order, you need to select the appropriate option in the application menu, select a payment method, enter your credit card or other payment details, and then confirm the payment.",
@@ -146,76 +133,59 @@ const resources = {
       "mute": "Mute",
       "delete": "Delete",
       "write_message": "Write a message",
-
       "type_your_message": "Type your message",
       "you_dont_have": "You don't have any messages yet...",
-      ////////////
       "chats_settings": "Chat settings",
       "call": "Call",
       "nots": "Nots",
       "More": "More",
-      //////////////
       "photos": "Photos",
       "video": "Video",
       "places": "Places",
       "evets": "Events",
-      //////
       "from_the_chat": " from the chat will be displayed here",
-      //////////////
       "share_contact": "Share contact",
       "pin_to_chat_list": "Pin to chat list",
       "delete_contact": "Delete contact",
       "add_to_blacklist": "Add to blacklist",
-      //////////
       "disable_for_1_hour": "Disable for 1 hour",
       "disable_for_8_hours": "Disable for 8 hours",
       "disable_for_1_day": "Disable for 1 day",
       "disable_for_1_week": "Disable for 1 week",
       "disable_permanently": "Disable permanently",
       "mute_sound": "Mute sound",
-
       "send_message": "Send a message",
       "unfriend": "Unfriend",
       "cancel": "Cancel",
-
       "my_photo": "My photo",
       "add_photo": "Add photo",
-
       "loading1": "Loading.",
       "loading2": "Loading..",
       "loading3": "Loading...",
-
       "general": "General",
       "dating": "Dating",
       "requests": "Requests",
-
       "add": "Add",
       "reject": "Reject",
-
       "general_notifications": "You don't have general notifications...",
       "dating_notifications": "You don't have dating notifications...",
       "request_friends": "You don't have request notifications...",
       "request": "Request successfully sent!",
       "new_frind_requests": " new friend requests",
       "friends_not_found": "You don't have friends :(",
-
       "reset": "Reset",
       "filter": "Filter",
-
       "date_format": "dd/mm/yyyy",
       "business_hours": "Business hours",
-
       "morning": "Morning",
       "afternoon": "Afternoon",
       "evening": "Evening",
       "night": "Night",
-
       "age": "Age",
       "price": "Price",
       "from": "from",
       "to": "to",
       "ok": "Ok",
-
       "calendar_of_events": "Calendar of events",
       "chat": "Chat",
       "book_a_table": "Book a table",
@@ -233,34 +203,31 @@ const resources = {
       "entertainment": "Entertainment",
       "leisure": "Leisure",
       "write_first": "Write the first review!",
-
       "wont_go": "I won't go",
       "will_go": "I will go",
       "guests": "Guests",
       "people_going": "25 people are going to go",
       "unsubscribe": "Unsubscribe",
       "brand_resultes": "Brands resultes",
-
       "black_list": "Black list",
       "confidentiality": "Confidentiality",
       "date_title": "Date",
-
       "all": "All",
       "my_friends": "My friends",
       "nobody": "Nobody",
       "messages": "Messages",
-
       "my_categories": "My categories",
       "my_mood": "My mood",
       "calls": "Calls",
       "who_phone_number": "Who can see my phone number?",
       "who_messages": "Who can send me messages?",
-
       "Share": "Share",
       "send": "Send",
       "publication": "Publication",
       "this_chat": "You don't have this chat...",
-      "any_chats": "You don't have any chats yet..."
+      "any_chats": "You don't have any chats yet...",
+      "pleas_fill": "Please fill in the required fields",
+      "all_dates": "All dates"
     }
   }
 }

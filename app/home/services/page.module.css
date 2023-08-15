@@ -39,9 +39,6 @@
   width: 163px;
   height: 163px;
   border-radius: 40px;
-}
-
-.wrapperImage {
   background-color: #F6F6F6;
 }
 
@@ -87,9 +84,6 @@
   font-family: Montserrat;
   font-size: 14px;
   font-weight: 600;
-}
-
-.title {
   background-color: #FDFFFD;
 }
 

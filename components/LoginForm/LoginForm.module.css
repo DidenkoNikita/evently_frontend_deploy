@@ -8,7 +8,8 @@
   gap: 20px;
 }
 
-.fieldPhone {
+.fieldPhone,
+.darkFieldPhone {
   display: flex;
   width: 305px;
   height: 48px;
@@ -18,7 +19,8 @@
   background-color: #F6F6F6;
 }
 
-.invalidFieldPhone {
+.invalidFieldPhone,
+.darkInpvalidFieldPhone {
   display: flex;
   width: 305px;
   height: 48px;
@@ -29,7 +31,12 @@
   background-color: #F6F6F6;
 }
 
-.invalidFieldPassword {
+.darkInpvalidFieldPhone {
+  background-color: #242424;
+}
+
+.invalidFieldPassword,
+.darkInvalidFieldPassword {
   display: flex;
   width: 317px;
   height: 48px;
@@ -41,33 +48,64 @@
   gap: 10px;
 }
 
-.fieldPassvord {
+.darkInvalidFieldPassword {
+  background-color: #242424;
+}
+
+.fieldPassvord,
+.darkFieldPassword {
   display: flex;
   width: 317px;
   height: 48px;
   padding: 0px 8px 0px 20px;
   align-items: center;
   border-radius: 10px;
-  background-color: #F6F6F6;
   gap: 10px;
+  background-color: #F6F6F6;
 }
 
-.inputPassword {
+.darkFieldPhone,
+.darkFieldPassword {
+  background-color: #242424;
+}
+
+.inputPhone,
+.darkInputPhone {
   width: 257px;
   height: 45px;
   border: none;
   border-radius: 10px;
+  font-size: 14px;
+  font-family: Montserrat;
   background-color: #F6F6F6;
   color: #000;
+}
+
+.darkInputPhone,
+.darkInputPassword {
+  background-color: #242424;
+  color: #FFFFFF;
+}
+
+.inputPassword,
+.darkInputPassword {
+  width: 257px;
+  height: 45px;
+  border: none;
+  border-radius: 10px;
   font-size: 14px;
   font-family: Montserrat;
 }
 
-.inputPassword:focus {
+.inputPassword:focus,
+.inputPhone:focus,
+.darkInputPhone:focus,
+.darkInputPassword:focus {
   outline: none !important;
 }
 
-.inputPassword::-webkit-input-placeholder { 
+.inputPassword::-webkit-input-placeholder,
+.inputPhone::-webkit-input-placeholder {
   color: #000;
   font-size: 14px;
   font-family: Montserrat;
@@ -81,9 +119,9 @@
   justify-content: center;
   align-items: center;
   gap: 10px;
-  flex-shrink: 0;  
+  flex-shrink: 0;
   border: none;
-  background-color: #F6F6F6;
+  background-color: transparent;
 }
 
 .checkboxArea {
@@ -112,7 +150,7 @@
   border-radius: 15px;
   border-color: #BB83FF;
   border-width: 3px;
-  background-color: white;
+  background-color: transparent;
 }
 
 .activeCheckbox {
@@ -126,11 +164,16 @@
   background-color: #BB83FF;
 }
 
-.text {
+.text,
+.darkText {
   font-size: 16px;
   font-weight: 500;
   font-family: Montserrat;
   color: #000;
+}
+
+.darkText {
+  color: #FFFFFF;
 }
 
 .button {
@@ -148,10 +191,15 @@
   font-family: Montserrat;
 }
 
-.or {
+.or,
+.darkOr {
   font-size: 14px;
   font-family: Montserrat;
   margin-top: 60px;
+}
+
+.darkOr {
+  color: #FFFFFF;
 }
 
 
@@ -162,9 +210,14 @@
   margin-top: 90px;
 }
 
-.question {
+.question,
+.darkQuestion {
   font-size: 16px;
   font-family: Montserrat;
+}
+
+.darkQuestion {
+  color: #FFFFFF;
 }
 
 .link {

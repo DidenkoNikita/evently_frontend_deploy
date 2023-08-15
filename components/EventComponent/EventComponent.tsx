@@ -1,28 +1,34 @@
 'use client';
 
 import { useEffect } from 'react';
-import { CalendarOfEventsHome } from '../CalendarOfEventsHome/CalendarOfEventsHome';
-import css from './EventComponent.module.css';
-import { store } from '@/store/store';
-import { eventsGet } from '@/store/actions/eventsGet';
+
 import { useSelector } from 'react-redux';
+
+import { store } from '@/store/store';
 import { State } from '@/store/initialState';
+import { Event } from '@/store/counter/eventSlice';
+import { eventsGet } from '@/store/actions/eventsGet';
+
 import { EventElement } from '../EventElement/EventElement';
+import { CalendarOfEventsHome } from '../CalendarOfEventsHome/CalendarOfEventsHome';
+
+import css from './EventComponent.module.css';
 
 interface Props {
   id: number;
   theme: boolean;
 }
 
-export const EventComponent = ({ id, theme }: Props): JSX.Element => {
-  useEffect(() => {
+export const EventComponent = ({
+  id,
+  theme
+}: Props): JSX.Element => {
+  useEffect((): void => {
     store.dispatch(eventsGet());
   }, [])
 
-  const events = useSelector((state: State) => state.event);
-  const filteredEvents = events.filter((event) => event.brand_id === id);
-
-  console.log('events', filteredEvents);
+  const events: Event[] = useSelector((state: State) => state.event);
+  const filteredEvents: Event[] = events.filter((event) => event.brand_id === id);
 
   return (
     <div className={css.wrapper}>
@@ -31,15 +37,13 @@ export const EventComponent = ({ id, theme }: Props): JSX.Element => {
       </div>
       <div className={css.eventsWrapper}>
         {
-          filteredEvents.map((event, index) => {
-            return (
-              <EventElement
-                theme={theme}
-                key={index}
-                event={event}
-              />
-            )
-          })
+          filteredEvents.map((event, index) => (
+            <EventElement
+              theme={theme}
+              key={index}
+              event={event}
+            />
+          ))
         }
       </div>
     </div>

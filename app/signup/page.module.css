@@ -1,9 +1,16 @@
-.wrapper {
+.wrapper,
+.darkWrapper {
   display: flex;
   flex-direction: column;
+  height: 100vh;
 }
 
-.header {
+.darkWrapper {
+  background-color: #333333;
+}
+
+.header,
+.darkHeader {
   display: flex;
   width: 393px;
   height: 60px;
@@ -11,24 +18,33 @@
   margin-top: 59px;
 }
 
+.darkHeader {
+  background-color: #333333;
+}
+
 .buttonBack {
   justify-content: flex-start;
   width: 48px;
   height: 48px;
   border: none;
-  background-color: #fff;
+  background-color: transparent;
   margin-left: 24px;
   margin-right: 99px;
   align-self: center;
 }
 
-.title {
+.title,
+.darkTitle {
   display: flex;
   align-items: center;
-  color: #000;
   font-size: 16px;
   font-family: "Montserrat";
   font-weight: 600;
+  color: #000;
+}
+
+.darkTitle {
+  color: #FFFFFF;
 }
 
 .signupWrapper {

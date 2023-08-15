@@ -1,7 +1,8 @@
-import css from './ButtonNext.module.css';
 import i18n from "i18next";
 
 import resources from "@/locales/resource";
+
+import css from './ButtonNext.module.css';
 
 i18n.init({
   resources,
@@ -11,11 +12,14 @@ i18n.init({
 
 interface Next {
   activeStep: number;
-  handleNextStep: any;
+  handleNextStep: () => void;
   openCalendar: boolean;
 }
 
-export const ButtonNext = ({handleNextStep, openCalendar}: Next): JSX.Element => {
+export const ButtonNext = ({
+  openCalendar,
+  handleNextStep
+}: Next): JSX.Element => {
   return (
     <button
       onClick={() => handleNextStep()}

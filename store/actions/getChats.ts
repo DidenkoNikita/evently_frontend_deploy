@@ -1,6 +1,7 @@
 import { ThunkAction } from "redux-thunk";
-import { RooteState } from "../store";
 import { PayloadAction } from "@reduxjs/toolkit";
+
+import { RooteState } from "../store";
 import { IChat, chatsGet } from "../counter/chatSLice";
 
 export const getChats = (data: IChat[]): ThunkAction<

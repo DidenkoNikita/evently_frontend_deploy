@@ -2,20 +2,23 @@
 
 import { useRouter } from "next/navigation";
 
-import css from './HeaderBrand.module.css'
 import { Back } from "../icons/back.icon";
 import { Share } from "../icons/share.icon";
+
+import css from './HeaderBrand.module.css'
 
 interface Props {
   title: string;
   theme: boolean;
 }
 
-export const HeaderBrand = ({ title, theme }: Props): JSX.Element => {
+export const HeaderBrand = ({ 
+  title,
+  theme
+}: Props): JSX.Element => {
   const router = useRouter();
 
   return (
-
     <div className={theme ? css.darkHeaderWrapper : css.headerWrapper}>
       <div className={css.header}>
         <button

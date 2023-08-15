@@ -1,21 +1,23 @@
 'use client';
 
-import { SettingsHeader } from "@/components/SettingsHeader/SettingsHeader";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 import i18n from "i18next";
+import { useSelector } from "react-redux";
 
+import { store } from "@/store/store";
 import resources from "@/locales/resource";
+import { State } from "@/store/initialState";
+import { User } from "@/store/counter/userSlice";
+import { userGet } from "@/store/actions/getUser";
+import { updateCity } from "@/store/actions/updateCity";
+
 import { Footer } from "@/components/Footer/Footer";
+import { Change } from "@/components/Change/Change";
+import { SettingsHeader } from "@/components/SettingsHeader/SettingsHeader";
 
 import css from './page.module.css';
-import { useEffect, useState } from "react";
-import { Change } from "@/components/Change/Change";
-import { store } from "@/store/store";
-import { updateCity } from "@/store/actions/updateCity";
-import { useRouter } from "next/navigation";
-import { userGet } from "@/store/actions/getUser";
-import { useSelector } from "react-redux";
-import { State } from "@/store/initialState";
 
 i18n.init({
   resources,
@@ -24,12 +26,11 @@ i18n.init({
 
 export default function changeCity(): JSX.Element {
   const [userCity, setUserCity] = useState<string>('');
+  const [activeButtonsCity, setActiveButtonsCity] = useState<string[]>([]);
 
-  useEffect(() => {
+  useEffect((): void => {
     store.dispatch(userGet());
   }, [])
-
-  const [activeButtonsCity, setActiveButtonsCity] = useState<string[]>([]);
 
   const router = useRouter();
 
@@ -43,18 +44,17 @@ export default function changeCity(): JSX.Element {
     i18n.t('astrakhan'),
     i18n.t('rostov_on_don'),
     i18n.t('belgorod')
-  ];
+  ]
 
   const headerCity: string = i18n.t('choose_a_sity');
+  const user: User = useSelector((state: State) => state.user);
+  const theme: boolean = user?.user?.color_theme;
 
-  const user = useSelector((state: State) => state.user);
-  const theme = user?.user?.color_theme;
-  
   return (
     <div className={theme ? css.darkWrapper : css.wrapper}>
-      <SettingsHeader 
+      <SettingsHeader
         theme={theme}
-        title={i18n.t('change_city')} 
+        title={i18n.t('change_city')}
       />
       <Change
         theme={theme}
@@ -73,7 +73,7 @@ export default function changeCity(): JSX.Element {
             {i18n.t('save')}
           </button>
         ) : (
-          <button 
+          <button
             onClick={() => {
               store.dispatch(updateCity(userCity));
               router.push('/home/profile/profile_settings');

@@ -24,20 +24,20 @@ export const Friend = (): JSX.Element => {
         />
       </svg>
       <div style={{ marginBottom: '4px', marginLeft: '-2px' }}>
-      <svg 
-        width="11" 
-        height="7" 
-        viewBox="0 0 11 7" 
-        fill="none" 
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path 
-          d="M9.44653 1L4.73111 5.71542C4.57423 5.87231 4.31962 5.87153 4.1637 5.71368L1.75 3.27021" 
-          stroke="black" 
-          strokeWidth="2" 
-          strokeLinecap="round"
-        />
-      </svg> 
+        <svg
+          width="11"
+          height="7"
+          viewBox="0 0 11 7"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M9.44653 1L4.73111 5.71542C4.57423 5.87231 4.31962 5.87153 4.1637 5.71368L1.75 3.27021"
+            stroke="black"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+        </svg>
       </div>
     </div>
   );

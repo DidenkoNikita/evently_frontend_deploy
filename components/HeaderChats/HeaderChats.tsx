@@ -1,20 +1,23 @@
 'use client';
 
-import { Back } from "@/components/icons/back.icon";
-
 import { useRouter } from "next/navigation";
 
-import css from './HeaderChats.module.css'
 import { Write } from "../icons/write.icon";
+import { Back } from "@/components/icons/back.icon";
+
+import css from './HeaderChats.module.css'
 
 interface Data {
-  title: string;
   link: string;
+  title: string;
   theme: boolean;
 }
 
-export const HeaderChats = ({title, link, theme}: Data): JSX.Element => {
-
+export const HeaderChats = ({
+  title, 
+  link, 
+  theme
+}: Data): JSX.Element => {
   const router = useRouter();
 
   return (

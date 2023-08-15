@@ -1,57 +1,64 @@
 'use client';
 
-import { SettingsHeader } from "@/components/SettingsHeader/SettingsHeader";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 import i18n from "i18next";
-import resources from "@/locales/resource";
-import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { State } from "@/store/initialState";
-import { store } from "@/store/store";
-import { getUserList } from "@/store/actions/getUserList";
 
-import css from './page.module.css';
+import { store } from "@/store/store";
+import resources from "@/locales/resource";
+import { State } from "@/store/initialState";
+import { userGet } from "@/store/actions/getUser";
+import { getUserList } from "@/store/actions/getUserList";
+import { UsersList } from "@/store/counter/usersListSlice";
+
 import { Footer } from "@/components/Footer/Footer";
-import { ProfileIcon } from "@/components/icons/profile.icon";
-import { Call } from "@/components/icons/call.icon";
-import { Notification } from "@/components/icons/notification.icon";
 import { More } from "@/components/icons/more.icon";
-import { SearcIcon } from "@/components/icons/searchIcon.icon";
+import { Call } from "@/components/icons/call.icon";
 import { MoreModal } from "@/components/MoreModal/MoreModal";
 import { NotsModal } from "@/components/NotsModal/NotsModal";
-import { useRouter } from "next/navigation";
+import { ProfileIcon } from "@/components/icons/profile.icon";
+import { SearcIcon } from "@/components/icons/searchIcon.icon";
 import { LoadingComponent } from "@/components/Loading/Loading";
-import { userGet } from "@/store/actions/getUser";
+import { Notification } from "@/components/icons/notification.icon";
+import { SettingsHeader } from "@/components/SettingsHeader/SettingsHeader";
+
+import css from './page.module.css';
 
 i18n.init({
   resources,
   lng: "en",
 });
 
+interface ArrIcon {
+  icon: JSX.Element;
+  title: string;
+}
+
 export default function ChatSettings(): JSX.Element {
   const [userId, setUserId] = useState<string>('');
-  const [title, setTitle] = useState<string>(i18n.t('photos'))
-  const [stateAwatar, setStateAwatar] = useState<boolean>(false);
-  const [activeButtonIndex, setActiveButtonIndex] = useState<number>(0);
   const [stateMore, setStateMore] = useState<boolean>(false);
   const [stateNots, setStateNots] = useState<boolean>(false);
+  const [title, setTitle] = useState<string>(i18n.t('photos'));
+  const [stateAwatar, setStateAwatar] = useState<boolean>(false);
+  const [activeButtonIndex, setActiveButtonIndex] = useState<number>(0);
 
-  useEffect(() => {
+  useEffect((): void => {
+    store.dispatch(userGet());
     setUserId(location.pathname);
     store.dispatch(getUserList());
-    store.dispatch(userGet());
   }, []);
 
   const id: number = Number(userId.slice(21));
 
-  const userList = useSelector((state: State) => state.usersList);
-
-  const user = userList.find((u) => u.id === id);
+  const userList: UsersList[] = useSelector((state: State) => state.usersList);
+  const user: UsersList | undefined = userList.find((u) => u.id === id);
 
   const userData = useSelector((state: State) => state.user);
   const theme = userData?.user?.color_theme;
 
-  const arrIcon = [
+  const arrIcon: ArrIcon[] = [
     {
       icon: <ProfileIcon color='black' />,
       title: i18n.t('profile')
@@ -74,7 +81,7 @@ export default function ChatSettings(): JSX.Element {
     }
   ]
 
-  const titleArr = [
+  const titleArr: string[] = [
     i18n.t('photos'),
     i18n.t('video'),
     i18n.t('clips'),
@@ -100,13 +107,33 @@ export default function ChatSettings(): JSX.Element {
       />
       <div className={theme ? css.darkArea : css.area}>
         <button
-          onClick={() => setStateAwatar(!stateAwatar)}
-          className={stateAwatar ? (theme ? css.darkBigAwatarWrapper : css.bigAwatarWrapper) : (theme ? css.darkAvatarWrapper : css.avatarWrapper)}
+          onClick={() => {
+            setStateAwatar(!stateAwatar)
+          }}
+          className={
+            stateAwatar ? (
+              theme ? css.darkBigAwatarWrapper : css.bigAwatarWrapper
+            ) : (
+              theme ? css.darkAvatarWrapper : css.avatarWrapper
+            )}
         >
-          <div className={stateAwatar ? css.bigAvatar : (theme ? css.darkAvatar : css.avatar)}>
+          <div
+            className={
+              stateAwatar ?
+                css.bigAvatar : (
+                  theme ? css.darkAvatar : css.avatar
+                )}
+          >
             {
               user?.link_avatar === null ? (
-                <div className={stateAwatar ? (theme ? css.darkBigAwatarData : css.bigAvatarData) : (theme ? css.darkAvatarData : css.avatarData)}>
+                <div
+                  className={
+                    stateAwatar ? (
+                      theme ? css.darkBigAwatarData : css.bigAvatarData
+                    ) : (
+                      theme ? css.darkAvatarData : css.avatarData
+                    )}
+                >
                   {user?.name.slice(0, 1)}
                 </div>
               ) : (
@@ -130,7 +157,12 @@ export default function ChatSettings(): JSX.Element {
                 return (
                   <button
                     key={index}
-                    className={(stateMore && index !== 4) || (stateNots && index !== 2) ? (theme ? css.darkIconButton : css.iconButton) : css.activeIconButton}
+                    className={
+                      (stateMore && index !== 4) ||
+                        (stateNots && index !== 2) ?
+                        (theme ? css.darkIconButton : css.iconButton) :
+                        css.activeIconButton
+                    }
                     onClick={() => {
                       if (index === 4 && !stateNots) {
                         setStateMore(!stateMore)
@@ -185,13 +217,23 @@ export default function ChatSettings(): JSX.Element {
                 return (
                   <button
                     key={index}
-                    className={index === activeButtonIndex ? css.activeButton : (theme ? css.darkButton : css.button)}
+                    className={
+                      index === activeButtonIndex ?
+                        css.activeButton : (
+                          theme ? css.darkButton : css.button
+                        )}
                     onClick={() => {
                       setActiveButtonIndex(index);
                       setTitle(title);
                     }}
                   >
-                    <div className={index !== activeButtonIndex ? (theme ? css.darkTitle : css.title) : css.title}>
+                    <div
+                      className={
+                        index !== activeButtonIndex ? (
+                          theme ? css.darkTitle : css.title) :
+                          css.title
+                      }
+                    >
                       {title}
                     </div>
                   </button>

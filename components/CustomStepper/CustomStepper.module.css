@@ -20,16 +20,22 @@
   align-items: center;
 }
 
-.step {
+.step,
+.darkStep {
   display: flex;
   width: 30px;
   height: 30px;
   justify-content: center;
   align-items: center;
   border-radius: 50px;
-  background-color: #F6F6F6;
   font-size: 14px;
   font-family: Montserrat;
+  background-color: #F6F6F6;
+}
+
+.darkStep {
+  background-color: #242424;
+  color: #FFFFFF;
 }
 
 .activeStep {
@@ -44,10 +50,15 @@
   font-family: Montserrat;
 }
 
-.connector {
+.connector,
+.darkConnector {
   width: 11.25px;
   height: 4px;
   background-color: #F6F6F6;
+}
+
+.darkConnector {
+  background-color: #242424;
 }
 
 .activeConnector {

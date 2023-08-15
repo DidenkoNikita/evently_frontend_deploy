@@ -1,14 +1,17 @@
 'use client';
 
-import { Add } from '../icons/add.icon';
-import { Forward } from '../icons/forward.icon';
-import css from './CommentsFooter.module.css';
+import { useEffect, useState } from 'react';
+
 import i18n from "i18next";
 
-import resources from "@/locales/resource";
-import { useEffect, useState } from 'react';
 import { store } from '@/store/store';
+import resources from "@/locales/resource";
 import { createComment } from '@/store/actions/createComment';
+
+import { Add } from '../icons/add.icon';
+import { Forward } from '../icons/forward.icon';
+
+import css from './CommentsFooter.module.css';
 
 i18n.init({
   resources,
@@ -20,28 +23,29 @@ interface Props {
 }
 
 export const CommentsFooter = ({ theme }: Props): JSX.Element => {
-  const [stateInput, setStateInput] = useState<string>('');
   const [postId, setPostId] = useState<string>('');
+  const [stateInput, setStateInput] = useState<string>('');
 
-  useEffect(() => {
+  useEffect((): void => {
     setPostId(location.pathname)
   }, [])
-  const id: number = Number(postId.slice(20))
 
-  const handleComment = (text: string, id: number) => {
+  const id: number = Number(postId.slice(20));
+
+  const handleComment = (text: string, id: number): void => {
     if (text.trim() === '') {
       return;
     }
-
     setStateInput('');
-    store.dispatch(createComment(text, id))
+    store.dispatch(createComment(text, id));
   }
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>): void => {
     if (e.key === "Enter") {
       handleComment(stateInput, id);
     }
-  };
+  }
+
   return (
     <div className={theme ? css.darkFooter : css.footer}>
       <button

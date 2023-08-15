@@ -1,15 +1,20 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+
+import { Back } from '../icons/back.icon';
+
+import css from './SettingsHeader.module.css'
+
 interface Title {
   title: string;
   theme: boolean;
 }
 
-import { useRouter } from 'next/navigation';
-import css from './SettingsHeader.module.css'
-import { Back } from '../icons/back.icon';
-
-export const SettingsHeader = ({ title, theme }: Title): JSX.Element => {
+export const SettingsHeader = ({
+  title,
+  theme
+}: Title): JSX.Element => {
   const router = useRouter();
 
   return (

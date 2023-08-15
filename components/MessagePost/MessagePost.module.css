@@ -43,9 +43,6 @@
   align-items: center;
   border: none;
   border-radius: 10px;
-}
-
-.button {
   background-color: #F6F6F6;
 }
 
@@ -65,9 +62,6 @@
   padding-bottom: 7px;
   border: none;
   padding-top: 0px;
-}
-
-.post {
   background-color: #FDFFFD;
 }
 

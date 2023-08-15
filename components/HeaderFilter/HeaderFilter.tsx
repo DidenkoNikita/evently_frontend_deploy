@@ -1,16 +1,19 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import css from './HeaderFilter.module.css';
-import { Back } from '../icons/back.icon';
 
 import i18n from "i18next";
+import { useSelector } from 'react-redux';
 
 import resources from "@/locales/resource";
-import { Filter } from '../icons/filter.icon';
-import { Brand } from '@/store/counter/brandSlice';
-import { useSelector } from 'react-redux';
 import { State } from '@/store/initialState';
+import { User } from '@/store/counter/userSlice';
+import { Brand } from '@/store/counter/brandSlice';
+
+import { Back } from '../icons/back.icon';
+import { Filter } from '../icons/filter.icon';
+
+import css from './HeaderFilter.module.css';
 
 i18n.init({
   resources,
@@ -23,10 +26,15 @@ interface Props {
   filterBrands: Brand[] | [];
 }
 
-export const HeaderFilter = ({ title, setStateFilter, filterBrands }: Props): JSX.Element => {
+export const HeaderFilter = ({
+  title,
+  filterBrands,
+  setStateFilter
+}: Props): JSX.Element => {
   const router = useRouter();
-  const user = useSelector((state: State) => state.user);
-  const theme = user?.user?.color_theme;
+
+  const user: User = useSelector((state: State) => state.user);
+  const theme: boolean = user?.user?.color_theme;
 
   return (
     <div className={theme ? css.darkHeaderWrapper : css.headerWrapper}>
@@ -41,7 +49,7 @@ export const HeaderFilter = ({ title, setStateFilter, filterBrands }: Props): JS
             }
           }}
         >
-          {theme ? <Back color='#FFFFFF'/> : <Back color='#000'/>}
+          <Back color={theme ? '#FFFFFF' : '#000000'} />
         </button>
         <div className={theme ? css.darkTitle : css.title}>
           {title}
@@ -55,9 +63,7 @@ export const HeaderFilter = ({ title, setStateFilter, filterBrands }: Props): JS
                   setStateFilter(false);
                 }}
               >
-                {
-                  theme ? <Filter color='#FFF' /> : <Filter color='#000' />
-                }
+                <Filter color={theme ? '#FFFFFF' : '#000000'} />
                 <div className={css.curcle}>
                   {filterBrands.length}
                 </div>
@@ -72,7 +78,6 @@ export const HeaderFilter = ({ title, setStateFilter, filterBrands }: Props): JS
                   >
                     {i18n.t('reset')}
                   </button>
-
                 )
               )
             )

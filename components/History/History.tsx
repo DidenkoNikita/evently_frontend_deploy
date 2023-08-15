@@ -1,15 +1,13 @@
 'use client';
 
-import { useSelector } from 'react-redux';
-import css from './History.module.css';
-
 import { useEffect, useState } from 'react';
-import { State } from '@/store/initialState';
+
+import css from './History.module.css';
 
 interface Story {
   id: number;
-  title: string;
   link: string;
+  title: string;
 }
 
 interface Props {
@@ -21,7 +19,7 @@ export const History = ({ theme }: Props): JSX.Element => {
 
   const getStories = async () => {
     const API_URL = process.env.API_URL;
-    
+
     try {
       const response: Response = await fetch(`${API_URL}stories`, {
         method: 'GET',
@@ -30,7 +28,7 @@ export const History = ({ theme }: Props): JSX.Element => {
         }
       });
       const data = await response.json();
-      
+
       setStories(data)
     } catch (e) {
       return console.log(e);
@@ -46,7 +44,7 @@ export const History = ({ theme }: Props): JSX.Element => {
       {
         stories.map((story: Story) => {
           return (
-            <div 
+            <div
               className={css.history}
               key={story.id}
             >
@@ -59,12 +57,12 @@ export const History = ({ theme }: Props): JSX.Element => {
                   className={theme ? css.darkImageHistory : css.imageHistory}
                 />
               </div>
-              <div 
+              <div
                 className={theme ? css.darkTitle : css.title}
               >
                 {story.title}
               </div>
-            </div>        
+            </div>
 
           )
         })

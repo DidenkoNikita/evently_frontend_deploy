@@ -1,9 +1,10 @@
-import css from './SearchComponent.module.css';
-
 import i18n from "i18next";
 
 import resources from "@/locales/resource";
+
 import { Search } from '../icons/search.icon';
+
+import css from './SearchComponent.module.css';
 
 i18n.init({
   resources,
@@ -11,12 +12,16 @@ i18n.init({
 });
 
 interface Props {
-  searchTerm: string;
-  setSearchTerm: any;
   theme: boolean;
+  searchTerm: string;
+  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const SearchComponent = ({searchTerm, setSearchTerm, theme}: Props): JSX.Element => {
+export const SearchComponent = ({
+  searchTerm,
+  setSearchTerm,
+  theme
+}: Props): JSX.Element => {
   return (
     <div className={theme ? css.darkSearch : css.search}>
       <input

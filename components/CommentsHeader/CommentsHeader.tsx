@@ -9,7 +9,10 @@ interface CommentsHeader {
   theme: boolean;
 }
 
-export const CommentsHeader = ({ post, theme }: CommentsHeader): JSX.Element => {
+export const CommentsHeader = ({ 
+  post, 
+  theme 
+}: CommentsHeader): JSX.Element => {
 
   return (
     <div className={css.header}>

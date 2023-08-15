@@ -1,8 +1,9 @@
 import { ThunkAction } from "redux-thunk";
-import { RooteState } from "../store";
 import { PayloadAction } from "@reduxjs/toolkit";
-import { Data, UpdatedCategories, User, changeCategories } from "../counter/userSlice";
+
+import { RooteState } from "../store";
 import { request } from "@/requests/request";
+import { UpdatedCategories, changeCategories } from "../counter/userSlice";
 
 export const updateCategories = (userCategories: { [key: string]: boolean }): ThunkAction<
   void,
@@ -11,12 +12,12 @@ export const updateCategories = (userCategories: { [key: string]: boolean }): Th
   PayloadAction<UpdatedCategories>
 > => async (dispatch): Promise<void | unknown> => {
   try {
-    const data = await request('change_categories', {userCategories}, 'PUT')
-    
+    const data = await request('change_categories', { userCategories }, 'PUT')
+
     if (data !== null) {
       dispatch(changeCategories(data))
     }
-  } catch(e) {
+  } catch (e) {
     return console.log(e);
   }
 }

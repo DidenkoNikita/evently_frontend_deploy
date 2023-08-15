@@ -1,12 +1,18 @@
-.flexBox {
+.flexBox,
+.darkFlexBox {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 181px;
+  height: 715px;
 }
 
-.title {
-  color: #000;
+.darkFlexBox {
+  background-color: #333333;
+}
+
+.title,
+.darkTitle {
   font-size: 24px;
   font-family: 'Montserrat';
   margin-top: 18px;
@@ -14,8 +20,8 @@
   font-weight: 900;
 }
 
-.question {
-  color: #000;
+.question,
+.darkQuestion {
   font-size: 20px;
   font-family: 'Montserrat';
   font-weight: 600;
@@ -43,7 +49,8 @@
   column-gap: 10px;
 }
 
-.question2 {
+.question2,
+.darkQuestion2 {
   font-size: 16px;
   font-family: Montserrat;
 }
@@ -52,4 +59,15 @@
   color: #BB83FF;
   font-size: 16px;
   font-family: Montserrat;
+}
+
+.title,
+.question {
+  color: #000;
+}
+
+.darkTitle,
+.darkQuestion,
+.darkQuestion2 {
+  color: #FFFFFF;
 }

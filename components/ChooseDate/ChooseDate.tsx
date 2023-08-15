@@ -4,25 +4,28 @@ import i18n from "i18next";
 
 import resources from "@/locales/resource";
 
+import { Footer } from "../Footer/Footer";
+import { DatePicker } from "../Calendar/Calendar";
+import { HeaderFilter } from "../HeaderFilter/HeaderFilter";
+
+import css from './ChooseDate.module.css';
+
 i18n.init({
   resources,
   lng: "en"
 });
 
-import css from './ChooseDate.module.css';
-import { HeaderFilter } from "../HeaderFilter/HeaderFilter";
-import { Footer } from "../Footer/Footer";
-import { DatePicker } from "../Calendar/Calendar";
-import { useSelector } from "react-redux";
-import { State } from "@/store/initialState";
-
 interface Props {
-  setActiveCalendar: any;
-  setStateDate: any;
   theme: boolean;
+  setStateDate: React.Dispatch<React.SetStateAction<string>>;
+  setActiveCalendar: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const ChooseDate = ({ setActiveCalendar, setStateDate, theme}: Props): JSX.Element => {
+export const ChooseDate = ({ 
+  theme,
+  setStateDate, 
+  setActiveCalendar, 
+}: Props): JSX.Element => {
 
   return (
     <div className={theme ? css.darkWrapper : css.wrapper}>
@@ -32,6 +35,7 @@ export const ChooseDate = ({ setActiveCalendar, setStateDate, theme}: Props): JS
         setStateFilter={setActiveCalendar}
       />
       <DatePicker
+        userTheme=""
         color={true}
         openCalendar={true}
         setOpenCalendar={setActiveCalendar}

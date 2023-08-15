@@ -1,24 +1,27 @@
 'use client';
 
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+
 import i18n from "i18next";
+import { useSelector } from "react-redux";
 
+import { store } from "@/store/store";
 import resources from "@/locales/resource";
+import { State } from "@/store/initialState";
+import { User } from "@/store/counter/userSlice";
+import { userGet } from "@/store/actions/getUser";
+import { getPost } from "@/store/actions/getPosts";
+import { getComment } from "@/store/actions/getComments";
 
-import css from './page.module.css';
 import { Header } from "@/components/Header/Header";
 import { Footer } from "@/components/Footer/Footer";
 import { History } from "@/components/History/History";
-import { CalendarOfEventsHome } from "@/components/CalendarOfEventsHome/CalendarOfEventsHome";
-import { useEffect, useState } from "react";
-import { store } from "@/store/store";
-import { getPost } from "@/store/actions/getPosts";
-import { getComment } from "@/store/actions/getComments";
-import { userGet } from "@/store/actions/getUser";
-import { useRouter } from "next/navigation";
-import { PostComponent } from "@/components/PostComponent/PostComponent";
 import { SharePost } from "@/components/SharePost/SharePost";
-import { useSelector } from "react-redux";
-import { State } from "@/store/initialState";
+import { PostComponent } from "@/components/PostComponent/PostComponent";
+import { CalendarOfEventsHome } from "@/components/CalendarOfEventsHome/CalendarOfEventsHome";
+
+import css from './page.module.css';
 
 i18n.init({
   resources,
@@ -34,28 +37,26 @@ export interface Data {
 
 export default function (): JSX.Element {
   const [activeModal, setActiveModal] = useState<boolean>(false);
-  const [postId, setPostId] = useState<number | null>(null);
-
-  useEffect(() => {
-    store.dispatch(getPost())
-    store.dispatch(getComment())
-    store.dispatch(userGet())
+  const [postId, setPostId] = useState<number | null>(null);  
+ 
+  useEffect((): void => {
+    store.dispatch(getPost());
+    store.dispatch(userGet());
+    store.dispatch(getComment());
   }, [])
 
-  const router = useRouter()
+  const router = useRouter();
 
-  useEffect(() => {
+  useEffect((): void => {
     const user_id = sessionStorage.getItem('user_id');
     if (!user_id) {
       router.push('/');
     }
   }, [])
 
-  const user = useSelector((state: State) => state.user);
-  const theme = user?.user?.color_theme;
-  console.log(user);
+  const user: User = useSelector((state: State) => state.user);
+  const theme: boolean = user?.user?.color_theme;
   
-
   return (
     <div className={theme ? css.darkHome : css.home}>
       <Header />

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import css from './Avatar.module.css';
 
 interface User {
@@ -16,22 +17,37 @@ interface UserData {
   theme: boolean;
 }
 
-export const Avatar = ({ user, theme}: UserData): JSX.Element => {  
+export const Avatar = ({ 
+  user, 
+  theme 
+}: UserData): JSX.Element => {
   const [stateAwatar, setStateAwatar] = useState<boolean>(false);
 
   if (!user) {
     return <div />
   }
-  
+
   return (
     <button
       onClick={() => setStateAwatar(!stateAwatar)}
-      className={stateAwatar ? (theme ? css.darkBigAvatarWrapper : css.bigAwatarWrapper) : (theme ? css.darkAvatarWrapper : css.avatarWrapper)}
+      className={
+        stateAwatar ? (
+          theme ? css.darkBigAvatarWrapper : css.bigAwatarWrapper
+        ) : (
+          theme ? css.darkAvatarWrapper : css.avatarWrapper
+        )
+      }
     >
-      <div className={stateAwatar ? css.bigAvatar : (theme ? css.darkAvatar : css.avatar)}>
+      <div
+        className={
+          stateAwatar ? css.bigAvatar : (
+            theme ? css.darkAvatar : css.avatar
+          )
+        }
+      >
         {
           user?.link_avatar === null ? (
-            <div className={stateAwatar ? css.bigAvatarData : css.avatarData}> 
+            <div className={stateAwatar ? css.bigAvatarData : css.avatarData}>
               {user?.name.slice(0, 1)}
             </div>
           ) : (

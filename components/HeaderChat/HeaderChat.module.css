@@ -6,12 +6,8 @@
   height: 119px;
   position: fixed;
   top: -0px;
-}
-
-.headerWrapper {
   background-color: #FFF;
 }
-
 .darkHeaderWrapper {
   background-color: #333333;
 }
@@ -40,9 +36,6 @@
   margin: 0 auto;
   border: none;
   background-color: transparent;
-}
-
-.title {
   color: #000;
 }
 
@@ -97,12 +90,8 @@
   font-family: Montserrat;
   font-size: 20px;
   font-weight: 600;
-}
-
-.avatarData {
   color: #FFFFFF;
 }
-
 .darkAvatarData {
   color: #333333;
 }

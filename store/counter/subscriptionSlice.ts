@@ -17,14 +17,12 @@ export const subscriptionSLice = createSlice({
   reducers: {
     subscriptionGet: (state, action: PayloadAction<Subscription[]>): void | Subscription[] => {
       const { payload } = action;
-
       if (payload.length === 0) {
         state = payload
         return state
       } else {
         payload.forEach((subscriprion: Subscription) => {
           const existingSubscription = state.find((s: Subscription) => s.id === subscriprion.id);
-          
           if (!existingSubscription) {
             state.push(subscriprion);
           } else {
@@ -42,10 +40,8 @@ export const subscriptionSLice = createSlice({
     },
     deleteSubscription: (state, action: PayloadAction<Subscription>): Subscription[] => {
       const { payload } = action;
-      
       state = state.filter((subscriprion: Subscription) => subscriprion.id !== payload.id);
-
-      return state
+      return state;
     },
   }
 });

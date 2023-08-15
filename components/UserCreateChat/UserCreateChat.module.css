@@ -3,12 +3,12 @@
   width: 345px;
   justify-content: space-between;
   align-items: center;
-  gap: 10px; 
+  gap: 10px;
 }
 
 .avatar {
   width: 48px;
-  height: 48px; 
+  height: 48px;
   border-radius: 100px;
   object-fit: cover;
 }
@@ -29,9 +29,6 @@
   font-family: Montserrat;
   font-size: 20px;
   font-weight: 600;
-}
-
-.avatarData {
   color: #FFFFFF;
 }
 
@@ -69,7 +66,7 @@
   width: 48px;
   height: 48px;
   justify-content: center;
-  align-items: center; 
+  align-items: center;
   border: none;
   border-radius: 10px;
   background-color: transparent;
@@ -80,7 +77,7 @@
   width: 48px;
   height: 48px;
   justify-content: center;
-  align-items: center; 
+  align-items: center;
   border: none;
   border-radius: 10px;
   background-color: #DFC5FF;
@@ -89,11 +86,8 @@
 .line,
 .darkLine {
   width: 305px;
-  height: 1px; 
+  height: 1px;
   margin: 5px auto;
-}
-
-.line {
   background-color: #F6F6F6;
 }
 

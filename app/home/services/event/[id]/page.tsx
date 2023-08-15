@@ -1,19 +1,23 @@
 'use client';
 
-import { eventsGet } from "@/store/actions/eventsGet";
-import { State } from "@/store/initialState";
-import { store } from "@/store/store";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import css from './page.module.css';
 
 import i18n from "i18next";
+import { useSelector } from "react-redux";
 
+import { store } from "@/store/store";
 import resources from "@/locales/resource";
-import { HeaderBrand } from "@/components/HeaderBrand/HeaderBrand";
-import EventPage from "@/components/EventPage/EventPage";
-import { Footer } from "@/components/Footer/Footer";
+import { State } from "@/store/initialState";
+import { User } from "@/store/counter/userSlice";
 import { userGet } from "@/store/actions/getUser";
+import { Event } from "@/store/counter/eventSlice";
+import { eventsGet } from "@/store/actions/eventsGet";
+
+import { Footer } from "@/components/Footer/Footer";
+import EventPage from "@/components/EventPage/EventPage";
+import { HeaderBrand } from "@/components/HeaderBrand/HeaderBrand";
+
+import css from './page.module.css';
 
 i18n.init({
   resources,
@@ -23,19 +27,19 @@ i18n.init({
 export default function Event(): JSX.Element {
   const [eventId, setEventId] = useState<string>('');
 
-  useEffect(() => {
-    setEventId(location.pathname);
-    store.dispatch(eventsGet());
+  useEffect((): void => {
     store.dispatch(userGet());
+    store.dispatch(eventsGet());
+    setEventId(location.pathname);
   }, [])
   
-  const id = Number(eventId.slice(21));
+  const id: number = Number(eventId.slice(21));
 
-  const events = useSelector((state: State) => state.event);
-  const findEvent = events.find((event) => event.id === id);
+  const events: Event[] = useSelector((state: State) => state.event);
+  const findEvent: Event | undefined = events.find((event) => event.id === id);
   
-  const user = useSelector((state: State) => state.user);
-  const theme = user?.user?.color_theme;
+  const user: User = useSelector((state: State) => state.user);
+  const theme: boolean = user?.user?.color_theme;
 
   return (
     <div className={css.wrapper}>

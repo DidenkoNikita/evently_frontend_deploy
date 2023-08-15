@@ -1,6 +1,6 @@
 import { Props } from "./interface";
 
-export const AddFriend = ({color}: Props): JSX.Element => {
+export const AddFriend = ({ color }: Props): JSX.Element => {
   return (
     <div
       style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}

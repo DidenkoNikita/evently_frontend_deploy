@@ -1,14 +1,15 @@
 'use client';
 
-import i18n from "i18next";
-import resources from "@/locales/resource";
-import { useRouter } from "next/navigation";
+import Image from "next/image";
 
+import i18n from "i18next";
+
+import resources from "@/locales/resource";
 import pageNotFound from '../public/pageNotFound.png';
 
-import css from './404.module.css';
-import Image from "next/image";
 import { ButtonGoToMainPage } from "@/components/ButtonGoToMainPage/ButtonGoToMainPage";
+
+import css from './404.module.css';
 
 i18n.init({
   resources,
@@ -16,15 +17,18 @@ i18n.init({
 });
 
 export default function Custom404(): JSX.Element {
-  const router = useRouter();
-  
+
   return (
     <div className={css.wrapper}>
       <div className={css.titleWrapper}>
-        <div className={css.title}>{i18n.t('sorry')}</div>
-        <div className={css.title}>{i18n.t('page_not_found')}</div>
+        <div className={css.title}>
+          {i18n.t('sorry')}
+        </div>
+        <div className={css.title}>
+          {i18n.t('page_not_found')}
+        </div>
       </div>
-      <Image 
+      <Image
         src={pageNotFound}
         alt="Page not found"
         width={363}

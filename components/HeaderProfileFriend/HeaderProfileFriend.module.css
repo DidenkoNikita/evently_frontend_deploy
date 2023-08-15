@@ -6,9 +6,6 @@
   height: 119px;
   position: fixed;
   top: -10px;
-}
-
-.headerWrapper {
   background-color: #FFF;
 }
 
@@ -52,11 +49,8 @@
   border: none;
   border-radius: 10px;
   margin-left: 28px;
-}
-
-.iconButton {
   background-color: white;
-} 
+}
 
 .darkIconButton {
   background-color: #333333;

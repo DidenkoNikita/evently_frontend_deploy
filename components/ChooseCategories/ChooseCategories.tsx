@@ -1,17 +1,16 @@
 'use client';
 
+import { useState } from "react";
+
 import i18n from "i18next";
 
 import resources from "@/locales/resource";
+
 import { Footer } from "@/components/Footer/Footer";
+import { Change } from "@/components/Change/Change";
+import { HeaderFilter } from "../HeaderFilter/HeaderFilter";
 
 import css from './ChooseCategories.module.css'
-import { useState } from "react";
-import { Change } from "@/components/Change/Change";
-import { useRouter } from "next/navigation";
-import { HeaderFilter } from "../HeaderFilter/HeaderFilter";
-import { useSelector } from "react-redux";
-import { State } from "@/store/initialState";
 
 i18n.init({
   resources,
@@ -19,18 +18,23 @@ i18n.init({
 });
 
 interface Props {
-  userCategories: { [key: string]: boolean };
-  setUserCategories: any;
-  activeCategories: boolean;
-  setActiveCategories: any;
-  setFilterCategory: any;
   theme: boolean;
+  activeCategories: boolean;
+  userCategories: { [key: string]: boolean };
+  setFilterCategory: React.Dispatch<React.SetStateAction<any>>;
+  setUserCategories: React.Dispatch<React.SetStateAction<any>>;
+  setActiveCategories: React.Dispatch<React.SetStateAction<any>>;
 }
 
-export const ChooseCategories = ({userCategories, setUserCategories, activeCategories, setActiveCategories, setFilterCategory, theme}: Props): JSX.Element => {
+export const ChooseCategories = ({ 
+  theme,
+  userCategories, 
+  activeCategories, 
+  setUserCategories, 
+  setFilterCategory, 
+  setActiveCategories, 
+}: Props): JSX.Element => {
   const [activeButtons, setActiveButtons] = useState<string[]>([]);
-
-  const router = useRouter();
 
   const categories: string[] = [
     i18n.t('restaurants'),
@@ -53,15 +57,15 @@ export const ChooseCategories = ({userCategories, setUserCategories, activeCateg
   return (
     <div className={theme ? css.darkWrapper : css.wrapper}>
       <HeaderFilter
-        title={i18n.t('categories')}
         filterBrands={[]}
+        title={i18n.t('categories')}
         setStateFilter={setActiveCategories}
       />
       <Change
-        words={categories}
         header=""
-        theme={theme}
         color={true}
+        theme={theme}
+        words={categories}
         user={userCategories}
         setUser={setUserCategories}
         activeButtons={activeButtons}

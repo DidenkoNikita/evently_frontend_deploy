@@ -1,23 +1,26 @@
 'use client';
 
-import i18n from "i18next";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
+import i18n from "i18next";
+import { useSelector } from "react-redux";
+
+import { store } from "@/store/store";
 import resources from "@/locales/resource";
+import { State } from "@/store/initialState";
+import { User } from "@/store/counter/userSlice";
+import { userGet } from "@/store/actions/getUser";
+import { Subscription } from "@/store/counter/subscriptionSlice";
 
 import { City } from '../icons/city.icon';
-import css from './UserData.module.css';
-import { Subscriptions } from "../icons/subscriptions.icon";
-import { RightIcon } from "../icons/rightIcon.icon";
 import { Friends } from "../icons/friends.icon";
-import { PurpleHeart } from "../icons/purpleHeart.icon";
-import { User } from "@/store/counter/userSlice";
-import { useEffect, useState } from "react";
-import { store } from "@/store/store";
-import { userGet } from "@/store/actions/getUser";
-import { useRouter } from "next/navigation";
+import { RightIcon } from "../icons/rightIcon.icon";
 import { LoadingComponent } from "../Loading/Loading";
-import { useSelector } from "react-redux";
-import { State } from "@/store/initialState";
+import { PurpleHeart } from "../icons/purpleHeart.icon";
+import { Subscriptions } from "../icons/subscriptions.icon";
+
+import css from './UserData.module.css';
 
 i18n.init({
   resources,
@@ -26,23 +29,25 @@ i18n.init({
 
 interface UserData {
   userData: User;
-  theme: boolean
+  theme: boolean;
 }
 
-export const UserData = ({ userData, theme}: UserData): JSX.Element => {
-
+export const UserData = ({
+  theme,
+  userData
+}: UserData): JSX.Element => {
   const [id, setId] = useState<number | null>(null);
 
-  useEffect(() => {
+  useEffect((): void => {
     store.dispatch(userGet());
     const userId = JSON.parse(sessionStorage.getItem('user_id') || '');
     setId(Number(userId));
   }, []);
 
-  const subscriptions = useSelector((state: State) => state.subscription);
+  const subscriptions: Subscription[] = useSelector((state: State) => state.subscription);
 
   const router = useRouter();
-  
+
   const categories: string[] = [
     i18n.t('restaurants'),
     i18n.t('trade_fairs'),
@@ -78,11 +83,11 @@ export const UserData = ({ userData, theme}: UserData): JSX.Element => {
   if (!userData || !userData?.userCategories || !userData?.userMood) {
     return <LoadingComponent />;
   }
-  
+
   return (
     <div className={theme ? css.darkWrapper : css.wrapper}>
-      <div 
-        className={css.swiper} 
+      <div
+        className={css.swiper}
       />
       <div className={css.dataWrapper}>
         <div className={theme ? css.darkName : css.name}>
@@ -102,7 +107,7 @@ export const UserData = ({ userData, theme}: UserData): JSX.Element => {
                 const word = category.replace(/\s/g, '_').toLowerCase()
                 if (userData.userCategories[word as keyof typeof userData.userCategories] === true) {
                   return (
-                    <div 
+                    <div
                       key={key}
                       className={css.card}
                     >
@@ -130,7 +135,7 @@ export const UserData = ({ userData, theme}: UserData): JSX.Element => {
                   }
                   if (userData.userMood[word] === true) {
                     return (
-                      <div 
+                      <div
                         key={key}
                         className={css.card}
                       >
@@ -147,7 +152,7 @@ export const UserData = ({ userData, theme}: UserData): JSX.Element => {
                   }
                   if (userData.userMood[word as keyof typeof userData.userMood] === true) {
                     return (
-                      <div 
+                      <div
                         key={key}
                         className={css.card}
                       >
@@ -171,7 +176,7 @@ export const UserData = ({ userData, theme}: UserData): JSX.Element => {
           </div>
           <div className={css.quantityWrapper}>
             <div className={css.quantity}>{subscriptions.length}</div>
-            <button 
+            <button
               className={css.button}
               onClick={() => {
                 router.push('/home/profile/subscriptions')
@@ -190,7 +195,7 @@ export const UserData = ({ userData, theme}: UserData): JSX.Element => {
           </div>
           <div className={css.quantityWrapper}>
             <div className={css.quantity}>{userData.user.friends_id.length}</div>
-            <button 
+            <button
               className={css.button}
               onClick={() => router.push(`/home/profile/friends/${id}`)}
             >

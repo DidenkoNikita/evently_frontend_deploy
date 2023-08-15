@@ -1,21 +1,23 @@
 'use client';
 
-import { HeaderCategoriesOrMood } from "@/components/HeaderCategoriesOrMood/HeaderCategoriesOrMood";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 import i18n from "i18next";
-
-import resources from "@/locales/resource";
-import { Footer } from "@/components/Footer/Footer";
-
-import css from './page.module.css'
-import { useEffect, useState } from "react";
-import { Change } from "@/components/Change/Change";
-import { store } from "@/store/store";
-import { updateCategories } from "@/store/actions/updateCategories";
-import { useRouter } from "next/navigation";
-import { userGet } from "@/store/actions/getUser";
 import { useSelector } from "react-redux";
+
+import { store } from "@/store/store";
+import resources from "@/locales/resource";
 import { State } from "@/store/initialState";
+import { User } from "@/store/counter/userSlice";
+import { userGet } from "@/store/actions/getUser";
+import { updateCategories } from "@/store/actions/updateCategories";
+
+import { Footer } from "@/components/Footer/Footer";
+import { Change } from "@/components/Change/Change";
+import { HeaderCategoriesOrMood } from "@/components/HeaderCategoriesOrMood/HeaderCategoriesOrMood";
+
+import css from './page.module.css';
 
 i18n.init({
   resources,
@@ -23,15 +25,15 @@ i18n.init({
 });
 
 export default function changeCategories(): JSX.Element {
-  const [userCategories, setUserCategories] = useState<{ [key: string]: boolean }>({});
   const [activeButtons, setActiveButtons] = useState<string[]>([]);
+  const [userCategories, setUserCategories] = useState<{ [key: string]: boolean }>({});
 
-  useEffect(() => {
+  useEffect((): void => {
     store.dispatch(userGet());
   }, [])
 
-  const user = useSelector((state: State) => state.user);
-  const theme = user?.user?.color_theme;
+  const user: User = useSelector((state: State) => state.user);
+  const theme: boolean = user?.user?.color_theme;
 
   const router = useRouter();
 
@@ -55,14 +57,14 @@ export default function changeCategories(): JSX.Element {
 
   return (
     <div className={theme ? css.darkWrapper : css.wrapper}>
-      <HeaderCategoriesOrMood 
+      <HeaderCategoriesOrMood
         theme={theme}
-        title={i18n.t('change_categories')} 
+        title={i18n.t('change_categories')}
       />
-      <Change 
+      <Change
         theme={theme}
         words={categories}
-        header=""  
+        header=""
         color={false}
         user={userCategories}
         setUser={setUserCategories}
@@ -74,9 +76,9 @@ export default function changeCategories(): JSX.Element {
         Object.keys(userCategories).length === 0 ? (
           <button className={css.button}>
             {i18n.t('save')}
-          </button>  
+          </button>
         ) : (
-          <button 
+          <button
             onClick={() => {
               store.dispatch(updateCategories(userCategories));
               router.push('/home/profile/profile_settings');
@@ -89,5 +91,5 @@ export default function changeCategories(): JSX.Element {
       }
       <Footer />
     </div>
-  );
+  )
 }

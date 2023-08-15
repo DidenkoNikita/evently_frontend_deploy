@@ -5,9 +5,14 @@
   margin-top: -15px;
 }
 
-.or {
+.or,
+.darkOr {
   font-size: 16px;
   font-family: Montserrat;
   margin-top: 80px;
   margin-bottom: 20px;
+}
+
+.darkOr {
+  color: #FFFFFF;
 }

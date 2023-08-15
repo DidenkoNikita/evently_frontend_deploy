@@ -1,28 +1,31 @@
 'use client';
 
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
-
-import css from './page.module.css';
-import { useSelector } from "react-redux";
-import { State } from "@/store/initialState";
-import { store } from "@/store/store";
-import { getUserList } from "@/store/actions/getUserList";
-import { HeaderChat } from "@/components/HeaderChat/HeaderChat";
-import { FooterChat } from "@/components/FooterChat/FooterChat";
+import React, { useEffect, useRef, useState } from "react";
 
 import i18n from "i18next";
-
-import resources from "@/locales/resource";
-import { Message } from "@/components/Message/Message";
-import { getChatId } from "@/requests/getChatId";
-import { socket } from "@/utils/socket";
-import { getMessages } from "@/store/actions/getMessages";
-import { IMessage, markMessageAsRead } from "@/store/counter/messageSlice";
-import { getChats } from "@/store/actions/getChats";
 import moment from "moment";
-import { messageIsRead } from "@/store/actions/messageIsRead";
-import { MessagePost } from "@/components/MessagePost/MessagePost";
+
+import { store } from "@/store/store";
+import { socket } from "@/utils/socket";
+import { useSelector } from "react-redux";
+import resources from "@/locales/resource";
+import { State } from "@/store/initialState";
+import { getChatId } from "@/requests/getChatId";
+import { User } from "@/store/counter/userSlice";
 import { userGet } from "@/store/actions/getUser";
+import { getChats } from "@/store/actions/getChats";
+import { getMessages } from "@/store/actions/getMessages";
+import { getUserList } from "@/store/actions/getUserList";
+import { UsersList } from "@/store/counter/usersListSlice";
+import { messageIsRead } from "@/store/actions/messageIsRead";
+import { IMessage, markMessageAsRead } from "@/store/counter/messageSlice";
+
+import { Message } from "@/components/Message/Message";
+import { HeaderChat } from "@/components/HeaderChat/HeaderChat";
+import { FooterChat } from "@/components/FooterChat/FooterChat";
+import { MessagePost } from "@/components/MessagePost/MessagePost";
+
+import css from './page.module.css';
 
 i18n.init({
   resources,
@@ -30,99 +33,86 @@ i18n.init({
 });
 
 export default function ChatPage() {
+  const [height, setHeight] = useState<number>(0);
   const [userId, setUserId] = useState<string>('');
   const [idUser, setIdUser] = useState<number | null>(null);
-
   const [chatId, setChatId] = useState<number | null>(null);
 
-  const [height, setHeight] = useState<number>(0);
-
   useEffect(() => {
+    store.dispatch(userGet());
     setUserId(location.pathname);
     store.dispatch(getUserList());
-    store.dispatch(userGet());
   }, []);
 
   const wrapperRef = useRef<HTMLDivElement>(null);
 
-  const scrollToLastMessage = () => {
+  const scrollToLastMessage = (): void => {
     if (wrapperRef.current && wrapperRef.current.lastElementChild) {
       wrapperRef.current.lastElementChild.scrollIntoView({ behavior: "smooth" });
     }
   };
 
-  useEffect(() => {
+  useEffect((): void => {
     const userId = JSON.parse(sessionStorage.getItem('user_id') || '');
     setIdUser(Number(userId))
   }, [])
 
   const id: number = Number(userId.slice(22));
 
-  useEffect(() => {
+  useEffect((): void => {
     getChatId({ user2Id: id }, setChatId);
   }, [id, chatId])
 
-  useEffect(() => {
+  useEffect((): void => {
     if (chatId !== null) {
       socket.emit('getChats', idUser);
       socket.on('chatData', (data) => {
         store.dispatch(getChats(data));
-      });
+      })
 
       socket.emit('getMessageList', chatId);
       socket.on('messageList', (data) => {
-        console.log('получен список сообщений');
-
         store.dispatch(getMessages(data))
-      });
-      socket.on('createMessage', (message) => {
-        console.log('сообщение создано', message);
+      })
 
+      socket.on('createMessage', (message) => {
         store.dispatch(getMessages([message]))
-      });
+      })
 
       socket.on('messageIsRead', (message) => {
-        console.log('сообщение прочитано');
-
         store.dispatch(markMessageAsRead(message))
       })
 
       socket.on('updateChat', (chat) => {
-        console.log('чато обновлён');
-
         store.dispatch(getChats(chat))
       })
     }
   }, [chatId])
 
-  const usersList = useSelector((state: State) => state.usersList);
+  const usersList: UsersList[] = useSelector((state: State) => state.usersList);
+  const userData: UsersList | null = usersList.find((user) => user.id === id) || null;
 
-  const userData = usersList.find((user) => user.id === id) || null;
+  const messages: IMessage[] = useSelector((state: State) => state.messages);
+  const filterMessage: IMessage[] = messages.filter((message) => message.chat_id === chatId);
 
-  const messages = useSelector((state: State) => state.messages);
-  console.log(messages);
-
-
-  const filterMessage = messages.filter((message) => message.chat_id === chatId);
-
-  useEffect(() => {
+  useEffect((): void => {
     if (wrapperRef.current) {
       const containerHeight = wrapperRef.current.clientHeight;
       setHeight(containerHeight);
     }
-  }, []);
+  }, [])
 
-  useEffect(() => {
+  useEffect((): void => {
     scrollToLastMessage();
-  }, [messages]);
+  }, [messages])
 
 
-  const isDifferentDate = (currentDate: moment.Moment, previousDate: moment.Moment) => {
+  const isDifferentDate = (currentDate: moment.Moment, previousDate: moment.Moment): boolean => {
     return !currentDate.isSame(previousDate, "day");
-  };
+  }
 
-  const user = useSelector((state: State) => state.user);
-  const theme = user?.user?.color_theme;
+  const user: User = useSelector((state: State) => state.user);
+  const theme: boolean = user?.user?.color_theme;
 
   return (
     <div className={theme ? css.darkChatWrapper : css.chatWrapper}>
@@ -135,7 +125,6 @@ export default function ChatPage() {
       />
       <div
         className={height < 660 ? css.wrapperHowSomeMessages : css.wrapper}
-        // className={css.wrapper}
         ref={wrapperRef}
       >
         {
@@ -145,9 +134,9 @@ export default function ChatPage() {
             </div>
           ) : (
             filterMessage.map((message: IMessage, index: number) => {
-              const currentDate = moment(message.created_at);
-              const previousDate = index > 0 ? moment(messages[index - 1].created_at) : null;
-              const isPreviousMessageDifferentUser = (index: number) => {
+              const currentDate: moment.Moment = moment(message.created_at);
+              const previousDate: moment.Moment | null = index > 0 ? moment(messages[index - 1].created_at) : null;
+              const isPreviousMessageDifferentUser = (index: number): boolean => {
                 if (index === 0) return false;
                 return filterMessage[index].user_id !== filterMessage[index - 1].user_id;
               };

@@ -4,12 +4,12 @@ import i18n from "i18next";
 
 import resources from "@/locales/resource";
 
+import { ConfidentialityComponent } from "@/components/ConfidentialityComponent/ConfidentialityComponent";
+
 i18n.init({
   resources,
   lng: "en"
 });
-
-import { ConfidentialityComponent } from "@/components/ConfidentialityComponent/ConfidentialityComponent";
 
 export default function ConfidentialityMessages(): JSX.Element {
   return (

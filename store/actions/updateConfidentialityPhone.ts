@@ -1,8 +1,9 @@
 import { ThunkAction } from "redux-thunk";
-import { RooteState } from "../store";
 import { PayloadAction } from "@reduxjs/toolkit";
-import { UpdatePhoneConfidentiality, updatePhoneConfidetiality } from "../counter/userSlice";
+
+import { RooteState } from "../store";
 import { request } from "@/requests/request";
+import { UpdatePhoneConfidentiality, updatePhoneConfidetiality } from "../counter/userSlice";
 
 export const updateConfidentialityPhone = (type: string): ThunkAction<
   void,

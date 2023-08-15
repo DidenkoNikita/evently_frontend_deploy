@@ -1,46 +1,47 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { ChatsIcon } from '../icons/chats.icon'
-import { Phone } from '../icons/phone.icon'
-import css from './UserCreateChat.module.css'
-import { store } from '@/store/store';
-import { createChat } from '@/store/actions/createChat';
-import { useSelector } from 'react-redux';
-import { State } from '@/store/initialState';
-import { UsersList } from '@/store/counter/usersListSlice';
 import { useEffect, useState } from 'react';
+
+import { useSelector } from 'react-redux';
+
+import { store } from '@/store/store';
+import { State } from '@/store/initialState';
+import { IChat } from '@/store/counter/chatSLice';
+import { createChat } from '@/store/actions/createChat';
+import { UsersList } from '@/store/counter/usersListSlice';
+
+import { Phone } from '../icons/phone.icon';
+import { ChatsIcon } from '../icons/chats.icon';
+
+import css from './UserCreateChat.module.css';
 
 interface User {
   user: UsersList;
   theme: boolean;
 }
 
-export const UserCreateChat = ({ user, theme }: User): JSX.Element => {
+export const UserCreateChat = ({
+  user,
+  theme
+}: User): JSX.Element => {
   const [userId, setUserId] = useState<number | null>(null);
 
-  console.log(userId);
-  
   const router = useRouter();
 
-  useEffect(() => {
+  useEffect((): void => {
     const user_id = JSON.parse(sessionStorage.getItem('user_id') || '');
     setUserId(Number(user_id));
   }, [])
 
-  const chats = useSelector((state: State) => state.chats);
-  console.log(chats);
+  const chats: IChat[] = useSelector((state: State) => state.chats);
 
-  const filteredChat = chats.find((chat) => chat.users_id.includes(user.id));
-  console.log('check chat', filteredChat);
-
-  console.log(user.messageConfidentiality.my_friends , user.friends_id.find((id) => id === userId));
-  
+  const filteredChat: IChat | undefined = chats.find((chat) => chat.users_id.includes(user.id));
 
   return (
     <div>
       <div className={css.chat}>
-        <button  
+        <button
           className={css.dataWrapper}
           onClick={() => {
             router.push(`/home/profile/friends/profile_friend/${user?.id}`)
@@ -74,9 +75,10 @@ export const UserCreateChat = ({ user, theme }: User): JSX.Element => {
           </button>
           {
             !user.messageConfidentiality.nobody &&
-            (user.messageConfidentiality.my_friends && user.friends_id.find((id) => id === userId)) || 
-            user.messageConfidentiality.all ? (
+              (user.messageConfidentiality.my_friends && user.friends_id.find((id) => id === userId)) ||
+              user.messageConfidentiality.all ? (
               <button
+                className={css.chatButton}
                 onClick={() => {
                   if (filteredChat) {
                     router.push(`/chats/chat_with_user/${user.id}`);
@@ -85,7 +87,6 @@ export const UserCreateChat = ({ user, theme }: User): JSX.Element => {
                     router.push(`/chats/chat_with_user/${user.id}`)
                   }
                 }}
-                className={css.chatButton}
               >
                 <ChatsIcon color='#000000' />
               </button>

@@ -23,8 +23,7 @@ export const brandSLice = createSlice({
   reducers: {
     getBrand: (state, action: PayloadAction<Brand[]>): Brand[] => {
       const {payload} = action;
-      
-      return state = payload
+      return state = payload;
     },
   }
 });

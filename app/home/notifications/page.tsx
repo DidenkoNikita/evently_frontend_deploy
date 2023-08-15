@@ -1,42 +1,49 @@
 'use client';
 
-import { HeaderProfileFriend } from "@/components/HeaderProfileFriend/HeaderProfileFriend";
+import { useEffect, useState } from "react";
 
 import i18n from "i18next";
+import { useSelector } from "react-redux";
 
+import { store } from "@/store/store";
 import resources from "@/locales/resource";
-import { Acquaintance } from "@/components/icons/acquaintance.icon";
+import { State } from "@/store/initialState";
+import { User } from "@/store/counter/userSlice";
+import { userGet } from "@/store/actions/getUser";
+import { notificationsGet } from "@/store/actions/notificationsGet";
+
+import { Footer } from "@/components/Footer/Footer";
 import { AddFriend } from "@/components/icons/addFirend.icon";
+import { Acquaintance } from "@/components/icons/acquaintance.icon";
 import { Notification } from "@/components/icons/notification.icon";
+import { HeaderProfileFriend } from "@/components/HeaderProfileFriend/HeaderProfileFriend";
+import { RequestForFriendship } from "@/components/RequestForFriendship/RequestForFriendship";
 
 import css from './page.module.css';
-import { useEffect, useState } from "react";
-import { RequestForFriendship } from "@/components/RequestForFriendship/RequestForFriendship";
-import { Footer } from "@/components/Footer/Footer";
-import { notificationsGet } from "@/store/actions/notificationsGet";
-import { store } from "@/store/store";
-import { useSelector } from "react-redux";
-import { State } from "@/store/initialState";
-import { userGet } from "@/store/actions/getUser";
 
 i18n.init({
   resources,
   lng: "en"
 });
 
+interface ArrButtons {
+  title: string;
+  icon: JSX.Element;
+}
+
 export default function NotificationsPage(): JSX.Element {
   const [activeButtonIndex, setActiveButtonIndex] = useState<number>(2);
 
-  useEffect(() => {
-    store.dispatch(notificationsGet());
+  useEffect((): void => {
     store.dispatch(userGet());
+    store.dispatch(notificationsGet());
   }, [])
 
   const notifications = useSelector((state: State) => state.notifications);
-  const user = useSelector((state: State) => state.user);
-  const theme = user?.user?.color_theme;
+  const user: User = useSelector((state: State) => state.user);
+  const theme: boolean = user?.user?.color_theme;
 
-  const arrButtons = [
+  const arrButtons: ArrButtons[] = [
     {
       title: i18n.t('general'),
       icon: <Notification color={activeButtonIndex === 0 ? '#000000' : (theme ? '#FFFFFF' : '#000000')} />
@@ -60,22 +67,34 @@ export default function NotificationsPage(): JSX.Element {
       <div className={css.wrapper}>
         <div className={css.buttonWrapper}>
           {
-            arrButtons.map((button, index) => {
-              return (
-                <button
-                  key={index}
-                  className={activeButtonIndex === index ? css.activeIconButton : (theme ? css.darkIconButton : css.iconButton)}
-                  onClick={() => setActiveButtonIndex(index)}
+            arrButtons.map((button, index) => (
+              <button
+                key={index}
+                className={
+                  activeButtonIndex === index ?
+                    css.activeIconButton : (
+                      theme ? css.darkIconButton : css.iconButton
+                    )
+                }
+                onClick={() => {
+                  setActiveButtonIndex(index);
+                }}
+              >
+                <div className={css.icon}>
+                  {button.icon}
+                </div>
+                <div
+                  className={
+                    activeButtonIndex === index ?
+                      css.titleButton : (
+                        theme ? css.darkTitleButton : css.titleButton
+                      )
+                  }
                 >
-                  <div className={css.icon}>
-                    {button.icon}
-                  </div>
-                  <div className={activeButtonIndex === index ? css.titleButton : (theme ? css.darkTitleButton : css.titleButton)}>
-                    {button.title}
-                  </div>
-                </button>
-              )
-            })
+                  {button.title}
+                </div>
+              </button>
+            ))
           }
         </div>
         <div>
@@ -85,10 +104,10 @@ export default function NotificationsPage(): JSX.Element {
                 {`${notifications.length}${i18n.t('new_frind_requests')}`}
               </div>
               {notifications.map((notification, index) => (
-                <RequestForFriendship 
-                  key={index} 
+                <RequestForFriendship
+                  key={index}
                   theme={theme}
-                  notification={notification} 
+                  notification={notification}
                 />
               ))}
             </div>

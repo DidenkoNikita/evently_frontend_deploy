@@ -10,9 +10,6 @@
   margin: 0 auto;
   overflow-y: auto;
   padding-top: 10px;
-}
-
-.commentsWrapper {
   background: repeat url("../../public/backgroundComments.png");
 }
 
@@ -24,16 +21,12 @@
 .darkComment {
   display: flex;
   width: 345px;
-  /* height: 143px; */
   padding: 10px;
   flex-direction: column;
   margin: 0 auto;
   gap: 10px;
   border-radius: 20px;
   align-items: center;
-}
-
-.comment {
   background-color: #FDFFFD;
 }
 
@@ -71,9 +64,6 @@
   font-family: Montserrat;
   font-size: 20px;
   font-weight: 600;
-}
-
-.avatarData {
   color: #FFFFFF;
 }
 
@@ -128,7 +118,6 @@
 .darkText {
   display: flex;
   flex-direction: column;
-  /* min-height: 30px; */
   justify-content: flex-start;
   align-self: stretch;
   font-family: Montserrat;
@@ -155,9 +144,6 @@
   font-size: 14px;
   font-weight: 400;
   margin-left: auto;
-}
-
-.button {
   background-color: #FDFFFD;
 }
 

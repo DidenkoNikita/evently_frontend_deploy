@@ -2,7 +2,8 @@
 const nextConfig = {
   env: {
     API_URL: 'http://localhost:3000/',
-    // CONNECT: 'ws://localhost:3000/chat'
+    CITY_URL: 'http://api.geonames.org/searchJSON?country=RU&lang=en&username=nikita_didenko',
+    CONNECT: 'ws://localhost:3000/chat'
   },
 }
 

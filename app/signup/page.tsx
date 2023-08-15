@@ -1,24 +1,22 @@
-'use client'
+'use client';
 
-import { Back } from "@/components/icons/back.icon";
-
-import eyes from '../../public/Eyes.gif'
-
-import css from "./page.module.css";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { useState } from "react";
-import { CustomStepper } from "@/components/CustomStepper/CustomStepper";
-import { ButtonNext } from "@/components/ButtonNext/ButtonNext";
-import { EnterPhoneNumber } from "@/components/EnterPhoneNumber/EnterPhoneNumber";
-import { WrapperButtons } from "@/components/WrapperButtons/WrapperButtons";
-import { ProfileDetails } from "@/components/ProfileDetails/ProfileDetails";
-import { CreatePassword } from "@/components/CreatePassword/CreatePassword";
-import { Choose } from "@/components/Choose/Choose";
-import { ButtonNextRequest } from "@/components/ButtonNextRequest/ButtonNextRequest";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+
 import i18n from "i18next";
 
+import eyes from '../../public/Eyes.gif';
 import resources from "@/locales/resource";
+
+import { Back } from "@/components/icons/back.icon";
+import { Choose } from "@/components/Choose/Choose";
+import { CustomStepper } from "@/components/CustomStepper/CustomStepper";
+import { ProfileDetails } from "@/components/ProfileDetails/ProfileDetails";
+import { CreatePassword } from "@/components/CreatePassword/CreatePassword";
+import { EnterPhoneNumber } from "@/components/EnterPhoneNumber/EnterPhoneNumber";
+
+import css from "./page.module.css";
 
 i18n.init({
   resources,
@@ -33,75 +31,82 @@ export interface User {
     gender: string;
     password: string;
     city: string;
+    color_theme: boolean;
   },
   user_categories: {
-    restaurants?: string; 
+    restaurants?: string;
     trade_fairs?: string;
-    lectures?: string;   
-    cafe?: string;       
-    bars?: string;       
-    sport?: string;      
-    dancing?: string;    
-    games?: string;      
-    quests?: string;     
-    concerts?: string;   
-    parties?: string;    
-    show?: string;       
-    for_free?: string;   
-    cinema?: string;     
-    theaters?: string;   
-  }, 
+    lectures?: string;
+    cafe?: string;
+    bars?: string;
+    sport?: string;
+    dancing?: string;
+    games?: string;
+    quests?: string;
+    concerts?: string;
+    parties?: string;
+    show?: string;
+    for_free?: string;
+    cinema?: string;
+    theaters?: string;
+  },
   user_mood: {
-    funny?: string;       
-    sad?: string;         
-    gambling?: string;    
-    romantic?: string;    
-    energetic?: string;   
-    festive?: string;     
-    calm?: string;        
-    friendly?: string;    
-    cognitive?: string;   
-    dreamy?: string;      
-    do_not_know?: string; 
+    funny?: string;
+    sad?: string;
+    gambling?: string;
+    romantic?: string;
+    energetic?: string;
+    festive?: string;
+    calm?: string;
+    friendly?: string;
+    cognitive?: string;
+    dreamy?: string;
+    do_not_know?: string;
   }
 }
 
-
 export default function Signup(): JSX.Element {
+  const [click, setClick] = useState<boolean>(false);
+  const [userCity, setUserCity] = useState<string>('');
+  const [stateDate, setStateDate] = useState<string>('');
+  const [stateName, setStateName] = useState<string>('');
+  const [activeStep, setActiveStep] = useState<number>(1);
+  const [stateGender, setStateGender] = useState<string>('');
+  const [userTheme, setUserTheme] = useState<string>('light');
+  const [statePassword, setStatePassword] = useState<string>('');
+  const [openCalendar, setOpenCalendar] = useState<boolean>(false);
+  const [activeButtons, setActiveButtons] = useState<string[]>([]);
+  const [stateInputPhone, setStateInputPhone] = useState<string>('');
+  const [activeButtonsCity, setActiveButtonsCity] = useState<string[]>([]);
+  const [userMood, setUserMood] = useState<{ [key: string]: boolean }>({});
+  const [userCategories, setUserCategories] = useState<{ [key: string]: boolean }>({});
+  const [stateVerificationPassword, setStateVerificationPassword] = useState<string>('');
+
+  useEffect(() => {
+    const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleDarkModeChange = (e: MediaQueryListEvent) => {
+      setUserTheme(e.matches ? 'dark' : 'light');
+    };
+    darkModeMediaQuery.addListener(handleDarkModeChange);
+    setUserTheme(darkModeMediaQuery.matches ? 'dark' : 'light');
+    return () => darkModeMediaQuery.removeListener(handleDarkModeChange);
+  }, []);
 
   const router = useRouter();
 
-  const [activeStep, setActiveStep] = useState<number>(1);
-  const [stateInputPhone, setStateInputPhone] = useState<string>('');
-  const [stateName, setStateName] = useState<string>('');
-  const [stateDate, setStateDate] = useState<string>('');
-  const [stateGender, setStateGender] = useState<string>('');
-  const [statePassword, setStatePassword] = useState<string>('');
-  const [stateVerificationPassword, setStateVerificationPassword] = useState<string>('');
-  const [openCalendar, setOpenCalendar] = useState<boolean>(false);
-  const [click, setClick] = useState<boolean>(false);  
-
-  const [userCategories, setUserCategories] = useState<{ [key: string]: boolean }>({});
-  const [userMood, setUserMood] = useState<{ [key: string]: boolean }>({});
-
-  const [userCity, setUserCity] = useState<string>('');
-
-  const [activeButtons, setActiveButtons] = useState<string[]>([]);
-
-  const [activeButtonsCity, setActiveButtonsCity] = useState<string[]>([]); 
-  
-  const user = {
+  const user: User = {
     user: {
-      phone: `+${stateInputPhone}`,
+      phone: `${stateInputPhone}`,
       name: stateName,
       date_of_birth: stateDate,
       gender: stateGender,
       password: statePassword,
-      city: userCity
+      city: userCity,
+      color_theme: userTheme === 'dark' ? true : false
     },
     user_categories: {
       ...userCategories
-    }, 
+    },
     user_mood: {
       ...userMood
     }
@@ -161,11 +166,12 @@ export default function Signup(): JSX.Element {
     if (activeStep === 1) {
       return (
         <EnterPhoneNumber
+          userTheme={userTheme}
+          activeStep={activeStep}
+          openCalendar={openCalendar}
+          setActiveStep={setActiveStep}
           stateInputPhone={stateInputPhone}
           setStateInputPhone={setStateInputPhone}
-          activeStep={activeStep}
-          setActiveStep={setActiveStep}
-          openCalendar={openCalendar}
         />
       )
     }
@@ -173,16 +179,17 @@ export default function Signup(): JSX.Element {
     if (activeStep === 2) {
       return (
         <ProfileDetails
+          userTheme={userTheme}
           stateName={stateName}
           stateDate={stateDate}
+          activeStep={activeStep}
           stateGender={stateGender}
           setStateName={setStateName}
           setStateDate={setStateDate}
-          setStateGender={setStateGender}
           openCalendar={openCalendar}
-          setOpenCalendar={setOpenCalendar}
-          activeStep={activeStep}
           setActiveStep={setActiveStep}
+          setStateGender={setStateGender}
+          setOpenCalendar={setOpenCalendar}
         />
       )
     }
@@ -191,9 +198,10 @@ export default function Signup(): JSX.Element {
       return (
         <CreatePassword
           click={click}
-          openCalendar={openCalendar}
-          activeStep={activeStep}
           setClick={setClick}
+          userTheme={userTheme}
+          activeStep={activeStep}
+          openCalendar={openCalendar}
           setActiveStep={setActiveStep}
           statePassword={statePassword}
           setStatePassword={setStatePassword}
@@ -205,36 +213,38 @@ export default function Signup(): JSX.Element {
 
     if (activeStep === 4) {
       return (
-        <Choose 
-          words={categories} 
-          header={headerCategories}
+        <Choose
           user={user}
+          click={click}
+          words={categories}
+          userTheme={userTheme}
+          activeStep={activeStep}
+          header={headerCategories}
           userData={userCategories}
+          openCalendar={openCalendar}
           setUser={setUserCategories}
           activeButtons={activeButtons}
-          setActiveButtons={setActiveButtons}
-          click={click}
-          activeStep={activeStep}
           setActiveStep={setActiveStep}
-          openCalendar={openCalendar}
+          setActiveButtons={setActiveButtons}
         />
       )
     }
 
     if (activeStep === 5) {
       return (
-        <Choose 
-          words={mood} 
-          header={headerMood} 
+        <Choose
           user={user}
-          userData={userMood}
-          setUser={setUserMood}
-          activeButtons={activeButtons}
-          setActiveButtons={setActiveButtons}
+          words={mood}
           click={click}
+          header={headerMood}
+          userData={userMood}
+          userTheme={userTheme}
+          setUser={setUserMood}
           activeStep={activeStep}
-          setActiveStep={setActiveStep}
           openCalendar={openCalendar}
+          activeButtons={activeButtons}
+          setActiveStep={setActiveStep}
+          setActiveButtons={setActiveButtons}
         />
       )
     }
@@ -242,61 +252,70 @@ export default function Signup(): JSX.Element {
     if (activeStep === 6) {
       return (
         <div>
-          <Choose 
-            words={city} 
-            header={headerCity} 
+          <Choose
             user={user}
+            words={city}
+            click={click}
             userData={userCity}
+            header={headerCity}
+            userTheme={userTheme}
             setUser={setUserCity}
+            activeStep={activeStep}
+            openCalendar={openCalendar}
+            setActiveStep={setActiveStep}
             activeButtons={activeButtonsCity}
             setActiveButtons={setActiveButtonsCity}
-            click={click}
-            activeStep={activeStep}
-            setActiveStep={setActiveStep}
-            openCalendar={openCalendar}
           />
         </div>
       )
     }
   }
 
-    return (
-      <div className={css.wrapper}>
-        <div className={css.header}>
-          {openCalendar ? (
-            <button className={css.buttonBack} >
-              <Back />
-            </button>
-          ) : (
-            <>
-              {activeStep === 1 ? (
-                <button className={css.buttonBack} onClick={() => router.back()}>
-                  <Back />
-                </button>
-              ) : (
-                <button
-                  className={css.buttonBack}
-                  onClick={() => setActiveStep(activeStep - 1)}
-                >
-                  <Back />
-                </button>
-              )}
-            </>
-          )}
-          <div className={css.title}>{i18n.t('sign_up')}</div>
-        </div>
-        <div className={css.signupWrapper}>
-          <Image
-            src={eyes}
-            alt='eyes'
-            width='215'
-            height='84'
-          />
-          <CustomStepper activeStep={activeStep} />
-          {
-            registration(activeStep)
-          }
+  return (
+    <div className={userTheme === 'dark' ? css.darkWrapper : css.wrapper}>
+      <div className={userTheme === 'dark' ? css.darkHeader : css.header}>
+        {openCalendar ? (
+          <button className={css.buttonBack} >
+            <Back color={userTheme === 'dark' ? '#FFFFFF' : '#000000'} />
+          </button>
+        ) : (
+          <>
+            {activeStep === 1 ? (
+              <button
+                className={css.buttonBack}
+                onClick={() => router.back()}
+              >
+                <Back color={userTheme === 'dark' ? '#FFFFFF' : '#000000'} />
+              </button>
+            ) : (
+              <button
+                className={css.buttonBack}
+                onClick={() => setActiveStep(activeStep - 1)}
+              >
+                <Back color={userTheme === 'dark' ? '#FFFFFF' : '#000000'} />
+              </button>
+            )}
+          </>
+        )}
+        <div className={userTheme === 'dark' ? css.darkTitle : css.title}>
+          {i18n.t('sign_up')}
         </div>
       </div>
-    )
-  }
+      <div className={css.signupWrapper}>
+        <Image
+          src={eyes}
+          alt='eyes'
+          width='215'
+          height='84'
+        />
+        <CustomStepper
+          userTheme={userTheme}
+          activeStep={activeStep}
+        />
+        {
+          registration(activeStep)
+        }
+      </div>
+    </div>
+  )
+}

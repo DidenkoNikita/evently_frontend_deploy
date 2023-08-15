@@ -1,8 +1,14 @@
-.wrapper {
+.wrapper,
+.darkWrapper {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
+  height: 100vh;
+}
+
+.darkWrapper {
+  background-color: #333333;
 }
 
 .search {

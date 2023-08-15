@@ -1,17 +1,20 @@
 'use client';
 
-import { Comment } from '@/store/counter/commentSlice';
-import { Heart } from '../icons/heart.icon'
-import css from './Comments.module.css'
-import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { store } from '@/store/store';
-import { getComment } from '@/store/actions/getComments';
-import { commentLike } from '@/store/actions/commentLike';
-import { ActiveHeart } from '../icons/activeHeart.icon';
 
 import moment from 'moment';
+import { useSelector } from 'react-redux';
+
+import { store } from '@/store/store';
 import { State } from '@/store/initialState';
+import { ActiveHeart } from '../icons/activeHeart.icon';
+import { getComment } from '@/store/actions/getComments';
+import { commentLike } from '@/store/actions/commentLike';
+
+import { Heart } from '../icons/heart.icon'
+import { Comment } from '@/store/counter/commentSlice';
+
+import css from './Comments.module.css'
 
 interface Props {
   theme: boolean;
@@ -21,24 +24,22 @@ export const Comments = ({ theme }: Props): JSX.Element => {
   const [postId, setPostId] = useState<string>('');
   const [userId, setUserId] = useState<number | string>('')
 
-  useEffect(() => {
+  useEffect((): void => {
     setPostId(location.pathname);
     store.dispatch(getComment());
     const user_id = JSON.parse(sessionStorage.getItem('user_id') || '')
     setUserId(user_id)
   }, [])
-  const id: number = Number(postId.slice(20))
 
+  const id: number = Number(postId.slice(20))
   const comments: Comment[] = useSelector((state: State) => state.comments.filter((comment: Comment) => comment?.post_id === id).sort((a, b) => a.id - b.id));
-  console.log(comments);
-  
-  const handleLike = (comment_id: number) => {
+
+  const handleLike = (comment_id: number): void => {
     store.dispatch(commentLike(comment_id));
   }
 
-  const formatTime = (dateString: string) => {
+  const formatTime = (dateString: string): string => {
     const date = moment(dateString);
-
     const now = moment();
     const diff = now.diff(date, 'minutes');
     const formattedDate = date.format('h:mm a');
@@ -57,7 +58,8 @@ export const Comments = ({ theme }: Props): JSX.Element => {
       const yearsAgo = Math.floor(diff / (12 * 30 * 24 * 60));
       return `${yearsAgo} years ago at ${formattedDate}`;
     }
-  };
+  }
+
   return (
     <div className={theme ? css.darkCommentsWrapper : css.commentsWrapper}>
       {comments.map((comment: Comment) => {

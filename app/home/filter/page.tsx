@@ -1,24 +1,29 @@
 'use client';
 
-import { HeaderFilter } from "@/components/HeaderFilter/HeaderFilter";
-import { City } from "@/components/icons/city.icon";
-import { Calendar } from "@/components/icons/calendar.icon";
-import { ForwardButton } from "@/components/icons/forwardButton.icon";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+
 import i18n from "i18next";
-import resources from "@/locales/resource";
-import css from './page.module.css';
-import { ChooseCity } from "@/components/ChooseCity/ChooseCity";
-import { ChooseCategories } from "@/components/ChooseCategories/ChooseCategories";
-import { BrandsResultes } from "@/components/BrandsResultes/BrandsResultes";
-import { userGet } from "@/store/actions/getUser";
-import { State } from "@/store/initialState";
-import { Footer } from "@/components/Footer/Footer";
-import { ArrowToDown } from "@/components/icons/arrowToDown.icon";
+import { useSelector } from "react-redux";
+
 import { store } from "@/store/store";
+import resources from "@/locales/resource";
+import { State } from "@/store/initialState";
+import { User } from "@/store/counter/userSlice";
+import { userGet } from "@/store/actions/getUser";
+import { Brand } from "@/store/counter/brandSlice";
 import { brandGet } from "@/store/actions/getBrand";
+
+import { City } from "@/components/icons/city.icon";
+import { Footer } from "@/components/Footer/Footer";
+import { Calendar } from "@/components/icons/calendar.icon";
+import { ChooseCity } from "@/components/ChooseCity/ChooseCity";
 import { ChooseDate } from "@/components/ChooseDate/ChooseDate";
+import { HeaderFilter } from "@/components/HeaderFilter/HeaderFilter";
+import { ForwardButton } from "@/components/icons/forwardButton.icon";
+import { BrandsResultes } from "@/components/BrandsResultes/BrandsResultes";
+import { ChooseCategories } from "@/components/ChooseCategories/ChooseCategories";
+
+import css from './page.module.css';
 
 i18n.init({
   resources,
@@ -26,55 +31,49 @@ i18n.init({
 });
 
 export default function FilterPage(): JSX.Element {
-  const [hours, setHours] = useState<number>(0);
   const [age, setAge] = useState<number>(0);
-  const [activeCity, setActiveCity] = useState<boolean>(false);
-  const [userCategories, setUserCategories] = useState<{ [key: string]: boolean }>({});
-  const [activeCategories, setActiveCategories] = useState<boolean>(false);
-  const [stateFilter, setStateFilter] = useState<boolean>(false);
-  const [activeCalendar, setActiveCalendar] = useState<boolean>(false);
-
-  const [filterCategory, setFilterCategory] = useState<string>('');
-  const [filterHours, setFilterHours] = useState<string>(i18n.t('morning'));
-  const [filterAge, setFilterAge] = useState<string>('0+');
+  const [hours, setHours] = useState<number>(0);
+  const [userCity, setUserCity] = useState<string>('');
   const [stateDate, setStateDate] = useState<string>('');
+  const [filterAge, setFilterAge] = useState<string>('0+');
+  const [activeCity, setActiveCity] = useState<boolean>(false);
+  const [stateFilter, setStateFilter] = useState<boolean>(false);
+  const [filterCategory, setFilterCategory] = useState<string>('');
+  const [activeCalendar, setActiveCalendar] = useState<boolean>(false);
+  const [activeCategories, setActiveCategories] = useState<boolean>(false);
+  const [filterHours, setFilterHours] = useState<string>(i18n.t('morning'));
+  const [userCategories, setUserCategories] = useState<{ [key: string]: boolean }>({});
 
-  useEffect(() => {
+  useEffect((): void => {
     store.dispatch(userGet());
     store.dispatch(brandGet());
   }, [])
 
-  const user = useSelector((state: State) => state.user);
-  const theme = user?.user?.color_theme;
-  const defaultCity = user?.user?.city;
-  const [userCity, setUserCity] = useState<string>('');
+  const user: User = useSelector((state: State) => state.user);
+  const theme: boolean = user?.user?.color_theme;
+  const defaultCity: string = user?.user?.city;
 
-  const brands = useSelector((state: State) => state.brand);
-  const filterBrands = brands.filter((brand) => {
+  const brands: Brand[] = useSelector((state: State) => state.brand);
+  const filterBrands: Brand[] = brands.filter((brand): boolean => {
     return (
       brand.category === filterCategory &&
       brand.hours === filterHours &&
       brand.age === filterAge &&
       brand.date === stateDate &&
       (userCity !== '' ? brand.city === userCity : brand.city === defaultCity)
-    );
-  });
+    )
+  })
 
-  console.log(filterBrands);
-
-  console.log(filterCategory, filterHours, filterAge, stateDate);
-
-
-  const businessHoursArr = [
+  const businessHoursArr: string[] = [
     i18n.t('morning'),
     i18n.t('afternoon'),
     i18n.t('evening'),
     i18n.t('night')
-  ];
+  ]
 
-  const ageArr = ['0+', '10+', '16+', '18+'];
+  const ageArr: string[] = ['0+', '10+', '16+', '18+'];
 
-  let content = null;
+  let content: JSX.Element | null = null;
 
   switch (true) {
     case activeCity:
@@ -130,7 +129,7 @@ export default function FilterPage(): JSX.Element {
           <div className={css.wrapper}>
             <div className={theme ? css.darkCard : css.card}>
               <div className={css.dataWrapper}>
-                <City color="#BB83FF" />
+                <City color='#BB83FF' />
                 <div className={theme ? css.darkText : css.text}>
                   {userCity === '' ? defaultCity : userCity}
                 </div>
@@ -181,20 +180,18 @@ export default function FilterPage(): JSX.Element {
               </div>
               <div className={css.buttons}>
                 {
-                  businessHoursArr.map((element, index) => {
-                    return (
-                      <button
-                        key={index}
-                        className={hours === index ? css.activeButton : (theme ? css.darkButton : css.button)}
-                        onClick={() => {
-                          setHours(index);
-                          setFilterHours(element);
-                        }}
-                      >
-                        {element}
-                      </button>
-                    )
-                  })
+                  businessHoursArr.map((element, index) => (
+                    <button
+                      key={index}
+                      className={hours === index ? css.activeButton : (theme ? css.darkButton : css.button)}
+                      onClick={() => {
+                        setHours(index);
+                        setFilterHours(element);
+                      }}
+                    >
+                      {element}
+                    </button>
+                  ))
                 }
               </div>
             </div>
@@ -262,6 +259,5 @@ export default function FilterPage(): JSX.Element {
         </div>
       );
   }
-
   return <div>{content}</div>;
 }

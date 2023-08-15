@@ -1,13 +1,17 @@
-import React, { useState, useEffect, useRef } from 'react';
-import moment, { Moment } from 'moment';
-import css from './Calendar.module.css';
-import { BackButton } from '../icons/backButton.icon';
-import { Down } from '../icons/down.icon';
-import { ForwardButton } from '../icons/forwardButton.icon';
+'use client';
+
+import { useState, useEffect, useRef } from 'react';
 
 import i18n from "i18next";
+import moment, { Moment } from 'moment';
 
 import resources from "@/locales/resource";
+
+import { Down } from '../icons/down.icon';
+import { BackButton } from '../icons/backButton.icon';
+import { ForwardButton } from '../icons/forwardButton.icon';
+
+import css from './Calendar.module.css';
 
 i18n.init({
   resources,
@@ -20,22 +24,29 @@ interface CalendarEntry {
 }
 
 interface Calendar {
+  color: boolean;
+  userTheme: string;
   openCalendar: boolean;
-  setOpenCalendar: any;
-  setStateDate: any;
-  color: boolean
+  setStateDate: React.Dispatch<React.SetStateAction<string>>;
+  setOpenCalendar: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const DatePicker = ({ openCalendar, setOpenCalendar, setStateDate, color }: Calendar): JSX.Element => {
-  const daysOfTheWeek: string[] = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+export const DatePicker = ({
+  color,
+  userTheme,
+  openCalendar,
+  setStateDate,
+  setOpenCalendar
+}: Calendar): JSX.Element => {
+  const [viewYear, setViewYear] = useState<string>('');
   const [viewDate, setViewDate] = useState<Moment>(moment());
   const [viewMonthName, setViewMonthName] = useState<string>('');
-  const [viewYear, setViewYear] = useState<string>('');
-  const [calendarEntries, setCalendarEntries] = useState<CalendarEntry[]>([]);
+  const [showYearList, setShowYearList] = useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [showMonthList, setShowMonthList] = useState<boolean>(false);
-  const [showYearList, setShowYearList] = useState<boolean>(false);
+  const [calendarEntries, setCalendarEntries] = useState<CalendarEntry[]>([]);
 
+  const daysOfTheWeek: string[] = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
   const [year] = useState<number>(moment().year() - 60);
   const yearList = Array.from(
     { length: moment().year() - year + 1 },
@@ -45,9 +56,8 @@ export const DatePicker = ({ openCalendar, setOpenCalendar, setStateDate, color 
   const yearListRef = useRef<HTMLDivElement | null>(null);
   const activeYearRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
+  useEffect((): void => {
     const yearListContainer = yearListRef.current;
-  
     if (yearListContainer) {
       const activeYearElement = activeYearRef.current;
       if (activeYearElement) {
@@ -62,7 +72,7 @@ export const DatePicker = ({ openCalendar, setOpenCalendar, setStateDate, color 
 
   let key: number = 1;
 
-  useEffect(() => {
+  useEffect((): void => {
     const months: string[] = moment.months();
     const computeData = () => {
       if (viewDate) {
@@ -101,78 +111,112 @@ export const DatePicker = ({ openCalendar, setOpenCalendar, setStateDate, color 
     return date != null && moment().isSame(date, 'day');
   };
 
-  const previousMonth = () => {
+  const previousMonth = (): void => {
     setViewDate(moment(viewDate).subtract(1, 'month'));
   };
 
-  const nextMonth = () => {
+  const nextMonth = (): void => {
     setViewDate(moment(viewDate).add(1, 'month'));
   };
 
-  const previousYear = () => {
+  const previousYear = (): void => {
     setViewDate(moment(viewDate).subtract(1, 'year'));
   };
 
-  const nextYear = () => {
+  const nextYear = (): void => {
     setViewDate(moment(viewDate).add(1, 'year'));
   };
 
-  const selectDate = (date: Date) => {
+  const selectDate = (date: Date): void => {
     setSelectedDate(date);
   };
 
-  const handleMonthClick = () => {
+  const handleMonthClick = (): void => {
     setShowMonthList(!showMonthList);
     setShowYearList(false);
   };
 
-  const handleYearClick = () => {
+  const handleYearClick = (): void => {
     setShowYearList(!showYearList);
     setShowMonthList(false);
   };
 
-  const handleMonthSelect = (month: number) => {
+  const handleMonthSelect = (month: number): void => {
     setViewDate(moment(viewDate).month(month));
     setShowMonthList(false);
   };
 
-  const handleYearSelect = (year: number) => {
+  const handleYearSelect = (year: number): void => {
     setViewDate(moment(viewDate).year(year));
     setShowYearList(false);
   };
 
   return (
-    <div className={openCalendar ? (color ? css.colorCalendar : css.calendar) : css.closedCalendar}>
+    <div
+      className={openCalendar ? (
+        color ? css.colorCalendar : (
+          userTheme === 'dark' ? css.darkCalendar : css.calendar
+        )
+      ) : css.closedCalendar
+      }
+    >
       <div className={css.header}>
         <button
-          className={showMonthList || showYearList ? css.notActiveButton : (color ? css.colorBackButton : css.backButton)}
           onClick={previousMonth}
+          className={
+            showMonthList || showYearList ? css.notActiveButton : (
+              color ? css.colorBackButton : (
+                userTheme === 'dark' ? css.darkBackButton : css.backButton
+              )
+            )
+          }
         >
           <BackButton />
         </button>
         <div className={css.monthWrapper}>
           <div
-            className={showYearList ? css.notActiveMonth : css.month}
             onClick={handleMonthClick}
+            className={
+              showYearList ? css.notActiveMonth : (
+                userTheme === 'dark' ? css.darkMonth : css.month
+              )
+            }
           >
             {viewMonthName.substring(0, 3)}
           </div>
-          <button 
-            onClick={handleMonthClick} 
-            className={showYearList ? css.notActiveButtonDown : (color ? css.colorButtonDown : css.buttonDown)}
+          <button
+            onClick={handleMonthClick}
+            className={
+              showYearList ? css.notActiveButtonDown : (
+                color ? css.colorButtonDown : (
+                  userTheme === 'dark' ? css.darkButtonDown : css.buttonDown
+                )
+              )
+            }
           >
-            <Down />
+            <Down color={userTheme === 'dark' ? '#FFFFFF' : '#000000'} />
           </button>
           {showMonthList && (
-            <div className={color ? css.colorMonthList : css.monthList}>
+            <div
+              className={
+                color ? css.colorMonthList : (
+                  userTheme === 'dark' ? css.darkMonthList : css.monthList
+                )
+              }
+            >
               {moment.months().map((month, index) => (
                 <div className={css.monthOption} key={index}>
                   <div
-                    className={`${index === viewDate.month() ? (color ? css.colorCircle : css.circle) : css.notActiveCircle}`}
+                    className={
+                      `${index === viewDate.month() ? (
+                        color ? css.colorCircle : css.circle
+                      ) : css.notActiveCircle
+                      }`
+                    }
                   />
                   <div
-                    className={`${index === viewDate.month() ? css.notActiveOption : css.option}`}
                     onClick={() => handleMonthSelect(index)}
+                    className={`${index === viewDate.month() ? css.notActiveOption : css.option}`}
                   >
                     {month}
                   </div>
@@ -182,43 +226,80 @@ export const DatePicker = ({ openCalendar, setOpenCalendar, setStateDate, color 
           )}
         </div>
         <button
-          className={showMonthList || showYearList ? css.notActiveButton : (color ? css.colorButton : css.button)}
           onClick={nextMonth}
+          className={
+            showMonthList || showYearList ? css.notActiveButton : (
+              color ? css.colorButton : (
+                userTheme === 'dark' ? css.darkButton : css.button
+              )
+            )
+          }
         >
           <ForwardButton />
         </button>
         <button
-          className={showMonthList || showYearList ? css.notActiveButton : (color ? css.colorBackButton : css.backButton)}
           onClick={previousYear}
+          className={
+            showMonthList || showYearList ? css.notActiveButton : (
+              color ? css.colorBackButton : (
+                userTheme === 'dark' ? css.darkBackButton : css.backButton
+              )
+            )
+          }
         >
           <BackButton />
         </button>
         <div className={css.yearWrapper}>
           <div
-            className={showMonthList ? css.notActiveYear : css.year}
             onClick={handleYearClick}
+            className={
+              showMonthList ? css.notActiveYear : (
+                userTheme === 'dark' ? css.darkYear : css.year
+              )
+            }
           >
             {viewYear}
           </div>
-          <button 
-            onClick={handleYearClick} 
-            className={showMonthList ? css.notActiveButtonDown : (color ? css.colorButtonDown : css.buttonDown)}
+          <button
+            onClick={handleYearClick}
+            className={
+              showMonthList ? css.notActiveButtonDown : (
+                color ? css.colorButtonDown : (
+                  userTheme === 'dark' ? css.darkButtonDown : css.buttonDown
+                )
+              )
+            }
           >
-            <Down />
+            <Down color={userTheme === 'dark' ? '#FFFFFF' : '#000000'} />
           </button>
           {showYearList && (
-            <div className={color ? css.colorYearList : css.yearList} ref={yearListRef}>
+            <div
+              ref={yearListRef}
+              className={
+                color ? css.colorYearList : (
+                  userTheme ? css.darkYearList : css.yearList
+                )
+              }
+            >
               {yearList.map(
                 (year) => (
-                  <div className={css.yearOption} key={++key}>
+                  <div
+                    key={++key}
+                    className={css.yearOption}
+                  >
                     <div
-                      className={`${year === viewDate.year() ? (color ? css.colorCircle : css.circle) : css.notActiveCircle}`}
+                      className={
+                        `${year === viewDate.year() ? (
+                          color ? css.colorCircle : css.circle
+                        ) : css.notActiveCircle
+                        }`
+                      }
                     />
                     <div
                       key={year}
-                      className={`${year === viewDate.year() ? css.notActiveOption : css.option}`}
                       onClick={() => handleYearSelect(year)}
                       ref={year === viewDate.year() ? activeYearRef : null}
+                      className={`${year === viewDate.year() ? css.notActiveOption : css.option}`}
                     >
                       {year}
                     </div>
@@ -229,15 +310,24 @@ export const DatePicker = ({ openCalendar, setOpenCalendar, setStateDate, color 
           )}
         </div>
         <button
-          className={showMonthList || showYearList ? css.notActiveButton : (color ? css.colorButton : css.button)}
           onClick={nextYear}
+          className={
+            showMonthList || showYearList ? css.notActiveButton : (
+              color ? css.colorButton : (
+                userTheme === 'dark' ? css.darkButton : css.button
+              )
+            )
+          }
         >
           <ForwardButton />
         </button>
       </div>
       <div className={css.weekdays}>
         {daysOfTheWeek.map((day) => (
-          <div key={key++} className={css.weekday}>
+          <div
+            key={key++}
+            className={userTheme === 'dark' ? css.darkWeekday : css.weekday}
+          >
             {day}
           </div>
         ))}
@@ -246,11 +336,24 @@ export const DatePicker = ({ openCalendar, setOpenCalendar, setStateDate, color 
         {calendarEntries.map((entry, index) => (
           <button
             key={index}
-            className={`${(color ? css.colorCalendarEntry : css.calendarEntry)} ${isDateToday(entry.date) ? (color ? css.colorToday : css.today) : ''}`}
             onClick={() => selectDate(entry.date)}
+            className={
+              `${(color ? css.colorCalendarEntry : (
+                userTheme === 'dark' ? css.darkCalendarEntry : css.calendarEntry
+              ))} ${isDateToday(entry.date) ? (
+                color ? css.colorToday : (
+                  userTheme === 'dark' ? css.darkToday : css.today
+                )
+              ) : ''
+              }`
+            }
           >
-            <div 
-              className={color ? css.colorDay : css.day}
+            <div
+              className={
+                color ? css.colorDay : (
+                  userTheme === 'dark' ? css.darkDay : css.day
+                )
+              }
             >
               {entry.day}
             </div>
@@ -258,9 +361,13 @@ export const DatePicker = ({ openCalendar, setOpenCalendar, setStateDate, color 
         ))}
       </div>
       <div className={css.buttonsWraper}>
-        <button 
-          onClick={() => setOpenCalendar(!openCalendar)} 
-          className={color ? css.colorCancel : css.cancel}
+        <button
+          className={
+            color ? css.colorCancel : (
+              userTheme ? css.darkCancel : css.cancel
+            )
+          }
+          onClick={() => setOpenCalendar(!openCalendar)}
         >
           {i18n.t('cancel')}
         </button>

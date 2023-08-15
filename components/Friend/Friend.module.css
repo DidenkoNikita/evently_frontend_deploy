@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 10px; 
+  gap: 10px;
 }
 
 .wrapper:last-child {
@@ -11,10 +11,9 @@
 
 .wrapperData {
   display: flex;
-  /* width: 365px; */
   justify-content: space-between;
   align-items: center;
-  gap: 20px; 
+  gap: 20px;
 }
 
 .wrap {
@@ -27,16 +26,20 @@
 
 .avatar {
   width: 48px;
-  height: 48px; 
+  height: 48px;
   border-radius: 100px;
-  /* margin-left: -4px; */
   object-fit: cover;
 }
 
-.name {
+.name,
+.darkName {
   font-family: Montserrat;
   font-size: 14px;
-  font-weight: 600; 
+  font-weight: 600;
+}
+
+.darkName {
+  color: #FFFFFF;
 }
 
 .fakeAvatar {
@@ -49,7 +52,8 @@
   background-color: #DFC5FF;
 }
 
-.avatarData {
+.avatarData,
+.darkAvatarData {
   text-align: center;
   font-family: Montserrat;
   font-size: 20px;
@@ -57,11 +61,20 @@
   color: #FFFFFF;
 }
 
-.line {
+.darkAvatarData {
+  color: #333333;
+}
+
+.line,
+.darkLine {
   width: 305px;
   height: 1px;
   background-color: #F6F6F6;
   margin: 0 auto 10px auto;
+}
+
+.darkLine {
+  background-color: #242424;
 }
 
 .buttonWrapper {
@@ -77,10 +90,10 @@
   width: 48px;
   height: 48px;
   justify-content: center;
-  align-items: center; 
+  align-items: center;
   border: none;
   border-radius: 10px;
-  background-color: #FFFFFF;
+  background-color: transparent;
 }
 
 .button {
@@ -88,7 +101,7 @@
   width: 48px;
   height: 48px;
   justify-content: center;
-  align-items: center; 
+  align-items: center;
   border: none;
   border-radius: 10px;
   background-color: #DFC5FF;
@@ -101,12 +114,12 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 4px; 
+  gap: 4px;
   border: none;
   border-radius: 5px;
   background-color: #EB5757;
   font-family: Montserrat;
   font-size: 12px;
-  font-weight: 400; 
+  font-weight: 400;
   color: #FFFFFF;
 }

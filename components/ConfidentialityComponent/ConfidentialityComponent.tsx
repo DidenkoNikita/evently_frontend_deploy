@@ -1,18 +1,23 @@
-import { SettingsHeader } from '../SettingsHeader/SettingsHeader';
-import css from './ConfidentialityComponent.module.css';
+'use client';
+
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 import i18n from "i18next";
+import { useSelector } from 'react-redux';
 
-import resources from "@/locales/resource";
-import { Footer } from '../Footer/Footer';
-import { useEffect, useState } from 'react';
 import { store } from '@/store/store';
+import resources from "@/locales/resource";
+import { State } from '@/store/initialState';
+import { User } from '@/store/counter/userSlice';
+import { userGet } from '@/store/actions/getUser';
 import { updateConfidentialityPhone } from '@/store/actions/updateConfidentialityPhone';
 import { updateConfidentialityMessages } from '@/store/actions/updateConfidentialityMessages';
-import { useRouter } from 'next/navigation';
-import { userGet } from '@/store/actions/getUser';
-import { useSelector } from 'react-redux';
-import { State } from '@/store/initialState';
+
+import { Footer } from '../Footer/Footer';
+import { SettingsHeader } from '../SettingsHeader/SettingsHeader';
+
+import css from './ConfidentialityComponent.module.css';
 
 i18n.init({
   resources,
@@ -24,21 +29,19 @@ interface Props {
 }
 
 export const ConfidentialityComponent = ({ title }: Props): JSX.Element => {
-  const [activeButton, setActiveButton] = useState<number>(0);
   const [stateType, setStateType] = useState<string>('All');
+  const [activeButton, setActiveButton] = useState<number>(0);
 
-  useEffect(() => {
+  useEffect((): void => {
     store.dispatch(userGet());
   }, [])
 
-  console.log(stateType);
-
   const router = useRouter();
-  
-  const user = useSelector((state: State) => state.user);
-  const theme = user?.user?.color_theme;
 
-  const arr = [i18n.t('all'), i18n.t('my_friends'), i18n.t('nobody')];
+  const user: User = useSelector((state: State) => state.user);
+  const theme: boolean = user?.user?.color_theme;
+
+  const arr: string[] = [i18n.t('all'), i18n.t('my_friends'), i18n.t('nobody')];
 
   return (
     <div className={theme ? css.darkWrapper : css.wrapper}>
@@ -65,11 +68,11 @@ export const ConfidentialityComponent = ({ title }: Props): JSX.Element => {
                     </div>
                     <div className={css.buttonWrapper}>
                       <button
-                        className={theme ? css.blackButton : css.button}
                         onClick={() => {
                           setActiveButton(index);
                           setStateType(element);
                         }}
+                        className={theme ? css.blackButton : css.button}
                       >
                         {
                           activeButton === index ? <div className={css.curcle} /> : null
@@ -85,7 +88,7 @@ export const ConfidentialityComponent = ({ title }: Props): JSX.Element => {
             })
           }
         </div>
-        <button 
+        <button
           className={css.save}
           onClick={() => {
             if (title === i18n.t('who_phone_number')) {

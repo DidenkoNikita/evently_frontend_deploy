@@ -1,8 +1,9 @@
 import { ThunkAction } from "redux-thunk";
-import { RooteState } from "../store";
 import { PayloadAction } from "@reduxjs/toolkit";
-import { Comment, addComment } from "../counter/commentSlice";
+
+import { RooteState } from "../store";
 import { request } from "@/requests/request";
+import { Comment, addComment } from "../counter/commentSlice";
 
 export const createComment = (text: string, id: number): ThunkAction<
   void,
@@ -11,11 +12,11 @@ export const createComment = (text: string, id: number): ThunkAction<
   PayloadAction<Comment>
 > => async (dispatch): Promise<void | unknown> => {
   try {
-    const data = await request('comments', {text, post_id: id}, 'POST');
+    const data = await request('comments', { text, post_id: id }, 'POST');
     if (data !== null) {
       dispatch(addComment(data))
     }
-  } catch(e) {
-    return console.log(e);    
+  } catch (e) {
+    return console.log(e);
   }
 } 

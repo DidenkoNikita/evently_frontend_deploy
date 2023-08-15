@@ -7,9 +7,6 @@
   position: fixed;
   top: 0;
   z-index: 1000;
-}
-
-.headerWrapper {
   background-color: #FFF;
 }
 
@@ -53,9 +50,6 @@
   border: none;
   border-radius: 10px;
   margin-left: 28px;
-}
-
-.iconButton {
   background-color: white;
 }
 

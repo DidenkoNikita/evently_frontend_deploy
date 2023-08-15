@@ -6,12 +6,9 @@
   padding: 10px;
   justify-content: center;
   align-items: center;
-  gap: 10px; 
+  gap: 10px;
   border: none;
   border-radius: 20px;
-}
-
-.wrapper {
   background-color: #F6F6F6;
 }
 
@@ -33,7 +30,7 @@
   padding-top: 10px;
   flex-direction: column;
   justify-content: space-between;
-  align-items: flex-start; 
+  align-items: flex-start;
 }
 
 .wrapperData {
@@ -48,7 +45,7 @@
 .darkName {
   font-family: Montserrat;
   font-size: 16px;
-  font-weight: 600; 
+  font-weight: 600;
 }
 
 .darkName {
@@ -65,14 +62,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 5px; 
+  gap: 5px;
 }
 
 .reviews,
 .darkReviews {
   font-family: Montserrat;
   font-size: 14px;
-  font-weight: 400; 
+  font-weight: 400;
 }
 
 .darkReviews {
@@ -118,7 +115,7 @@
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
-  line-height: normal; 
+  line-height: normal;
 }
 
 .darkAddress {

@@ -1,13 +1,16 @@
 'use client'
 
-import { useEffect, useState } from 'react';
-import css from './CreatePassword.module.css';
-import { EyeOff } from '../icons/eyeOff.icon';
-import { EyeOn } from '../icons/eyeOn.icon';
+import { useState } from 'react';
+
 import i18n from "i18next";
 
 import resources from "@/locales/resource";
+
+import { EyeOn } from '../icons/eyeOn.icon';
+import { EyeOff } from '../icons/eyeOff.icon';
 import { ButtonNext } from '../ButtonNext/ButtonNext';
+
+import css from './CreatePassword.module.css';
 
 i18n.init({
   resources,
@@ -15,57 +18,59 @@ i18n.init({
 });
 
 interface CreatePassword {
-  statePassword: string;
-  setStatePassword: any;
-  stateVerificationPassword: string;
-  setStateVerificationPassword: any;
   click: boolean;
-  setClick: any;
+  userTheme: string;
   activeStep: number;
+  statePassword: string;
   openCalendar: boolean;
-  setActiveStep: any;
+  stateVerificationPassword: string;
+  setClick: React.Dispatch<React.SetStateAction<boolean>>;
+  setActiveStep: React.Dispatch<React.SetStateAction<number>>;
+  setStatePassword: React.Dispatch<React.SetStateAction<string>>;
+  setStateVerificationPassword: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const CreatePassword = ({
-  statePassword,
-  setStatePassword,
-  stateVerificationPassword,
-  setStateVerificationPassword,
   click,
   setClick,
+  userTheme,
   activeStep,
   openCalendar,
+  statePassword,
   setActiveStep,
+  setStatePassword,
+  stateVerificationPassword,
+  setStateVerificationPassword
 }: CreatePassword): JSX.Element => {
-  const [inputType, setInputType] = useState<string>('password');
   const [visibility, setVisibility] = useState<boolean>(false);
-  const [inputVerificationType, setInputVerificationType] = useState<string>('password');
+  const [inputType, setInputType] = useState<string>('password');
+  const [validatePassword, setValidatePassword] = useState<boolean>(false);
   const [visibilityVerification, setVisibilityVerification] = useState<boolean>(false);
-  const [validatePassword, setValidatePassword] = useState<boolean>(false);  
+  const [inputVerificationType, setInputVerificationType] = useState<string>('password');
 
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const password = e.target.value;
     setStatePassword(password);
     setValidatePassword(false);
   };
 
-  const handleVerificationPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleVerificationPasswordChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const verificationPassword = e.target.value;
     setStateVerificationPassword(verificationPassword);
+    setValidatePassword(false);
   };
 
-  const handleNextStep = () => {
-    if (statePassword.length < 8 || 
-      !/[a-z]/.test(statePassword) || 
-      !/[A-Z]/.test(statePassword) || 
-      !/\d/.test(statePassword) || 
+  const handleNextStep = (): void => {
+    if (statePassword.length >= 8 ||
+      !/[a-z]/.test(statePassword) ||
+      !/[A-Z]/.test(statePassword) ||
+      !/\d/.test(statePassword) ||
       !/[\!\@\#\$\%\^\&\*\(\)\-\_\=\+]/.test(statePassword)
     ) {
       setValidatePassword(true);
     } else {
       setValidatePassword(false);
     }
-
     if (!validatePassword && statePassword === stateVerificationPassword) {
       setActiveStep(++activeStep)
     }
@@ -73,18 +78,28 @@ export const CreatePassword = ({
 
   return (
     <div className={css.area}>
-      <div className={css.header}>{i18n.t('create_password')}</div>
+      <div className={userTheme === 'dark' ? css.darkHeader : css.header}>
+        {i18n.t('create_password')}
+      </div>
       <div className={validatePassword ? css.wrapperValidatePassword : css.wrapper}>
-        <div className={css.fieldPassvord}>
+        <div
+          className={
+            validatePassword ? (
+              userTheme === 'dark' ? css.darkInvalidPassword : css.invalidPassword
+            ) : (
+              userTheme === 'dark' ? css.darkFieldPassword : css.fieldPassvord
+            )
+          }
+        >
           <input
-            type={inputType}
             id="password"
-            name="unique-password-field"
-            className={css.inputPassword}
-            placeholder={i18n.t('psw')}
-            value={statePassword}
-            onChange={handlePasswordChange}
+            type={inputType}
             autoComplete='off'
+            value={statePassword}
+            placeholder={i18n.t('psw')}
+            name="unique-password-field"
+            onChange={handlePasswordChange}
+            className={userTheme === 'dark' ? css.darkInputPassword : css.inputPassword}
           />
           <button
             className={css.buttonEye}
@@ -100,17 +115,23 @@ export const CreatePassword = ({
             {!visibility ? <EyeOff /> : <EyeOn />}
           </button>
         </div>
-        {validatePassword ? <span className={css.error}>{i18n.t('invalid_password')}</span> : null}
-        <div className={css.fieldPassvord}>
+        {
+          validatePassword ? (
+            <span className={css.error}>
+              {i18n.t('invalid_password')}
+            </span>
+          ) : null
+        }
+        <div className={userTheme === 'dark' ? css.darkFieldPassword : css.fieldPassvord}>
           <input
-            type={inputVerificationType}
-            id="verificationPassword"
-            name="unique-verification-password-field"
-            className={css.inputPassword}
-            placeholder={i18n.t('enter_again')}
-            value={stateVerificationPassword}
-            onChange={handleVerificationPasswordChange}
             autoComplete='off'
+            id="verificationPassword"
+            type={inputVerificationType}
+            value={stateVerificationPassword}
+            placeholder={i18n.t('enter_again')}
+            name="unique-verification-password-field"
+            onChange={handleVerificationPasswordChange}
+            className={userTheme === 'dark' ? css.darkInputPassword : css.inputPassword}
           />
           <button
             className={css.buttonEye}
@@ -136,7 +157,7 @@ export const CreatePassword = ({
             >
             </button>
           </div>
-          <div className={css.text}>
+          <div className={userTheme === 'dark' ? css.darkText : css.text}>
             {i18n.t('remember')}
           </div>
         </div>

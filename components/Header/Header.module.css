@@ -14,9 +14,6 @@
   z-index: 1000;
   margin-bottom: 106px;
   padding-bottom: 10px;
-}
-
-.header {
   background-color: white;
 }
 
@@ -88,9 +85,6 @@
   font-family: Montserrat;
   font-weight: 400;
   color: #AAA;
-}
-
-.searchButton {
   background-color: #F6F6F6;
 }
 

@@ -8,9 +8,6 @@
   position: fixed;
   top: 388px;
   left: 208px;
-}
-
-.activeWrapper {
   background-color: #F6F6F6;
 }
 
@@ -30,9 +27,6 @@
   padding: 0px 16px;
   justify-content: space-between;
   align-items: center; 
-}
-
-.element {
   border-bottom: 1px solid #AAAAAA;
 }
 

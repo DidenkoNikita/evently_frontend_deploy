@@ -1,0 +1,25 @@
+.wrapper,
+.darkWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  gap: 20px;
+  height: 100vh;
+}
+
+.darkWrapper {
+  background-color: #333333;
+}
+
+.container {
+  margin-top: 120px;
+}
+
+.wrapperGuest {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  overflow-y: auto;
+}

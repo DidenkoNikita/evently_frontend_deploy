@@ -1,9 +1,10 @@
 import { ThunkAction } from "redux-thunk";
-import { RooteState } from "../store";
 import { PayloadAction } from "@reduxjs/toolkit";
+
+import { RooteState } from "../store";
 import { request } from "@/requests/request";
-import { likeComment } from "../counter/commentSlice";
 import { Comment } from "../counter/commentSlice";
+import { likeComment } from "../counter/commentSlice";
 
 export const commentLike = (comment_id: number): ThunkAction<
   void,
@@ -12,9 +13,8 @@ export const commentLike = (comment_id: number): ThunkAction<
   PayloadAction<Comment>
 > => async (dispatch): Promise<void | unknown> => {
   try {
-    
     const data = await request('comments', { comment_id }, 'PUT');
-        
+
     if (data !== null) {
       dispatch(likeComment(data));
     }

@@ -18,7 +18,7 @@ export const commentSlice = createSlice({
   initialState: initialState.comments,
   reducers: {
     getComments: (state, action: PayloadAction<Comment[]>): void => {
-      const {payload} = action;
+      const { payload } = action;
       payload.map((comment: Comment) => {
         if (!state.find((c: Comment) => c.id === comment.id)) {
           state.push(comment);
@@ -29,8 +29,7 @@ export const commentSlice = createSlice({
       state.push(action.payload);
     },
     likeComment: (state, action: PayloadAction<Comment>): Comment[] => {
-      const { payload } = action;   
-         
+      const { payload } = action;
       return state.map((comment: Comment) => {
         if (comment.id === payload.id) {
           return payload;

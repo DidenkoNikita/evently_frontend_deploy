@@ -9,9 +9,6 @@
   align-items: center;
   border-radius: 10px;
   margin-bottom: 30px;
-}
-
-.search {
   background-color: #F6F6F6;
 }
 
@@ -34,9 +31,6 @@
   border: none;
   font-size: 14px;
   font-family: Montserrat;
-}
-
-.input {
   background-color: #F6F6F6;
   color: #000;
 }

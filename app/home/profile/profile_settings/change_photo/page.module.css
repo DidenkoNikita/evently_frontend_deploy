@@ -3,9 +3,6 @@
   width: 414px;
   height: 896px;
   overflow: hidden;
-}
-
-.wrapper {
   background: repeat url('../../../../../public/backgroundComments.png');
 }
 
@@ -38,9 +35,6 @@
   font-family: Montserrat;
   font-size: 128px;
   font-weight: 900; 
-}
-
-.avatarData {
   color: #FFFFFF;
 }
 

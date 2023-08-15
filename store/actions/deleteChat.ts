@@ -1,6 +1,7 @@
 import { ThunkAction } from "redux-thunk";
-import { RooteState } from "../store";
 import { PayloadAction } from "@reduxjs/toolkit";
+
+import { RooteState } from "../store";
 import { request } from "@/requests/request";
 import { Chat, removeChat } from "../counter/chatSLice";
 
@@ -13,12 +14,12 @@ export const deleteChat = (id: number | null): ThunkAction<
   try {
     const user_id = sessionStorage.getItem('user_id');
     if (user_id) {
-      const data = await request('chats', {id}, 'DELETE');
+      const data = await request('chats', { id }, 'DELETE');
       if (data !== null) {
-        dispatch(removeChat(data))        
+        dispatch(removeChat(data))
       }
     }
-  } catch(e) {
-    return console.log(e);    
+  } catch (e) {
+    return console.log(e);
   }
 } 

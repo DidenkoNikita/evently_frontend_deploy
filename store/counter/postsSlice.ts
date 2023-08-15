@@ -18,7 +18,7 @@ export const postSlice = createSlice({
   initialState: initialState.posts,
   reducers: {
     getPosts: (state, action: PayloadAction<Post[]>): void => {
-      const {payload} = action;
+      const { payload } = action;
       payload.map((post: Post) => {
         if (!state.find((p: Post) => p.id === post.id)) {
           state.push(post);
@@ -27,7 +27,7 @@ export const postSlice = createSlice({
       })
     },
     likePost: (state, action: PayloadAction<Post>): Post[] => {
-      const { payload } = action;      
+      const { payload } = action;
       return state.map((post: Post) => {
         if (post.id === payload.id) {
           return payload;

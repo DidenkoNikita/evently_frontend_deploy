@@ -3,9 +3,6 @@
   width: 414px;
   height: 896px;
   overflow: hidden;
-}
-
-.wrapper {
   background: repeat url('../../../../public/backgroundSettings.png');
 }
 
@@ -61,9 +58,6 @@
   font-family: Montserrat;
   font-size: 14px;
   font-weight: 400;
-}
-
-.button {
   background-color: #FDFFFD;
 }
 
@@ -102,9 +96,6 @@
   width: 345px;
   height: 146px;
   border-radius: 10px;
-}
-
-.notificationsWrapper {
   background-color: #FDFFFD;
 }
 
@@ -125,9 +116,6 @@
 .darkLine {
   width: 305px;
   height: 1px; 
-}
-
-.line {
   background-color: #F6F6F6;
 }
 
@@ -155,9 +143,6 @@
   border-radius: 25px;
   justify-content: flex-start;
   align-items: center;
-}
-
-.checkbox {
   background-color: #E9E9EB;
 }
 

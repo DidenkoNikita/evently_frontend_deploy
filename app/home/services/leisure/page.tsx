@@ -1,20 +1,25 @@
 'use client';
 
-import i18n from "i18next";
-
-import resources from "@/locales/resource";
-import { HeaderBrand } from "@/components/HeaderBrand/HeaderBrand";
-import { Footer } from "@/components/Footer/Footer";
-
-import css from './page.module.css';
 import { useEffect, useState } from "react";
+
+import i18n from "i18next";
+import { useSelector } from "react-redux";
+
+import { store } from "@/store/store";
+import resources from "@/locales/resource";
+import { State } from "@/store/initialState";
+import { User } from "@/store/counter/userSlice";
+import { userGet } from "@/store/actions/getUser";
+import { Brand } from "@/store/counter/brandSlice";
+import { brandGet } from "@/store/actions/getBrand";
+
+import { Footer } from "@/components/Footer/Footer";
+import { HeaderBrand } from "@/components/HeaderBrand/HeaderBrand";
+import { BrandComponent } from "@/components/BrandComponent/BrandComponent";
 import { SearchComponent } from "@/components/SearchComponent/SearchComponent";
 import { CalendarOfEventsHome } from "@/components/CalendarOfEventsHome/CalendarOfEventsHome";
-import { store } from "@/store/store";
-import { brandGet } from "@/store/actions/getBrand";
-import { useSelector } from "react-redux";
-import { State } from "@/store/initialState";
-import { BrandComponent } from "@/components/BrandComponent/BrandComponent";
+
+import css from './page.module.css';
 
 i18n.init({
   resources,
@@ -24,20 +29,24 @@ i18n.init({
 export default function LeisurePage(): JSX.Element {
   const [searchTerm, setSearchTerm] = useState<string>('');
 
-  useEffect(() => {
+  useEffect((): void => {
+    store.dispatch(userGet());
     store.dispatch(brandGet());
   }, [])
 
-  const brands = useSelector((state: State) => state.brand);
-  const filterBrands = brands.filter((brand) => brand.type === 'leisure');
-  console.log(filterBrands);
+  const brands: Brand[] = useSelector((state: State) => state.brand);
+  const filterBrands: Brand[] = brands.filter((brand) => brand.type === 'leisure');
+  const user: User = useSelector((state: State) => state.user);
+  const theme: boolean = user?.user?.color_theme;
 
   return (
-    <div className={css.wrapper}>
+    <div className={theme ? css.darkWrapper : css.wrapper}>
       <HeaderBrand
+        theme={theme}
         title={i18n.t('calendar_of_events')}
       />
       <SearchComponent
+        theme={theme}
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
       />

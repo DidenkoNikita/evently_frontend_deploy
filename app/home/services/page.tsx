@@ -1,34 +1,42 @@
 'use client';
 
-import i18n from "i18next";
-
-import resources from "@/locales/resource";
-
-import { Header } from "@/components/Header/Header";
-import { userGet } from "@/store/actions/getUser";
-import { store } from "@/store/store";
 import { useEffect } from "react";
 
-import css from './page.module.css';
-import { CalendarOfEventsHome } from "@/components/CalendarOfEventsHome/CalendarOfEventsHome";
-import { Footer } from "@/components/Footer/Footer";
-import { useRouter } from "next/navigation";
+import i18n from "i18next";
 import { useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
+
+import { store } from "@/store/store";
+import resources from "@/locales/resource";
 import { State } from "@/store/initialState";
+import { User } from "@/store/counter/userSlice";
+import { userGet } from "@/store/actions/getUser";
+
+import { Header } from "@/components/Header/Header";
+import { Footer } from "@/components/Footer/Footer";
+import { CalendarOfEventsHome } from "@/components/CalendarOfEventsHome/CalendarOfEventsHome";
+
+import css from './page.module.css';
 
 i18n.init({
   resources,
   lng: "en"
 });
 
+interface Arr {
+  class: string;
+  link: string;
+  title: string;
+}
+
 export default function ServicesPage(): JSX.Element {
-  useEffect(() => {
+  useEffect((): void => {
     store.dispatch(userGet());
   }, []);
 
   const router = useRouter();
 
-  const arr = [
+  const arr: Arr[] = [
     {
       class: 'dating',
       link: '/home/services/dating',
@@ -51,8 +59,8 @@ export default function ServicesPage(): JSX.Element {
     }
   ]
 
-  const user = useSelector((state: State) => state.user);
-  const theme = user?.user?.color_theme;
+  const user: User = useSelector((state: State) => state.user);
+  const theme: boolean = user?.user?.color_theme;
 
   return (
     <div className={theme ? css.darkWrapper : css.wrapper}>
@@ -74,7 +82,7 @@ export default function ServicesPage(): JSX.Element {
                 <div className={theme ? css.darkWrapperImage : css.wrapperImage}>
                   <div className={css[element.class]} />
                 </div>
-                <div className={theme? css.darkTitle : css.title}>
+                <div className={theme ? css.darkTitle : css.title}>
                   {element.title}
                 </div>
               </button>

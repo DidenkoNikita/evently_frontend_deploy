@@ -1,22 +1,25 @@
 'use client';
 
-import i18n from "i18next";
-
-import resources from "@/locales/resource";
-
-import { HeaderProfileFriend } from "@/components/HeaderProfileFriend/HeaderProfileFriend";
 import { useEffect, useState } from "react";
-import { store } from "@/store/store";
-import { getUserList } from "@/store/actions/getUserList";
-import { useSelector } from "react-redux";
-import { State } from "@/store/initialState";
-import { Footer } from "@/components/Footer/Footer";
 
-import css from './page.module.css';
+import i18n from "i18next";
+import { useSelector } from "react-redux";
+
+import { store } from "@/store/store";
+import resources from "@/locales/resource";
+import { State } from "@/store/initialState";
+import { User } from "@/store/counter/userSlice";
+import { userGet } from "@/store/actions/getUser";
+import { getUserList } from "@/store/actions/getUserList";
+import { UsersList } from "@/store/counter/usersListSlice";
+
 import { Avatar } from "@/components/Avatar/Avatar";
+import { Footer } from "@/components/Footer/Footer";
 import { FriendData } from "@/components/FriendData/FriendData";
 import { LoadingComponent } from "@/components/Loading/Loading";
-import { userGet } from "@/store/actions/getUser";
+import { HeaderProfileFriend } from "@/components/HeaderProfileFriend/HeaderProfileFriend";
+
+import css from './page.module.css';
 
 i18n.init({
   resources,
@@ -26,20 +29,17 @@ i18n.init({
 export default function ProfileFriend (): JSX.Element {
   const [userId, setUserId] = useState<string>('');  
 
-  useEffect(() => {
+  useEffect((): void => {
+    store.dispatch(userGet());
     setUserId(location.pathname);
     store.dispatch(getUserList());
-    store.dispatch(userGet());
-  }, []);
+  }, [])
 
   const id: number = Number(userId.slice(37));
-
-  const userList = useSelector((state: State) => state.usersList);  
-
-  const user = userList.find((u) => u.id === id);
-
-  const userData = useSelector((state: State) => state.user);
-  const theme = userData?.user?.color_theme;
+  const userList: UsersList[] = useSelector((state: State) => state.usersList);  
+  const user: UsersList | undefined = userList.find((u) => u.id === id);
+  const userData: User = useSelector((state: State) => state.user);
+  const theme: boolean = userData?.user?.color_theme;
 
   if (user === undefined) {
     return (

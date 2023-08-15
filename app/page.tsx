@@ -1,19 +1,17 @@
 'use client';
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+
+import i18n from "i18next";
+
+import resources from "@/locales/resource";
+import { checkRememberMe } from "./checkRememberMe";
 
 import { Logo } from "@/components/icons/logo.icon";
 
 import css from './page.module.css';
-import { useRouter } from "next/navigation";
-import i18n from "i18next";
-import resources from "@/locales/resource";
-import { checkRememberMe } from "./checkRememberMe";
-import { useEffect } from "react";
-import { store } from "@/store/store";
-import { userGet } from "@/store/actions/getUser";
-import { useSelector } from "react-redux";
-import { State } from "@/store/initialState";
 
 i18n.init({
   resources,
@@ -21,33 +19,50 @@ i18n.init({
 });
 
 export default function Home(): JSX.Element {
+  const [userTheme, setUserTheme] = useState('light');
+
+  useEffect(() => {
+    const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleDarkModeChange = (e: MediaQueryListEvent) => {
+      setUserTheme(e.matches ? 'dark' : 'light');
+    };
+    darkModeMediaQuery.addListener(handleDarkModeChange);
+    setUserTheme(darkModeMediaQuery.matches ? 'dark' : 'light');
+    return () => darkModeMediaQuery.removeListener(handleDarkModeChange);
+  }, [])
+
+  useEffect((): void => {
+    checkRememberMe(router);
+  }, [])
 
   const router = useRouter();
 
-  useEffect(() => {    
-    checkRememberMe(router);
-  })
-  
   return (
-    <div className={css.flexBox}>
+    <div className={userTheme === 'dark' ? css.darkFlexBox : css.flexBox}>
       <Logo />
-      <div className={css.title}>{i18n.t('evently')}</div>
-      <div className={css.question}>{i18n.t('do_not_have_an_account')}</div>
-      <button 
+      <div className={userTheme === 'dark' ? css.darkTitle : css.title}>
+        {i18n.t('evently')}
+      </div>
+      <div className={userTheme === 'dark' ? css.darkQuestion : css.question}>
+        {i18n.t('do_not_have_an_account')}
+      </div>
+      <button
         className={css.button}
         onClick={() => router.push('/signup')}
       >
         {i18n.t('create_personal')}
       </button>
-      <button 
-        onClick={() => router.push('/signup_brand')}
+      <button
         className={css.button}
+        onClick={() => router.push('/signup_brand')}
       >
         {i18n.t('create_brand')}
       </button>
       <div className={css.stringСontainer}>
-        <div className={css.question2}>{i18n.t('alredy_have_an_account')}</div>
-        <Link 
+        <div className={userTheme === 'dark' ? css.darkQuestion2 : css.question2}>
+          {i18n.t('alredy_have_an_account')}
+        </div>
+        <Link
           href='/login'
           className={css.link}
         >

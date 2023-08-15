@@ -1,15 +1,19 @@
 'use client';
 
-import css from './ReviewsComponent.module.css';
+import { useState } from 'react';
+
 import i18n from "i18next";
+import { useSelector } from 'react-redux';
 
 import resources from "@/locales/resource";
-import { Filter } from '../icons/filter.icon';
-import { ReviewElement } from '../Review/Review';
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
 import { State } from '@/store/initialState';
+import { Filter } from '../icons/filter.icon';
+
+import { Review } from '@/store/counter/reviewSlice';
+import { ReviewElement } from '../Review/Review';
 import { AllComments } from '../icons/allComments.icon';
+
+import css from './ReviewsComponent.module.css';
 
 i18n.init({
   resources,
@@ -21,16 +25,17 @@ interface Props {
   theme: boolean;
 }
 
-export const ReviewsComponent = ({ id, theme }: Props): JSX.Element => {
+export const ReviewsComponent = ({
+  id,
+  theme
+}: Props): JSX.Element => {
   const [buttonState, setButtonState] = useState<boolean>(false);
 
-  const reviews = useSelector((state: State) => state.review);
-  const filteredReviews = reviews.filter((review) => review.brand_id === id);
-  const sliceReviews = filteredReviews.slice(0, 2);
+  const reviews: Review[] = useSelector((state: State) => state.review);
+  const filteredReviews: Review[] = reviews.filter((review) => review.brand_id === id);
+  const sliceReviews: Review[] = filteredReviews.slice(0, 2);
 
-  const lenght = reviews.length - 2;
-
-  console.log(lenght);
+  const lenght: number = filteredReviews.length - 2;
 
   return (
     <div className={css.wrapper}>
@@ -43,7 +48,7 @@ export const ReviewsComponent = ({ id, theme }: Props): JSX.Element => {
         </div>
       </div>
       {
-        reviews.length > 2 && !buttonState ? (
+        filteredReviews.length > 2 && !buttonState ? (
           <div className={css.list}>
             {
               sliceReviews.map((review) => {

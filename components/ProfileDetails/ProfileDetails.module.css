@@ -6,36 +6,52 @@
   margin-bottom: 280px;
 }
 
-.text {
+.text,
+.darkText {
   font-size: 16px;
   font-family: Montserrat;
   font-weight: 600;
 }
 
-.inputWrapper {
+.darkText {
+  color: #FFFFFF;
+}
+
+.inputWrapper,
+.darkInputWrapper {
   display: flex;
   width: 305px;
   height: 48px;
   padding: 0px 20px;
   align-items: center;
-  gap: 10px;  
+  gap: 10px;
   background-color: #F6F6F6;
   border-radius: 10px;
 }
 
-.invalidInputWrapper {
+.darkInputWrapper {
+  background-color: #242424;
+}
+
+.invalidInputWrapper,
+.darkInvalidInputWrapper {
   display: flex;
   width: 303px;
   height: 46px;
   padding: 0px 20px;
   align-items: center;
-  gap: 10px;  
+  gap: 10px;
   background-color: #F6F6F6;
   border: 1px solid #EB5757;
   border-radius: 10px;
 }
 
-.nameInput {
+.darkInvalidInputWrapper {
+  background-color: #242424;
+}
+
+.nameInput,
+.darkNameInput {
   width: 305px;
   height: 44px;
   border: none;
@@ -45,13 +61,19 @@
   color: #000;
 }
 
+.darkNameInput {
+  background-color: #242424;
+  color: #FFFFFF;
+}
+
 .nameInput::-webkit-input-placeholder {
   font-size: 14px;
   font-family: Montserrat;
   color: #000;
 }
 
-.nameInput:focus {
+.nameInput:focus,
+.darkNameInput:focus {
   outline: none !important;
 }
 
@@ -61,7 +83,8 @@
   color: #000;
 }
 
-.calendarWrapper {
+.calendarWrapper,
+.darkCalendarWrapper {
   display: flex;
   width: 317px;
   height: 48px;
@@ -71,7 +94,12 @@
   border-radius: 10px;
 }
 
-.calendarInput {
+.darkCalendarWrapper {
+  background-color: #242424;
+}
+
+.calendarInput,
+.darkCalendarInput {
   width: 110px;
   height: 24px;
   background-color: #F6F6F6;
@@ -82,8 +110,21 @@
   color: #000;
 }
 
-.calendarInput:focus {
+.darkCalendarInput {
+  background-color: #242424;
+  color: #FFFFFF;
+}
+
+.calendarInput:focus,
+.darkCalendarInput:focus {
   outline: none !important;
+}
+
+.darkNameInput::-webkit-input-placeholder,
+.darkCalendarInput::-webkit-input-placeholder {
+  font-size: 14px;
+  font-family: Montserrat;
+  color: #FFFFFF;
 }
 
 .calendarButton {
@@ -96,7 +137,7 @@
   gap: 10px;
   flex-shrink: 0;
   border: none;
-  background-color: #F6F6F6;
+  background-color: transparent;
   margin-left: auto;
 }
 
@@ -105,7 +146,8 @@
   gap: 3px;
 }
 
-.button {
+.button,
+.darkButton {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -116,6 +158,11 @@
   border-radius: 8px;
   border: none;
   background-color: #F6F6F6;
+}
+
+.darkButton {
+  background-color: #242424;
+  color: #FFFFFF;
 }
 
 .buttonActive {

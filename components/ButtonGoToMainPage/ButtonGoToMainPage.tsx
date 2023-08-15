@@ -1,10 +1,12 @@
 'use client';
 
+import { useRouter } from "next/navigation";
+
 import i18n from "i18next";
+
 import resources from "@/locales/resource";
 
 import css from './ButtonGoToMainPage.module.css';
-import { useRouter } from "next/navigation";
 
 i18n.init({
   resources,

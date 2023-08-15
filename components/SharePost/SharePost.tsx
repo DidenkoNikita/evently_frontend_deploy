@@ -1,57 +1,57 @@
 'use client';
 
-import i18n from "i18next";
+import { useEffect, useState } from "react";
 
+import i18n from "i18next";
+import { useSelector } from "react-redux";
+
+import { store } from "@/store/store";
+import { socket } from "@/utils/socket";
 import resources from "@/locales/resource";
+import { State } from "@/store/initialState";
+import { User } from "@/store/counter/userSlice";
+import { IChat } from "@/store/counter/chatSLice";
+import { getChats } from "@/store/actions/getChats";
+import { createMessage } from "@/store/actions/createMessage";
+
+import { Remove } from "../icons/remove.icon";
+import { Search } from "../icons/search.icon";
+
+import css from './SharePost.module.css';
 
 i18n.init({
   resources,
   lng: "en"
 });
 
-import css from './SharePost.module.css';
-import { Share } from "../icons/share.icon";
-import { Remove } from "../icons/remove.icon";
-import { useEffect, useState } from "react";
-import { Search } from "../icons/search.icon";
-import { store } from "@/store/store";
-import { getChats } from "@/store/actions/getChats";
-import { socket } from "@/utils/socket";
-import { useSelector } from "react-redux";
-import { State } from "@/store/initialState";
-import { createMessage } from "@/store/actions/createMessage";
-import { Data } from "@/app/home/page";
-
 interface Props {
-  setActiveModal: any;
+  setActiveModal: React.Dispatch<React.SetStateAction<boolean>>;
   postId: number | null;
 }
 
 export const SharePost = ({ setActiveModal, postId }: Props): JSX.Element => {
   const [searchTerm, setSearchTerm] = useState<string>('');
-  const [activeButton, setActiveButton] = useState<number[]>([]);
+  const [chatId, setChatId] = useState<number | null>(null);
   const [userId, setUserId] = useState<number | null>(null);
   const [id, setId] = useState<number | undefined>(undefined);
-  const [chatId, setChatId] = useState<number | null>(null);
-  
+  const [activeButton, setActiveButton] = useState<number[]>([]);
 
   useEffect(() => {
     const userId = JSON.parse(sessionStorage.getItem('user_id') || '');
     setUserId(Number(userId));
     socket.emit('getChats', userId);
     socket.on('chatData', (data) => {
-      // setLoading(false);
       store.dispatch(getChats(data));
     });
   }, [])
 
-  const chats = useSelector((state: State) => state.chats);
+  const chats: IChat[] = useSelector((state: State) => state.chats);
 
-  const filteredChat = chats.filter((chat) =>
+  const filteredChat: IChat[] = chats.filter((chat) =>
     chat.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const handleActiveButton = (index: number) => {
+  const handleActiveButton = (index: number): void => {
     if (activeButton.includes(index)) {
       setActiveButton(activeButton.filter(button => button !== index));
     } else {
@@ -59,8 +59,8 @@ export const SharePost = ({ setActiveModal, postId }: Props): JSX.Element => {
     }
   }
 
-  const user = useSelector((state: State) => state.user);
-  const theme = user?.user?.color_theme;
+  const user: User = useSelector((state: State) => state.user);
+  const theme: boolean = user?.user?.color_theme;
 
   return (
     <div className={css.wrapper}>
@@ -69,11 +69,6 @@ export const SharePost = ({ setActiveModal, postId }: Props): JSX.Element => {
         className={theme ? css.darkModal : css.modal}
       >
         <div className={css.header}>
-          {/* <button
-            className={css.iconButton}
-\          >
-            <Share />
-          </button> */}
           <div className={css.fakeButton} />
           <div className={theme ? css.darkTitle : css.title}>
             {i18n.t('Share')}
@@ -90,9 +85,9 @@ export const SharePost = ({ setActiveModal, postId }: Props): JSX.Element => {
         <div className={theme ? css.darkInputWrapper : css.inputWrapper}>
           <Search />
           <input
+            value={searchTerm}
             placeholder={i18n.t('search')}
             className={theme ? css.darkInput : css.input}
-            value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
@@ -113,8 +108,8 @@ export const SharePost = ({ setActiveModal, postId }: Props): JSX.Element => {
                         </div>
                       ) : (
                         <img
-                          src={chat.link_avatar}
                           alt='Avatar'
+                          src={chat.link_avatar}
                           className={css.avatar}
                         />
                       )}
@@ -124,12 +119,12 @@ export const SharePost = ({ setActiveModal, postId }: Props): JSX.Element => {
                   </div>
                   <div className={css.buttonWrapper}>
                     <button
-                      className={theme ? css.darkButton : css.button}
                       onClick={() => {
                         handleActiveButton(index)
                         setChatId(chat.id);
                         setId(chat.users_id.find(i => i !== userId))
                       }}
+                      className={theme ? css.darkButton : css.button}
                     >
                       {
                         activeButton.includes(index) ? <div className={css.curcle} /> : null
@@ -144,7 +139,7 @@ export const SharePost = ({ setActiveModal, postId }: Props): JSX.Element => {
         </div>
         {
           activeButton.length > 0 && (
-            <button 
+            <button
               className={css.send}
               onClick={() => {
                 store.dispatch(createMessage(Number(id), '', chatId, postId));

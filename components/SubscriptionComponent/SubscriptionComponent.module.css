@@ -17,7 +17,7 @@
   align-items: center;
   gap: 10px;
   border: none;
-  background-color: #ffffff;
+  background-color: transparent;
 }
 
 .wrapperData {
@@ -28,16 +28,26 @@
   gap: 5px;
 }
 
-.name {
+.name,
+.darkName {
   font-family: Montserrat;
   font-size: 14px;
   font-weight: 600; 
 }
 
-.type {
+.darkName {
+  color: #FFFFFF;
+}
+
+.type,
+.darkType {
   font-family: Montserrat;
   font-size: 12px;
   font-weight: 400; 
+}
+
+.darkType {
+  color: #FFFFFF;
 }
 
 .button {
@@ -51,9 +61,14 @@
   background-color: #DFC5FF;
 }
 
-.line {
+.line,
+.darkLine {
   width: 305px;
   height: 1px;
   background-color: #F6F6F6;
   margin: 5px auto;
+}
+
+.darkLine {
+  background-color: #242424;
 }

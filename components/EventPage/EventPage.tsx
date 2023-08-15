@@ -1,11 +1,14 @@
 'use client';
 
+import { useRouter } from "next/navigation";
+
 import i18n from "i18next";
 
 import resources from "@/locales/resource";
 
-import css from './EventPage.module.css';
 import { Event } from "@/store/counter/eventSlice";
+
+import css from './EventPage.module.css';
 
 i18n.init({
   resources,
@@ -13,18 +16,21 @@ i18n.init({
 });
 
 interface Props {
-  event: Event | undefined;
   theme: boolean;
+  event: Event | undefined;
 }
 
-export default function EventPage({ event, theme }: Props): JSX.Element {
+export default function EventPage({
+  event,
+  theme
+}: Props): JSX.Element {
 
-  const arr = [
+  const arr: string[] = [
     i18n.t('wont_go'),
     i18n.t('will_go')
   ]
 
-  const arrAvatar = [
+  const arrAvatar: string[] = [
     '../../../people1.png',
     '../../../people2.png',
     '../../../people3.png',
@@ -32,6 +38,8 @@ export default function EventPage({ event, theme }: Props): JSX.Element {
     '../../../people5.png',
     '../../../people6.png'
   ]
+
+  const router = useRouter();
 
   return (
     <div className={css.wrapper}>
@@ -54,7 +62,7 @@ export default function EventPage({ event, theme }: Props): JSX.Element {
               {event?.phone}
             </li>
             <li className={theme ? css.darkListElement : css.listElement}>
-              <a 
+              <a
                 href={event?.site_link}
                 className={theme ? css.darkLink : css.link}
               >
@@ -88,7 +96,7 @@ export default function EventPage({ event, theme }: Props): JSX.Element {
               {
                 arrAvatar.map((avatar, index) => {
                   return (
-                    <img 
+                    <img
                       key={index}
                       src={avatar}
                       className={css.avatarElemet}
@@ -101,7 +109,12 @@ export default function EventPage({ event, theme }: Props): JSX.Element {
               {i18n.t('people_going')}
             </div>
           </div>
-          <button className={css.guests}>
+          <button
+            className={css.guests}
+            onClick={() => {
+              router.push(`/home/services/event/guests/${event?.id}`)
+            }}
+          >
             {i18n.t('guests')}
           </button>
         </div>

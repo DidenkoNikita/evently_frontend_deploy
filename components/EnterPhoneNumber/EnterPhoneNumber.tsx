@@ -1,8 +1,5 @@
 'use client';
 
-import PhoneInput from "react-phone-input-2";
-import 'react-phone-input-2/lib/style.css';
-
 import css from './EnterPhoneNumber.module.css';
 import i18n from "i18next";
 
@@ -17,67 +14,45 @@ i18n.init({
 });
 
 interface InputPhone {
-  setStateInputPhone: any;
-  stateInputPhone: string;
+  userTheme: string;
   activeStep: number;
-  setActiveStep: any;
   openCalendar: boolean;
+  stateInputPhone: string;
+  setActiveStep: React.Dispatch<React.SetStateAction<number>>;
+  setStateInputPhone: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const EnterPhoneNumber = ({
-  setStateInputPhone, 
-  stateInputPhone, 
+  userTheme,
   activeStep,
+  openCalendar,
   setActiveStep,
-  openCalendar
+  stateInputPhone,
+  setStateInputPhone,
 }: InputPhone): JSX.Element => {
+  const [state, setState] = useState<boolean | void>(false);
   const [checkNumber, setCheckNumber] = useState<boolean | void>(false);
 
-  const [state, setState] = useState<boolean | void>(false);
-  
-  const containerStyle = {
-    'display': 'flex',
-    'alignItems': 'center',
-    'gap': '10px',
-    'minWidth': '54px',
-    'height': '48px',
-  }
-
-  const buttonStyle = {
-    'display': 'flex',
-    'width': '54px',
-    'border': 'none',
-    'height': '48px',
-    'alignItems': 'center',
-    'justifyContent': 'space-between',
-    'gap': '10px',
-    'margitRight': '0px'
-  }
-
-  const inputStyle = {
-    'border': 'none',
-    'backgroundColor': '#F6F6F6',
-    'marginLeft': '10px'
-  }
-
-  const handlePhoneInputChange = (phone: string) => {
-    setStateInputPhone(phone);
+  const handlePhoneInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const inputValue = e.target.value;
+    const validInputValue = inputValue.replace(/[^+\d]/g, "");
+    setStateInputPhone(validInputValue);
     setCheckNumber(false);
   }
 
-  useEffect(() => {
+  useEffect((): void => {
     const updateCheckNumber = async () => {
       const result = await numberCheck(stateInputPhone);
       setState(result);
     };
 
-    if (stateInputPhone.length === 11) {
+    if (stateInputPhone.length === 12) {
       updateCheckNumber();
     }
   }, [stateInputPhone]);
 
-  const handleNextStep = () => {
-    if (stateInputPhone.length === 11) {
+  const handleNextStep = (): void => {
+    if (stateInputPhone.length === 12) {
       setCheckNumber(state)
       if (!checkNumber && !state) {
         setActiveStep((prevStep: number) => prevStep + 1);
@@ -87,31 +62,45 @@ export const EnterPhoneNumber = ({
     }
   }
 
-
-
-  return(
+  return (
     <div>
       <div className={checkNumber ? css.area : css.invalidArea}>
         <div className={css.wrapper}>
-          <div className={css.text}>{i18n.t('enter_phone')}</div>
-          <div className={checkNumber ? css.invalidFieldPhone : css.fieldPhone}>
-            <PhoneInput 
-              country={'ru'}
+          <div className={userTheme === 'dark' ? css.darkText : css.text}>
+            {i18n.t('enter_phone')}
+          </div>
+          <div
+            className={
+              checkNumber ? (
+                userTheme === 'dark' ? css.darkInvalidFieldPhone : css.invalidFieldPhone
+              ) : (
+                userTheme === 'dark' ? css.darkFieldPhone : css.fieldPhone
+              )
+            }
+          >
+            <input
+              type='tel'
+              id='phone'
+              name='phone'
+              maxLength={12}
               value={stateInputPhone}
-              onChange={handlePhoneInputChange}
               placeholder={i18n.t('phone')}
-              containerStyle={containerStyle}
-              buttonStyle={buttonStyle}
-              inputStyle={inputStyle}
+              onChange={handlePhoneInputChange}
+              className={userTheme === 'dark' ? css.darkInputPhone : css.inputPhone}
             />
           </div>
         </div>
-          {checkNumber ? <span className={css.error}>{i18n.t('invalid_number')}</span> : null}
+        {checkNumber ? (
+          <span className={css.error}>
+            {i18n.t('invalid_number')}
+          </span>
+        ) : null}
       </div>
       <WrapperButtons
+        userTheme={userTheme}
         activeStep={activeStep}
-        handleNextStep={handleNextStep}
         openCalendar={openCalendar}
+        handleNextStep={handleNextStep}
       />
     </div>
   )

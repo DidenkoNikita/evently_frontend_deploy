@@ -19,7 +19,7 @@ export const eventSLice = createSlice({
   initialState: initialState.event,
   reducers: {
     getEvents: (state, action: PayloadAction<Event[]>): void => {
-      const {payload} = action;
+      const { payload } = action;
       payload.map((event: Event) => {
         if (!state.find((e: Event) => e.id === event.id)) {
           state.push(event);

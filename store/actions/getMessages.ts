@@ -1,6 +1,7 @@
 import { ThunkAction } from "redux-thunk";
-import { RooteState } from "../store";
 import { PayloadAction } from "@reduxjs/toolkit";
+
+import { RooteState } from "../store";
 import { IMessage, messagesGet } from "../counter/messageSlice";
 
 export const getMessages = (data: IMessage[]): ThunkAction<

@@ -21,9 +21,6 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 10px;
-}
-
-.post {
   background-color: #F6F6F6;
 }
 
@@ -43,9 +40,6 @@
   padding-left: 24px;
   border: none;
   border-radius: 10px 10px 0 0;
-}
-
-.header {
   background-color: #F6F6F6;
 }
 
@@ -73,9 +67,6 @@
   border-radius: 50px;
   rotate: -205deg;
   object-fit: cover;
-}
-
-.avatar {
   border: 2px solid white;
 }
 
@@ -119,9 +110,6 @@
   gap: 10px;
   border: none;
   border-radius: 10px;
-}
-
-.button {
   background-color: #F6F6F6;
 }
 
@@ -178,9 +166,6 @@
   font-weight: 400;
   color: #AAA;
   border-bottom: 1px solid #AAA;
-}
-
-.more {
   background-color: #F6F6F6;
 }
 

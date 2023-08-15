@@ -1,4 +1,4 @@
-import { Props } from "./interface"
+import { Props } from "./interface";
 
 export const Write = ({ color }: Props): JSX.Element => {
   return (

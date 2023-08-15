@@ -7,9 +7,6 @@
   border-radius: 10px;
   position: fixed;
   top: 388px;
-}
-
-.activeWrapper {
   background-color: #F6F6F6;
 }
 
@@ -33,9 +30,6 @@
   font-family: Montserrat;
   font-size: 14px;
   font-weight: 400; 
-}
-
-.element {
   border-bottom: 1px solid #AAAAAA;
 }
 

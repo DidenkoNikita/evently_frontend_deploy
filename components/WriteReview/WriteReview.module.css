@@ -9,7 +9,8 @@
   gap: 10px;
 }
 
-.darkWrapper {
+.darkWrapper,
+.darkInvalidWrapper {
   background-color: #333333;
 }
 
@@ -17,7 +18,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 36px;
+  margin-left: 26px;
   margin-right: auto;
 }
 
@@ -29,9 +30,6 @@
   width: 40px;
   height: 24px;
   border: none;
-}
-
-.grade {
   background-color: #ffffff;
 }
 
@@ -40,34 +38,37 @@
 }
 
 .inputWrapper,
-.darkInputWrapper {
+.darkInputWrapper,
+.invalidWrapper,
+.darkInvalidWrapper {
   display: flex;
-  width: 345px;
+  width: 365px;
   height: 53px;
   justify-content: center;
   align-items: center;
   border-radius: 10px;
   padding: 14px 0;
-}
-
-.inputWrapper {
   background-color: #F6F6F6;
 }
 
-.darkInputWrapper {
+.invalidWrapper,
+.darkInvalidWrapper {
+  border: 1px solid #EB5757;
+}
+
+
+.darkInputWrapper,
+.darkInvalidWrapper {
   background-color: #242424;
 }
 
 .input,
 .darkInput {
-  width: 305px;
+  width: 325px;
   height: 47px;
   border: none;
   font-size: 14px;
   font-family: Montserrat;
-}
-
-.input {
   background-color: #F6F6F6;
   color: #000;
 }
@@ -98,26 +99,38 @@
 
 .button {
   display: flex;
-  width: 345px;
+  width: 365px;
   height: 48px;
   justify-content: center;
-  align-items: center; 
+  align-items: center;
   border: none;
   border-radius: 10px;
   background-color: #DFC5FF;
   font-family: Montserrat;
   font-size: 16px;
-  font-weight: 400; 
-  margin-top: 10px;
+  font-weight: 400;
+  margin-top: 15px;
 }
 
 .alert,
 .darkAlert {
   font-family: Montserrat;
   font-size: 16px;
-  font-weight: 600; 
+  font-weight: 600;
 }
 
 .darkAlert {
   color: #ffffff;
+}
+
+.error {
+  display: block;
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: 400;
+  color: #EB5757;
+  gap: 0px;
+  position: absolute;
+  top: 800px;
+  left: 25px;
 }

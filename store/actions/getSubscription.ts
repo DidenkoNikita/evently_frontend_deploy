@@ -1,8 +1,9 @@
 import { ThunkAction } from "redux-thunk";
-import { RooteState } from "../store";
 import { PayloadAction } from "@reduxjs/toolkit";
-import { Subscription, subscriptionGet } from "../counter/subscriptionSlice";
+
+import { RooteState } from "../store";
 import { request } from "@/requests/request";
+import { Subscription, subscriptionGet } from "../counter/subscriptionSlice";
 
 export const getSubscriptions = (): ThunkAction<
   void,
@@ -12,10 +13,10 @@ export const getSubscriptions = (): ThunkAction<
 > => async (dispatch): Promise<void | unknown> => {
   try {
     const data = await request('get_subscribtion', {}, 'POST');
-    if (data !== null) {      
+    if (data !== null) {
       dispatch(subscriptionGet(data));
     }
-  } catch(e) {
+  } catch (e) {
     return console.log(e);
   }
 }

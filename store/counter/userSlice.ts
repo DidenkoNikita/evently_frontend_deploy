@@ -144,15 +144,14 @@ export const userSlice = createSlice({
   initialState: initialState.user,
   reducers: {
     getUser: (state, action: PayloadAction<User>): User => {
-      const {payload} = action;
-      
+      const { payload } = action;
       return state = {
-          user: payload.user,
-          userCategories: payload.userCategories,
-          userMood: payload.userMood,
-          phoneConfidentiality: payload.phoneConfidentiality,
-          messageConfidentiality: payload.messageConfidentiality
-        }
+        user: payload.user,
+        userCategories: payload.userCategories,
+        userMood: payload.userMood,
+        phoneConfidentiality: payload.phoneConfidentiality,
+        messageConfidentiality: payload.messageConfidentiality
+      }
     },
     changeCategories: (state, action: PayloadAction<UpdatedCategories>): void => {
       const { payload } = action;

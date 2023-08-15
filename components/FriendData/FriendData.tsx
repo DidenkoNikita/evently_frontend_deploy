@@ -1,25 +1,27 @@
 'use client';
 
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+
 import i18n from "i18next";
 
 import resources from "@/locales/resource";
+import { UsersList } from "@/store/counter/usersListSlice";
+import { createRequestInFriendship } from "@/requests/createRequestInFriendship";
 
 import { City } from '../icons/city.icon';
-import css from './FriendData.module.css';
-import { Subscriptions } from "../icons/subscriptions.icon";
-import { RightIcon } from "../icons/rightIcon.icon";
-import { Friends } from "../icons/friends.icon";
-import { useEffect, useState } from "react";
-import { UsersList } from "@/store/counter/usersListSlice";
 import { Call } from "../icons/call.icon";
-import { AddFriend } from "../icons/addFirend.icon";
-import { ChatsIcon } from "../icons/chats.icon";
 import { More } from "../icons/more.icon";
-import { useRouter } from "next/navigation";
 import { Star } from "../icons/star.icon";
-import { LoadingComponent } from "../Loading/Loading";
-import { createRequestInFriendship } from "@/requests/createRequestInFriendship";
 import { Friend } from "../icons/friend.icon";
+import { Friends } from "../icons/friends.icon";
+import { ChatsIcon } from "../icons/chats.icon";
+import { AddFriend } from "../icons/addFirend.icon";
+import { RightIcon } from "../icons/rightIcon.icon";
+import { LoadingComponent } from "../Loading/Loading";
+import { Subscriptions } from "../icons/subscriptions.icon";
+
+import css from './FriendData.module.css';
 
 i18n.init({
   resources,
@@ -34,13 +36,12 @@ interface UserData {
 
 export const FriendData = ({ userData, id, theme }: UserData): JSX.Element => {
   const [modal, stateModal] = useState<boolean>(false);
-  const [activeAlert, setActiveAlert] = useState<boolean>(false);
-
   const [userId, setUserId] = useState<number | null>(null);
+  const [activeAlert, setActiveAlert] = useState<boolean>(false);
 
   const router = useRouter();
 
-  useEffect(() => {
+  useEffect((): void => {
     const user_id = JSON.parse(sessionStorage.getItem('user_id') || '');
     setUserId(Number(user_id))
   }, [])
@@ -81,7 +82,7 @@ export const FriendData = ({ userData, id, theme }: UserData): JSX.Element => {
     return <LoadingComponent />;
   }
 
-  const checkUserId = userData.friends_id.find((i) => i === userId)
+  const checkUserId: number | undefined = userData.friends_id.find((i) => i === userId)
 
   return (
     <div className={theme ? css.darkWrapper : css.wrapper}>

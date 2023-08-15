@@ -1,15 +1,20 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+
+import { Back } from '../icons/back.icon';
+
+import css from './HeaderProfileFriend.module.css';
+
 interface Title {
   title: string;
   theme: boolean;
 }
 
-import { useRouter } from 'next/navigation';
-import css from './HeaderProfileFriend.module.css'
-import { Back } from '../icons/back.icon';
-
-export const HeaderProfileFriend = ({ title, theme }: Title): JSX.Element => {
+export const HeaderProfileFriend = ({ 
+  title, 
+  theme
+}: Title): JSX.Element => {
   const router = useRouter();
 
   return (
@@ -21,7 +26,7 @@ export const HeaderProfileFriend = ({ title, theme }: Title): JSX.Element => {
           }}
           className={theme ? css.darkIconButton : css.iconButton}
         >
-          {theme ? <Back color='#FFFFFF' /> : <Back color='#000000' />}
+          <Back color={theme ? '#FFFFFF' : '#000000'} />
         </button>
         <div className={css.titleWrapper}>
           <div className={theme ? css.darkTitle : css.title}>

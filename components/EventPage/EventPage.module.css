@@ -28,11 +28,8 @@
   gap: 20px;
   border-radius: 20px 20px 0px 0px;
   margin-top: -20px;
-}
-
-.container {
   background-color: #FDFFFD;
-} 
+}
 
 .darkContainer {
   background-color: #333333;
@@ -132,9 +129,6 @@
   font-family: Montserrat;
   font-size: 16px;
   font-weight: 400;
-}
-
-.button {
   background-color: #F6F6F6;
 }
 
@@ -156,9 +150,6 @@
   align-items: flex-start;
   gap: 20px;
   border-radius: 20px;
-}
-
-.wrapperAvatar {
   background-color: #F6F6F6;
 }
 

@@ -1,7 +1,3 @@
-// interface Info {
-//   userId: number
-// }
-
 export const createRequestInFriendship = async  (userId: number, setActiveAlert: any) => {
   const API_URL = process.env.API_URL;
   const user_id = sessionStorage.getItem('user_id');

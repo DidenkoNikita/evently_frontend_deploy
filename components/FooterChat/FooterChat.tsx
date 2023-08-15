@@ -1,16 +1,17 @@
 'use client';
 
-import { Plus } from '../icons/plus.icon';
-import { Send } from '../icons/send.icon';
-import css from './FooterChat.module.css';
+import { ChangeEvent, useEffect, useState } from 'react';
 
 import i18n from "i18next";
 
-import resources from "@/locales/resource";
-import { ChangeEvent, useEffect, useState } from 'react';
 import { store } from '@/store/store';
+import resources from "@/locales/resource";
 import { createMessage } from '@/store/actions/createMessage';
-import { socket } from '@/utils/socket';
+
+import { Plus } from '../icons/plus.icon';
+import { Send } from '../icons/send.icon';
+
+import css from './FooterChat.module.css';
 
 i18n.init({
   resources,
@@ -19,25 +20,28 @@ i18n.init({
 
 interface Data {
   id: number;
-  chatId: number | null;
   theme: boolean;
+  chatId: number | null;
 }
 
-export const FooterChat = ({ id, chatId, theme }: Data): JSX.Element => {
+export const FooterChat = ({
+  id,
+  theme,
+  chatId
+}: Data): JSX.Element => {
   const [inputData, setInputData] = useState<string>('');
-
   const [userId, setUserId] = useState<number | string>('');
 
-  useEffect(() => {
+  useEffect((): void => {
     const idUser = JSON.parse(sessionStorage.getItem('user_id') || '');
     setUserId(idUser)
   }, [userId])
 
-  const changeInputData = (e: ChangeEvent<HTMLInputElement>) => {
+  const changeInputData = (e: ChangeEvent<HTMLInputElement>): void => {
     setInputData(e.target.value);
   }
 
-  const handleMessage = (id: number, inputData: string, chatId: number | null) => {
+  const handleMessage = (id: number, inputData: string, chatId: number | null): null | undefined => {
     if (inputData.trim() === '') {
       return null
     } else {
@@ -46,7 +50,7 @@ export const FooterChat = ({ id, chatId, theme }: Data): JSX.Element => {
     }
   }
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>): void => {
     if (e.key === "Enter") {
       handleMessage(id, inputData, chatId)
     }
@@ -61,11 +65,11 @@ export const FooterChat = ({ id, chatId, theme }: Data): JSX.Element => {
         <div className={theme ? css.darkInputWrapper : css.inputWrapper}>
           <input
             type="text"
-            className={theme ? css.darkInput : css.input}
-            placeholder={i18n.t('type_your_message')}
             value={inputData}
-            onChange={changeInputData}
             onKeyDown={handleKeyDown}
+            onChange={changeInputData}
+            placeholder={i18n.t('type_your_message')}
+            className={theme ? css.darkInput : css.input}
           />
         </div>
         <button

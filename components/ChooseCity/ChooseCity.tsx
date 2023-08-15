@@ -1,17 +1,16 @@
 'use client';
 
+import { useState } from "react";
+
 import i18n from "i18next";
 
 import resources from "@/locales/resource";
-import { useState } from "react";
-import { SettingsHeader } from "../SettingsHeader/SettingsHeader";
 
-import css from './ChooseCity.module.css';
 import { Change } from "../Change/Change";
 import { Footer } from "../Footer/Footer";
 import { HeaderFilter } from "../HeaderFilter/HeaderFilter";
-import { useSelector } from "react-redux";
-import { State } from "@/store/initialState";
+
+import css from './ChooseCity.module.css';
 
 i18n.init({
   resources,
@@ -19,14 +18,20 @@ i18n.init({
 });
 
 interface Props {
-  userCity: string;
-  setUserCity: any;
-  activeCity: boolean;
-  setActiveCity: any;
   theme: boolean;
+  userCity: string;
+  activeCity: boolean;
+  setUserCity: React.Dispatch<React.SetStateAction<string>>;
+  setActiveCity: React.Dispatch<React.SetStateAction<any>>;
 }
 
-export const ChooseCity = ({ userCity, setUserCity, activeCity, setActiveCity, theme }: Props): JSX.Element => {
+export const ChooseCity = ({ 
+  theme, 
+  userCity, 
+  activeCity, 
+  setUserCity, 
+  setActiveCity, 
+}: Props): JSX.Element => {
   const [activeButtonsCity, setActiveButtonsCity] = useState<string[]>([]);
 
   const city: string[] = [

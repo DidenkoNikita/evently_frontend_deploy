@@ -1,8 +1,9 @@
 import { ThunkAction } from "redux-thunk";
-import { RooteState } from "../store";
 import { PayloadAction } from "@reduxjs/toolkit";
-import { User, getUser } from "../counter/userSlice";
+
+import { RooteState } from "../store";
 import { request } from "@/requests/request";
+import { User, getUser } from "../counter/userSlice";
 
 export const userGet = (): ThunkAction<
   void,
@@ -11,12 +12,12 @@ export const userGet = (): ThunkAction<
   PayloadAction<User>
 > => async (dispatch): Promise<void | unknown> => {
   try {
-    const data = await request('user', {} , 'POST');
-        
-    if (data !== null) {      
+    const data = await request('user', {}, 'POST');
+
+    if (data !== null) {
       dispatch(getUser(data));
     }
-  } catch(e) {
+  } catch (e) {
     return console.log(e);
   }
 }

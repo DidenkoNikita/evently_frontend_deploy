@@ -15,14 +15,14 @@
   width: 345px;
   justify-content: flex-start;
   align-items: center;
-  gap: 10px; 
+  gap: 10px;
   border: none;
   background-color: transparent;
 }
 
 .avatar {
   width: 48px;
-  height: 48px; 
+  height: 48px;
   border-radius: 100px;
   margin-left: -4px;
   object-fit: cover;
@@ -44,9 +44,6 @@
   font-family: Montserrat;
   font-size: 20px;
   font-weight: 600;
-}
-
-.avatarData {
   color: #FFFFFF;
 }
 
@@ -57,7 +54,7 @@
 .wrapper {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start; 
+  align-items: flex-start;
   width: 287px;
 }
 
@@ -66,7 +63,7 @@
   height: 48px;
   flex-direction: column;
   justify-content: space-between;
-  align-items: flex-start; 
+  align-items: flex-start;
 }
 
 .timeWrapper {
@@ -74,28 +71,28 @@
   height: 48px;
   flex-direction: column;
   justify-content: space-between;
-  align-items: flex-end; 
+  align-items: flex-end;
 }
 
 .name,
 .darkName {
   font-family: Montserrat;
   font-size: 14px;
-  font-weight: 600; 
+  font-weight: 600;
 }
 
 .message,
 .darkMessage {
   font-family: Montserrat;
   font-size: 14px;
-  font-weight: 400; 
+  font-weight: 400;
 }
 
 .time,
 .darkTime {
   font-family: Montserrat;
   font-size: 12px;
-  font-weight: 400; 
+  font-weight: 400;
 }
 
 .darkName,
@@ -115,17 +112,14 @@
   height: 16px;
   font-family: Montserrat;
   font-size: 12px;
-  font-weight: 400; 
+  font-weight: 400;
 }
 
 .line,
 .darkLine {
   width: 305px;
-  height: 1px; 
+  height: 1px;
   margin: 5px auto;
-}
-
-.line {
   background-color: #F6F6F6;
 }
 
@@ -141,7 +135,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* gap: 4px;  */
   border: none;
   border-radius: 5px;
   background-color: #DFC5FF;
@@ -155,7 +148,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* gap: 4px;  */
   border: none;
   border-radius: 5px;
   background-color: #EB5757;
@@ -165,13 +157,13 @@
 .muteText {
   font-family: Montserrat;
   font-size: 12px;
-  font-weight: 400; 
+  font-weight: 400;
 }
 
 .deleteText {
   font-family: Montserrat;
   font-size: 12px;
-  font-weight: 400; 
+  font-weight: 400;
   color: #FFFFFF;
 }
 

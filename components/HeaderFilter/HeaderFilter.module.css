@@ -5,10 +5,7 @@
   width: 414px;
   height: 119px;
   position: fixed;
-  top: -0px;
-}
-
-.headerWrapper {
+  top: 0px;
   background-color: #FFF;
 }
 
@@ -36,9 +33,6 @@
   gap: 10px;
   border: none;
   border-radius: 10px;
-}
-
-.iconButton {
   background-color: white;
 }
 
@@ -73,9 +67,6 @@
   font-family: Montserrat;
   font-size: 14px;
   font-weight: 400;
-}
-
-.button {
   background-color: #FFF;
   border-bottom: 1px solid #000000;
 }
@@ -94,9 +85,6 @@
   justify-content: center;
   align-items: center;
   border: none;
-}
-
-.resultButton {
   background-color: #FFF;
 }
 

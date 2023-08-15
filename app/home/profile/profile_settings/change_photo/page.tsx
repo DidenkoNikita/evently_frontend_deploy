@@ -1,19 +1,21 @@
 'use client';
 
-import i18n from "i18next";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+
+import i18n from "i18next";
+import { useSelector } from "react-redux";
+
 import { store } from "@/store/store";
+import resources from "@/locales/resource";
+import { State } from "@/store/initialState";
+import { User } from "@/store/counter/userSlice";
+import { userGet } from "@/store/actions/getUser";
 import { uploadAvatar } from "@/store/actions/uploadAvatar";
 
-import resources from "@/locales/resource";
 import { SettingsHeader } from "@/components/SettingsHeader/SettingsHeader";
-import { Footer } from "@/components/Footer/Footer";
 
 import css from "./page.module.css";
-import { useRouter } from "next/navigation";
-import { userGet } from "@/store/actions/getUser";
-import { useSelector } from "react-redux";
-import { State } from "@/store/initialState";
 
 i18n.init({
   resources,
@@ -21,33 +23,29 @@ i18n.init({
 });
 
 export default function changePhoto(): JSX.Element {
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
   const router = useRouter();
 
-  useEffect(() => {
+  useEffect((): void => {
     store.dispatch(userGet());
   }, []);
 
-  const user = useSelector((state: State) => state.user);
-  const theme = user?.user?.color_theme;
+  const user: User = useSelector((state: State) => state.user);
+  const theme: boolean = user?.user?.color_theme;
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      setSelectedFile(e.target.files[0]);
-      handleUpload(e.target.files[0]);
-    }
-  };
-
-  const handleUpload = async (file: File) => {
+  const handleUpload = async (file: File): Promise<void> => {
     if (file) {
-      await store.dispatch(uploadAvatar(file));
+      store.dispatch(uploadAvatar(file));
       router.push("/home/profile/profile_settings");
     }
   };
 
-  // Function to trigger file input click
-  const handleSelectPhoto = () => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    if (e.target.files && e.target.files.length > 0) {
+      handleUpload(e.target.files[0]);
+    }
+  };
+
+  const handleSelectPhoto = (): void => {
     const fileInput = document.getElementById('fileInput');
     if (fileInput) {
       fileInput.click();
@@ -73,7 +71,10 @@ export default function changePhoto(): JSX.Element {
             <div className={theme ? css.darkAvatarData : css.avatarData}>
               {user?.user?.name.slice(0, 1)}
             </div>
-            <button className={css.button} onClick={handleSelectPhoto}>
+            <button
+              className={css.button}
+              onClick={handleSelectPhoto}
+            >
               {i18n.t("add_photo")}
             </button>
           </div>
@@ -84,7 +85,10 @@ export default function changePhoto(): JSX.Element {
               className={css.avatar}
               alt="User Avatar"
             />
-            <button className={css.button} onClick={handleSelectPhoto}>
+            <button
+              className={css.button}
+              onClick={handleSelectPhoto}
+            >
               {i18n.t("change_photo")}
             </button>
           </div>

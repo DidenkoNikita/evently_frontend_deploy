@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 10px; 
+  gap: 10px;
 }
 
 .wrapper:last-child {
@@ -14,12 +14,12 @@
   width: 345px;
   justify-content: flex-start;
   align-items: center;
-  gap: 10px; 
+  gap: 10px;
 }
 
 .avatar {
   width: 48px;
-  height: 48px; 
+  height: 48px;
   border-radius: 100px;
   margin-left: -4px;
   object-fit: cover;
@@ -29,7 +29,7 @@
 .darkName {
   font-family: Montserrat;
   font-size: 14px;
-  font-weight: 600; 
+  font-weight: 600;
 }
 
 .darkName {
@@ -49,15 +49,12 @@
   width: 170px;
   height: 48px;
   justify-content: center;
-  align-items: center; 
+  align-items: center;
   border: none;
   border-radius: 10px;
   font-family: Montserrat;
   font-size: 16px;
-  font-weight: 400; 
-}
-
-.add {
+  font-weight: 400;
   background-color: #E3F563;
 }
 
@@ -81,9 +78,6 @@
   font-family: Montserrat;
   font-size: 20px;
   font-weight: 600;
-}
-
-.avatarData {
   color: #FFFFFF;
 }
 

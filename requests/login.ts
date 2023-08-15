@@ -16,6 +16,7 @@ export const login = async (user: any, router: AppRouterInstance): Promise<void>
     if (response.status === 201) {
       sessionStorage.setItem('user_id', JSON.stringify(data.id));
       sessionStorage.setItem('access_token', JSON.stringify(data.accessToken));
+      sessionStorage.setItem('color_theme', JSON.stringify(data.color_theme));
       router.push('/home');
     }
     

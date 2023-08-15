@@ -1,27 +1,33 @@
 'use client';
 
-import css from './page.module.css';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 import i18n from "i18next";
-
-import resources from "@/locales/resource";
-import { SettingsHeader } from '@/components/SettingsHeader/SettingsHeader';
-import { useEffect, useState } from 'react';
-import { store } from '@/store/store';
-import { getPost } from '@/store/actions/getPosts';
 import { useSelector } from 'react-redux';
+
+import { store } from '@/store/store';
+import resources from "@/locales/resource";
 import { State } from '@/store/initialState';
-import { Footer } from '@/components/Footer/Footer';
-import { useRouter } from 'next/navigation';
-import { getSubscriptions } from '@/store/actions/getSubscription';
+import { User } from '@/store/counter/userSlice';
+import { userGet } from '@/store/actions/getUser';
+import { Post } from '@/store/counter/postsSlice';
+import { getPost } from '@/store/actions/getPosts';
 import { likePosts } from '@/store/actions/likePost';
-import { ActiveHeart } from '@/components/icons/activeHeart.icon';
+import { Comment } from '@/store/counter/commentSlice';
 import { getComment } from '@/store/actions/getComments';
+import { Subscription } from '@/store/counter/subscriptionSlice';
+import { getSubscriptions } from '@/store/actions/getSubscription';
+
+import { Footer } from '@/components/Footer/Footer';
 import { Heart } from '@/components/icons/heart.icon';
 import { Message } from '@/components/icons/message.icon';
 import { Forward } from '@/components/icons/forward.icon';
 import { SharePost } from '@/components/SharePost/SharePost';
-import { userGet } from '@/store/actions/getUser';
+import { ActiveHeart } from '@/components/icons/activeHeart.icon';
+import { SettingsHeader } from '@/components/SettingsHeader/SettingsHeader';
+
+import css from './page.module.css';
 
 i18n.init({
   resources,
@@ -31,19 +37,17 @@ i18n.init({
 export default function PostPage(): JSX.Element {
   const [postId, setPostId] = useState<string>('');
   const [activeModal, setActiveModal] = useState<boolean>(false);
+  const [stateUserId, setStateUserId] = useState<number | string>('');
+  const [expandedPostId, setExpandedPostId] = useState<number | null>(null);
 
-  useEffect(() => {
+  useEffect((): void => {
     store.dispatch(getPost());
+    store.dispatch(userGet());
     store.dispatch(getComment());
     setPostId(location.pathname);
-    store.dispatch(userGet());
   }, []);
 
-  const [expandedPostId, setExpandedPostId] = useState<number | null>(null);
-  const [stateUserId, setStateUserId] = useState<number | string>('');
-  const router = useRouter()
-
-  useEffect(() => {
+  useEffect((): void => {
     const user_id = sessionStorage.getItem('user_id');
     if (!user_id) {
       router.push('/');
@@ -52,9 +56,10 @@ export default function PostPage(): JSX.Element {
     }
     store.dispatch(getSubscriptions());
   }, [])
+  
+  const router = useRouter();
 
-
-  const handleTextToggle = (postId: number) => {
+  const handleTextToggle = (postId: number): void => {
     if (expandedPostId === postId) {
       setExpandedPostId(null);
     } else {
@@ -62,26 +67,21 @@ export default function PostPage(): JSX.Element {
     }
   };
 
-  const subscriptions = useSelector((state: State) => state.subscription);
+  const subscriptions: Subscription[] = useSelector((state: State) => state.subscription);
 
-  const handleLike = (post_id: number) => {
+  const handleLike = (post_id: number): void => {
     store.dispatch(likePosts(post_id));
   }
 
-
   const post_id: number = Number(postId.slice(11));
-
-  const posts = useSelector((state: State) => state.posts);
-  const comments = useSelector((state: State) => state.comments);
-
+  const posts: Post[] = useSelector((state: State) => state.posts);
+  const comments: Comment[] = useSelector((state: State) => state.comments);
   const filteredPost = posts.find((post) => post.id === post_id);
-
-  const id = filteredPost?.like.includes(Number(stateUserId));
-  const commentsFilter = comments.filter((comment) => comment.post_id === filteredPost?.id);
-  const subscribtionFilter = subscriptions.find((subscription) => subscription.brand_id === filteredPost?.brand_id);
-
-  const user = useSelector((state: State) => state.user);
-  const theme = user?.user?.color_theme;
+  const id: boolean | undefined = filteredPost?.like.includes(Number(stateUserId));
+  const commentsFilter: Comment[] = comments.filter((comment) => comment.post_id === filteredPost?.id);
+  const subscribtionFilter: Subscription | undefined = subscriptions.find((subscription) => subscription.brand_id === filteredPost?.brand_id);
+  const user: User = useSelector((state: State) => state.user);
+  const theme: boolean = user?.user?.color_theme;
 
   return (
     <div className={theme ? css.darkWrapper : css.wrapper}>
@@ -124,7 +124,9 @@ export default function PostPage(): JSX.Element {
               {filteredPost?.type}
             </div>
           </div>
-          <div className={css.subscribe}>{subscribtionFilter ? i18n.t('subscribed') : i18n.t('subscribe')}</div>
+          <div className={css.subscribe}>
+            {subscribtionFilter ? i18n.t('subscribed') : i18n.t('subscribe')}
+          </div>
         </button>
         <img
           src={filteredPost?.link_photo}
@@ -136,7 +138,7 @@ export default function PostPage(): JSX.Element {
         <div className={css.buttonWrapper}>
           <button
             onClick={() => {
-              handleLike(Number(filteredPost?.id))
+              handleLike(Number(filteredPost?.id));
             }}
             className={theme ? css.darkButton : css.button}
           >
@@ -177,7 +179,9 @@ export default function PostPage(): JSX.Element {
             ) : (
               <Forward color="#000000" />
             )}
-            <div className={theme ? css.darkQuantity : css.quantity}>0</div>
+            <div className={theme ? css.darkQuantity : css.quantity}>
+              0
+            </div>
           </button>
         </div>
         <div className={theme ? css.darkText : css.text}>
@@ -198,7 +202,6 @@ export default function PostPage(): JSX.Element {
           }
         </div>
       </div>
-
       <Footer />
     </div>
   )

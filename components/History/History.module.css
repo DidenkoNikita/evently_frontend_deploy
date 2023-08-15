@@ -16,17 +16,12 @@
 
 .darkHistoryWrapper {
   background-color: #333333;
-  margin-bottom: 20px;
 }
 
 .historyWrapper::-webkit-scrollbar,
 .darkHistoryWrapper::-webkit-scrollbar {
   width: 0;
 }
-/* 
-.historyWrapper::-moz-scrollbar {
-  display: none;
-} */
 
 .history {
   display: flex;
@@ -58,9 +53,6 @@
 .darkImageHistory {
   border-radius: 50px;
   rotate: -205deg;
-}
-
-.imageHistory {
   border: 3px solid white;
 }
 

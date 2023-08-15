@@ -1,23 +1,26 @@
 'use client';
 
-import i18n from "i18next";
-
-import resources from "@/locales/resource";
-import { SettingsHeader } from "@/components/SettingsHeader/SettingsHeader";
-import { Footer } from "@/components/Footer/Footer";
-
-import css from './page.module.css'
-import { City } from "@/components/icons/city.icon";
-import { Privacy } from "@/components/icons/privacy.icon";
-import { RightIcon } from "@/components/icons/rightIcon.icon";
-import { Faq } from "@/components/icons/faq.icon";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { store } from "@/store/store";
-import { changeColorTheme } from "@/store/actions/changeColorTheme";
-import { userGet } from "@/store/actions/getUser";
+
+import i18n from "i18next";
 import { useSelector } from "react-redux";
+
+import { store } from "@/store/store";
+import resources from "@/locales/resource";
 import { State } from "@/store/initialState";
+import { User } from "@/store/counter/userSlice";
+import { userGet } from "@/store/actions/getUser";
+import { changeColorTheme } from "@/store/actions/changeColorTheme";
+
+import { Faq } from "@/components/icons/faq.icon";
+import { City } from "@/components/icons/city.icon";
+import { Footer } from "@/components/Footer/Footer";
+import { Privacy } from "@/components/icons/privacy.icon";
+import { RightIcon } from "@/components/icons/rightIcon.icon";
+import { SettingsHeader } from "@/components/SettingsHeader/SettingsHeader";
+
+import css from './page.module.css';
 
 i18n.init({
   resources,
@@ -26,30 +29,30 @@ i18n.init({
 
 export default function settings(): JSX.Element {
   const [stateTheme, setStateTheme] = useState<boolean>(false);
-  const [stateLanguage, setStateLanguage] = useState<boolean>(false);
   const [stateSound, setStateSound] = useState<boolean>(false);
   const [stateVibro, setStateVibro] = useState<boolean>(false);
   const [stateDistrub, setStateDistrub] = useState<boolean>(false);
+  const [stateLanguage, setStateLanguage] = useState<boolean>(false);
   const [stateLocation, setStateLocation] = useState<boolean>(false);
 
   const router = useRouter()
 
-  useEffect(() => {
+  useEffect((): void => {
+    store.dispatch(userGet());
     const user_id = sessionStorage.getItem('user_id');
     if (!user_id) {
       router.push('/');
     }
-    store.dispatch(userGet());
   }, [])
 
-  const user = useSelector((state: State) => state.user);
-  const theme = user?.user?.color_theme;
-  
+  const user: User = useSelector((state: State) => state.user);
+  const theme: boolean = user?.user?.color_theme;
+
   return (
     <div className={theme ? css.darkWrapper : css.wrapper}>
-      <SettingsHeader 
+      <SettingsHeader
         theme={theme}
-        title={i18n.t('settings')} 
+        title={i18n.t('settings')}
       />
       <div className={css.area}>
         <div className={css.wrapperSetting}>
@@ -58,20 +61,28 @@ export default function settings(): JSX.Element {
           </div>
           <div className={css.buttonsArea}>
             <button
+              className={
+                !theme ? css.activeButton : (
+                  theme ? css.darkButton : css.button
+                )
+              }
               onClick={() => {
                 setStateTheme(!stateTheme);
                 store.dispatch(changeColorTheme(false));
               }}
-              className={!theme ? css.activeButton : (theme ? css.darkButton : css.button)}
             >
               {i18n.t('light')}
             </button>
             <button
+              className={
+                theme ? css.activeButton : (
+                  theme ? css.darkButton : css.button
+                )
+              }
               onClick={() => {
                 setStateTheme(!stateTheme);
                 store.dispatch(changeColorTheme(true));
               }}
-              className={theme ? css.activeButton : (theme ? css.darkButton : css.button)}
             >
               {i18n.t('dark')}
             </button>
@@ -83,14 +94,24 @@ export default function settings(): JSX.Element {
           </div>
           <div className={css.buttonsArea}>
             <button
-              onClick={() => setStateLanguage(!stateLanguage)}
-              className={!stateLanguage ? css.activeButton : (theme ? css.darkButton : css.button)}
+              className={
+                !stateLanguage ? css.activeButton : (
+                  theme ? css.darkButton : css.button
+                )
+              }
+              onClick={() => {
+                setStateLanguage(!stateLanguage)
+              }}
             >
               {i18n.t('en')}
             </button>
             <button
+              className={
+                stateLanguage ? css.activeButton : (
+                  theme ? css.darkButton : css.button
+                )
+              }
               onClick={() => setStateLanguage(!stateLanguage)}
-              className={stateLanguage ? css.activeButton : (theme ? css.darkButton : css.button)}
             >
               {i18n.t('ru')}
             </button>
@@ -105,11 +126,15 @@ export default function settings(): JSX.Element {
               <div className={theme ? css.darkText : css.text}>
                 {i18n.t('sound')}
               </div>
-              <button 
-                onClick={() => {setStateSound(!stateSound)}}
-                className={stateSound ? css.activeCheckBox : (theme ? css.darkCheckBox : css.checkbox)}
+              <button
+                className={
+                  stateSound ? css.activeCheckBox : (
+                    theme ? css.darkCheckBox : css.checkbox
+                  )
+                }
+                onClick={() => { setStateSound(!stateSound) }}
               >
-                <div className={css.curcle}/>
+                <div className={css.curcle} />
               </button>
             </div>
             <div className={theme ? css.darkLine : css.line} />
@@ -117,11 +142,15 @@ export default function settings(): JSX.Element {
               <div className={theme ? css.darkText : css.text}>
                 {i18n.t('vibro')}
               </div>
-              <button 
-                onClick={() => {setStateVibro(!stateVibro)}}
-                className={stateVibro ? css.activeCheckBox : (theme ? css.darkCheckBox : css.checkbox)}
+              <button
+                className={
+                  stateVibro ? css.activeCheckBox : (
+                    theme ? css.darkCheckBox : css.checkbox
+                  )
+                }
+                onClick={() => { setStateVibro(!stateVibro) }}
               >
-                <div className={css.curcle}/>
+                <div className={css.curcle} />
               </button>
             </div>
             <div className={theme ? css.darkLine : css.line} />
@@ -129,11 +158,15 @@ export default function settings(): JSX.Element {
               <div className={theme ? css.darkText : css.text}>
                 {i18n.t('do_not_distrub')}
               </div>
-              <button 
-                onClick={() => {setStateDistrub(!stateDistrub)}}
-                className={stateDistrub ? css.activeCheckBox : (theme ? css.darkCheckBox : css.checkbox)}
+              <button
+                className={
+                  stateDistrub ? css.activeCheckBox : (
+                    theme ? css.darkCheckBox : css.checkbox
+                  )
+                }
+                onClick={() => { setStateDistrub(!stateDistrub) }}
               >
-                <div className={css.curcle}/>
+                <div className={css.curcle} />
               </button>
             </div>
           </div>
@@ -150,11 +183,15 @@ export default function settings(): JSX.Element {
                   {i18n.t('share')}
                 </div>
               </div>
-              <button 
-                onClick={() => {setStateLocation(!stateLocation)}}
-                className={stateLocation ? css.activeCheckBox : (theme ? css.darkCheckBox : css.checkbox)}
+              <button
+                className={
+                  stateLocation ? css.activeCheckBox : (
+                    theme ? css.darkCheckBox : css.checkbox
+                  )
+                }
+                onClick={() => { setStateLocation(!stateLocation) }}
               >
-                <div className={css.curcle}/>
+                <div className={css.curcle} />
               </button>
             </div>
             <div className={theme ? css.darkWrapSet : css.wrapSet}>
@@ -164,7 +201,7 @@ export default function settings(): JSX.Element {
                   {i18n.t('privacy')}
                 </div>
               </div>
-              <button 
+              <button
                 className={css.iconButton}
                 onClick={() => {
                   router.push('/home/profile/settings/privacy')
@@ -180,9 +217,9 @@ export default function settings(): JSX.Element {
                   {i18n.t('faq')}
                 </div>
               </div>
-              <button 
-                onClick={() => router.push('/home/profile/settings/FAQ')}
+              <button
                 className={css.iconButton}
+                onClick={() => router.push('/home/profile/settings/FAQ')}
               >
                 <RightIcon />
               </button>

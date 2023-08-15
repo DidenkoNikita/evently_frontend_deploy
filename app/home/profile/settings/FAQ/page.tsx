@@ -1,32 +1,42 @@
 'use client';
 
-import i18n from "i18next";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
+import i18n from "i18next";
+import { useSelector } from "react-redux";
+
+import { store } from "@/store/store";
 import resources from "@/locales/resource";
+import { State } from "@/store/initialState";
+import { User } from "@/store/counter/userSlice";
+import { userGet } from "@/store/actions/getUser";
 import { Footer } from "@/components/Footer/Footer";
 
-import css from './page.module.css'
-import { useRouter } from "next/navigation";
-import { SettingsHeader } from "@/components/SettingsHeader/SettingsHeader";
 import { ArrowToDown } from "@/components/icons/arrowToDown.icon";
-import { useEffect, useState } from "react";
-import { store } from "@/store/store";
-import { userGet } from "@/store/actions/getUser";
-import { useSelector } from "react-redux";
-import { State } from "@/store/initialState";
+import { SettingsHeader } from "@/components/SettingsHeader/SettingsHeader";
+
+import css from './page.module.css';
 
 i18n.init({
   resources,
   lng: "en"
 });
 
-export default function faq(): JSX.Element {
+interface ArrFaq {
+  key: number;
+  title: string;
+  text: string;
+}
 
-  useEffect(() => {
+export default function faq(): JSX.Element {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
+  useEffect((): void => {
     store.dispatch(userGet());
   }, [])
 
-  const arrFaq = [
+  const arrFaq: ArrFaq[] = [
     {
       key: 1,
       title: i18n.t('question1'),
@@ -52,13 +62,11 @@ export default function faq(): JSX.Element {
       title: i18n.t('question5'),
       text: i18n.t('answer5')
     },
-  ] 
+  ]
 
   const router = useRouter();
 
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
-
-  const toggleActive = (index: number) => {
+  const toggleActive = (index: number): void => {
     if (activeIndex === index) {
       setActiveIndex(null);
     } else {
@@ -66,8 +74,8 @@ export default function faq(): JSX.Element {
     }
   };
 
-  const user = useSelector((state: State) => state.user);
-  const theme = user?.user?.color_theme;
+  const user: User = useSelector((state: State) => state.user);
+  const theme: boolean = user?.user?.color_theme;
 
   return (
     <div className={theme ? css.darkWrapper : css.wrapper}>
@@ -76,39 +84,37 @@ export default function faq(): JSX.Element {
         title={i18n.t('faq')}
       />
       <div className={css.faq}>
-        {arrFaq.map((faq, index) => {
-          return (
-            <button 
-              key={faq.key}
-              onClick={() => toggleActive(index)}
-              className={theme ? css.darkSelect : css.select}
-            >
-              <div className={css.titleWrapper}>
-                <div className={css.title}>
-                  {faq.title}
-                </div>
-                <div className={index === activeIndex ? css.arrowActive : css.arrow}>
-                  <ArrowToDown />
-                </div>
+        {arrFaq.map((faq, index) => (
+          <button
+            key={faq.key}
+            onClick={() => toggleActive(index)}
+            className={theme ? css.darkSelect : css.select}
+          >
+            <div className={css.titleWrapper}>
+              <div className={css.title}>
+                {faq.title}
               </div>
-              {index === activeIndex && (
-                <div className={css.text}>
-                  {faq.text}
-                </div>
-              )}
-            </button>
-          );
-        })}
-        <button 
+              <div className={index === activeIndex ? css.arrowActive : css.arrow}>
+                <ArrowToDown />
+              </div>
+            </div>
+            {index === activeIndex && (
+              <div className={css.text}>
+                {faq.text}
+              </div>
+            )}
+          </button>
+        ))}
+        <button
           className={css.button}
           onClick={() => {
             router.push('/chats')
           }}
         >
           {i18n.t('support_chat')}
-        </button>  
+        </button>
       </div>
       <Footer />
     </div>
-  );
+  )
 }

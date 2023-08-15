@@ -1,21 +1,24 @@
 'use client';
 
+import { useEffect } from "react";
+
 import i18n from "i18next";
+import { useSelector } from "react-redux";
 
+import { store } from "@/store/store";
 import resources from "@/locales/resource";
+import { State } from "@/store/initialState";
+import { User } from "@/store/counter/userSlice";
+import { userGet } from "@/store/actions/getUser";
+import { getSubscriptions } from "@/store/actions/getSubscription";
 
-import css from './page.module.css';
-import { ProfileHeader } from "@/components/ProfileHeader/ProfileHeader";
 import { Footer } from "@/components/Footer/Footer";
 import { Avatar } from "@/components/Avatar/Avatar";
 import { UserData } from "@/components/UserData/UserData";
-import { useSelector } from "react-redux";
-import { useEffect } from "react";
-import { store } from "@/store/store";
-import { userGet } from "@/store/actions/getUser";
 import { LoadingComponent } from "@/components/Loading/Loading";
-import { getSubscriptions } from "@/store/actions/getSubscription";
-import { State } from "@/store/initialState";
+import { ProfileHeader } from "@/components/ProfileHeader/ProfileHeader";
+
+import css from './page.module.css';
 
 i18n.init({
   resources,
@@ -23,14 +26,13 @@ i18n.init({
 });
 
 export default function profile(): JSX.Element {
-  
-  useEffect(() => {    
+  useEffect((): void => {    
     store.dispatch(userGet());
     store.dispatch(getSubscriptions());
-  }, []);
+  }, [])
   
-  const user = useSelector((state: State) => state.user);    
-  const theme = user?.user?.color_theme;  
+  const user: User = useSelector((state: State) => state.user);    
+  const theme: boolean = user?.user?.color_theme;  
 
   if (user.user === undefined) {
     return (

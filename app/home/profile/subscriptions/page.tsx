@@ -1,20 +1,24 @@
 'use client';
 
-import { Footer } from "@/components/Footer/Footer";
-import { HeaderProfileFriend } from "@/components/HeaderProfileFriend/HeaderProfileFriend";
-import i18n from "i18next";
-
-import resources from "@/locales/resource";
-import { SearchComponent } from "@/components/SearchComponent/SearchComponent";
 import { useEffect, useState } from "react";
 
-import css from './page.module.css';
-import { store } from "@/store/store";
-import { State } from "@/store/initialState";
-import { getSubscriptions } from "@/store/actions/getSubscription";
+import i18n from "i18next";
 import { useSelector } from "react-redux";
-import { SubscriptionComponent } from "@/components/SubscriptionComponent/SubscriptionComponent";
+
+import { store } from "@/store/store";
+import resources from "@/locales/resource";
+import { State } from "@/store/initialState";
+import { User } from "@/store/counter/userSlice";
 import { userGet } from "@/store/actions/getUser";
+import { Subscription } from "@/store/counter/subscriptionSlice";
+import { getSubscriptions } from "@/store/actions/getSubscription";
+
+import { Footer } from "@/components/Footer/Footer";
+import { SearchComponent } from "@/components/SearchComponent/SearchComponent";
+import { HeaderProfileFriend } from "@/components/HeaderProfileFriend/HeaderProfileFriend";
+import { SubscriptionComponent } from "@/components/SubscriptionComponent/SubscriptionComponent";
+
+import css from './page.module.css';
 
 i18n.init({
   resources,
@@ -24,28 +28,27 @@ i18n.init({
 export default function SubscriptionsPage(): JSX.Element {
   const [searchTerm, setSearchTerm] = useState<string>('');
 
-  useEffect(() => {
+  useEffect((): void => {
+    store.dispatch(userGet());
     store.dispatch(getSubscriptions());
-    store.dispatch(userGet())
-  }, []);
+  }, [])
 
-  const subscriptions = useSelector((state: State) => state.subscription);
-
-  const filteredSubscriptions = subscriptions.filter((subscription) =>
+  const subscriptions: Subscription[] = useSelector((state: State) => state.subscription);
+  const filteredSubscriptions: Subscription[] = subscriptions.filter((subscription) =>
     subscription.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const user = useSelector((state: State) => state.user);
-  const theme = user?.user?.color_theme;
+  const user: User = useSelector((state: State) => state.user);
+  const theme: boolean = user?.user?.color_theme;
 
   return (
-    <div className={css.wrapper}>
-      <HeaderProfileFriend 
+    <div className={theme ? css.darkWrapper : css.wrapper}>
+      <HeaderProfileFriend
         theme={theme}
         title={i18n.t('subscriptions')}
       />
       <div className={css.search}>
-        <SearchComponent 
+        <SearchComponent
           theme={theme}
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
@@ -53,14 +56,13 @@ export default function SubscriptionsPage(): JSX.Element {
       </div>
       <div className={css.subscriptionsList}>
         {
-          filteredSubscriptions.map((subscription, index) => {
-            return (
-              <SubscriptionComponent 
-                key={index}
-                subscription={subscription}
-              />
-            )
-          })
+          filteredSubscriptions.map((subscription, index) => (
+            <SubscriptionComponent
+              key={index}
+              theme={theme}
+              subscription={subscription}
+            />
+          ))
         }
       </div>
       <Footer />
