@@ -1,5 +1,6 @@
 'use client';
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 import i18n from "i18next";
@@ -107,7 +108,7 @@ export const SharePost = ({ setActiveModal, postId }: Props): JSX.Element => {
                           </div>
                         </div>
                       ) : (
-                        <img
+                        <Image
                           alt='Avatar'
                           src={chat.link_avatar}
                           className={css.avatar}

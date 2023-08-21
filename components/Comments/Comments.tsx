@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 import moment from 'moment';
@@ -11,10 +12,10 @@ import { ActiveHeart } from '../icons/activeHeart.icon';
 import { getComment } from '@/store/actions/getComments';
 import { commentLike } from '@/store/actions/commentLike';
 
-import { Heart } from '../icons/heart.icon'
+import { Heart } from '../icons/heart.icon';
 import { Comment } from '@/store/counter/commentSlice';
 
-import css from './Comments.module.css'
+import css from './Comments.module.css';
 
 interface Props {
   theme: boolean;
@@ -80,7 +81,8 @@ export const Comments = ({ theme }: Props): JSX.Element => {
                 </div>
               ) : (
                 <div className={css.avatarWrapper}>
-                  <img
+                  <Image
+                    alt='avatar'
                     src={comment.link_avatar}
                     className={css.avatar}
                   />

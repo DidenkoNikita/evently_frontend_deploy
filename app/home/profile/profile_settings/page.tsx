@@ -24,19 +24,19 @@ i18n.init({
   lng: "en"
 });
 
-export default function profileSettings(): JSX.Element {
+export default function ProfileSettings(): JSX.Element {
   useEffect((): void => {
     store.dispatch(userGet());
   }, [])
+
+  const router = useRouter();
 
   useEffect((): void => {
     const user_id = sessionStorage.getItem('user_id');
     if (!user_id) {
       router.push('/');
     }
-  }, [])
-
-  const router = useRouter();
+  }, [router])
 
   const user: User = useSelector((state: State) => state.user);
   const theme: boolean = user?.user?.color_theme;

@@ -25,7 +25,7 @@ i18n.init({
   lng: "en"
 });
 
-export default function profile(): JSX.Element {
+export default function Profile(): JSX.Element {
   useEffect((): void => {    
     store.dispatch(userGet());
     store.dispatch(getSubscriptions());

@@ -27,7 +27,7 @@ i18n.init({
   lng: "en"
 });
 
-export default function settings(): JSX.Element {
+export default function Settings(): JSX.Element {
   const [stateTheme, setStateTheme] = useState<boolean>(false);
   const [stateSound, setStateSound] = useState<boolean>(false);
   const [stateVibro, setStateVibro] = useState<boolean>(false);
@@ -43,7 +43,7 @@ export default function settings(): JSX.Element {
     if (!user_id) {
       router.push('/');
     }
-  }, [])
+  }, [router])
 
   const user: User = useSelector((state: State) => state.user);
   const theme: boolean = user?.user?.color_theme;

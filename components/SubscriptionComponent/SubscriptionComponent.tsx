@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 import { ChatsIcon } from '../icons/chats.icon';
@@ -27,7 +28,8 @@ export const SubscriptionComponent = ({
             router.push(`/home/services/${subscription.type}/${subscription.brand_id}`)
           }}
         >
-          <img
+          <Image
+            alt='avatar'
             className={css.avatar}
             src={subscription.link_photo}
           />

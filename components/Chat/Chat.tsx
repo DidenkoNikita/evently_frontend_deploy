@@ -1,5 +1,6 @@
 'use client';
 
+import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -79,7 +80,7 @@ export const Chat = ({
                 </div>
               </div>
             ) : (
-              <img
+              <Image
                 alt='Avatar'
                 src={data.link_avatar}
                 className={css.avatar}

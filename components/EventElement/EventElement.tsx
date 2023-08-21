@@ -1,5 +1,6 @@
 'use client';
 
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 import i18n from "i18next";
@@ -42,9 +43,10 @@ export const EventElement = ({
           {event?.name}
         </div>
         <div className={css.container}>
-          <img
+          <Image
+            alt='photo'
             className={css.photo}
-            src={event?.link_photo}
+            src={String(event?.link_photo)}
           />
           <ul className={css.list}>
             <li className={theme ? css.darkListElement : css.listElement}>

@@ -24,7 +24,7 @@ i18n.init({
   lng: "en"
 });
 
-export default function changeCity(): JSX.Element {
+export default function ChangeCity(): JSX.Element {
   const [userCity, setUserCity] = useState<string>('');
   const [activeButtonsCity, setActiveButtonsCity] = useState<string[]>([]);
 

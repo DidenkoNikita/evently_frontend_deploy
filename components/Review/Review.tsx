@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 import { Grade } from '../icons/grade.icon';
 import { Review } from '@/store/counter/reviewSlice';
 import { ActiveGrade } from '../icons/activeGrade.icon';
@@ -40,7 +42,8 @@ export const ReviewElement = ({
             </div>
           ) : (
             <div className={css.avatarWrapper}>
-              <img
+              <Image
+                alt='avatar'
                 src={review.link_avatar}
                 className={css.avatar}
               />

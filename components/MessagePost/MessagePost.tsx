@@ -1,5 +1,6 @@
 'use client';
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -70,9 +71,10 @@ export const MessagePost = ({
                 router.push(`/home/post/${message.post_id}`)
               }}
             >
-              <img
+              <Image
+                alt='photo'
                 className={css.photo}
-                src={filteredPost?.link_photo}
+                src={String(filteredPost?.link_photo)}
               />
               <div className={css.wrapperData}>
                 <div className={css.textWrapper}>
@@ -97,9 +99,10 @@ export const MessagePost = ({
                 router.push(`/home/post/${message.post_id}`)
               }}
             >
-              <img
+              <Image
+                alt='photo'
                 className={css.photo}
-                src={filteredPost?.link_photo}
+                src={String(filteredPost?.link_photo)}
               />
               <div className={css.wrapperData}>
                 <div className={css.textWrapper}>

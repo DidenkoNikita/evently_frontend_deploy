@@ -24,7 +24,7 @@ i18n.init({
   lng: "en"
 });
 
-export default function changeCategories(): JSX.Element {
+export default function ChangeCategories(): JSX.Element {
   const [activeButtons, setActiveButtons] = useState<string[]>([]);
   const [userCategories, setUserCategories] = useState<{ [key: string]: boolean }>({});
 

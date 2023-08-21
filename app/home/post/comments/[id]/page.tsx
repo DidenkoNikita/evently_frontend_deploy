@@ -28,7 +28,7 @@ i18n.init({
   lng: "en"
 });
 
-export default function commentsInPost(): JSX.Element {
+export default function CommentsInPost(): JSX.Element {
   const [postId, setPostId] = useState<string>('');
 
   const router = useRouter();

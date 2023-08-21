@@ -1,5 +1,6 @@
 'use client';
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -137,7 +138,7 @@ export default function ChatSettings(): JSX.Element {
                   {user?.name.slice(0, 1)}
                 </div>
               ) : (
-                <img
+                <Image
                   src={user?.link_avatar}
                   alt='Avatar'
                   className={stateAwatar ? css.bigImage : css.image}

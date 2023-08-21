@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -74,8 +75,9 @@ export const HeaderChat = ({
               className={css.avatarWrapper}
               onClick={() => router.push(`/chats/chat_settings/${id}`)}
             >
-              <img 
-                src={linkAvatar}
+              <Image
+                alt='avatar'
+                src={String(linkAvatar)}
                 className={css.avatar}
               />
             </button>

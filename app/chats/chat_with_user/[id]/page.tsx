@@ -87,7 +87,7 @@ export default function ChatPage() {
         store.dispatch(getChats(chat))
       })
     }
-  }, [chatId])
+  }, [chatId, idUser])
 
   const usersList: UsersList[] = useSelector((state: State) => state.usersList);
   const userData: UsersList | null = usersList.find((user) => user.id === id) || null;

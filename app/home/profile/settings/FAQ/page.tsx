@@ -29,7 +29,7 @@ interface ArrFaq {
   text: string;
 }
 
-export default function faq(): JSX.Element {
+export default function Faq(): JSX.Element {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   useEffect((): void => {

@@ -35,7 +35,7 @@ export interface Data {
   text: string
 }
 
-export default function (): JSX.Element {
+export default function HomePage(): JSX.Element {
   const [activeModal, setActiveModal] = useState<boolean>(false);
   const [postId, setPostId] = useState<number | null>(null);  
  
@@ -52,7 +52,7 @@ export default function (): JSX.Element {
     if (!user_id) {
       router.push('/');
     }
-  }, [])
+  }, [router])
 
   const user: User = useSelector((state: State) => state.user);
   const theme: boolean = user?.user?.color_theme;

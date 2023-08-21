@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 import i18n from "i18next";
@@ -50,7 +51,7 @@ export const Friend = ({
                 </div>
               </div>
             ) : (
-              <img
+              <Image
                 src={data.link_avatar}
                 alt='Avatar'
                 className={css.avatar}

@@ -1,5 +1,6 @@
 'use client';
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -29,7 +30,7 @@ i18n.init({
 });
 
 interface Props {
-  setPostId: React.Dispatch<React.SetStateAction<number>>;
+  setPostId: React.Dispatch<React.SetStateAction<number | null>>;
   setActiveModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -50,7 +51,7 @@ export const PostComponent = ({
       setStateUserId(JSON.parse(user_id || ''));
     }
     store.dispatch(getSubscriptions());
-  }, [])
+  }, [router])
 
   const handleTextToggle = (postId: number): void => {
     if (expandedPostId === postId) {
@@ -90,7 +91,7 @@ export const PostComponent = ({
                 }}
               >
                 <div className={css.avatarWrapper}>
-                  <img
+                  <Image
                     src={post.link_avatar}
                     width='37'
                     height='37'
@@ -110,7 +111,7 @@ export const PostComponent = ({
                   {subscribtionFilter ? i18n.t('subscribed') : i18n.t('subscribe')}
                 </div>
               </button>
-              <img
+              <Image
                 width='414'
                 height='414'
                 alt="Photo's post"

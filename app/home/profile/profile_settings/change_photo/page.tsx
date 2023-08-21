@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useState } from "react";
+import Image from "next/image";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 import i18n from "i18next";
@@ -22,7 +23,7 @@ i18n.init({
   lng: "en",
 });
 
-export default function changePhoto(): JSX.Element {
+export default function ChangePhoto(): JSX.Element {
   const router = useRouter();
 
   useEffect((): void => {
@@ -80,7 +81,7 @@ export default function changePhoto(): JSX.Element {
           </div>
         ) : (
           <div className={css.avatarWrapper}>
-            <img
+            <Image
               src={user?.user?.link_avatar}
               className={css.avatar}
               alt="User Avatar"

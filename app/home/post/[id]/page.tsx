@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
@@ -46,6 +47,8 @@ export default function PostPage(): JSX.Element {
     store.dispatch(getComment());
     setPostId(location.pathname);
   }, []);
+  
+  const router = useRouter();
 
   useEffect((): void => {
     const user_id = sessionStorage.getItem('user_id');
@@ -55,9 +58,8 @@ export default function PostPage(): JSX.Element {
       setStateUserId(JSON.parse(user_id || ''));
     }
     store.dispatch(getSubscriptions());
-  }, [])
+  }, [router])
   
-  const router = useRouter();
 
   const handleTextToggle = (postId: number): void => {
     if (expandedPostId === postId) {
@@ -108,8 +110,8 @@ export default function PostPage(): JSX.Element {
           }}
         >
           <div className={css.avatarWrapper}>
-            <img
-              src={filteredPost?.link_avatar}
+            <Image
+              src={String(filteredPost?.link_avatar)}
               width='37'
               height='37'
               alt="Avatar"
@@ -128,8 +130,8 @@ export default function PostPage(): JSX.Element {
             {subscribtionFilter ? i18n.t('subscribed') : i18n.t('subscribe')}
           </div>
         </button>
-        <img
-          src={filteredPost?.link_photo}
+        <Image
+          src={String(filteredPost?.link_photo)}
           width='414'
           height='414'
           alt="Photo's post"

@@ -1,5 +1,6 @@
 'use client';
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -9,7 +10,6 @@ import { useSelector } from "react-redux";
 import { store } from "@/store/store";
 import resources from "@/locales/resource";
 import { State } from "@/store/initialState";
-import { User } from "@/store/counter/userSlice";
 import { Post } from "@/store/counter/postsSlice";
 import { likePosts } from "@/store/actions/likePost";
 import { Comment } from "@/store/counter/commentSlice";
@@ -31,7 +31,7 @@ i18n.init({
 interface Props {
   id: number;
   theme: boolean;
-  setPostId: React.Dispatch<React.SetStateAction<number>>;
+  setPostId: React.Dispatch<React.SetStateAction<number | null>>;
   setActiveShare: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -54,7 +54,7 @@ export const PostBrand = ({
       setStateUserId(JSON.parse(user_id || ''));
     }
     store.dispatch(getSubscriptions());
-  }, [])
+  }, [router])
 
 
   const handleTextToggle = (postId: number): void => {
@@ -96,7 +96,7 @@ export const PostBrand = ({
                 }}
               >
                 <div className={css.avatarWrapper}>
-                  <img
+                  <Image
                     width='37'
                     height='37'
                     alt="Avatar"
@@ -116,7 +116,7 @@ export const PostBrand = ({
                   {filterSupscription ? i18n.t('subscribed') : i18n.t('subscribe')}
                 </div>
               </button>
-              <img
+              <Image
                 width='414'
                 height='414'
                 alt="Photo's post"

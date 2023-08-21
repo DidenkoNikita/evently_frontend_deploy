@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import i18n from "i18next";
 
 import { store } from "@/store/store";
@@ -35,7 +37,7 @@ export const RequestForFriendship = ({
               </div>
             </div>
           ) : (
-            <img
+            <Image
               alt='Avatar'
               className={css.avatar}
               src={notification.link_avatar}

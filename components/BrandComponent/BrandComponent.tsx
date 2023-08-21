@@ -1,5 +1,6 @@
 'use client';
 
+import Image from "next/image";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
@@ -54,7 +55,8 @@ export const BrandComponent = ({
         router.push(`${link}/${brand.id}`)
       }}
     >
-      <img
+      <Image
+        alt="photo"
         className={css.photo}
         src={brand.link_photo}
       />

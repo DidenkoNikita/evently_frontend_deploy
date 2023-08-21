@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { useState } from 'react';
 
 import css from './Avatar.module.css';
@@ -51,7 +52,7 @@ export const Avatar = ({
               {user?.name.slice(0, 1)}
             </div>
           ) : (
-            <img
+            <Image
               src={user?.link_avatar}
               alt='Avatar'
               className={stateAwatar ? css.bigImage : css.image}

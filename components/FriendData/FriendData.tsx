@@ -196,7 +196,7 @@ export const FriendData = ({ userData, id, theme }: UserData): JSX.Element => {
                 if (mood === "Don't know") {
                   const word = 'do_not_know'
                   if (!userData.userMood) {
-                    return <div>Loading...</div>
+                    return <div key={key}>Loading...</div>
                   }
                   if (userData.userMood[word] === true) {
                     return (
@@ -213,7 +213,7 @@ export const FriendData = ({ userData, id, theme }: UserData): JSX.Element => {
                 } else {
                   const word = mood.replace(/\s/g, '_').toLowerCase()
                   if (!userData?.userMood) {
-                    return <div>Loading...</div>
+                    return <div key={key}>Loading...</div>
                   }
                   if (userData.userMood[word as keyof typeof userData.userMood] === true) {
                     return (

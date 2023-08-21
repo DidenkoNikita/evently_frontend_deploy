@@ -1,5 +1,6 @@
 'use client';
 
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 import i18n from "i18next";
@@ -43,8 +44,9 @@ export default function EventPage({
 
   return (
     <div className={css.wrapper}>
-      <img
-        src={event?.link_photo}
+      <Image
+        alt='photo'
+        src={String(event?.link_photo)}
         className={css.avatar}
       />
       <div className={theme ? css.darkContainer : css.container}>
@@ -96,7 +98,8 @@ export default function EventPage({
               {
                 arrAvatar.map((avatar, index) => {
                   return (
-                    <img
+                    <Image
+                      alt='avatar'
                       key={index}
                       src={avatar}
                       className={css.avatarElemet}

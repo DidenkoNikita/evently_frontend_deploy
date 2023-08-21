@@ -31,11 +31,11 @@ export default function Home(): JSX.Element {
     return () => darkModeMediaQuery.removeListener(handleDarkModeChange);
   }, [])
 
+  const router = useRouter();
+
   useEffect((): void => {
     checkRememberMe(router);
-  }, [])
-
-  const router = useRouter();
+  }, [router])
 
   return (
     <div className={userTheme === 'dark' ? css.darkFlexBox : css.flexBox}>

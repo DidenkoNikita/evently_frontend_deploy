@@ -1,5 +1,6 @@
 'use client';
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -96,8 +97,9 @@ export default function BrandPage({ id }: Props): JSX.Element {
             />
           )
         }
-        <img
-          src={filteredBrand?.link_photo}
+        <Image
+          alt='photo'
+          src={String(filteredBrand?.link_photo)}
           className={css.avatar}
         />
         <div className={theme ? css.darkContainer : css.container}>

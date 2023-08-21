@@ -24,7 +24,7 @@ i18n.init({
   lng: "en"
 });
 
-export default function changeMood(): JSX.Element {
+export default function ChangeMood(): JSX.Element {
   const [activeButtons, setActiveButtons] = useState<string[]>([]);
   const [userMood, setUserMood] = useState<{ [key: string]: boolean }>({});
 

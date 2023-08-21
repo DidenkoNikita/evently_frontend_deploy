@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 import css from './History.module.css';
@@ -49,7 +50,7 @@ export const History = ({ theme }: Props): JSX.Element => {
               key={story.id}
             >
               <div className={css.preview}>
-                <img
+                <Image
                   src={story.link}
                   alt='History'
                   width={66}
