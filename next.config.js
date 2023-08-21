@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
-    API_URL: 'https://evently-backend.netlify.app/',
+    API_URL: 'http://localhost:3000/',
     CITY_URL: 'http://api.geonames.org/searchJSON?country=RU&lang=en&username=nikita_didenko',
-    CONNECT: 'ws://evently-backend.netlify.app/chat'
+    CONNECT: 'ws://localhost:3000/chat'
   },
   images: {
     domains: ['storage.yandexcloud.net'],
