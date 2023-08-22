@@ -35,7 +35,7 @@ export const CalendarOfEventsHome = (): JSX.Element => {
           {i18n.t('calendar_of_events')}
         </div>
         <Link
-          href="/service/all_dates"
+          href="/home/filter"
           className={css.link}
         >
           {i18n.t('all_dates')}

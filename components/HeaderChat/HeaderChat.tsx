@@ -44,10 +44,10 @@ export const HeaderChat = ({
       <button
         onClick={() => {
           if (filterMessage.length > 0) {
-            router.push('/chats');
+            router.back();
           } else {
             store.dispatch(deleteChat(chatId))
-            router.push('/chats');
+            router.back();
           }
         }}
         className={css.iconButton}

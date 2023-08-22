@@ -5,18 +5,19 @@ import { useEffect, useState } from "react";
 import BrandPage from "@/components/BrandPage/BrandPage";
 
 export default function CafeBrandPage(): JSX.Element {
-  const [userId, setUserId] = useState<string>('');  
 
-  useEffect((): void => {
+  const [userId, setUserId] = useState<string>('');
+
+  useEffect(() => {
     setUserId(location.pathname);
-  }, [])
+  }, [])  
 
-  const id: number = Number(userId.slice(20));
-
+  const id = userId.slice(20, 24);
+  
   return (
     <>
       <BrandPage 
-        id={id}
+        id={Number(id)}
       />
     </>
   )

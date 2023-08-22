@@ -76,7 +76,7 @@
 }
 
 .input:focus,
-.darkInput:focus
+.darkInput:focus,
 .colorInput:focus,
 .darkColorInput:focus {
   outline: none !important;

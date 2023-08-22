@@ -10,6 +10,7 @@ export interface User {
     gender: string;
     city: string;
     link_avatar: string;
+    mute_users: number[];
     friends_id: number[];
     color_theme: boolean;
   };
@@ -139,6 +140,10 @@ export interface ChangeTheme {
   userData: Theme;
 }
 
+export interface MuteUser {
+  mute_users: number[];
+}
+
 export const userSlice = createSlice({
   name: 'user',
   initialState: initialState.user,
@@ -181,16 +186,21 @@ export const userSlice = createSlice({
       const { payload } = action;
       state.user.color_theme = payload.userData.color_theme
     },
+    userMute: (state, action: PayloadAction<MuteUser>) => {
+      const { payload } = action;
+      state.user.mute_users = payload.mute_users;
+    }
   }
 });
 
 export const {
   getUser,
-  changeCategories,
+  userMute,
   changeMood,
   changeCity,
+  changeTheme,
   updateAvatar,
-  updateMessagesConfidetiality,
+  changeCategories,
   updatePhoneConfidetiality,
-  changeTheme
+  updateMessagesConfidetiality,
 } = userSlice.actions;

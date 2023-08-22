@@ -97,17 +97,35 @@ export const Choose = ({
         )}
         <div className={css.buttonsWrapper}>
           {words.map((word) => (
-            <button
-              key={word}
-              onClick={() => handleButtonClick(word)}
-              className={
-                activeButtons.includes(word) ? css.buttonActive : (
-                  userTheme === 'dark' ? css.darkButton : css.button
-                )
-              }
-            >
-              {word}
-            </button>
+            header === 'Сhoose a city' ? (
+              <button
+                key={word}
+                onClick={() => handleButtonClick(word)}
+                className={
+                  activeButtons.includes(word) && word === userData
+                    ? css.buttonActive
+                    : userTheme === 'dark'
+                      ? css.darkButton
+                      : css.button
+                }
+              >
+                {word}
+              </button>
+            ) : (
+              <button
+                key={word}
+                onClick={() => handleButtonClick(word)}
+                className={
+                  activeButtons.includes(word)
+                    ? css.buttonActive
+                    : userTheme === 'dark'
+                      ? css.darkButton
+                      : css.button
+                }
+              >
+                {word}
+              </button>
+            )
           ))}
         </div>
       </div>

@@ -43,6 +43,7 @@ export default function EntertainmentPage(): JSX.Element {
   return (
     <div className={theme ? css.darkWrapper : css.wrapper}>
       <HeaderBrand
+        type=""
         theme={theme}
         title={i18n.t('calendar_of_events')}
       />

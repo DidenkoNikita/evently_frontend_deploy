@@ -21,6 +21,7 @@ import { RightIcon } from "@/components/icons/rightIcon.icon";
 import { SettingsHeader } from "@/components/SettingsHeader/SettingsHeader";
 
 import css from './page.module.css';
+import { Logout } from "@/components/icons/logout.icon";
 
 i18n.init({
   resources,
@@ -222,6 +223,22 @@ export default function Settings(): JSX.Element {
                 onClick={() => router.push('/home/profile/settings/FAQ')}
               >
                 <RightIcon />
+              </button>
+            </div>
+            <div className={theme ? css.darkWrapSet : css.wrapSet}>
+              <div className={css.titleWrap}>
+                <div className={theme ? css.darkText : css.text}>
+                  {i18n.t('logout')}
+                </div>
+              </div>
+              <button
+                className={css.iconButton}
+                onClick={() => {
+                  sessionStorage.clear();
+                  router.push('/');
+                }}
+              >
+                <Logout />
               </button>
             </div>
           </div>

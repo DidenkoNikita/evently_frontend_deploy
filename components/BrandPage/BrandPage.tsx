@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import i18n from "i18next";
 import { useSelector } from "react-redux";
@@ -46,13 +46,14 @@ interface Props {
 }
 
 export default function BrandPage({ id }: Props): JSX.Element {
+  const [url, setUrl] = useState<string>('');
   const [idUser, setIdUser] = useState<number | null>(null);
   const [postId, setPostId] = useState<number | null>(null);
-  const [activeButton, setActiveButton] = useState<number>(0);
   const [activeModal, setActiveModal] = useState<boolean>(false);
-  const [activeShare, setActiveShare] = useState<boolean>(false);
-
+  const [activeShare, setActiveShare] = useState<boolean>(false);  
+  
   useEffect((): void => {
+    setUrl(location.pathname);
     store.dispatch(userGet());
     store.dispatch(getPost());
     store.dispatch(brandGet());
@@ -62,9 +63,13 @@ export default function BrandPage({ id }: Props): JSX.Element {
     const userId = JSON.parse(sessionStorage.getItem('user_id') || '');
     setIdUser(Number(userId));
   }, []);
-
+  
   const router = useRouter();
-
+  const searchParams = useSearchParams();  
+  const params = new URLSearchParams(searchParams?.toString());
+  
+  const [activeButton, setActiveButton] = useState<number>(Number(params.get('b')));  
+  
   const brands: Brand[] = useSelector((state: State) => state.brand);
   const filteredBrand: Brand | undefined = brands.find((brand) => brand.id === id);
 
@@ -82,9 +87,12 @@ export default function BrandPage({ id }: Props): JSX.Element {
   const user: User = useSelector((state: State) => state.user);
   const theme: boolean = user?.user?.color_theme;
 
+  const type = url.slice(15, 16)  
+
   return (
     <div>
       <HeaderBrand
+        type={type}
         theme={theme}
         title={i18n.t('calendar_of_events')}
       />
@@ -229,7 +237,11 @@ export default function BrandPage({ id }: Props): JSX.Element {
                       )
                     }
                     onClick={() => {
-                      setActiveButton(index)
+                      setActiveButton(index);
+                      params.delete('b');
+                      params.set('b', String(index));
+                      const newParamsString = params.toString();
+                      router.push(`${location.pathname}?${newParamsString}`);
                     }}
                   >
                     {element}

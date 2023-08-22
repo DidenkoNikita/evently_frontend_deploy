@@ -1,12 +1,13 @@
 'use client';
 
-import css from './EnterPhoneNumber.module.css';
+import { useEffect, useState } from "react";
 import i18n from "i18next";
 
 import resources from "@/locales/resource";
 import { numberCheck } from "@/requests/numberCheck";
 import { WrapperButtons } from "../WrapperButtons/WrapperButtons";
-import { useEffect, useState } from "react";
+
+import css from './EnterPhoneNumber.module.css';
 
 i18n.init({
   resources,
@@ -36,8 +37,14 @@ export const EnterPhoneNumber = ({
   const handlePhoneInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const inputValue = e.target.value;
     const validInputValue = inputValue.replace(/[^+\d]/g, "");
-    setStateInputPhone(validInputValue);
+    const phoneNumber = validInputValue.replace('+7', '');
+    setStateInputPhone(`+7${phoneNumber}`);
     setCheckNumber(false);
+    if (inputValue.startsWith('+7') && inputValue.length >= 3) {
+      setStateInputPhone(inputValue);
+    } else if (!inputValue.startsWith('+7')) {
+      setStateInputPhone('+7');
+    }
   }
 
   useEffect((): void => {

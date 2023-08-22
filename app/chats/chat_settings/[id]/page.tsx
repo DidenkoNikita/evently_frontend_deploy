@@ -11,6 +11,7 @@ import { store } from "@/store/store";
 import resources from "@/locales/resource";
 import { State } from "@/store/initialState";
 import { userGet } from "@/store/actions/getUser";
+import { muteUser } from "@/store/actions/muteUser";
 import { getUserList } from "@/store/actions/getUserList";
 import { UsersList } from "@/store/counter/usersListSlice";
 
@@ -57,6 +58,7 @@ export default function ChatSettings(): JSX.Element {
   const user: UsersList | undefined = userList.find((u) => u.id === id);
 
   const userData = useSelector((state: State) => state.user);
+  const idUser = userData?.user?.mute_users.find((use) => use === id);  
   const theme = userData?.user?.color_theme;
 
   const arrIcon: ArrIcon[] = [
@@ -160,7 +162,8 @@ export default function ChatSettings(): JSX.Element {
                     key={index}
                     className={
                       (stateMore && index !== 4) ||
-                        (stateNots && index !== 2) ?
+                        (stateNots && index !== 2) || 
+                        (idUser && index === 2) ?
                         (theme ? css.darkIconButton : css.iconButton) :
                         css.activeIconButton
                     }
@@ -168,8 +171,12 @@ export default function ChatSettings(): JSX.Element {
                       if (index === 4 && !stateNots) {
                         setStateMore(!stateMore)
                       }
-                      if (index === 2 && !stateMore) {
+                      if (index === 2 && !stateMore && !idUser) {
                         setStateNots(!stateNots)
+                      }
+
+                      if (index === 2 && !stateMore && idUser) {
+                        store.dispatch(muteUser(id));
                       }
 
                       if (index === 0 && !stateNots && !stateMore) {
@@ -195,8 +202,10 @@ export default function ChatSettings(): JSX.Element {
             stateMore={stateMore}
           />
           <NotsModal
+            id={id}
             theme={theme}
             stateNots={stateNots}
+            setStateNots={setStateNots}
           />
           {
             !user.phoneConfidentiality.nobody ? (
