@@ -18,6 +18,8 @@ import { IChat } from "@/store/counter/chatSLice";
 import { DoubleCheckmark } from "../icons/doubleCheckmark.icon";
 
 import css from './Chat.module.css';
+import { User } from "@/store/counter/userSlice";
+import { MuteChat } from "../icons/muteChat.icon";
 
 i18n.init({
   resources,
@@ -57,6 +59,9 @@ export const Chat = ({
   const posts: Post[] = useSelector((state: State) => state.posts);
   const filteredPost: Post | undefined = posts.find((post) => post.id === data.postId);
 
+  const user: User = useSelector((state: State) => state.user);
+  const checkMute = user?.user?.mute_users.find((use) => use === data.userId);
+
   return (
     <div>
       <div className={css.chatWrapper}>
@@ -89,6 +94,9 @@ export const Chat = ({
             <div className={css.data}>
               <div className={theme ? css.darkName : css.name}>
                 {data.name}
+                {
+                  checkMute && (<MuteChat />)
+                }
               </div>
               <div className={theme ? css.darkMessage : css.message}>
                 {!data.textMessage ? filteredPost?.title.slice(0, 20) + '...' : data.textMessage}

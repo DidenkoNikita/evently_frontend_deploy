@@ -275,9 +275,7 @@ export default function Signup(): JSX.Element {
     <div className={userTheme === 'dark' ? css.darkWrapper : css.wrapper}>
       <div className={userTheme === 'dark' ? css.darkHeader : css.header}>
         {openCalendar ? (
-          <button className={css.buttonBack} >
-            <Back color={userTheme === 'dark' ? '#FFFFFF' : '#000000'} />
-          </button>
+          <div className={css.buttonBack} />
         ) : (
           <>
             {activeStep === 1 ? (

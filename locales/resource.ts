@@ -227,7 +227,8 @@ const resources = {
       "this_chat": "You don't have this chat...",
       "any_chats": "You don't have any chats yet...",
       "pleas_fill": "Please fill in the required fields",
-      "all_dates": "All dates"
+      "all_dates": "All dates",
+      "logout": "Log out"
     }
   }
 }

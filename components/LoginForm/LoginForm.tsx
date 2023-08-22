@@ -69,14 +69,20 @@ const LoginForm = ({ userTheme }: Props) => {
     },
   });
 
-  const handlePhone = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    let phoneInput = event.target.value.replace(/[^\d+]/g, '');
+  const handlePhone = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const inputValue = e.target.value;
+    const validInputValue = inputValue.replace(/[^+\d]/g, "");
 
-    if (phoneInput.length > 1 && !phoneInput.startsWith('+')) {
-      phoneInput = `+${phoneInput.substr(1)}`;
+    if (validInputValue.startsWith('+7')) {
+      formik.setFieldValue('phone', validInputValue.slice(0, 12));
+    } else if (validInputValue.length === 1 && validInputValue === "+") {
+      formik.setFieldValue('phone', "+7");
+    } else if (validInputValue.length === 0) {
+      formik.setFieldValue('phone', "");
+    } else {
+      formik.setFieldValue('phone', `+7${validInputValue}`);
     }
 
-    formik.setFieldValue('phone', phoneInput);
     setValidateNumber(false);
     setValidatePassword(false);
   };
@@ -110,8 +116,8 @@ const LoginForm = ({ userTheme }: Props) => {
             name='phone'
             maxLength={12}
             onChange={handlePhone}
-            placeholder={i18n.t('phone')}
             value={formik.values.phone}
+            placeholder={i18n.t('phone')}
             className={userTheme === 'dark' ? css.darkInputPhone : css.inputPhone}
           />
         </div>

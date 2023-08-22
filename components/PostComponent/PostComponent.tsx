@@ -29,7 +29,7 @@ i18n.init({
 });
 
 interface Props {
-  setPostId: React.Dispatch<React.SetStateAction<number>>;
+  setPostId: React.Dispatch<React.SetStateAction<number | null>>;
   setActiveModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 

@@ -44,6 +44,7 @@ export default function Event(): JSX.Element {
   return (
     <div className={css.wrapper}>
       <HeaderBrand
+        type="f"
         theme={theme}
         title={i18n.t('calendar_of_events')}
       />

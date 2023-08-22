@@ -68,7 +68,6 @@ export default function Chats(): JSX.Element {
     <div className={theme ? css.darkWrapper : css.wrapper}>
       <HeaderChats
         theme={theme}
-        link="/home"
         title={i18n.t('chats')}
       />
       <SearchComponent

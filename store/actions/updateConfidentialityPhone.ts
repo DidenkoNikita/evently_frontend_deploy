@@ -13,7 +13,7 @@ export const updateConfidentialityPhone = (type: string): ThunkAction<
 > => async (dispatch): Promise<void | unknown> => {
   try {
     const data = await request('user_confidetiality_phone', { type }, 'PUT')
-
+    
     if (data !== null) {
       dispatch(updatePhoneConfidetiality(data))
     }

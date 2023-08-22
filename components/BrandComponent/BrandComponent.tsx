@@ -51,7 +51,7 @@ export const BrandComponent = ({
     <button
       className={theme ? css.darkWrapper : css.wrapper}
       onClick={() => {
-        router.push(`${link}/${brand.id}`)
+        router.push(`${link}/${brand.id}?b=0`)
       }}
     >
       <img

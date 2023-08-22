@@ -8,14 +8,12 @@ import { Back } from "@/components/icons/back.icon";
 import css from './HeaderChats.module.css'
 
 interface Data {
-  link: string;
   title: string;
   theme: boolean;
 }
 
 export const HeaderChats = ({
   title, 
-  link, 
   theme
 }: Data): JSX.Element => {
   const router = useRouter();
@@ -24,7 +22,7 @@ export const HeaderChats = ({
     <div className={theme ? css.darkHeaderWrapper : css.headerWrapper}>
       <div className={css.header}>
         <button
-          onClick={() => router.push(link)}
+          onClick={() => router.back()}
           className={theme ? css.darkIconButton : css.iconButton}
         >
           <Back color={theme ? '#FFFFFF' : '#000000'} />

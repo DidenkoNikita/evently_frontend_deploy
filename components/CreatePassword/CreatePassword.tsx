@@ -61,18 +61,25 @@ export const CreatePassword = ({
   };
 
   const handleNextStep = (): void => {
-    if (statePassword.length >= 8 ||
+    if (statePassword.length < 8 ||
       !/[a-z]/.test(statePassword) ||
       !/[A-Z]/.test(statePassword) ||
       !/\d/.test(statePassword) ||
-      !/[\!\@\#\$\%\^\&\*\(\)\-\_\=\+]/.test(statePassword)
+      !/[\!\@\#\$\%\^\&\*\(\)\-\_\=\+]/.test(statePassword) || 
+      statePassword !== stateVerificationPassword
     ) {
       setValidatePassword(true);
-    } else {
-      setValidatePassword(false);
     }
-    if (!validatePassword && statePassword === stateVerificationPassword) {
-      setActiveStep(++activeStep)
+
+    if (statePassword.length >= 8 &&
+      /[a-z]/.test(statePassword) &&
+      /[A-Z]/.test(statePassword) &&
+      /\d/.test(statePassword) &&
+      /[\!\@\#\$\%\^\&\*\(\)\-\_\=\+]/.test(statePassword) && 
+      statePassword === stateVerificationPassword
+    ) {
+      setValidatePassword(false);
+      setActiveStep(++activeStep);
     }
   }
 

@@ -31,7 +31,7 @@ i18n.init({
 interface Props {
   id: number;
   theme: boolean;
-  setPostId: React.Dispatch<React.SetStateAction<number>>;
+  setPostId: React.Dispatch<React.SetStateAction<number | null>>;
   setActiveShare: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
