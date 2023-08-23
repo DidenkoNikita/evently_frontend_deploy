@@ -11,6 +11,7 @@ import resources from "@/locales/resource";
 import { State } from '@/store/initialState';
 import { User } from '@/store/counter/userSlice';
 import { userGet } from '@/store/actions/getUser';
+import { LoadingComponent } from '../Loading/Loading';
 import { updateConfidentialityPhone } from '@/store/actions/updateConfidentialityPhone';
 import { updateConfidentialityMessages } from '@/store/actions/updateConfidentialityMessages';
 
@@ -18,7 +19,6 @@ import { Footer } from '../Footer/Footer';
 import { SettingsHeader } from '../SettingsHeader/SettingsHeader';
 
 import css from './ConfidentialityComponent.module.css';
-import { LoadingComponent } from '../Loading/Loading';
 
 i18n.init({
   resources,
@@ -48,9 +48,9 @@ export const ConfidentialityComponent = ({ title }: Props): JSX.Element => {
   
   const [activeButtons, setActiveButtons] = useState<boolean[]>(
     title === i18n.t('who_phone_number') ? (
-      [user.phoneConfidentiality.all, user.phoneConfidentiality.my_friends, user.phoneConfidentiality.nobody]
+      [user?.phoneConfidentiality?.all, user?.phoneConfidentiality?.my_friends, user?.phoneConfidentiality?.nobody]
     ) : (
-      [user.messageConfidentiality.all, user.messageConfidentiality.my_friends, user.messageConfidentiality.nobody]
+      [user?.messageConfidentiality?.all, user?.messageConfidentiality?.my_friends, user?.messageConfidentiality?.nobody]
     )
   );
   const theme: boolean = user?.user?.color_theme;
